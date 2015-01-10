@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+/*
+* Copyright 2008-2015 Anael Mobilia
+*
+* This file is part of NextINpact-Unofficial.
+*
+* NextINpact-Unofficial is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* NextINpact-Unofficial is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with NextINpact-Unofficial. If not, see <http://www.gnu.org/licenses/>
+*/
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
+	<head>
+		<title>Image-heberg</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Hebergement d'images de qualite" />
+		<meta name="keywords" content="hébergement, image, illimité, png, jpg, jpeg, gratuit, sans pubs, photos, illustrations, icônes" />
+		<meta name="author" content="Anael Mobilia" />
+		<meta name="robots" content="index, follow" />
+		<meta http-equiv="Content-Language" content="fr-FR" />
+                <link rel="shortcut icon" href="/template/images/favicon.ico">
+		<!--link rel="stylesheet" media="screen" type="text/css" title="Partie commune des templates" href="/template/style.css" /-->
+		<link rel="{{TPL_VERT}}stylesheet" media="screen" type="text/css" title="Template original" href="/template/tpl_vert/vert.css" />
+		<link rel="{{TPL_LUKASSS}}stylesheet" media="screen" type="text/css" title="Template de Lucas" href="/template/tpl_lucas/lucas.css" />
+		<script type="text/javascript" src="/template/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				// Je n'affiche pas les champs d'informations s'ils sont vides !
+				// Champ info
+				if(!$('#info').html().trim()) {
+					$('#info').hide();
+				}
+				// Champ erreur
+				if(!$('#info_erreur').html().trim()) {
+					$('#info_erreur').hide();
+				}
+				// Champ confirmation
+				if(!$('#info_ok').html().trim()) {
+					$('#info_ok').hide();
+				}
+			});
+			{{SCRIPT_JS}}
+		</script>
+	</head>
+	<!-- {{COMMENTAIRES}} -->
+	<body>
+		<div id="conteneur">
+			<h1 id="header">Image-heberg.fr, h&eacute;bergement d'images en ligne</h1>
+			<div id="menu">
+				<h2>Navigation.</h2>
+                                <ul>
+                                    <li>
+						<a href="/">Accueil</a>
+					</li>
+					<li>
+						<a href="/cgu.php">CGU</a>
+					</li>
+				</ul>
+				<br />
+				<ul>
+					<li>
+						<a href="/membre/mesImages.php">Espace membre</a>
+					</li>
+				</ul>
+				<br />
+				<ul>
+					<li>
+						<a href="/stats.php">Statistiques</a>
+					</li>
+					<li>
+						<a href="/contact.php">Contact</a>
+					</li>
+				</ul>
+				<br />
+				v<a href="/changelog.php">1.9</a> - 2014
+			</div>
+			<div id="corps">
+				<div id="titre_gauche">
+					<h2>{{TITLE}}</h2>
+				</div>
+				<div id="titre_droite" style="float: right; margin-top: -37px;">
+					<h2>{{SESSION}}</h2>
+				</div>
+				<div id="info">
+					{{INFO}}
+				</div>
+				<div id="info_erreur">
+					{{INFO_ERREUR}}
+				</div>
+				<div id="info_ok">
+					{{INFO_OK}}
+				</div>
+				<p>
+					{{CORPS}}
+				</p>
+			</div>
+			<div id="footer">
+				Un service propos&eacute; par Anael MOBILIA - <a href="/a_propos.php">A propos</a>
+				<br />
+				{{DEBUG}}
+			</div>
+		</div>
+		{{PRE_INFO_ADMIN}}
+		{{INFO_ADMIN}}
+		{{POST_INFO_ADMIN}}
+		{{PRE_DEBUG_SQL}}
+		{{DEBUG_SQL}}
+		{{POST_DEBUG_SQL}}
+	</body>
+</html>

@@ -1,0 +1,55 @@
+<?php
+/*
+* Copyright 2008-2015 Anael Mobilia
+*
+* This file is part of NextINpact-Unofficial.
+*
+* NextINpact-Unofficial is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* NextINpact-Unofficial is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with NextINpact-Unofficial. If not, see <http://www.gnu.org/licenses/>
+*/
+require '../config/configV2.php';
+// Vérification des droits d'accès
+metaObject::checkUserAccess(utilisateurObject::levelAdmin);
+require _TPL_TOP_;
+?>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <h1><small>Nettoyage des fichiers jamais utilisés</small></h1>
+    <?php
+    // Je récupère la liste des images non affichées depuis un an
+    $listeImages = metaObject::getNeverUsedOneYear();
+
+    // Si l'effacement est demandé
+    if (isset($_POST['effacer'])) {
+        foreach ((array) $listeImages as $value) {
+            // Je crée mon objet et lance la suppression
+            $monImage = new imageObject($value);
+            $monImage->supprimer();
+        }
+        echo '<br /><br />Effacement terminé';
+    }
+    ?>
+    <br />
+    <?= $listeImages->count() ?> image(s) envoyée(s) il y a au moins un an n'ont jamais été affichée(s).
+    <br />
+    <ul>
+        <?php foreach ((array) $listeImages as $value): ?>
+            <li><?= $value ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <br />
+    <form method="post">
+        <input type="submit" name="effacer" value="Effacer ces fichiers" />
+    </form>
+</div>
+<?php require _TPL_BOTTOM_; ?>

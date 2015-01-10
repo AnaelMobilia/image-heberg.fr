@@ -1,0 +1,95 @@
+/*
+ *
+ * CODE GENERIQUE A TOUS LES TEMPLATES
+ *
+ * */
+body {
+	position: relative;
+	width: 885px;
+	margin: auto;
+	font-size: 12px;
+	font-family: Arial, "Times New Roman";
+	text-align: justify;
+}
+#header {
+	text-indent: -9000px;
+	margin: auto;
+}
+#info {
+	background-color: #606060;
+	padding: 10px;
+	border: 3px solid gray;
+	color: white;
+	text-align: center;
+}
+#info_erreur {
+
+}
+#info_ok {
+
+}
+#menu {
+	float: left;
+	width: 110px;
+}
+#menu ul {
+	margin: 0;
+	padding: 0;
+}
+#menu li {
+	margin-left: 20px;
+}
+#corps {
+	float: right;
+}
+#footer {
+	clear: both;
+	color: #939393;
+	text-align: center;
+}
+h2 {
+	font-size: 13px;
+	border-bottom: 1px dotted #969696;
+}
+a {
+	border-bottom: 1px dotted;
+	text-decoration: none;
+}
+a:hover {
+	border-bottom: none;
+}
+/*
+ /*
+ *
+ * CODE PARTICULIER AU PRESENT TEMPLATE
+ *
+ */
+body {
+	background-color: #000000;
+	color: #FFFFFF;
+}
+#conteneur {
+	background: url(images/body.png) repeat-y;
+}
+#header {
+	background-image: url(images/header.png);
+	height: 384px;
+}
+#menu {
+	padding-left: 50px;
+}
+#corps {
+	padding-right: 35px;
+	width: 670px;
+}
+#footer {
+	background-image: url(images/footer.png);
+	height: 337px;
+}
+/*mise en page */
+a {
+	color: #88c5CC;
+}
+a:hover {
+	color: #1DDDF4;
+}

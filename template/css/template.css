@@ -1,0 +1,47 @@
+html{
+    /* Sticky Footer */
+    height: 100%;
+}
+
+body {
+    /* Navbar Fixed */
+    padding-top: 70px;
+    /* Sticky Footer */
+    height: 100%;
+}
+
+/* Sticky Footer */
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -30px;
+    /* Pad bottom by footer height */
+    padding: 0 0 30px;
+}
+
+/* Sticky Footer */
+/* Set the fixed height of the footer here */
+#footer {
+    height: 30px;
+    background-color: #ebf578;
+}
+
+/* Couleur de fond image-heberg v1 like pour la barre de navigation */
+.navbar {
+    background-color: #ebf578 !important;
+}
+
+/* Couleur du lien actif dans la barre de navigation */
+.navbar-nav > .active > a {
+    background-color: #bfd83e !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* Cassage des marges du jumbotron */
+.jumbotron {
+    padding-bottom : 10px !important;
+    padding-top: 0px !important;
+}

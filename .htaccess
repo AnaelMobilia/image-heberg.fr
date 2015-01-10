@@ -1,0 +1,51 @@
+#/*
+#* Copyright 2008-2015 Anael Mobilia
+#*
+#* This file is part of NextINpact-Unofficial.
+#*
+#* NextINpact-Unofficial is free software: you can redistribute it and/or modify
+#* it under the terms of the GNU General Public License as published by
+#* the Free Software Foundation, either version 3 of the License, or
+#* (at your option) any later version.
+#*
+#* NextINpact-Unofficial is distributed in the hope that it will be useful,
+#* but WITHOUT ANY WARRANTY; without even the implied warranty of
+#* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#* GNU General Public License for more details.
+#*
+#* You should have received a copy of the GNU General Public License
+#* along with NextINpact-Unofficial. If not, see <http://www.gnu.org/licenses/>
+#*/
+#Mode rescue : coupe le site ;-)
+#rewriteengine on
+#rewriterule . erreur.php
+
+# Interdiction de lister le contenu des répertoires
+Options -Indexes
+
+# Ré-écriture d'URL
+RewriteEngine On
+# Utilisation du NDD souhaité uniquement !
+RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
+RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
+RewriteRule (.*) http://www.image-heberg.fr/$1 [R=301,L,NE]
+
+# Protection des répertoires classes, config, includes
+RewriteCond %{REQUEST_URI} ^/classes/ [OR]
+RewriteCond %{REQUEST_URI} ^/config/ [OR]
+RewriteCond %{REQUEST_URI} ^/includes/
+RewriteRule .* - [F]
+
+# Vérification de l'existence du fichier
+# Sinon... 404 en image !
+RewriteCond %{REQUEST_URI} ^/files/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* template/images/image_404.png [L]
+
+# Miniatures : redirection pour affichage
+RewriteCond %{REQUEST_URI} ^/files/thumbs/
+RewriteRule .* displayPics.php?type=thumbs [L]
+
+# Images : redirection pour affichage
+RewriteCond %{REQUEST_URI} ^/files/
+RewriteRule .* displayPics.php?type=pics [L]
