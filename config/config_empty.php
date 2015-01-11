@@ -132,7 +132,6 @@ __PATH__ . 'includes/xhtml.php',		// template(), h2()
 __PATH__ . 'includes/sql.php',			// sql_connect(), sql_query(), sql_close()
 __PATH__ . 'includes/sessions.php',		// Sessions, auth()
 __PATH__ . 'includes/erreur.php',		// retour_erreur(), send_mail_admin()
-__PATH__ . 'includes/mail.php',			// validate_email()
 __PATH__ . 'includes/spam.php',			// cadeau pour les spammeurs - ouvre connexion SQL !
 __PATH__ . 'includes/pictures.php'		// filename_serialize(), is_allowed_type(), is_picture()
 );
