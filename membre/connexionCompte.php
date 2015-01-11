@@ -62,7 +62,7 @@ if (isset($_POST['valider'])) {
     if ($flagConnexion !== TRUE) {
         ?>
         <div class="alert alert-danger">
-            <strong>La création de votre compte n'est pas possible :</strong>
+            <strong>La connexion à votre compte n'est pas possible :</strong>
             <?= $messageErreur ?>
         </div>
         <?php
