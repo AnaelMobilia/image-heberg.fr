@@ -53,7 +53,7 @@ require _TPL_TOP_;
                     <br />
                     Il a &eacute;t&eacute; enti&egrave;rement r&eacute;alis&eacute; par l'auteur.
                     <br />
-                    Une mise &agrave; disposition sous licence GNU GPL V3 est envisag&eacute;e &agrave; terme.
+                    Le <a href="https://github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
                 </p>
             </fieldset>
             <br />
