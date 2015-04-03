@@ -16,7 +16,7 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
 	    public function testPushAndPop()
     {
         $stack = array();
-        $this->assertEquals(0, count($stack));
+        $this->assertEquals(10, count($stack));
 
         array_push($stack, 'foo');
         $this->assertEquals('foo', $stack[count($stack)-1]);
