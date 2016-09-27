@@ -39,8 +39,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="template/js/jquery-2.1.1.min.js"></script>
-<script src="template/js/bootstrap-3.2.0.min.js"></script>
+<script src="template/js/jquery-2.2.4.min.js"></script>
+<script src="template/js/bootstrap-3.3.7.min.js"></script>
 <script src="template/js/js.php"></script>
 </body>
 </html>

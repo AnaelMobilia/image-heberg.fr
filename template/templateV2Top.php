@@ -33,7 +33,7 @@ $timeStart = microtime(TRUE); ?>
         <title>Image-Heberg.fr</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="template/css/bootstrap-3.2.0.min.css" rel="stylesheet">
+        <link href="template/css/bootstrap-3.3.7.min.css" rel="stylesheet">
         <link href="template/css/template.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
