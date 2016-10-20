@@ -129,8 +129,6 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `pass` text NOT NULL,
   `date_inscription` date NOT NULL,
   `ip_inscription` text NOT NULL,
-  `redirect_upload` tinyint(1) NOT NULL DEFAULT '1',
-  `tpl` enum('vert_original','lukass') NOT NULL DEFAULT 'vert_original',
   `lvl` text NOT NULL,
   PRIMARY KEY (`pk_membres`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;

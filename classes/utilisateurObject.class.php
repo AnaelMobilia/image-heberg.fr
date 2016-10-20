@@ -29,10 +29,8 @@ class utilisateurObject {
     private $email;
     private $dateInscription;
     private $ipInscription;
-    private $tpl;
     private $level;
     private $id;
-    private $redirectUpload;
 
     // Niveaux de droits
     const levelGuest = 0;
@@ -121,14 +119,6 @@ class utilisateurObject {
     }
 
     /**
-     * Template utilisé
-     * @return type
-     */
-    public function getTpl() {
-        return $this->tpl;
-    }
-
-    /**
      * Niveau de droits
      * @return type
      */
@@ -142,14 +132,6 @@ class utilisateurObject {
      */
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * Redirection vers la page d'upload à la connexion à l'espace membre
-     * @return type
-     */
-    public function getRedirectUpload() {
-        return $this->redirectUpload;
     }
 
     /**
@@ -193,14 +175,6 @@ class utilisateurObject {
     }
 
     /**
-     * Template utilisé
-     * @param type $tpl
-     */
-    public function setTpl($tpl) {
-        $this->tpl = $tpl;
-    }
-
-    /**
      * Niveau de droits
      * @param type $level
      */
@@ -214,14 +188,6 @@ class utilisateurObject {
      */
     public function setId($id) {
         $this->id = $id;
-    }
-
-    /**
-     * Redirection vers la page d'upload à la connexion à l'espace membre
-     * @param type $redirectUpload
-     */
-    public function setRedirectUpload($redirectUpload) {
-        $this->redirectUpload = $redirectUpload;
     }
 
     /**
@@ -297,8 +263,6 @@ class utilisateurObject {
         $this->setPassword($values->pass);
         $this->setDateInscription($values->date_inscription);
         $this->setIpInscription($values->ip_inscription);
-        $this->setRedirectUpload($values->redirect_upload);
-        $this->setTpl($values->tpl);
         $this->setLevel($values->lvl);
     }
 
@@ -308,14 +272,13 @@ class utilisateurObject {
     public function enregistrer() {
         global $maBDD;
 
-        $req = $maBDD->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, redirect_upload, tpl, lvl) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?)");
+        $req = $maBDD->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, redirect_upload, tpl, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getPasswordEncrypted(), PDO::PARAM_STR);
+        // Date est définie par NOW()
         $req->bindValue(4, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-        $req->bindValue(5, $this->getRedirectUpload(), PDO::PARAM_INT);
-        $req->bindValue(6, $this->getTpl(), PDO::PARAM_STR);
-        $req->bindValue(7, $this->getLevel(), PDO::PARAM_INT);
+        $req->bindValue(5, $this->getLevel(), PDO::PARAM_INT);
 
         $req->execute();
     }
@@ -326,14 +289,12 @@ class utilisateurObject {
     public function modifier() {
         global $maBDD;
 
-        $req = $maBDD->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, redirect_upload = ?, tpl = ?, lvl = ? WHERE pk_membres = ?");
+        $req = $maBDD->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, lvl = ? WHERE pk_membres = ?");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getPasswordEncrypted(), PDO::PARAM_STR);
-        $req->bindValue(4, $this->getRedirectUpload(), PDO::PARAM_INT);
-        $req->bindValue(5, $this->getTpl(), PDO::PARAM_STR);
-        $req->bindValue(6, $this->getLevel(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getId(), PDO::PARAM_INT);
+        $req->bindValue(4, $this->getLevel(), PDO::PARAM_INT);
+        $req->bindValue(5, $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
     }

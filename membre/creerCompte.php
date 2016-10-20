@@ -61,10 +61,6 @@ if (isset($_POST['valider'])) {
     $monUtilisateur->setPassword($_POST['userPassword']);
     // Adresse mail
     $monUtilisateur->setEmail($_POST['userMail']);
-// TODO : à supprimer - pour éviter un crash de la requete le temps de la migration
-    $monUtilisateur->setRedirectUpload(1);
-    $monUtilisateur->setTpl('vert_original');
-
 
     // Si tout est bon
     if ($flagCreation === TRUE) {

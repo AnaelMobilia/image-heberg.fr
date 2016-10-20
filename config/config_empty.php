@@ -125,10 +125,7 @@ $pass = 'xxx';
 //	CHARGEMENT DES LIBRAIRIES
 //--------------------------------------
 $library = array(// liste des librairies
-    __PATH__ . 'includes/debug.php', // duree_exec, affichages erreurs, ...
-    __PATH__ . 'includes/xhtml.php', // template(), h2()
     __PATH__ . 'includes/sql.php', // sql_connect(), sql_query(), sql_close()
-    __PATH__ . 'includes/sessions.php', // Sessions, auth()
     __PATH__ . 'includes/erreur.php', // retour_erreur(), send_mail_admin()
     __PATH__ . 'includes/spam.php', // cadeau pour les spammeurs - ouvre connexion SQL !
     __PATH__ . 'includes/pictures.php'  // filename_serialize(), is_allowed_type(), is_picture()
@@ -142,20 +139,6 @@ foreach ($library as $load_lib) {
         die('Une erreur &agrave; &eacute;t&eacute; rencontr&eacute;e.<br />L\'administrateur &agrave; &eacute;t&eacute; averti.');
     }
 }
-
-//-------------------------------------------
-//	MISE EN PLACE DES DONNEES DU TEMPLATE
-//-------------------------------------------
-$lang = array(
-    'SESSION' => session_state(),
-    'CORPS' => '',
-    'PRE_INFO_ADMIN' => '',
-    'INFO_ADMIN' => '',
-    'POST_INFO_ADMIN' => '',
-    'PRE_DEBUG_SQL' => '',
-    'DEBUG_SQL' => '',
-    'POST_DEBUG_SQL' => ''
-);
 
 //-------------------------------------------
 //	VERIFICATION DES BANS DE l'@ IP
