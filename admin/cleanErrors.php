@@ -29,7 +29,7 @@ require _TPL_TOP_;
     // Je récupère la liste des images en BDD
     $listeImagesBDD = metaObject::getAllImagesNameBDD();
     // Je récupère la liste des images sur le HDD
-    $listeImagesHDD = metaObject::getAllImagesNameHDD();
+    $listeImagesHDD = metaObject::getAllImagesNameHDD(_PATH_IMAGES_);
 
     // Je recherche les erreurs sur les images
     // Pour chaque images en BDD
@@ -41,7 +41,7 @@ require _TPL_TOP_;
     // Je récupère la liste des miniatures en BDD
     $listeMiniaturesBDD = metaObject::getAllMiniaturesNameBDD();
     // Je récupère la liste des miniatures en HDD
-    $listeMiniaturesHDD = metaObject::getAllMiniaturesNameHDD();
+    $listeMiniaturesHDD = metaObject::getAllImagesNameHDD(_PATH_MINIATURES_);
 
     // Je recherche les erreurs sur les miniatures
     // Pour chaque miniatures en BDD

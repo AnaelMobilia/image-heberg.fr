@@ -104,17 +104,18 @@ class metaObject {
 
     /**
      * Liste de l'ensemble des images en HDD
+     * @param type $path path à analyser
      * @return \ArrayObject
      */
-    public static function getAllImagesNameHDD() {
+    public static function getAllImagesNameHDD($path) {
         $retour = new ArrayObject();
 
         // Scanne le répertoire des images
-        $scan_rep = scandir(_PATH_IMAGES_);
+        $scan_rep = scandir($path);
         // Pour chaque image
         foreach ($scan_rep as $item) {
             // On ne rapporte pas les répertoires
-            if (!is_dir(_PATH_IMAGES_ . $item)) {
+            if (!is_dir($path . $item)) {
                 $retour->append($item);
             }
         }
@@ -141,26 +142,6 @@ class metaObject {
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
             $retour->append($value->new_name);
-        }
-
-        return $retour;
-    }
-
-    /**
-     * Liste de l'ensemble des miniatures en HDD
-     * @return \ArrayObject
-     */
-    public static function getAllMiniaturesNameHDD() {
-        $retour = new ArrayObject();
-
-        // Scanne le répertoire des images
-        $scan_rep = scandir(_PATH_MINIATURES_);
-        // Pour chaque image
-        foreach ($scan_rep as $item) {
-            // On ne rapporte pas les répertoires
-            if (!is_dir(_PATH_MINIATURES_ . $item)) {
-                $retour->append($item);
-            }
         }
 
         return $retour;
