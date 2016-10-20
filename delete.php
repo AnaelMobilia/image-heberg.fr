@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require 'config/configV2.php';
 require _TPL_TOP_;
 //**************************************
@@ -36,8 +36,7 @@ require_once('./config/config.php');    //config du script
 //---------------------------------
             if (isset($_GET['id'])) {
                 $file = mysql_real_escape_string($_GET['id']); //id de l'image concern�e
-            }
-            else {
+            } else {
                 retour_erreur('Aucun fichier n\'a &eacute;t&eacute; sp&eacute;cifi&eacute; pour suppression!</p>', __FILE__, 'die', FALSE);
             }
 

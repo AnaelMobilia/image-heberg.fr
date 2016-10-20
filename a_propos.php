@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require 'config/configV2.php';
 require _TPL_TOP_;
 
@@ -40,7 +40,7 @@ require _TPL_TOP_;
             </fieldset>
             <br />
             <fieldset>
-                <legend>Graphismes et images :</legend>		
+                <legend>Graphismes et images :</legend>
                 <ul>
                     <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
                 </ul>
@@ -74,7 +74,7 @@ require _TPL_TOP_;
                     A d&eacute;faut, et sauf action sp&eacute;cifique et explicite de votre part, les cookies seront supprim&eacute;s lors de la fermeture de votre navigateur.
                     <br />
                     <br />
-                    Votre adresse IP est enregistr&eacute;e dans la base de donn&eacute;es lors de l'envoi d'une image, de la cr&eacute;ation et &agrave; la connexion &agrave; votre espace membre.  
+                    Votre adresse IP est enregistr&eacute;e dans la base de donn&eacute;es lors de l'envoi d'une image, de la cr&eacute;ation et &agrave; la connexion &agrave; votre espace membre.
                     <br />
                     La suppression d'une image envoy&eacute;e sur le service conduit &agrave; la suppression de toutes les informations li&eacute;es dans la base de donn&eacute;es.
                     <br />

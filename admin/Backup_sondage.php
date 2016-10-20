@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require '../config/configV2.php';
 // Vérification des droits d'accès
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
@@ -31,22 +31,22 @@ if (isset($_POST['submit'])) {
 
     // Pour chaque valeur envoyée
     foreach ($_POST as $key => $value) {
-	// Pas pour le bouton submit
-	if ($key != 'submit') {
-	    // Séparateur
-	    if (!empty($champ)) {
-		$champ .= ", ";
-		$valeur .= ", ";
-	    }
+        // Pas pour le bouton submit
+        if ($key != 'submit') {
+            // Séparateur
+            if (!empty($champ)) {
+                $champ .= ", ";
+                $valeur .= ", ";
+            }
 
-	    $champ .= "`" . mysql_real_escape_string($key) . "`";
-	    $valeur .= "\"" . mysql_real_escape_string($value) . "\"";
-	}
+            $champ .= "`" . mysql_real_escape_string($key) . "`";
+            $valeur .= "\"" . mysql_real_escape_string($value) . "\"";
+        }
     }
     // Gestion de la traçabilité des apports...
     $champ .= ', `ip`, `quand`';
     $valeur .= ', "' . $_SERVER['REMOTE_ADDR'] . '", NOW()';
-    
+
     // On prépare la requête
     $query = "INSERT INTO `sondage` ($champ) VALUES ($valeur);";
     // Et on la balance

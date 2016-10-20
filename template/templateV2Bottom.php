@@ -26,8 +26,7 @@
             <?php
             if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != FALSE) {
                 $ip = 'IPv4';
-            }
-            else {
+            } else {
                 $ip = 'IPv6';
             }
             ?>

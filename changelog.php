@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require 'config/configV2.php';
 require _TPL_TOP_;
 //**************************************
@@ -33,7 +33,7 @@ require _TPL_TOP_;
 
             <ul>
                 <li>2.x - &agrave; venir
-                    <ul>	
+                    <ul>
                         <li>Albums photos (cr&eacute;ation, affichage, partage)</li>
                         <li>API permettant l'int&eacute;gration &agrave; un site tiers</li>
                     </ul>
@@ -106,7 +106,7 @@ require _TPL_TOP_;
                         <li>Encodage conforme &agrave; la norme HTML des caract&egrave;res sp&eacute;ciaux.</li>
                         <li>Correction d'une erreur PHP en cas d'envoi 'hack' de fichier.</li>
                         <li>Am&eacute;lioration de la port&eacute;e des variables de language.</li>
-                    </ul>	
+                    </ul>
                 </li>
             </ul>
 

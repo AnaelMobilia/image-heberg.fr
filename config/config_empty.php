@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 //**************************************
 //	./config/config.php
 //	Configuration, appel des librairies
@@ -52,13 +52,11 @@ define('__GRAIN_DE_SEL__', 'xxx');
 //{
 //	session_start();
 //}
-if(__DEBUG__)											// Dur?e d'ex?cution du script
-{
-	$time_start = microtime(TRUE);	//float
+if (__DEBUG__) {           // Dur?e d'ex?cution du script
+    $time_start = microtime(TRUE); //float
 }
-if(! isset($_SESSION['level']))							// Utilisateur non authentifi? <-> invit?
-{
-	$_SESSION['level'] = 'guest';
+if (!isset($_SESSION['level'])) {       // Utilisateur non authentifi? <-> invit?
+    $_SESSION['level'] = 'guest';
 }
 
 //--------------------------------------
@@ -126,41 +124,37 @@ $pass = 'xxx';
 //--------------------------------------
 //	CHARGEMENT DES LIBRAIRIES
 //--------------------------------------
-$library = array(						// liste des librairies
-__PATH__ . 'includes/debug.php',		// duree_exec, affichages erreurs, ...
-__PATH__ . 'includes/xhtml.php',		// template(), h2()
-__PATH__ . 'includes/sql.php',			// sql_connect(), sql_query(), sql_close()
-__PATH__ . 'includes/sessions.php',		// Sessions, auth()
-__PATH__ . 'includes/erreur.php',		// retour_erreur(), send_mail_admin()
-__PATH__ . 'includes/spam.php',			// cadeau pour les spammeurs - ouvre connexion SQL !
-__PATH__ . 'includes/pictures.php'		// filename_serialize(), is_allowed_type(), is_picture()
+$library = array(// liste des librairies
+    __PATH__ . 'includes/debug.php', // duree_exec, affichages erreurs, ...
+    __PATH__ . 'includes/xhtml.php', // template(), h2()
+    __PATH__ . 'includes/sql.php', // sql_connect(), sql_query(), sql_close()
+    __PATH__ . 'includes/sessions.php', // Sessions, auth()
+    __PATH__ . 'includes/erreur.php', // retour_erreur(), send_mail_admin()
+    __PATH__ . 'includes/spam.php', // cadeau pour les spammeurs - ouvre connexion SQL !
+    __PATH__ . 'includes/pictures.php'  // filename_serialize(), is_allowed_type(), is_picture()
 );
 
-foreach($library as $load_lib)
-{
-	if(@is_readable($load_lib))			// la librairie est-elle lisible ?
-	{
-		require_once($load_lib);
-	}
-	else								// cas d'erreur. Pr?venir.
-	{
-		mail(__MAIL_ADMIN__, '['. __URL_SITE__ .'] Config.php', 'erreur is_readable('.$load_lib.')');
-		die('Une erreur &agrave; &eacute;t&eacute; rencontr&eacute;e.<br />L\'administrateur &agrave; &eacute;t&eacute; averti.');
-	}
+foreach ($library as $load_lib) {
+    if (@is_readable($load_lib)) {   // la librairie est-elle lisible ?
+        require_once($load_lib);
+    } else {        // cas d'erreur. Pr?venir.
+        mail(__MAIL_ADMIN__, '[' . __URL_SITE__ . '] Config.php', 'erreur is_readable(' . $load_lib . ')');
+        die('Une erreur &agrave; &eacute;t&eacute; rencontr&eacute;e.<br />L\'administrateur &agrave; &eacute;t&eacute; averti.');
+    }
 }
 
 //-------------------------------------------
 //	MISE EN PLACE DES DONNEES DU TEMPLATE
 //-------------------------------------------
 $lang = array(
-	'SESSION' => session_state(),
-	'CORPS' => '',
-	'PRE_INFO_ADMIN' => '',
-	'INFO_ADMIN' => '',
-	'POST_INFO_ADMIN' => '',
-	'PRE_DEBUG_SQL' => '',
-	'DEBUG_SQL' => '',
-	'POST_DEBUG_SQL' => ''
+    'SESSION' => session_state(),
+    'CORPS' => '',
+    'PRE_INFO_ADMIN' => '',
+    'INFO_ADMIN' => '',
+    'POST_INFO_ADMIN' => '',
+    'PRE_DEBUG_SQL' => '',
+    'DEBUG_SQL' => '',
+    'POST_DEBUG_SQL' => ''
 );
 
 //-------------------------------------------

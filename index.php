@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require 'config/configV2.php';
 require _TPL_TOP_;
 /* TODO List
@@ -158,8 +158,7 @@ if (isset($_POST['Submit'])) {
             if (isset($_POST['thumbs'])) {
                 unset($_POST['thumbs']);
             }
-        }
-        else {
+        } else {
             sendmail("Dimensions incorrectes", $_FILES['fichier']['tmp_name'], $filename);
             retour_erreur('Dimensions de l\'image incorrectes : ' . $width . ' x ' . $height . ' (maximum : ' . __WIDTH_MAX__ . ' x ' . __HEIGHT_MAX__ . ') !', __FILE__, 'die');
         }
@@ -172,8 +171,7 @@ if (isset($_POST['Submit'])) {
     if (isset($ipExp[1])) {
 // IP v4
         $addresseIP = ($ipExp[0] + $ipExp[1]) . ($ipExp[2] + $ipExp[3]);
-    }
-    else {
+    } else {
 // IP v6 : on fait un faut mask en random [TO FIX]
         $addresseIP = rand(0, 9999);
     }
@@ -209,8 +207,7 @@ if (isset($_POST['Submit'])) {
 // TODO on envoit le fichier en anonyme, puis en tant que membre connecté !
         sendmail("Flood \r\n" . print_r_string($_POST), $_FILES['fichier']['tmp_name'], $filename);
 //		}
-    }
-    else {
+    } else {
 //---------------------------------
 //	INSCRIPTION DANS LA DB
 //---------------------------------
@@ -259,8 +256,7 @@ if (isset($_POST['Submit'])) {
                     $t_width = __DEFAULT_T_WIDTH__;
                     $t_height = __DEFAULT_T_HEIGHT__;
                 }
-            }
-            else {//si aucune taille n'est définie, utilisation des valeurs par defaut
+            } else {//si aucune taille n'est définie, utilisation des valeurs par defaut
                 $t_width = __DEFAULT_T_WIDTH__;
 //140x100
                 $t_height = __DEFAULT_T_HEIGHT__;
@@ -297,8 +293,7 @@ if (isset($_POST['Submit'])) {
         </div>
     </div>
     <?php
-}
-else {
+} else {
     $_SESSION['_upload'] = TRUE;
     // Autorise l'envoi d'un fichier (protection anti-flood curl basique)
     // $lang['INFO'] = '<em>05/06/2012 :</em> <b>10 millions</b> affichages d\'images ont &eacute;t&eacute; effectu&eacute;s ! <em>(<a href="/stats.php">statistiques</a>)</em>';  //Une nouvelle fonctionnalit&eacute;, un besoin, une API, ... <a href="/contact.php">proposez vos id&eacute;es !</a>

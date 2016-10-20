@@ -1,23 +1,24 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
-$timeStart = microtime(TRUE); ?>
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
+$timeStart = microtime(TRUE);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,7 +65,7 @@ $timeStart = microtime(TRUE); ?>
                             <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>">Accueil</a></li>
                             <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>a_propos.php">A propos</a></li>
                             <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>contact.php">Contact</a></li>
-                        </ul>       
+                        </ul>
                         <?php
                         $visiteur = new sessionObject();
                         // Menu utilisateur non connecté
@@ -104,7 +105,7 @@ $timeStart = microtime(TRUE); ?>
                                 <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
                                     <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "active" : "" ?>"><a href="<?= _URL_ADMIN_ ?>">Administration</a></li>
                                 <?php endif; ?>
-                            </ul>  
+                            </ul>
                         <?php endif; ?>
                     </div>
                 </div><!--/.nav-collapse -->

@@ -22,34 +22,34 @@
  *
  * */
 body {
-	position: relative;
-	width: 885px;
-	margin: auto;
-	font-size: 12px;
-	font-family: Arial, "Times New Roman";
-	text-align: justify;
+    position: relative;
+    width: 885px;
+    margin: auto;
+    font-size: 12px;
+    font-family: Arial, "Times New Roman";
+    text-align: justify;
 }
 #header {
-	text-indent: -9000px;
-	margin: auto;
+    text-indent: -9000px;
+    margin: auto;
 }
 #menu {
-	float: left;
-	width: 110px;
+    float: left;
+    width: 110px;
 }
 #menu ul {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 #menu li {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 #info {
-	background-color: #606060;
-	padding: 10px;
-	border: 3px solid gray;
-	color: white;
-	text-align: center;
+    background-color: #606060;
+    padding: 10px;
+    border: 3px solid gray;
+    color: white;
+    text-align: center;
 }
 #info_erreur {
 
@@ -58,23 +58,23 @@ body {
 
 }
 #corps {
-	float: right;
+    float: right;
 }
 #footer {
-	clear: both;
-	color: #939393;
-	text-align: center;
+    clear: both;
+    color: #939393;
+    text-align: center;
 }
 h2 {
-	font-size: 13px;
-	border-bottom: 1px dotted #969696;
+    font-size: 13px;
+    border-bottom: 1px dotted #969696;
 }
 a {
-	border-bottom: 1px dotted;
-	text-decoration: none;
+    border-bottom: 1px dotted;
+    text-decoration: none;
 }
 a:hover {
-	border-bottom: none;
+    border-bottom: none;
 }
 /*
  *
@@ -82,31 +82,31 @@ a:hover {
  *
  */
 body {
-	background: #B3B3B3 url(images/background.jpg) repeat-x;
-	color: #969696;
+    background: #B3B3B3 url(images/background.jpg) repeat-x;
+    color: #969696;
 }
 #conteneur {
-	background: url(images/body.jpg) repeat-y;
+    background: url(images/body.jpg) repeat-y;
 }
 #header {
-	height: 178px;
-	background-image: url(images/header.jpg);
+    height: 178px;
+    background-image: url(images/header.jpg);
 }
 #menu {
-	padding-left: 125px;
+    padding-left: 125px;
 }
 #corps {
-	padding-right: 135px;
-	width: 500px;
+    padding-right: 135px;
+    width: 500px;
 }
 #footer {
-	height: 73px;
-	background-image: url(images/footer.jpg);
+    height: 73px;
+    background-image: url(images/footer.jpg);
 }
 /*mise en page */
 a {
-	color: #7ADD48;
+    color: #7ADD48;
 }
 a:hover {
-	color: #00FF00;
+    color: #00FF00;
 }

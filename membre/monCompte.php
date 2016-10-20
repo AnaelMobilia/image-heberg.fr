@@ -1,22 +1,22 @@
 <?php
 /*
-* Copyright 2008-2016 Anael Mobilia
-*
-* This file is part of image-heberg.fr.
-*
-* image-heberg.fr is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* image-heberg.fr is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
-*/
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
@@ -37,15 +37,13 @@ if (isset($_POST['modifierPwd'])) {
         ?>
         <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
         <?php
-    }
-    else {
+    } else {
         // Retour utilisateur
         ?>
         <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
         <?php
     }
-}
-else if (isset($_POST['modifierMail'])) {
+} else if (isset($_POST['modifierMail'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->checkPassword($_POST['userPasswordMail'])) {
         // Vérification du bon format de l'adresse mail
@@ -58,22 +56,19 @@ else if (isset($_POST['modifierMail'])) {
             ?>
             <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
             <?php
-        }
-        else {
+        } else {
             // Retour utilisateur
             ?>
             <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
             <?php
         }
-    }
-    else {
+    } else {
         // Retour utilisateur
         ?>
         <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
         <?php
     }
-}
-else if (isset($_POST['supprimerCompte'])) {
+} else if (isset($_POST['supprimerCompte'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->checkPassword($_POST['userPasswordDelete'])) {
         if (isset($_POST['confirmeDelete'])) {
@@ -93,15 +88,13 @@ else if (isset($_POST['supprimerCompte'])) {
             <?php
             // Déconnexion de la session
             $laSession->deconnexion();
-        }
-        else {
+        } else {
             // Retour utilisateur
             ?>
             <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
             <?php
         }
-    }
-    else {
+    } else {
         // Retour utilisateur
         ?>
         <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
