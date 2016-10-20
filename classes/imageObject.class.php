@@ -350,7 +350,6 @@ class imageObject {
     public function sauver() {
         global $maBDD;
 
-
         // Je supprime les infos pouvant déjà être en BDD pour cette image
         $req = $maBDD->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */
