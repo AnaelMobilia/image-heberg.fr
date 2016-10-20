@@ -44,8 +44,7 @@ if (isset($_POST['envoyer'])) {
         <div class = "alert alert-danger">
             Votre adresse mail n'est pas valide !
             <br />
-            Votre message était :
-            <pre><?= $_POST['userMessage'] ?></pre>
+            <pre><?= $_POST['userMail'] ?></pre>
         </div>
         <?php
     }
@@ -69,7 +68,7 @@ if (isset($_POST['envoyer'])) {
     <form role="form" method="post">
         <div class="form-group">
             <label for="userMessage">Votre message</label>
-            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"></textarea>
+            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
         </div>
         <div class="form-group">
             <label for="userMail">Votre adresse courriel</label>
