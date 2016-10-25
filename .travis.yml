@@ -15,5 +15,7 @@ services:
 before_script:
   - mysql -e "CREATE DATABASE imageheberg;"
   - mysql imageheberg < database.sql
+  # Copie du fichier de configuration
+  - sh -c "mv __tests/config/configV2.php config/"
 
 script: phpunit __tests/imageObjectTest.php
