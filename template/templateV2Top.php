@@ -59,9 +59,9 @@ $timeStart = microtime(TRUE);
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>">Accueil</a></li>
-                            <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>a_propos.php">A propos</a></li>
-                            <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "active" : "" ?>"><a href="<?= _URL_ ?>contact.php">Contact</a></li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>">Accueil</a></li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>a_propos.php">A propos</a></li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>contact.php">Contact</a></li>
                         </ul>
                         <?php
                         $visiteur = new sessionObject();
@@ -96,11 +96,11 @@ $timeStart = microtime(TRUE);
                             </form>
                             <!-- Bloc à déclarer en second... les float feront qu'il sera à gauche -->
                             <ul class="nav navbar-nav navbar-right">
-                                <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/membre/mesImages.php") ? "active" : "" ?>"><a href="<?= _URL_MEMBRE_ ?>mesImages.php">Mes images</a></li>
-                                <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/membre/monCompte.php") ? "active" : "" ?>"><a href="<?= _URL_MEMBRE_ ?>monCompte.php">Mon compte</a></li>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/mesImages.php") ? "class='active'" : "" ?>><a href="<?= _URL_MEMBRE_ ?>mesImages.php">Mes images</a></li>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/monCompte.php") ? "class='active'" : "" ?>><a href="<?= _URL_MEMBRE_ ?>monCompte.php">Mon compte</a></li>
                                 <!-- Si c'est un admin : lien vers le panneau admin -->
                                 <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
-                                    <li class = "<?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "active" : "" ?>"><a href="<?= _URL_ADMIN_ ?>">Administration</a></li>
+                                    <li <?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "class='active'" : "" ?>><a href="<?= _URL_ADMIN_ ?>">Administration</a></li>
                                 <?php endif; ?>
                             </ul>
                         <?php endif; ?>
