@@ -32,9 +32,9 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
          *  Injection des valeurs du formulaire
          */
         $_POST['valider'] = 1;
-        $_POST['userName'] = "admin";
-        $_POST['userPassword'] = "password";
-        $_POST['userMail'] = _MAIL_ADMIN_;
+        $_POST['userName'] = 'admin';
+        $_POST['userPassword'] = 'password';
+        $_POST['userMail'] = 'contrib@anael.eu';
 
         /**
          *  Appel de la page
@@ -50,17 +50,17 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals(_MAIL_ADMIN_, $monMembre->getEmail());
+        $this->assertEquals('contrib@anael.eu', $monMembre->getEmail());
         // ID
         $this->assertEquals(1, $monMembre->getId());
         // @ IP d'inscription
-        $this->assertEquals("127.0.0.1", $monMembre->getIpInscription());
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
         // Niveau de droits
-        $this->assertEquals("membre", $monMembre->getLevel());
+        $this->assertEquals('membre', $monMembre->getLevel());
         // Nom
-        $this->assertEquals("admin", $monMembre->getUserName());
+        $this->assertEquals('admin', $monMembre->getUserName());
         // Nom en BDD
-        $this->assertEquals("admin", $monMembre->getUserNameBDD());
+        $this->assertEquals('admin', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('password');
