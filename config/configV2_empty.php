@@ -72,6 +72,10 @@ define('_BDD_NAME_', 'xxx');
 define('_ADMINISTRATEUR_NOM_', 'Anael MOBILIA');
 define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
 
+// Hébergeur du site
+define('_HEBERGEUR_NOM_', 'OVH');
+define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
+
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
     include _PATH_ . 'classes/' . $class . '.class.php';

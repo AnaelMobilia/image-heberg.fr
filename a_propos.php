@@ -28,78 +28,91 @@ require _TPL_TOP_;
 <div class="jumbotron">
     <h1><small>A propos</small></h1>
 
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
         <div class="panel-body">
-            <fieldset>
-                <legend>Licences :</legend>
-                <p>
-                    Ce site est &eacute;dit&eacute; par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
-                    <br />
-                    Pour toute demande ou information concernant ce site, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
-                </p>
-            </fieldset>
+            Ce site est administré par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
             <br />
-            <fieldset>
-                <legend>Graphismes et images :</legend>
-                <ul>
-                    <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
-                </ul>
-            </fieldset>
+            Pour toute demande ou information concernant ce site, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Licences</h2>
+        </div>
+        <div class="panel-body">
+            Auteur de l'outil : <a href="http://www.anael.eu">Anael MOBILIA</a>
             <br />
-            <fieldset>
-                <legend>Technologies :</legend>
-                <p>
-                    Le code source du pr&eacute;sent site a &eacute;t&eacute; r&eacute;alis&eacute; en PHP, MySQL ainsi que XHTML, CSS et jQuery.
-                    <br />
-                    Il a &eacute;t&eacute; enti&egrave;rement r&eacute;alis&eacute; par <a href="http://www.anael.eu">Anael MOBILIA</a>.
-                    <br />
-                    Le <a href="https://github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
-                </p>
-            </fieldset>
+            Le <a href="https://github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
             <br />
-            <fieldset>
-                <legend>H&eacute;bergeur :</legend>
-                <p>
-                    Ce site est h&eacute;berg&eacute; chez <a href="http://www.ovh.com/">OVH</a>
-                </p>
-            </fieldset>
+            Graphismes et images : <a href="http://getbootstrap.com/">Bootstrap</a>
             <br />
-            <fieldset>
-                <legend>Conservations de donn&eacute;es &agrave; caract&egrave;re priv&eacute; :</legend>
-                <p>
-                    L'utilisation du service peut conduire à l'enregistrement de cookies sur votre ordinateur.
-                    <br />
-                    Vous pouvez supprimer librement ces cookies via les options de votre navigateur internet.
-                    <br />
-                    A d&eacute;faut, et sauf action sp&eacute;cifique et explicite de votre part, les cookies seront supprim&eacute;s lors de la fermeture de votre navigateur.
-                    <br />
-                    <br />
-                    Votre adresse IP est enregistr&eacute;e dans la base de donn&eacute;es lors de l'envoi d'une image, de la cr&eacute;ation et &agrave; la connexion &agrave; votre espace membre.
-                    <br />
-                    La suppression d'une image envoy&eacute;e sur le service conduit &agrave; la suppression de toutes les informations li&eacute;es dans la base de donn&eacute;es.
-                    <br />
-                    <br />
-                    Conform&eacute;ment &agrave; la directive 2006/24/CE sur la conservation des donn&eacute;es, tous les acc&egrave;s au service seront enregistr&eacute;s et conserv&eacute;s durant <em>- au moins -</em> 2 ann&eacute;es.
-                    <br />
-                    <br />
-                    Aucune donn&eacute;e n'est utilis&eacute;e &agrave; but publicitaire ni est transmise &agrave; des tiers, ou r&eacute;utilis&eacute;e en dehors du pr&eacute;sent service.
-                    <br />
-                    <br />
+            Technologies : PHP, MySQL, HTML5, CSS, jQuery
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">Hébergeur</h2>
+        </div>
+        <div class="panel-body">
+            Ce site est hébergé chez <a href="<?= _HEBERGEUR_SITE_ ?> "><?= _HEBERGEUR_NOM_ ?> </a>
+            <br />
+            Vous trouverez leur adresse et téléphone sur <a href="<?= _HEBERGEUR_SITE_ ?>">leur site internet</a>.
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseCNIL">
+                    Conservations de données à caractère privé
+                    &nbsp;<span class="caret"></span>
+                </a>
+            </h2>
+        </div>
+        <div id="collapseCNIL" class="panel-collapse collapse">
+            <div class="panel-body">
+                L'utilisation du service peut conduire à l'enregistrement de cookies sur votre ordinateur.
+                <br />
+                Vous pouvez supprimer librement ces cookies via les options de votre navigateur internet.
+                <br />
+                A défaut, et sauf action spécifique et explicite de votre part, les cookies seront supprimés lors de la fermeture de votre navigateur.
+                <br /><br />
+                Votre adresse IP est enregistrée dans la base de données lors de l'envoi d'une image, de la création et à la connexion à votre espace membre.
+                <br />
+                La suppression d'une image envoyée sur le service conduit à la suppression de toutes les informations liées dans la base de données.
+                <br /><br />
+                Conformément à la directive 2006/24/CE sur la conservation des données, tous les accès au service seront enregistrés et conservés durant <em>- au moins -</em> 2 années.
+                <br /><br />
+                Aucune donnée n'est utilisée à but publicitaire ni est transmise à des tiers, ou réutilisée en dehors du présent service.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseCNIL2">
                     Responsable du traitement : <?= _ADMINISTRATEUR_NOM_ ?>
-                    <br />
-                    Les informations recueillies font l’objet d’un traitement informatique destin&eacute; &agrave; personnaliser votre utilisation du service.
-                    <br />
-                    Vous n'&ecirc;tes pas oblig&eacute; de cr&eacute;er un espace membre pour utiliser le service.
-                    <br />
-                    Le destinataire des donn&eacute;es est <?= _ADMINISTRATEUR_NOM_ ?>.
-                    <br />
-                    Conform&eacute;ment &agrave; la loi « informatique et libert&eacute;s » du 6 janvier 1978 modifi&eacute;e en 2004,
-                    vous b&eacute;n&eacute;ficiez d'un droit d'acc&egrave;s et de rectification aux informations qui vous concernent,
-                    que vous pouvez exercer en vous adressant &agrave; <a href="/contact.php"><?= _ADMINISTRATEUR_NOM_ ?> via le formulaire de contact</a>.
-                    <br />
-                    Vous pouvez &eacute;galement, pour des motifs l&eacute;gitimes, vous opposer au traitement des donn&eacute;es vous concernant.
-                </p>
-            </fieldset>
+                    &nbsp;<span class="caret"></span>
+                </a>
+            </h2>
+        </div>
+        <div id="collapseCNIL2" class="panel-collapse collapse">
+            <div class="panel-body">
+                Les informations recueillies font l’objet d’un traitement informatique destiné à personnaliser votre utilisation du service.
+                <br />
+                Vous n'&ecirc;tes pas obligé de créer un espace membre pour utiliser le service.
+                <br />
+                Le destinataire des données est <?= _ADMINISTRATEUR_NOM_ ?>.
+                <br />
+                Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée en 2004,
+                vous bénéficiez d'un droit d'accès et de rectification aux informations qui vous concernent,
+                que vous pouvez exercer en vous adressant à <a href="/contact.php"><?= _ADMINISTRATEUR_NOM_ ?> via le formulaire de contact</a>.
+                <br />
+                Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.
+            </div>
         </div>
     </div>
 </div>
