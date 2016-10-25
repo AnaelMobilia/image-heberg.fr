@@ -4,3 +4,5 @@ php:
   - '5.6'
   - '7.0'
   - '7.1'
+
+script: phpunit __tests/imageObjectTest.php
