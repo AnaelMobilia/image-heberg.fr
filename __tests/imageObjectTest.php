@@ -19,25 +19,9 @@
  */
 
 class imageObjectTest extends PHPUnit_Framework_TestCase {
-    private $maBDD;
 
     function __construct() {
-        global $maBDD;
-        // BDD
-        define('_BDD_HOST_', 'localhost');
-        define('_BDD_USER_', 'root');
-        define('_BDD_PASS_', '');
-        define('_BDD_NAME_', 'imageheberg');
-
-        // Fonction de chargement des classes en cas de besoin
-        spl_autoload_register(function ($class) {
-            include _PATH_ . 'classes/' . $class . '.class.php';
-        });
-
-        // Connexion centralisée à la BDD
-        $maBDD = new PDO('mysql:host=' . _BDD_HOST_ . ';dbname=' . _BDD_NAME_, _BDD_USER_, _BDD_PASS_);
-        $maBDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $maBDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+        require 'config/configV2.php';
     }
 
     public function testPushAndPop() {
