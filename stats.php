@@ -20,28 +20,36 @@
 require 'config/configV2.php';
 require _TPL_TOP_;
 
-require_once('./config/config.php');   //config du script
-//-------------------------
-//	NOMBRE IMAGES & BANDE PASSANTE
-//-------------------------
-// Nombre d'images
-$nb_images = sql_query('SELECT COUNT(*) FROM `images`');
-$nb_thumbs = sql_query('SELECT COUNT(*) FROM `thumbnails`');
+// Stats Images
+$reqImage = $maBDD->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff FROM images");
+/* @var $reqImage PDOStatement */
+// Je récupère les valeurs
+$valImage = $reqImage->fetch();
+
+// Stats Miniatures
+$reqMiniature = $maBDD->query("SELECT COUNT(*) AS nb, SUM(t_nb_view_v4 * t_size) AS bpv4, SUM(t_nb_view_v6 * t_size) AS bpv6, SUM(t_nb_view_v4 + t_nb_view_v6) AS nbAff FROM thumbnails");
+/* @var $reqMiniature PDOStatement */
+// Je récupère les valeurs
+$valMiniature = $reqMiniature->fetch();
+
+// Stats membres
+$reqMembre = $maBDD->query("SELECT COUNT(*) AS nb FROM membres");
+/* @var $reqMembre PDOStatement */
+// Je récupère les valeurs
+$valMembre = $reqMembre->fetch();
+
+// Stats membres -> possède
+$reqPossede = $maBDD->query("SELECT COUNT(*) AS nb FROM possede");
+/* @var $reqPossede PDOStatement */
+// Je récupère les valeurs
+$valPossede = $reqPossede->fetch();
+
 // Bande passante
-$bp_images_v4 = sql_query('SELECT SUM(`nb_view_v4`*`size`) FROM `images`');
-$bp_images_v6 = sql_query('SELECT SUM(`nb_view_v6`*`size`) FROM `images`');
-$bp_thumbs_v4 = sql_query('SELECT SUM(`t_nb_view_v4`*`t_size`) FROM `thumbnails`');
-$bp_thumbs_v6 = sql_query('SELECT SUM(`t_nb_view_v6`*`t_size`) FROM `thumbnails`');
-$bp_v4 = $bp_images_v4 + $bp_thumbs_v4;
-$bp_v6 = $bp_images_v6 + $bp_thumbs_v6;
+$bp_v4 = $valImage->bpv4 + $valMiniature->bpv4;
+$bp_v6 = $valImage->bpv6 + $valMiniature->bpv6;
 $bp_all = $bp_v4 + $bp_v6;
 // Nombre d'affichages
-$nb_view = sql_query('SELECT SUM(`nb_view_v4` + `nb_view_v6`) FROM `images`');
-$nb_view_thumbs = sql_query('SELECT SUM(`t_nb_view_v4` + `t_nb_view_v6`) FROM `thumbnails`');
-$nb_view_all = $nb_view + $nb_view_thumbs;
-// Membres
-$nb_mbr = sql_query('SELECT COUNT(*) FROM `membres`');
-$nb_mbr_img = sql_query('SELECT COUNT(*) FROM `possede`');
+$nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
 ?>
 <div class="jumbotron">
     <h1><small>Statistiques</small></h1>
@@ -49,10 +57,10 @@ $nb_mbr_img = sql_query('SELECT COUNT(*) FROM `possede`');
     <div class="panel panel-primary">
         <div class="panel-body">
             <ul>
-                <li><?= number_format($nb_images, 0, ',', '`') ?> images et <?= number_format($nb_thumbs, 0, ',', '`') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
-                <li><?= number_format(($bp_all) / 1073741824, 1, ',', '`') ?> Go de trafic - dont <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>% en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a></li>
-                <li><?= number_format($nb_view_all, 0, ',', '`') ?> affichages d'images (<?= number_format($nb_view, 0, ',', '`') ?> + <?= number_format($nb_view_thumbs, 0, ',', '`') ?>)</li>
-                <li><?= $nb_mbr ?> membres possèdant au total <?= $nb_mbr_img ?> images</li>
+                <li><?= number_format($valImage->nb, 0, ',', ' ') ?> images et <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
+                <li><?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>% en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a></li>
+                <li><?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?>)</em></li>
+                <li><?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images</li>
             </ul>
         </div>
     </div>
