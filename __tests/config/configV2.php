@@ -64,7 +64,7 @@ define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
 define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Salt pour les mots de passe
-define('_GRAIN_DE_SEL_', 'xxx');
+define('_GRAIN_DE_SEL_', '123456789azertyuiop');
 
 // BDD
 define('_BDD_HOST_', 'localhost');

@@ -21,19 +21,50 @@
 class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     function __construct() {
-        require 'config/configV2.php';
+        //require 'config/configV2.php';
     }
 
-    public function testPushAndPop() {
-        $stack = array();
-        $this->assertEquals(10, count($stack));
+    /**
+     * Création d'un compte membre
+     */
+    public function testMembreCreerCompte() {
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['valider'] = 1;
+        $_POST['userName'] = "admin";
+        $_POST['userPassword'] = "password";
+        $_POST['userMail'] = _MAIL_ADMIN_;
 
-        array_push($stack, 'foo');
-        $this->assertEquals('foo', $stack[count($stack) - 1]);
-        $this->assertEquals(1, count($stack));
+        /**
+         *  Appel de la page
+         */
+        require 'membre/creerCompte.php';
 
-        $this->assertEquals('foo', array_pop($stack));
-        $this->assertEquals(0, count($stack));
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(1);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals(_MAIL_ADMIN_, $monMembre->getEmail());
+        // ID
+        $this->assertEquals(1, $monMembre->getId());
+        // @ IP d'inscription
+        $this->assertEquals("127.0.0.1", $monMembre->getIpInscription());
+        // Niveau de droits
+        $this->assertEquals("membre", $monMembre->getLevel());
+        // Nom
+        $this->assertEquals("admin", $monMembre->getUserName());
+        // Nom en BDD
+        $this->assertEquals("admin", $monMembre->getUserNameBDD());
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPassword('password');
+        $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
 }
