@@ -20,7 +20,7 @@
 // TODO : affichage des images dans la page en javascript ?
 // TODO : navigation entre les images
 
-require '../config/configV2.php';
+require __DIR__ . '/../config/configV2.php';
 // Vérification des droits d'accès
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
