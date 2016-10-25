@@ -77,7 +77,7 @@ define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
-    include _PATH_ . 'classes/' . $class . '.class.php';
+    require _PATH_ . 'classes/' . $class . '.class.php';
 });
 
 // Connexion centralisée à la BDD
