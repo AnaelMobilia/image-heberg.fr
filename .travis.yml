@@ -13,7 +13,7 @@ services:
 
 # Créer la BDD avant de commencer
 before_script:
-  - mysql -e "CREATE DATABASE image-heberg;"
+  - mysql -e "CREATE DATABASE `image-heberg`;"
   - mysql < database.sql
 
 script: phpunit __tests/imageObjectTest.php
