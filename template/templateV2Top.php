@@ -36,9 +36,6 @@ $timeStart = microtime(TRUE);
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-3.3.7.min.css" rel="stylesheet">
         <link href="template/css/template.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="navbar-fixed-top.css" rel="stylesheet">
     </head>
 
     <body>
