@@ -112,9 +112,3 @@ $timeStart = microtime(TRUE);
             </div>
 
             <div class="container">
-                <div class="alert alert-info alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    Voici la nouvelle interface (bêta) d'Image-Heberg.fr !
-                    <br />
-                    <a href="contact.php">Un avis, une remarque, une suggestion ?</a>
-                </div>
