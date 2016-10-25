@@ -51,29 +51,26 @@ if (isset($_POST['valider'])) {
             header('Location: ' . _URL_);
             die();
         } else {
-            // Appel du template à ce niveau seulement pour éviter d'envoyer des headers si redirection
-            require _TPL_TOP_;
             $flagConnexion = FALSE;
             $messageErreur .= "<br />Erreur dans vos identifiants.";
         }
     }
-
-    // Affichage des erreurs si requis
-    if ($flagConnexion !== TRUE) {
-        ?>
-        <div class="alert alert-danger">
-            <strong>La connexion à votre compte n'est pas possible :</strong>
-            <?= $messageErreur ?>
-        </div>
-        <?php
-    }
 }
-?>
+
+require _TPL_TOP_;
+// Affichage des erreurs si requis
+if (isset($messageErreur)) :
+    ?>
+    <div class="alert alert-danger">
+        <strong>La connexion à votre compte n'est pas possible :</strong>
+        <?= $messageErreur ?>
+    </div>
+<?php endif; ?>
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Se connecter à mon compte</small></h1>
 
-    <form role="form" method="post">
+    <form method="post">
         <div class="form-group">
             <label for="userName">Identifiant</label>
             <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
@@ -89,7 +86,7 @@ if (isset($_POST['valider'])) {
         <button type="submit" name="valider" class="btn btn-success">Se connecter</button>
     </form>
     <br />
-    <form action="<?= _URL_MEMBRE_ ?>creerCompte.php" role="form">
+    <form action="<?= _URL_MEMBRE_ ?>creerCompte.php">
         <button type="submit" class="btn btn-info">Créer un compte</button>
     </form>
 </div>

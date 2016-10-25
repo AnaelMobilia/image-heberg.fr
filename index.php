@@ -21,23 +21,15 @@ require 'config/configV2.php';
 require _TPL_TOP_;
 /* TODO List
   Espace membre
-  -> augmenter durée connexion
   -> case "rester connecte depuis cet ordinateur" (cookie save en db + sur pc + check user agent) (corwin)
   -> user friendly pour voir mes images / envoyer une image
   -> Fonctionnalité retrouver mon mot de passe (envoi mail sur @ donn�e a l'enregistrement, validation d'un token save en db, proposition new password)
-
-  Pr�f�rences
-  -> Gestion du template voulu
-
-  Connexion
-  -> En cas de deco / reconnexion, renvoyer vers la page demand�e
 
   Fonctionnalités
   -> Album photo (plusieurs images via une seule url)
   -> Album photo (gestion d'une arborescence)
   -> Mot de passe sur image / album
   -> Envoi depuis un tiers (forum) / API ?
-  http://px1.p2p-vpn.net/download/ih.jpg
  */
 
 // **************************************
@@ -310,7 +302,7 @@ if (isset($_POST['Submit'])) {
                     <li>Taille max. : <?= round(__MAX_SIZE__ / 1048576, 1) ?> Mo</li>
                     <li>Dimensions max. : <?= __WIDTH_MAX__ ?> x <?= __HEIGHT_MAX__ ?> pixels (hauteur / largeur)</li>
                 </ul>
-                <form role="form" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="form-inline">
+                <form enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="form-inline">
                     <div class="form-group">
                         <fieldset>
                             <legend>Envoyer un fichier :</legend>
@@ -367,21 +359,7 @@ if (isset($_POST['Submit'])) {
         </div>
     </div>
     <?php
-//    ';
-//
-//$lang['SCRIPT_JS'] = '
-//			$(document).ready(function() {
-//				// Cache les options
-//				$(\'#liste_options\').hide();
-//
-//				$(\'#options\').click(function() {
-//					// Affiche les options
-//					$(\'#liste_options\').show();
-//					// Cache le bouton
-//					$(\'#image_options\').hide();
-//				});
-//			});';
 }
-?>
 
-<?php require _TPL_BOTTOM_ ?>
+require _TPL_BOTTOM_;
+?>

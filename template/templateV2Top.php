@@ -20,7 +20,7 @@
 $timeStart = microtime(TRUE);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
     <head>
         <meta charset="utf-8">
 
@@ -72,15 +72,15 @@ $timeStart = microtime(TRUE);
                         if ($visiteur->getLevel() === utilisateurObject::levelGuest) :
                             ?>
                             <div id="monCompteGestion">
-                                <form class="navbar-form navbar-right" role="form">
+                                <form class="navbar-form navbar-right">
                                     <button id="buttonMonCompteGestion" class="btn btn-success">Mon compte</button>
                                 </form>
                             </div>
                             <div id="monCompte">
-                                <form action="<?= _URL_MEMBRE_ ?>creerCompte.php" class="navbar-form navbar-right" role="form">
+                                <form action="<?= _URL_MEMBRE_ ?>creerCompte.php" class="navbar-form navbar-right">
                                     <button type="submit" class="btn btn-success">S'enregistrer</button>
                                 </form>
-                                <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="navbar-form navbar-right" role="form">
+                                <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="navbar-form navbar-right">
                                     <div class="form-group">
                                         <input type="text" name="userName" placeholder="Identifiant" class="form-control" required="required">
                                     </div>
@@ -92,7 +92,7 @@ $timeStart = microtime(TRUE);
                             </div>
                         <?php else : ?>
                             <!-- Menu utilisateur connecté -->
-                            <form action="<?= _URL_MEMBRE_ ?>deconnexionCompte.php" class="navbar-form navbar-right" role="form">
+                            <form action="<?= _URL_MEMBRE_ ?>deconnexionCompte.php" class="navbar-form navbar-right">
                                 <button type="submit" class="btn btn-success">
                                     Se déconnecter (<?= $visiteur->getUserName() ?>)
                                 </button>

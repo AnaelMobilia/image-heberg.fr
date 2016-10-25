@@ -130,7 +130,7 @@ if (isset($_POST['modifierPwd'])) {
         </div>
         <div id="collapsePwd" class="panel-collapse collapse">
             <div class="panel-body">
-                <form role="form" method="post">
+                <form method="post">
                     <div class="form-group">
                         <label for="oldUserPassword">Mot de passe actuel</label>
                         <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword" placeholder="Mot de passe actuel" required="required">
@@ -154,7 +154,7 @@ if (isset($_POST['modifierPwd'])) {
         </div>
         <div id="collapseMail" class="panel-collapse collapse">
             <div class="panel-body">
-                <form role="form" method="post">
+                <form method="post">
                     <div class="form-group">
                         <label for="userMail">Nouvelle adresse courriel</label>
                         <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Nouvelle adresse courriel" required="required">
@@ -179,7 +179,7 @@ if (isset($_POST['modifierPwd'])) {
         </div>
         <div id="collapseDelete" class="panel-collapse collapse">
             <div class="panel-body">
-                <form role="form" method="post">
+                <form method="post">
                     <label class="text-danger">
                         <input type="checkbox" value="" name="confirmeDelete">
                         <span class="glyphicon glyphicon-warning-sign"></span>

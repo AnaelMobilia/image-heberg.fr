@@ -88,7 +88,7 @@ if (isset($_POST['valider'])) {
 <div class="jumbotron">
     <h1><small>Créer mon compte</small></h1>
 
-    <form role="form" method="post">
+    <form method="post">
         <div class="form-group">
             <label for="userName">Identifiant</label>
             <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">

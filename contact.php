@@ -65,7 +65,7 @@ if (isset($_POST['envoyer'])) {
         </div>
     </div>
 
-    <form role="form" method="post">
+    <form method="post">
         <div class="form-group">
             <label for="userMessage">Votre message</label>
             <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
