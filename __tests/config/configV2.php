@@ -85,6 +85,8 @@ spl_autoload_register(function ($class) {
     // Code spécifique Travis : pas de chargement des classes de PHPUnit
     if (strpos($class, "PHPUnit")) {
         include _PATH_ . 'classes/' . $class . '.class.php';
+    } else {
+        echo "Refus autoload " . $class;
     }
 });
 
