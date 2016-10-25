@@ -33,7 +33,7 @@ require _TPL_TOP_;
             <fieldset>
                 <legend>Licences :</legend>
                 <p>
-                    Ce site est &eacute;dit&eacute; par <a href="http://www.anael.eu">Anael MOBILIA</a>
+                    Ce site est &eacute;dit&eacute; par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
                     <br />
                     Pour toute demande ou information concernant ce site, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
                 </p>
@@ -51,7 +51,7 @@ require _TPL_TOP_;
                 <p>
                     Le code source du pr&eacute;sent site a &eacute;t&eacute; r&eacute;alis&eacute; en PHP, MySQL ainsi que XHTML, CSS et jQuery.
                     <br />
-                    Il a &eacute;t&eacute; enti&egrave;rement r&eacute;alis&eacute; par l'auteur.
+                    Il a &eacute;t&eacute; enti&egrave;rement r&eacute;alis&eacute; par <a href="http://www.anael.eu">Anael MOBILIA</a>.
                     <br />
                     Le <a href="https://github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
                 </p>
@@ -85,17 +85,17 @@ require _TPL_TOP_;
                     Aucune donn&eacute;e n'est utilis&eacute;e &agrave; but publicitaire ni est transmise &agrave; des tiers, ou r&eacute;utilis&eacute;e en dehors du pr&eacute;sent service.
                     <br />
                     <br />
-                    Responsable du traitement : Anael Mobilia
+                    Responsable du traitement : <?= _ADMINISTRATEUR_NOM_ ?>
                     <br />
                     Les informations recueillies font l’objet d’un traitement informatique destin&eacute; &agrave; personnaliser votre utilisation du service.
                     <br />
                     Vous n'&ecirc;tes pas oblig&eacute; de cr&eacute;er un espace membre pour utiliser le service.
                     <br />
-                    Le destinataire des donn&eacute;es est image-heberg.fr <em>(Anael Mobilia)</em>.
+                    Le destinataire des donn&eacute;es est <?= _ADMINISTRATEUR_NOM_ ?>.
                     <br />
                     Conform&eacute;ment &agrave; la loi « informatique et libert&eacute;s » du 6 janvier 1978 modifi&eacute;e en 2004,
                     vous b&eacute;n&eacute;ficiez d'un droit d'acc&egrave;s et de rectification aux informations qui vous concernent,
-                    que vous pouvez exercer en vous adressant &agrave; <a href="/contact.php">Anael Mobilia via le formulaire de contact</a>.
+                    que vous pouvez exercer en vous adressant &agrave; <a href="/contact.php"><?= _ADMINISTRATEUR_NOM_ ?> via le formulaire de contact</a>.
                     <br />
                     Vous pouvez &eacute;galement, pour des motifs l&eacute;gitimes, vous opposer au traitement des donn&eacute;es vous concernant.
                 </p>

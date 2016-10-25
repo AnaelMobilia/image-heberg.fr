@@ -20,9 +20,8 @@
 // DEBUG
 define('_DEBUG_', TRUE);
 if (_DEBUG_) {
-    // Spécifique à Gandi
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+    error_reporting(E_ALL | E_STRICT);
+    @ini_set("display_errors", 1);
 }
 
 // Gestion des exceptions de l'application
@@ -68,6 +67,10 @@ define('_BDD_HOST_', 'xxx');
 define('_BDD_USER_', 'xxx');
 define('_BDD_PASS_', 'xxx');
 define('_BDD_NAME_', 'xxx');
+
+// Administrateur du site
+define('_ADMINISTRATEUR_NOM_', 'Anael MOBILIA');
+define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
