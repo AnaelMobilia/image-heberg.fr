@@ -86,7 +86,7 @@ spl_autoload_register(function ($class) {
     if (strpos($class, "PHPUnit")) {
         include _PATH_ . 'classes/' . $class . '.class.php';
     } else {
-        echo "Refus autoload " . $class;
+        new Exception("Refus autoload " . $class);
     }
 });
 
