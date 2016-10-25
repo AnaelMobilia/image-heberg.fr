@@ -1,8 +1,19 @@
+# Language
 language: php
+# Versions de PHP testées
 php:
   - '5.5'
   - '5.6'
   - '7.0'
   - '7.1'
+
+# Autres prérequis
+services:
+  - mysql
+
+# Créer la BDD avant de commencer
+before_script:
+  - mysql -e "CREATE DATABASE image-heberg;"
+  - mysql < database.sql
 
 script: phpunit __tests/imageObjectTest.php
