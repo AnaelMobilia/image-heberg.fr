@@ -14,6 +14,6 @@ services:
 # Créer la BDD avant de commencer
 before_script:
   - mysql -e "CREATE DATABASE imageheberg;"
-  - mysql < database.sql
+  - mysql imageheberg < database.sql
 
 script: phpunit __tests/imageObjectTest.php
