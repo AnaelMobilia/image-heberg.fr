@@ -59,7 +59,7 @@ require_once('./config/config.php');
                 <li><b>Conservation :</b>
                     <ul>
                         <li>Trois (3) ans à compter de la dernière utilisation du fichier.</li>
-                        <li>A défaut, Un (1) an après l'envoi (si aucun affichage).</li>
+                        <li>A défaut, Un (1) an après l'envoi <em>(si aucun affichage)</em>.</li>
                     </ul>
                 </li>
                 <li>Nombre d'images par compte : illimit&eacute;.</li>
