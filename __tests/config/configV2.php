@@ -82,7 +82,10 @@ define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
-    include _PATH_ . 'classes/' . $class . '.class.php';
+    // Code spécifique Travis : pas de chargement des classes de PHPUnit
+    if (strpos($class, "PHPUnit")) {
+        include _PATH_ . 'classes/' . $class . '.class.php';
+    }
 });
 
 // Connexion centralisée à la BDD
