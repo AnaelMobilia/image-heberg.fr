@@ -31,7 +31,7 @@ $timeStart = microtime(TRUE);
         <meta name="author" content="Anael Mobilia">
         <link rel="shortcut icon" href="template/images/favicon.ico">
 
-        <title>Image-Heberg.fr</title>
+        <title>Image-Heberg.fr - Hébergeur d'images gratuit</title>
 
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-3.3.7.min.css" rel="stylesheet">
