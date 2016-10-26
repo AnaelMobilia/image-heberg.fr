@@ -27,6 +27,7 @@ define('_DEBUG_', TRUE);
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
+define('_TRAVIS_', TRUE);
 
 // Gestion des exceptions de l'application
 function exception_handler($exception) {

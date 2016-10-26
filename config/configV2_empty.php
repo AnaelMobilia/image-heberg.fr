@@ -22,6 +22,8 @@ define('_DEBUG_', TRUE);
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
+// Tests TRAVIS-CI
+define('_TRAVIS_', FALSE);
 
 // Gestion des exceptions de l'application
 function exception_handler($exception) {

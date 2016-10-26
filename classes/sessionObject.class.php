@@ -30,8 +30,8 @@ class sessionObject {
     private $id;
 
     public function __construct() {
-        // Je vérifie qu'une session n'est pas déjà lancée
-        if (session_status() === PHP_SESSION_NONE) {
+        // Je vérifie qu'une session n'est pas déjà lancée & que pas en test unitaire
+        if (session_status() === PHP_SESSION_NONE && _TRAVIS_ === FALSE) {
             // Je lance la session côté PHP
             session_start();
         }
