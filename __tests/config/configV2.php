@@ -85,8 +85,8 @@ spl_autoload_register(function ($class) {
     // Code spécifique Travis : pas de chargement des classes de PHPUnit
     if (strpos($class, "PHPUnit")) {
         require _PATH_ . 'classes/' . $class . '.class.php';
+        throw new Exception(var_dump($class));
     }
-    throw new Exception(var_dump($class));
 });
 
 // Connexion centralisée à la BDD
