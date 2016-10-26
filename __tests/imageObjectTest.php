@@ -18,6 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+/**
+ * @backupGlobals disabled
+ */
 class imageObjectTest extends PHPUnit_Framework_TestCase {
     protected $backupGlobalsBlacklist = ['maBDD', '$maBDD'];
 
