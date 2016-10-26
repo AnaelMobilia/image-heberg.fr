@@ -53,5 +53,15 @@ interface ressourceInterface {
     /**
      * Path sur le filesystem
      */
-    public function getPath();
+    function getPath();
+
+    /**
+     * Incrémente en BDD le nb d'affichage IPv4
+     */
+    function setNbViewIpv4PlusUn();
+
+    /**
+     * Incrémente en BDD le nb d'affichage IPv6
+     */
+    function setNbViewIpv6PlusUn();
 }

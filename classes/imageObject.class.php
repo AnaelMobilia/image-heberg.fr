@@ -80,7 +80,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * Incrémente le nombre d'affichage IPv4 & met à jour en BDD
      */
-    public function setNbViewV4PlusUn() {
+    public function setNbViewIpv4PlusUn() {
         $this->nbViewV4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();
@@ -89,7 +89,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * Incrémente le nombre d'affichage IPv6 & met à jour en BDD
      */
-    public function setNbViewV6PlusUn() {
+    public function setNbViewIpv6PlusUn() {
         $this->nbViewV6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();

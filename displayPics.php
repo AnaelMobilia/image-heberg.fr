@@ -62,9 +62,9 @@ switch ($_GET['type']) {
 // On enregistre l'affichage
 if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     // IPv4
-    $fileObject->setNbViewV4PlusUn();
+    $fileObject->setNbViewIpv4PlusUn();
 } else {
     // IPv6
-    $fileObject->setNbViewV6PlusUn();
+    $fileObject->setNbViewIpv6PlusUn();
 }
 ?>
