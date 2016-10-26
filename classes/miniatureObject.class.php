@@ -27,17 +27,22 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * Constructeur
      * @param string $newName newName de l'image maître
+     * @return boolean Chargement réussi
      */
     function __construct($newName = FALSE) {
+        $monRetour = FALSE;
+
         // Si on me donne un newName d'image, je charge l'objet
         if ($newName) {
-            $this->charger($newName);
+            $monRetour = $this->charger($newName);
         }
+
+        return $monRetour;
     }
 
     /**
      * Path sur le HDD
-     * @return 
+     * @return
      */
     public function getPath() {
         return _PATH_MINIATURES_ . $this->getNomNouveau();
@@ -46,8 +51,10 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * Charger une miniature
      * @param string $newName newName de l'image maître
+     * @return boolean Chargement réussi ?
      */
     public function charger($newName) {
+        $monRetour = FALSE;
         $imageMaitre = new imageObject($newName);
 
         // Je vais chercher les infos en BDD
@@ -58,16 +65,23 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
         // J'éclate les informations
         $resultat = $req->fetch();
-        $this->setId($resultat->id);
-        $this->setPoids($resultat->size);
-        $this->setHauteur($resultat->height);
-        $this->setPoids($resultat->width);
-        $this->setLastView($resultat->last_view);
-        $this->setNbViewIPv4($resultat->nb_view_v4);
-        $this->setNbViewIPv6($resultat->nb_view_v6);
+        if ($resultat) {
+            $this->setId($resultat->id);
+            $this->setPoids($resultat->size);
+            $this->setHauteur($resultat->height);
+            $this->setPoids($resultat->width);
+            $this->setLastView($resultat->last_view);
+            $this->setNbViewIPv4($resultat->nb_view_v4);
+            $this->setNbViewIPv6($resultat->nb_view_v6);
 
-        // Et je reprend le nom de l'image maître
-        $this->setNomNouveau($imageMaitre->getNomNouveau());
+            // Et je reprend le nom de l'image maître
+            $this->setNomNouveau($imageMaitre->getNomNouveau());
+
+            // Notification du chargement réussi
+            $monRetour = TRUE;
+        }
+
+        return $monRetour;
     }
 
     /**

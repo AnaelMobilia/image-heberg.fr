@@ -119,9 +119,12 @@ class imageObject extends ressourceObject implements ressourceInterface {
             return;
         }
 
+        /**
+         * MINIATURE ?
+         */
+        $maMiniature = new miniatureObject($this->getNomNouveau());
         // Existe-t-il une miniature de l'image ?
-        if ($this->verifierMiniature()) {
-            $maMiniature = new miniatureObject($this->getNomNouveau());
+        if ($maMiniature) {
             $maMiniature->supprimer();
         }
         echo "<br />Suppression de " . $this->getNomNouveau();
@@ -133,29 +136,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
-    }
-
-    /**
-     * Une miniature a-t-elle été faite ?
-     * @return boolean
-     */
-    private function verifierMiniature() {
-        // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . miniatureObject::tableName . " WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
-        // Retour négatif par défaut
-        $retour = FALSE;
-
-        // Si j'ai un résultat...
-        if ($req->fetch()) {
-            // Le retour est positif
-            $retour = TRUE;
-        }
-
-        return $retour;
     }
 
     /**
