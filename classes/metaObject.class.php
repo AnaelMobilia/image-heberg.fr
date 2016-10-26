@@ -201,6 +201,7 @@ class metaObject {
      */
     public static function verifierLoginDisponible($login) {
         global $maBDD;
+        throw new Exception(var_dump($maBDD));
 
         // Je vais chercher les infos en BDD
         $req = $maBDD->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE login = ?");
