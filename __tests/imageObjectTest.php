@@ -20,6 +20,7 @@
 
 /**
  * @backupGlobals disabled
+ * @backupStaticAttributes disabled
  */
 class imageObjectTest extends PHPUnit_Framework_TestCase {
     protected $backupGlobalsBlacklist = ['maBDD', '$maBDD'];
@@ -28,6 +29,11 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
      * Création d'un compte membre
      * // Réactivation des variables globales
      * @backupGlobals disabled
+     */
+
+    /**
+     * @backupGlobals disabled
+     * @backupStaticAttributes disabled
      */
     public function testMembreCreerCompte() {
         /**
