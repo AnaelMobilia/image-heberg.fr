@@ -23,11 +23,6 @@
  *
  * @author anael
  */
-
-/**
- * @backupStaticAttributes disabled
- * @backupGlobals disabled
- */
 class maBDD {
     // PDO
     private $maBDD = null;
