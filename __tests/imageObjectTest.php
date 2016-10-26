@@ -30,7 +30,7 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function getDataSet() {
-        return null;
+        return new PHPUnit_Extensions_Database_DataSet_IDataSet();
     }
 
     /**
