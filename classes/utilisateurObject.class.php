@@ -272,7 +272,7 @@ class utilisateurObject {
     public function enregistrer() {
         global $maBDD;
 
-        $req = $maBDD->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, redirect_upload, tpl, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
+        $req = $maBDD->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getPasswordEncrypted(), PDO::PARAM_STR);
