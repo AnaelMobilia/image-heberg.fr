@@ -195,14 +195,10 @@ class metaObject {
 
     /**
      * Vérifier si un login est disponible pour enregistrement
-     * @global type $maBDD
      * @param type $login
      * @return boolean
      */
     public static function verifierLoginDisponible($login) {
-//        global $maBDD;
-        // Je vais chercher les infos en BDD
-//        $req = $maBDD->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE login = ?");
         $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE login = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $login, PDO::PARAM_STR);
