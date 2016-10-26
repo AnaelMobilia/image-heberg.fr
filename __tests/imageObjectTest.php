@@ -48,6 +48,7 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
         $_POST['userName'] = 'admin';
         $_POST['userPassword'] = 'password';
         $_POST['userMail'] = 'contrib@anael.eu';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         /**
          *  Appel de la page
