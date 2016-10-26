@@ -19,9 +19,7 @@
  */
 
 /**
- * Description of ressourceObject
- *
- * @author Anael
+ * Fonctions génériques aux images et miniatures
  */
 class ressourceObject {
     private $id;

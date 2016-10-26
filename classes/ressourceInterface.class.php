@@ -19,8 +19,7 @@
  */
 
 /**
- *
- * @author Anael
+ * Fonctions devant êtres implémentées spécifiquement par les images et miniatures
  */
 interface ressourceInterface {
 
