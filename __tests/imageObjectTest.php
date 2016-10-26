@@ -26,6 +26,7 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Création d'un compte membre
+     * @runInSeparateProcess
      */
     public function testMembreCreerCompte() {
         /**
