@@ -18,8 +18,6 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 require __DIR__ . '/../config/configV2.php';
-throw new Exception(var_dump(spl_autoload_functions()));
-new sessionObject();
 require _TPL_TOP_;
 
 // Un utilisateur...
