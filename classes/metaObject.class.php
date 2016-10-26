@@ -24,10 +24,14 @@
  * @author anael
  */
 class metaObject {
-
     /**
      * Liste des images n'ayant jamais été affichée et présente sur le serveur depuis une année
      * @return \ArrayObject
+     */
+
+    /**
+     * @backupGlobals disabled
+     * @backupStaticAttributes disabled
      */
     public static function getNeverUsedOneYear() {
         // BDD
