@@ -19,12 +19,6 @@
  */
 
 /**
- * TODO - PHP5.5
- * http://fr2.php.net/manual/fr/function.imagescale.php
- * http://fr2.php.net/manual/fr/function.imageflip.php
- */
-
-/**
  * Les images
  *
  * @author anael

@@ -40,7 +40,10 @@ class ressourceObject {
      * @param int $angle xxx° de rotation GAUCHE
      */
     function rotation($angle) {
-
+        /**
+         * TODO - PHP5.5
+         * http://fr2.php.net/manual/fr/function.imageflip.php
+         */
     }
 
     /**
@@ -49,7 +52,10 @@ class ressourceObject {
      * @param int $largeurVoulue Hauteur finale
      */
     function redimensionnement($hauteurVoulue, $largeurVoulue) {
-
+        /*
+         * TODO - PHP5.5
+         * http://fr2.php.net/manual/fr/function.imagescale.php
+         */
     }
 
     /**
