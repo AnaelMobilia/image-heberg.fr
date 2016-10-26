@@ -65,7 +65,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
         // J'éclate les informations
         $resultat = $req->fetch();
-        if ($resultat) {
+        if ($resultat !== FALSE) {
             $this->setId($resultat->id);
             $this->setPoids($resultat->size);
             $this->setHauteur($resultat->height);
