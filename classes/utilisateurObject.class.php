@@ -192,7 +192,6 @@ class utilisateurObject {
 
     /**
      * Connexion d'un utilisateur : vérification & création de la session
-     * @global type $maBDD
      * @return boolean
      */
     public function connexion() {

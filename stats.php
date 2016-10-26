@@ -21,25 +21,25 @@ require 'config/configV2.php';
 require _TPL_TOP_;
 
 // Stats Images
-$reqImage = $maBDD->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff FROM images");
+$reqImage = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff FROM images");
 /* @var $reqImage PDOStatement */
 // Je récupère les valeurs
 $valImage = $reqImage->fetch();
 
 // Stats Miniatures
-$reqMiniature = $maBDD->query("SELECT COUNT(*) AS nb, SUM(t_nb_view_v4 * t_size) AS bpv4, SUM(t_nb_view_v6 * t_size) AS bpv6, SUM(t_nb_view_v4 + t_nb_view_v6) AS nbAff FROM thumbnails");
+$reqMiniature = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(t_nb_view_v4 * t_size) AS bpv4, SUM(t_nb_view_v6 * t_size) AS bpv6, SUM(t_nb_view_v4 + t_nb_view_v6) AS nbAff FROM thumbnails");
 /* @var $reqMiniature PDOStatement */
 // Je récupère les valeurs
 $valMiniature = $reqMiniature->fetch();
 
 // Stats membres
-$reqMembre = $maBDD->query("SELECT COUNT(*) AS nb FROM membres");
+$reqMembre = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM membres");
 /* @var $reqMembre PDOStatement */
 // Je récupère les valeurs
 $valMembre = $reqMembre->fetch();
 
 // Stats membres -> possède
-$reqPossede = $maBDD->query("SELECT COUNT(*) AS nb FROM possede");
+$reqPossede = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
 /* @var $reqPossede PDOStatement */
 // Je récupère les valeurs
 $valPossede = $reqPossede->fetch();

@@ -30,15 +30,12 @@ class metaObject {
      * @return \ArrayObject
      */
     public static function getNeverUsedOneYear() {
-        // BDD
-        global $maBDD;
-
         // Toutes les images jamais affichées & envoyées il y a plus d'un an
         $dateUnAn = date('Y-m-d', strtotime('-1year'));
         $req = "SELECT new_name FROM " . imageObject::tableName . " where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "'";
 
         // Exécution de la requête
-        $resultat = $maBDD->query($req);
+        $resultat = maBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -56,15 +53,12 @@ class metaObject {
      * @return \ArrayObject
      */
     public static function getUnusedThreeYear() {
-        // BDD
-        global $maBDD;
-
         // Toutes les images jnon affichées depuis 3 ans
         $dateTroisAns = date('Y-m-d', strtotime('-3year'));
         $req = "SELECT new_name FROM " . imageObject::tableName . " where last_view < '" . $dateTroisAns . "'";
 
         // Exécution de la requête
-        $resultat = $maBDD->query($req);
+        $resultat = maBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -82,14 +76,11 @@ class metaObject {
      * @return \ArrayObject
      */
     public static function getAllImagesNameBDD() {
-        // BDD
-        global $maBDD;
-
         // Toutes les images
         $req = "SELECT new_name FROM " . imageObject::tableName;
 
         // Exécution de la requête
-        $resultat = $maBDD->query($req);
+        $resultat = maBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -127,14 +118,11 @@ class metaObject {
      * Liste de l'ensemble des miniatures en BDD
      */
     public static function getAllMiniaturesNameBDD() {
-        // BDD
-        global $maBDD;
-
         // Toutes les images
         $req = "SELECT new_name FROM " . imageObject::tableName . ", " . miniatureObject::tableName . " WHERE " . imageObject::tableName . ".id = " . miniatureObject::tableName . ".id";
 
         // Exécution de la requête
-        $resultat = $maBDD->query($req);
+        $resultat = maBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -149,15 +137,12 @@ class metaObject {
 
     /**
      * Toutes les images appartenant à un utilisateur
-     * @global type $maBDD
      * @param type $userId ID de l'user en question
      * @return \ArrayObject new_name image
      */
     public static function getAllPicsOffOneUser($userId) {
-        global $maBDD;
-
         // Toutes les images
-        $req = $maBDD->prepare("SELECT new_name FROM " . utilisateurObject::tableNamePossede . " a, " . imageObject::tableName . " b WHERE a.id = b.id AND pk_membres = ? ");
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM " . utilisateurObject::tableNamePossede . " a, " . imageObject::tableName . " b WHERE a.id = b.id AND pk_membres = ? ");
         /* @var $req PDOStatement */
         $req->bindParam(1, $userId, PDO::PARAM_INT);
 

@@ -194,16 +194,13 @@ class miniatureObject {
 
     /**
      * Charger une miniature
-     * @global type $maBDD
      * @param text $newName newName de l'image maître
      */
     public function charger($newName) {
-        global $maBDD;
-
         $imageMaitre = new imageObject($newName);
 
         // Je vais chercher les infos en BDD
-        $req = $maBDD->prepare("SELECT * FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $imageMaitre->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -224,20 +221,17 @@ class miniatureObject {
 
     /**
      * Sauver en BDD les infos d'une miniature
-     * @global type $maBDD
      */
     public function sauver() {
-        global $maBDD;
-
         // Je supprime les infos pouvant déjà être en BDD pour cette image
-        $req = $maBDD->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
 
         // J'enregistre les infos en BDD
-        $req = $maBDD->prepare("INSERT INTO " . miniatureObject::tableName . " (id, t_size, t_height, t_width, t_last_view, t_nb_view_v4, t_nb_view_v6) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, t_size, t_height, t_width, t_last_view, t_nb_view_v4, t_nb_view_v6) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getSize(), PDO::PARAM_INT);
         $req->bindValue(3, $this->getHeight(), PDO::PARAM_INT);
@@ -251,12 +245,9 @@ class miniatureObject {
 
     /**
      * Supprimer la miniature (HDD & BDD)
-     * @global type $maBDD
      * @return type
      */
     public function supprimer() {
-        global $maBDD;
-
         // Existe-t-il un propriétaire de l'image ?
         if ($this->verifierProprietaire()) {
             // @TODO
@@ -267,7 +258,7 @@ class miniatureObject {
         // Je supprime l'image sur le HDD
         unlink(_PATH_MINIATURES_ . $this->getNewName());
         // Je supprime l'image en BDD
-        $req = $maBDD->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_STR);
         $req->execute();
@@ -275,14 +266,11 @@ class miniatureObject {
 
     /**
      * Un utilisateur est-il propriétaire de la miniature ?
-     * @global type $maBDD
      * @return boolean
      */
     private function verifierProprietaire() {
-        global $maBDD;
-
         // Je vais chercher les infos en BDD
-        $req = $maBDD->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
