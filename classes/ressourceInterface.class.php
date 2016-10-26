@@ -46,11 +46,6 @@ interface ressourceInterface {
     //function creer();
 
     /**
-     * Vérifie les droits sur le fichier
-     */
-    function verifierProprietaire();
-
-    /**
      * Path sur le filesystem
      */
     function getPath();
