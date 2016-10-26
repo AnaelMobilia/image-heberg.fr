@@ -19,6 +19,7 @@
  */
 
 class imageObjectTest extends PHPUnit_Framework_TestCase {
+    protected $backupGlobalsBlacklist = ['maBDD', '$maBDD'];
 
     /**
      * Création d'un compte membre
