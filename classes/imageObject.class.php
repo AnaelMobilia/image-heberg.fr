@@ -32,8 +32,6 @@
 class imageObject extends ressourceObject implements ressourceInterface {
     const tableName = 'images';
 
-    private $oldName;
-
     /**
      * Constructeur
      * @param type $newName nom de l'image
@@ -46,35 +44,11 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Nom original - avec htmlentities
-     * @return type
-     */
-    public function getOldName() {
-        return htmlentities($this->oldName);
-    }
-
-    /**
-     * BDD - nom original (évite un htmlentities en boucle)
-     * @return type
-     */
-    public function getOldNameBDD() {
-        return $this->oldName;
-    }
-
-    /**
      * Path sur le HDD
      * @return type
      */
     public function getPath() {
         return _PATH_IMAGES_ . $this->getNomNouveau();
-    }
-
-    /**
-     * Nom original
-     * @param type $oldName
-     */
-    public function setOldName($oldName) {
-        $this->oldName = $oldName;
     }
 
     /**
@@ -110,7 +84,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $this->setId($resultat->id);
         $this->setIpEnvoi($resultat->ip_envoi);
         $this->setDateEnvoi($resultat->date_envoi);
-        $this->setOldName($resultat->old_name);
+        $this->setNomOriginal($resultat->old_name);
         // Permet l'effacement des fichiers non enregistrés en BDD
         $this->setNomNouveau($newName);
         $this->setPoids($resultat->size);
@@ -138,7 +112,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getIpEnvoi(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getDateEnvoi());
-        $req->bindValue(4, $this->getOldNameBDD(), PDO::PARAM_STR);
+        $req->bindValue(4, $this->getNomOriginal(), PDO::PARAM_STR);
         $req->bindValue(5, $this->getNomNouveau(), PDO::PARAM_STR);
         $req->bindValue(6, $this->getPoids(), PDO::PARAM_INT);
         $req->bindValue(7, $this->getHauteur(), PDO::PARAM_INT);

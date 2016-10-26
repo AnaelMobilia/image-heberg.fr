@@ -118,6 +118,14 @@ class ressourceObject {
     }
 
     /**
+     * Nom original de la ressource
+     * @return string
+     */
+    public function getNomOriginalFormate() {
+        return htmlentities($this->nomOriginal);
+    }
+
+    /**
      * GETTERS ET SETTERS
      */
 

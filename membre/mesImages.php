@@ -48,7 +48,7 @@ require _TPL_TOP_;
                 $uneImage = new imageObject($newName);
                 ?>
                 <tr>
-                    <td><?= $uneImage->getOldName() ?></td>
+                    <td><?= $uneImage->getNomOriginalFormate() ?></td>
                     <td><?= $uneImage->getDateEnvoiFormate() ?></td>
                     <td><?= $uneImage->getLastViewFormate() ?></td>
                     <td><?= $uneImage->getNbViewTotal() ?></td>
