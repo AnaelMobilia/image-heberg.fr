@@ -26,6 +26,7 @@
 
 /**
  * @backupStaticAttributes disabled
+ * @backupGlobals disabled
  */
 class maBDD {
     // PDO

@@ -20,6 +20,7 @@
 
 /**
  * @backupStaticAttributes disabled
+ * @backupGlobals disabled
  */
 class imageObjectTest extends PHPUnit_Framework_TestCase {
 
