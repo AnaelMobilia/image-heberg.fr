@@ -34,7 +34,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Constructeur
-     * @param type $newName nom de l'image
+     * @param string $newName nom de l'image
      */
     function __construct($newName = FALSE) {
         // Si on me donne un ID d'image, je charge l'objet
@@ -45,7 +45,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Path sur le HDD
-     * @return type
+     * @return string
      */
     public function getPath() {
         return _PATH_IMAGES_ . $this->getNomNouveau();
@@ -53,7 +53,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Charger les infos d'une image
-     * @param text $newName nom de l'image
+     * @param string $newName nom de l'image
      */
     public function charger($newName) {
         // Je vais chercher les infos en BDD

@@ -20,15 +20,13 @@
 
 /**
  * Les miniatures
- *
- * @author anael
  */
 class miniatureObject extends ressourceObject implements ressourceInterface {
     const tableName = 'thumbnails';
 
     /**
      * Constructeur
-     * @param type $newName newName de l'image maître
+     * @param string $newName newName de l'image maître
      */
     function __construct($newName = FALSE) {
         // Si on me donne un newName d'image, je charge l'objet
@@ -39,7 +37,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Path sur le HDD
-     * @return type
+     * @return 
      */
     public function getPath() {
         return _PATH_MINIATURES_ . $this->getNomNouveau();
@@ -47,7 +45,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Charger une miniature
-     * @param text $newName newName de l'image maître
+     * @param string $newName newName de l'image maître
      */
     public function charger($newName) {
         $imageMaitre = new imageObject($newName);
