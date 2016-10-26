@@ -25,11 +25,12 @@
 class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function getConnection() {
-
+        $pdo = new PDO('sqlite::memory:');
+        return $this->createDefaultDBConnection($pdo, ':memory:');
     }
 
     public function getDataSet() {
-
+        return null;
     }
 
     /**
