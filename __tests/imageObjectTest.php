@@ -22,6 +22,8 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Création d'un compte membre
+     * // Réactivation des variables globales
+     * @backupGlobals disabled
      */
     public function testMembreCreerCompte() {
         /**
