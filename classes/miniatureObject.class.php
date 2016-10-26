@@ -23,17 +23,10 @@
  *
  * @author anael
  */
-class miniatureObject {
+class miniatureObject extends ressourceObject implements ressourceInterface {
     const tableName = 'thumbnails';
 
-    private $size;
-    private $height;
-    private $width;
-    private $lastView = "";
     private $id;
-    private $nbViewV4 = 0;
-    private $nbViewV6 = 0;
-    private $newName;
 
     /**
      * Constructeur
@@ -47,99 +40,11 @@ class miniatureObject {
     }
 
     /**
-     * Poids
-     * @return type
-     */
-    public function getSize() {
-        return $this->size;
-    }
-
-    /**
-     * Hauteur
-     * @return type
-     */
-    public function getHeight() {
-        return $this->height;
-    }
-
-    /**
-     * Largeur
-     * @return type
-     */
-    public function getWidth() {
-        return $this->width;
-    }
-
-    /**
-     * Date du dernier affichage
-     * @return type
-     */
-    public function getLastView() {
-        return $this->lastView;
-    }
-
-    /**
      * ID
      * @return type
      */
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * Nombre d'affichage en IPv4
-     * @return type
-     */
-    public function getNbViewV4() {
-        return $this->nbViewV4;
-    }
-
-    /**
-     * Nombre d'affichage en IPv6
-     * @return type
-     */
-    public function getNbViewV6() {
-        return $this->nbViewV6;
-    }
-
-    /**
-     * Nom du fichier sur le HDD
-     * @return type
-     */
-    public function getNewName() {
-        return $this->newName;
-    }
-
-    /**
-     * Poids
-     * @param type $size
-     */
-    public function setSize($size) {
-        $this->size = $size;
-    }
-
-    /**
-     * Hauteur
-     * @param type $height
-     */
-    public function setHeight($height) {
-        $this->height = $height;
-    }
-
-    /**
-     * Largeur
-     * @param type $width
-     */
-    public function setWidth($width) {
-        $this->width = $width;
-    }
-
-    /**
-     * Date du dernier affichage
-     * @param type $lastView
-     */
-    public function setLastView($lastView) {
-        $this->lastView = $lastView;
     }
 
     /**
@@ -154,42 +59,18 @@ class miniatureObject {
      * Incrémente le nombre d'affichage IPv4 & met à jour en BDD
      */
     public function setNbViewV4PlusUn() {
-        $this->nbViewV4 = $this->getNbViewV4() + 1;
+        $this->nbViewV4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();
-    }
-
-    /**
-     * Nombre d'appels en IPv4
-     * @param type $nbViewV4
-     */
-    public function setNbViewV4($nbViewV4) {
-        $this->nbViewV4 = $nbViewV4;
     }
 
     /**
      * Incrémente le nombre d'affichage IPv6 & met à jour en BDD
      */
     public function setNbViewV6PlusUn() {
-        $this->nbViewV6 = $this->getNbViewV6() + 1;
+        $this->nbViewV6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();
-    }
-
-    /**
-     * Nombre d'appels en IPv6
-     * @param type $nbViewV6
-     */
-    public function setNbViewV6($nbViewV6) {
-        $this->nbViewV6 = $nbViewV6;
-    }
-
-    /**
-     * Nom du fichier sur le HDD
-     * @param type $newName
-     */
-    public function setNewName($newName) {
-        $this->newName = $newName;
     }
 
     /**
@@ -208,15 +89,15 @@ class miniatureObject {
         // J'éclate les informations
         $resultat = $req->fetch();
         $this->setId($resultat->id);
-        $this->setSize($resultat->t_size);
-        $this->setHeight($resultat->t_height);
-        $this->setWidth($resultat->t_width);
+        $this->setPoids($resultat->t_size);
+        $this->setHauteur($resultat->t_height);
+        $this->setPoids($resultat->t_width);
         $this->setLastView($resultat->t_last_view);
-        $this->setNbViewV4($resultat->t_nb_view_v4);
-        $this->setNbViewV6($resultat->t_nb_view_v6);
+        $this->setNbViewIPv4($resultat->t_nb_view_v4);
+        $this->setNbViewIPv6($resultat->t_nb_view_v6);
 
         // Et je reprend le nom de l'image maître
-        $this->setNewName($imageMaitre->getNewName());
+        $this->setNomNouveau($imageMaitre->getNomNouveau());
     }
 
     /**
@@ -233,12 +114,12 @@ class miniatureObject {
         // J'enregistre les infos en BDD
         $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, t_size, t_height, t_width, t_last_view, t_nb_view_v4, t_nb_view_v6) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->bindValue(2, $this->getSize(), PDO::PARAM_INT);
-        $req->bindValue(3, $this->getHeight(), PDO::PARAM_INT);
-        $req->bindValue(4, $this->getWidth(), PDO::PARAM_INT);
+        $req->bindValue(2, $this->getPoids(), PDO::PARAM_INT);
+        $req->bindValue(3, $this->getHauteur(), PDO::PARAM_INT);
+        $req->bindValue(4, $this->getLargeur(), PDO::PARAM_INT);
         $req->bindValue(5, $this->getLastView());
-        $req->bindValue(6, $this->getNbViewV4(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getNbViewV6(), PDO::PARAM_INT);
+        $req->bindValue(6, $this->getNbViewIPv4(), PDO::PARAM_INT);
+        $req->bindValue(7, $this->getNbViewIPv6(), PDO::PARAM_INT);
 
         $req->execute();
     }
@@ -251,12 +132,12 @@ class miniatureObject {
         // Existe-t-il un propriétaire de l'image ?
         if ($this->verifierProprietaire()) {
             // @TODO
-            echo "proprio " . $this->getNewName();
+            echo "proprio " . $this->getNomNouveau();
             return;
         }
 
         // Je supprime l'image sur le HDD
-        unlink(_PATH_MINIATURES_ . $this->getNewName());
+        unlink(_PATH_MINIATURES_ . $this->getNomNouveau());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */

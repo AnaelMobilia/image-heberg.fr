@@ -29,21 +29,11 @@
  *
  * @author anael
  */
-class imageObject {
+class imageObject extends ressourceObject implements ressourceInterface {
     const tableName = 'images';
 
     private $id;
-    private $ipEnvoi;
-    private $dateEnvoi;
     private $oldName;
-    private $newName;
-    private $size;
-    private $height;
-    private $width;
-    private $lastView;
-    private $nbViewV4;
-    private $nbViewV6;
-    private $md5;
 
     /**
      * Constructeur
@@ -65,31 +55,6 @@ class imageObject {
     }
 
     /**
-     * IP d'envoi
-     * @return type
-     */
-    public function getIpEnvoi() {
-        return $this->ipEnvoi;
-    }
-
-    /**
-     * Date d'envoi formatée
-     * @return type
-     */
-    public function getDateEnvoiFormate() {
-        $phpdate = strtotime($this->dateEnvoi);
-        return date("d/m/Y H:i:s", $phpdate);
-    }
-
-    /**
-     * Date d'envoi
-     * @return type
-     */
-    private function getDateEnvoi() {
-        return $this->dateEnvoi;
-    }
-
-    /**
      * Nom original - avec htmlentities
      * @return type
      */
@@ -106,97 +71,11 @@ class imageObject {
     }
 
     /**
-     * Nom dans le système
-     * @return type
-     */
-    public function getNewName() {
-        return $this->newName;
-    }
-
-    /**
      * Path sur le HDD
      * @return type
      */
     public function getPath() {
-        return _PATH_IMAGES_ . $this->getNewName();
-    }
-
-    /**
-     * Taille
-     * @return type
-     */
-    public function getSize() {
-        return $this->size;
-    }
-
-    /**
-     * Hauteur
-     * @return type
-     */
-    public function getHeight() {
-        return $this->height;
-    }
-
-    /**
-     * Largeur
-     * @return type
-     */
-    public function getWidth() {
-        return $this->width;
-    }
-
-    /**
-     * Date de dernier affichage formaté
-     * @return type
-     */
-    public function getLastViewFormate() {
-        $phpdate = strtotime($this->lastView);
-
-        // Gestion du cas de non affichage
-        if ($phpdate == 0) {
-            return "-";
-        }
-        return date("d/m/Y", $phpdate);
-    }
-
-    /**
-     * Date de dernier affichage
-     * @return type
-     */
-    private function getLastView() {
-        return $this->lastView;
-    }
-
-    /**
-     * Nombre d'appels en IPv4
-     * @return type
-     */
-    public function getNbViewV4() {
-        return $this->nbViewV4;
-    }
-
-    /**
-     * Nombre d'appels en IPv6
-     * @return type
-     */
-    public function getNbViewV6() {
-        return $this->nbViewV6;
-    }
-
-    /**
-     * Nombre d'appels IPv4 & IPv6
-     * @return type
-     */
-    public function getNbViewTotal() {
-        return $this->getNbViewV4() + $this->getNbViewV6();
-    }
-
-    /**
-     * MD5
-     * @return type
-     */
-    public function getMd5() {
-        return $this->md5;
+        return _PATH_IMAGES_ . $this->getNomNouveau();
     }
 
     /**
@@ -208,22 +87,6 @@ class imageObject {
     }
 
     /**
-     * IP d'envoi
-     * @param type $ipEnvoi
-     */
-    public function setIpEnvoi($ipEnvoi) {
-        $this->ipEnvoi = $ipEnvoi;
-    }
-
-    /**
-     * Date d'envoi
-     * @param type $dateEnvoi
-     */
-    public function setDateEnvoi($dateEnvoi) {
-        $this->dateEnvoi = $dateEnvoi;
-    }
-
-    /**
      * Nom original
      * @param type $oldName
      */
@@ -232,85 +95,21 @@ class imageObject {
     }
 
     /**
-     * Nom dans le système
-     * @param type $newName
-     */
-    public function setNewName($newName) {
-        $this->newName = $newName;
-    }
-
-    /**
-     * Taille
-     * @param type $size
-     */
-    public function setSize($size) {
-        $this->size = $size;
-    }
-
-    /**
-     * Hauteur
-     * @param type $height
-     */
-    public function setHeight($height) {
-        $this->height = $height;
-    }
-
-    /**
-     * Largeur
-     * @param type $width
-     */
-    public function setWidth($width) {
-        $this->width = $width;
-    }
-
-    /**
-     * Date de dernier affichage
-     * @param type $lastView
-     */
-    public function setLastView($lastView) {
-        $this->lastView = $lastView;
-    }
-
-    /**
      * Incrémente le nombre d'affichage IPv4 & met à jour en BDD
      */
     public function setNbViewV4PlusUn() {
-        $this->nbViewV4 = $this->getNbViewV4() + 1;
+        $this->nbViewV4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();
-    }
-
-    /**
-     * Nombre d'appels en IPv4
-     * @param type $nbViewV4
-     */
-    public function setNbViewV4($nbViewV4) {
-        $this->nbViewV4 = $nbViewV4;
     }
 
     /**
      * Incrémente le nombre d'affichage IPv6 & met à jour en BDD
      */
     public function setNbViewV6PlusUn() {
-        $this->nbViewV6 = $this->getNbViewV6() + 1;
+        $this->nbViewV6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
         $this->sauver();
-    }
-
-    /**
-     * Nombre d'appels en IPv6
-     * @param type $nbViewV6
-     */
-    public function setNbViewV6($nbViewV6) {
-        $this->nbViewV6 = $nbViewV6;
-    }
-
-    /**
-     * MD5
-     * @param type $md5
-     */
-    public function setMd5($md5) {
-        $this->md5 = $md5;
     }
 
     /**
@@ -330,13 +129,13 @@ class imageObject {
         $this->setDateEnvoi($resultat->date_envoi);
         $this->setOldName($resultat->old_name);
         // Permet l'effacement des fichiers non enregistrés en BDD
-        $this->setNewName($newName);
-        $this->setSize($resultat->size);
-        $this->setHeight($resultat->height);
-        $this->setWidth($resultat->width);
+        $this->setNomNouveau($newName);
+        $this->setPoids($resultat->size);
+        $this->setHauteur($resultat->height);
+        $this->setLargeur($resultat->width);
         $this->setLastView($resultat->last_view);
-        $this->setNbViewV4($resultat->nb_view_v4);
-        $this->setNbViewV6($resultat->nb_view_v6);
+        $this->setNbViewIPv4($resultat->nb_view_v4);
+        $this->setNbViewIPv6($resultat->nb_view_v6);
         $this->setMd5($resultat->md5);
     }
 
@@ -357,13 +156,13 @@ class imageObject {
         $req->bindValue(2, $this->getIpEnvoi(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getDateEnvoi());
         $req->bindValue(4, $this->getOldNameBDD(), PDO::PARAM_STR);
-        $req->bindValue(5, $this->getNewName(), PDO::PARAM_STR);
-        $req->bindValue(6, $this->getSize(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getHeight(), PDO::PARAM_INT);
-        $req->bindValue(8, $this->getWidth(), PDO::PARAM_INT);
+        $req->bindValue(5, $this->getNomNouveau(), PDO::PARAM_STR);
+        $req->bindValue(6, $this->getPoids(), PDO::PARAM_INT);
+        $req->bindValue(7, $this->getHauteur(), PDO::PARAM_INT);
+        $req->bindValue(8, $this->getLargeur(), PDO::PARAM_INT);
         $req->bindValue(9, $this->getLastView());
-        $req->bindValue(10, $this->getNbViewV4(), PDO::PARAM_INT);
-        $req->bindValue(11, $this->getNbViewV6(), PDO::PARAM_INT);
+        $req->bindValue(10, $this->getNbViewIPv4(), PDO::PARAM_INT);
+        $req->bindValue(11, $this->getNbViewIPv6(), PDO::PARAM_INT);
         $req->bindValue(12, $this->getMd5(), PDO::PARAM_STR);
 
         $req->execute();
@@ -377,19 +176,19 @@ class imageObject {
         // Existe-t-il un propriétaire de l'image ?
         if ($this->verifierProprietaire()) {
             // TODO
-            echo "proprio " . $this->getNewName();
+            echo "proprio " . $this->getNomNouveau();
             return;
         }
 
         // Existe-t-il une miniature de l'image ?
         if ($this->verifierMiniature()) {
-            $maMiniature = new miniatureObject($this->getNewName());
+            $maMiniature = new miniatureObject($this->getNomNouveau());
             $maMiniature->supprimer();
         }
-        echo "<br />Suppression de " . $this->getNewName();
+        echo "<br />Suppression de " . $this->getNomNouveau();
 
         // Je supprime l'image sur le HDD
-        unlink(_PATH_IMAGES_ . $this->getNewName());
+        unlink(_PATH_IMAGES_ . $this->getNomNouveau());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */
@@ -424,7 +223,7 @@ class imageObject {
      * Un utilisateur est-il propriétaire de l'image ?
      * @return boolean
      */
-    private function verifierProprietaire() {
+    public function verifierProprietaire() {
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
         /* @var $req PDOStatement */
@@ -458,11 +257,11 @@ class imageObject {
     public function refreshInfos() {
         // Dimensions
         $dim = getimagesize($this->getPath());
-        $this->setWidth($dim[0]);
-        $this->setHeight($dim[1]);
+        $this->setLargeur($dim[0]);
+        $this->setHauteur($dim[1]);
 
         // Poids de l'image
-        $this->setSize(filesize($this->getPath()));
+        $this->setPoids(filesize($this->getPath()));
     }
 
     /**

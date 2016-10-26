@@ -53,12 +53,12 @@ require _TPL_TOP_;
                     <td><?= $uneImage->getLastViewFormate() ?></td>
                     <td><?= $uneImage->getNbViewTotal() ?></td>
                     <td>
-                        <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNewName() ?>' target="_blank">
+                        <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
                             <span class="glyphicon glyphicon-share"></span>
                         </a>
                     </td>
                     <td>
-                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNewName() ?>' target="_blank">
+                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>' target="_blank">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </td>

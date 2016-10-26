@@ -103,8 +103,8 @@ class toolPicsObject {
      * @param int $hauteurDemandee hauteur
      */
     public function faireMiniature(imageObject $uneImage, $largeurDemandee, $hauteurDemandee) {
-        $largeurImage = $uneImage->getWidth();
-        $hauteurImage = $uneImage->getHeight();
+        $largeurImage = $uneImage->getLargeur();
+        $hauteurImage = $uneImage->getHauteur();
 
         // Dimension nulle : on arrête
         if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0) {
@@ -128,7 +128,7 @@ class toolPicsObject {
         $newImage = imagescale($uneImage->getImage(), $largeurMiniature, $hauteurMiniature);
 
         // Création de la miniature (en mémoire + HDD)
-        $path = _PATH_MINIATURES_ . $uneImage->getNewName();
+        $path = _PATH_MINIATURES_ . $uneImage->getNomNouveau();
         if ($uneImage->getType() == IMAGETYPE_GIF) {
             imagegif($newImage, $path);
         } else if ($uneImage->getType() == IMAGETYPE_JPEG) {
@@ -140,10 +140,10 @@ class toolPicsObject {
         // Je crée l'objet
         $maMiniature = new miniatureObject();
         // Dimensions
-        $maMiniature->setWidth(imagesx($newImage));
-        $maMiniature->setHeight(imagesy($newImage));
+        $maMiniature->setPoids(imagesx($newImage));
+        $maMiniature->setHauteur(imagesy($newImage));
         // Poids
-        $maMiniature->setSize(filesize($path));
+        $maMiniature->setPoids(filesize($path));
         // ID
         $maMiniature->setId($uneImage->getId());
 
