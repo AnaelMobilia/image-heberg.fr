@@ -84,7 +84,6 @@ define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
 spl_autoload_register(function ($class) {
     // Code spécifique Travis : pas de chargement des classes de PHPUnit
     if (strpos($class, "PHPUnit") === FALSE && strpos($class, "Composer") === FALSE) {
-        throw new Exception(var_dump($class));
         require _PATH_ . 'classes/' . $class . '.class.php';
     }
 });
