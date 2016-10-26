@@ -19,13 +19,9 @@
  */
 
 class imageObjectTest extends PHPUnit_Framework_TestCase {
-    //function __construct() {
-    // require 'config/configV2.php';
-    //}
 
     /**
      * Création d'un compte membre
-     * @runInSeparateProcess
      */
     public function testMembreCreerCompte() {
         /**
