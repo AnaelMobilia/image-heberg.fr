@@ -24,6 +24,7 @@
  * @author Anael
  */
 class ressourceObject {
+    private $id;
     private $nomOriginal;
     private $nomNouveau;
     private $largeur;
@@ -51,6 +52,38 @@ class ressourceObject {
      */
     function redimensionnement($hauteurVoulue, $largeurVoulue) {
 
+    }
+
+    /**
+     * Un utilisateur est-il propriétaire de l'image ?
+     * @return boolean
+     */
+    public function verifierProprietaire() {
+        // Je vais chercher les infos en BDD
+        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
+        /* @var $req PDOStatement */
+        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+        $req->execute();
+
+        // Retour négatif par défaut
+        $retour = FALSE;
+
+        // Je récupère les potentielles valeurs
+        $values = $req->fetch();
+
+        // Si l'image à un propriétaire...
+        if ($values !== FALSE) {
+            // Le propriétaire est-il connecté ?
+            $uneSession = new sessionObject();
+
+            // Est-ce le propriétaire de l'image ?
+            if ($values->pk_membres === $uneSession->getId()) {
+                // Si oui... on confirme !
+                $retour = TRUE;
+            }
+        }
+
+        return $retour;
     }
 
     /**
@@ -87,6 +120,14 @@ class ressourceObject {
     /**
      * GETTERS ET SETTERS
      */
+
+    /**
+     * ID de la ressource
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * Nom original de la ressource
@@ -174,6 +215,14 @@ class ressourceObject {
      */
     public function getIpEnvoi() {
         return $this->ipEnvoi;
+    }
+
+    /**
+     * ID de l'image
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
     }
 
     /**

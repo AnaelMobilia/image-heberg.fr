@@ -26,8 +26,6 @@
 class miniatureObject extends ressourceObject implements ressourceInterface {
     const tableName = 'thumbnails';
 
-    private $id;
-
     /**
      * Constructeur
      * @param type $newName newName de l'image maître
@@ -45,22 +43,6 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      */
     public function getPath() {
         return _PATH_MINIATURES_ . $this->getNomNouveau();
-    }
-
-    /**
-     * ID
-     * @return type
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * ID
-     * @param type $id
-     */
-    public function setId($id) {
-        $this->id = $id;
     }
 
     /**
@@ -151,38 +133,6 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_STR);
         $req->execute();
-    }
-
-    /**
-     * Un utilisateur est-il propriétaire de la miniature ?
-     * @return boolean
-     */
-    private function verifierProprietaire() {
-        // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
-        // Retour négatif par défaut
-        $retour = FALSE;
-
-        // Je récupère les potentielles valeurs
-        $values = $req->fetch();
-
-        // Si l'image à un propriétaire...
-        if ($values !== FALSE) {
-            // Le propriétaire est-il connecté ?
-            $uneSession = new sessionObject();
-
-            // Est-ce le propriétaire de l'image ?
-            if ($values->pk_membres === $uneSession->getId()) {
-                // Si oui... on confirme !
-                $retour = TRUE;
-            }
-        }
-
-        return $retour;
     }
 
 }

@@ -32,7 +32,6 @@
 class imageObject extends ressourceObject implements ressourceInterface {
     const tableName = 'images';
 
-    private $id;
     private $oldName;
 
     /**
@@ -44,14 +43,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
         if ($newName) {
             $this->charger($newName);
         }
-    }
-
-    /**
-     * ID de l'image
-     * @return type
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
@@ -76,14 +67,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
      */
     public function getPath() {
         return _PATH_IMAGES_ . $this->getNomNouveau();
-    }
-
-    /**
-     * ID de l'image
-     * @param type $id
-     */
-    public function setId($id) {
-        $this->id = $id;
     }
 
     /**
@@ -214,38 +197,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
         if ($req->fetch()) {
             // Le retour est positif
             $retour = TRUE;
-        }
-
-        return $retour;
-    }
-
-    /**
-     * Un utilisateur est-il propriétaire de l'image ?
-     * @return boolean
-     */
-    public function verifierProprietaire() {
-        // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNamePossede . " WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
-        // Retour négatif par défaut
-        $retour = FALSE;
-
-        // Je récupère les potentielles valeurs
-        $values = $req->fetch();
-
-        // Si l'image à un propriétaire...
-        if ($values !== FALSE) {
-            // Le propriétaire est-il connecté ?
-            $uneSession = new sessionObject();
-
-            // Est-ce le propriétaire de l'image ?
-            if ($values->pk_membres === $uneSession->getId()) {
-                // Si oui... on confirme !
-                $retour = TRUE;
-            }
         }
 
         return $retour;
