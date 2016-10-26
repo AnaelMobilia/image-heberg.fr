@@ -86,7 +86,7 @@ spl_autoload_register(function ($class) {
     if (strpos($class, "PHPUnit")) {
         require _PATH_ . 'classes/' . $class . '.class.php';
     }
-    throw new Exception($class);
+    throw new Exception(var_dump($class));
 });
 
 // Connexion centralisée à la BDD
