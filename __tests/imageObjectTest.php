@@ -24,6 +24,14 @@
  */
 class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
 
+    public function getConnection() {
+
+    }
+
+    public function getDataSet() {
+
+    }
+
     /**
      * Création d'un compte membre
      */
