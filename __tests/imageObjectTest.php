@@ -21,8 +21,7 @@
 class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     function __construct() {
-        require 'config/configV2.php';
-        $monUtilisateur = new utilisateurObject();
+        // require 'config/configV2.php';
     }
 
     /**
