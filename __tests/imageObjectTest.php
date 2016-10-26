@@ -22,7 +22,7 @@
  * @backupStaticAttributes disabled
  * @backupGlobals disabled
  */
-class imageObjectTest extends PHPUnit_Framework_TestCase {
+class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
      * Création d'un compte membre
