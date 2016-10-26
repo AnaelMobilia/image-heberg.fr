@@ -71,8 +71,11 @@ if (isset($_POST['valider'])) {
 
         // TODO : envoi d'un mail avec les identifiants de l'utilisateur
         // voir une création de compte avec validation par mail ?
-        // Redirection sur la page d'accueil
-        header('Location: ' . _URL_);
+
+        if (!_TRAVIS_) {
+            // Redirection sur la page d'accueil - sauf si mode tests
+            header('Location: ' . _URL_);
+        }
         die();
     } else {
         ?>
