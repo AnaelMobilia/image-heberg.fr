@@ -199,11 +199,6 @@ class metaObject {
      * @param type $login
      * @return boolean
      */
-
-    /**
-     * @backupGlobals disabled
-     * @backupStaticAttributes disabled
-     */
     public static function verifierLoginDisponible($login) {
         global $maBDD;
 
