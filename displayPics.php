@@ -67,4 +67,5 @@ if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     // IPv6
     $fileObject->setNbViewIpv6PlusUn();
 }
+$fileObject->sauver();
 ?>
