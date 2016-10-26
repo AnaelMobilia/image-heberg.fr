@@ -61,12 +61,12 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         // J'éclate les informations
         $resultat = $req->fetch();
         $this->setId($resultat->id);
-        $this->setPoids($resultat->t_size);
-        $this->setHauteur($resultat->t_height);
-        $this->setPoids($resultat->t_width);
-        $this->setLastView($resultat->t_last_view);
-        $this->setNbViewIPv4($resultat->t_nb_view_v4);
-        $this->setNbViewIPv6($resultat->t_nb_view_v6);
+        $this->setPoids($resultat->size);
+        $this->setHauteur($resultat->height);
+        $this->setPoids($resultat->width);
+        $this->setLastView($resultat->last_view);
+        $this->setNbViewIPv4($resultat->nb_view_v4);
+        $this->setNbViewIPv6($resultat->nb_view_v6);
 
         // Et je reprend le nom de l'image maître
         $this->setNomNouveau($imageMaitre->getNomNouveau());
@@ -84,7 +84,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
 
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, t_size, t_height, t_width, t_last_view, t_nb_view_v4, t_nb_view_v6) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, size, height, width, last_view, nb_view_v4, nb_view_v6) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getPoids(), PDO::PARAM_INT);
         $req->bindValue(3, $this->getHauteur(), PDO::PARAM_INT);

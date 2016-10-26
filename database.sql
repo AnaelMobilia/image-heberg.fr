@@ -182,12 +182,12 @@ CREATE TABLE IF NOT EXISTS `sondage` (
 
 CREATE TABLE IF NOT EXISTS `thumbnails` (
   `id` int(11) NOT NULL,
-  `t_size` int(11) NOT NULL,
-  `t_height` int(11) NOT NULL,
-  `t_width` int(11) NOT NULL,
-  `t_last_view` date NOT NULL,
-  `t_nb_view_v4` int(11) NOT NULL DEFAULT '0',
-  `t_nb_view_v6` int(11) NOT NULL DEFAULT '0',
+  `size` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
+  `width` int(11) NOT NULL,
+  `last_view` date NOT NULL,
+  `nb_view_v4` int(11) NOT NULL DEFAULT '0',
+  `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
