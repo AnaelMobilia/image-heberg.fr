@@ -51,6 +51,9 @@ class maBDD {
         if (is_null(self::$monInstance)) {
             self::$monInstance = new maBDD();
         }
+
+        throw new Exception(var_dump(self::$monInstance));
+
         return self::$monInstance;
     }
 
