@@ -40,6 +40,14 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
+     * Path sur le HDD
+     * @return type
+     */
+    public function getPath() {
+        return _PATH_MINIATURES_ . $this->getNomNouveau();
+    }
+
+    /**
      * ID
      * @return type
      */
@@ -137,7 +145,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         }
 
         // Je supprime l'image sur le HDD
-        unlink(_PATH_MINIATURES_ . $this->getNomNouveau());
+        unlink($this->getPath());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */

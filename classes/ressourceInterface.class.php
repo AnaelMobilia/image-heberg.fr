@@ -49,4 +49,9 @@ interface ressourceInterface {
      * Vérifie les droits sur le fichier
      */
     function verifierProprietaire();
+
+    /**
+     * Path sur le filesystem
+     */
+    public function getPath();
 }

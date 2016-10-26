@@ -188,7 +188,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         echo "<br />Suppression de " . $this->getNomNouveau();
 
         // Je supprime l'image sur le HDD
-        unlink(_PATH_IMAGES_ . $this->getNomNouveau());
+        unlink($this->getPath());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */

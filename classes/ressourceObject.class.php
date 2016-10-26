@@ -33,7 +33,6 @@ class ressourceObject {
     private $nbViewIPv4;
     private $nbViewIPv6;
     private $dateEnvoi;
-    private $path;
     private $md5;
     private $ipEnvoi;
 
@@ -162,14 +161,6 @@ class ressourceObject {
     }
 
     /**
-     * Path sur le filesystem
-     * @return string
-     */
-    public function getPath() {
-        return $this->path;
-    }
-
-    /**
      * MD5 de la ressource
      * @return string
      */
@@ -255,14 +246,6 @@ class ressourceObject {
      */
     public function setDateEnvoi($dateEnvoi) {
         $this->dateEnvoi = $dateEnvoi;
-    }
-
-    /**
-     * Path sur le filesystem
-     * @param string $path
-     */
-    public function setPath($path) {
-        $this->path = $path;
     }
 
     /**
