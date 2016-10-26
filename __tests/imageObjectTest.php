@@ -18,6 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+/**
+ * @backupStaticAttributes disabled
+ */
 class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     /**
