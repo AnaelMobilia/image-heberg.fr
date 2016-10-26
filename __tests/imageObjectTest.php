@@ -18,22 +18,10 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-/**
- * @backupGlobals disabled
- * @backupStaticAttributes disabled
- */
 class imageObjectTest extends PHPUnit_Framework_TestCase {
-    protected $backupGlobalsBlacklist = ['maBDD', '$maBDD'];
 
     /**
      * Création d'un compte membre
-     * // Réactivation des variables globales
-     * @backupGlobals disabled
-     */
-
-    /**
-     * @backupGlobals disabled
-     * @backupStaticAttributes disabled
      */
     public function testMembreCreerCompte() {
         /**
