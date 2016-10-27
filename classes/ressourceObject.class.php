@@ -34,6 +34,7 @@ abstract class ressourceObject {
     private $dateEnvoi;
     private $md5;
     private $ipEnvoi;
+    private $bloque;
 
     /**
      * Rotation d'une ressource <br />
@@ -291,6 +292,22 @@ abstract class ressourceObject {
      */
     public function getIpEnvoi() {
         return $this->ipEnvoi;
+    }
+
+    /**
+     * Fichier bloqué ?
+     * @return boolean
+     */
+    public function getBloque() {
+        return $this->bloque;
+    }
+
+    /**
+     * Fichier bloqué ?
+     * @param boolean $bloque
+     */
+    public function setBloque($bloque) {
+        $this->bloque = $bloque;
     }
 
     /**

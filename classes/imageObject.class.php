@@ -75,6 +75,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
             $this->setNbViewIPv4($resultat->nb_view_v4);
             $this->setNbViewIPv6($resultat->nb_view_v6);
             $this->setMd5($resultat->md5);
+            $this->setBloque($resultat->bloque);
 
             // Gestion du retour
             $monRetour = TRUE;
@@ -95,7 +96,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
 
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . imageObject::tableName . " (id, ip_envoi, date_envoi, old_name, new_name, size, height, width, last_view, nb_view_v4, nb_view_v6, md5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO " . imageObject::tableName . " (id, ip_envoi, date_envoi, old_name, new_name, size, height, width, last_view, nb_view_v4, nb_view_v6, md5, bloque) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getIpEnvoi(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getDateEnvoi());
@@ -108,6 +109,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $req->bindValue(10, $this->getNbViewIPv4(), PDO::PARAM_INT);
         $req->bindValue(11, $this->getNbViewIPv6(), PDO::PARAM_INT);
         $req->bindValue(12, $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(13, $this->getBloque(), PDO::PARAM_BOOL);
 
         $req->execute();
     }
