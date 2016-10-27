@@ -202,7 +202,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('admin', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('monPassword');
+        $monMembre->setPassword('monPasssdfword');
         $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
