@@ -42,7 +42,7 @@ switch ($_GET['type']) {
 
 // Envoi de l'entête HTTP
 // Je détermine le type de l'image
-$typeImage = exif_imagetype($filePath);
+$typeImage = outils::getType($filePath);
 // Le type mime qui va bien
 $mimeType = image_type_to_mime_type($typeImage);
 header("Content-type: " . $mimeType);
