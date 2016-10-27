@@ -39,7 +39,7 @@ abstract class ressourceObject {
      * Rotation d'une ressource
      * @param int $angle xxx° de rotation GAUCHE
      */
-    function rotation($angle) {
+    function rotation($angle, $pathSrc, $pathDst) {
         /**
          * TODO - PHP5.5
          * http://fr2.php.net/manual/fr/function.imageflip.php
@@ -51,7 +51,7 @@ abstract class ressourceObject {
      * @param int $hauteurVoulue Largeur finale
      * @param int $largeurVoulue Hauteur finale
      */
-    function redimensionnement($hauteurVoulue, $largeurVoulue) {
+    function redimensionnement($hauteurVoulue, $largeurVoulue, $pathSrc, $pathDst) {
         /*
          * TODO - PHP5.5
          * http://fr2.php.net/manual/fr/function.imagescale.php
@@ -201,7 +201,7 @@ abstract class ressourceObject {
      * Date de dernier affichage
      * @return type
      */
-    public function getLastView() {
+    protected function getLastView() {
         return $this->lastView;
     }
 
@@ -209,7 +209,7 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv4
      * @return int
      */
-    public function getNbViewIPv4() {
+    protected function getNbViewIPv4() {
         return $this->nbViewIPv4;
     }
 
@@ -217,7 +217,7 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv6
      * @return int
      */
-    public function getNbViewIPv6() {
+    protected function getNbViewIPv6() {
         return $this->nbViewIPv6;
     }
 
@@ -225,7 +225,7 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @return type
      */
-    public function getDateEnvoi() {
+    protected function getDateEnvoi() {
         return $this->dateEnvoi;
     }
 
@@ -249,7 +249,7 @@ abstract class ressourceObject {
      * ID de l'image
      * @param int $id
      */
-    public function setId($id) {
+    protected function setId($id) {
         $this->id = $id;
     }
 
@@ -257,7 +257,7 @@ abstract class ressourceObject {
      * Nom original de la ressource
      * @param string $nomOriginal
      */
-    public function setNomOriginal($nomOriginal) {
+    protected function setNomOriginal($nomOriginal) {
         $this->nomOriginal = $nomOriginal;
     }
 
@@ -265,7 +265,7 @@ abstract class ressourceObject {
      * Nom image-heberg
      * @param string $nomNouveau
      */
-    public function setNomNouveau($nomNouveau) {
+    protected function setNomNouveau($nomNouveau) {
         $this->nomNouveau = $nomNouveau;
     }
 
@@ -273,7 +273,7 @@ abstract class ressourceObject {
      * Largeur en px
      * @param int $largeur
      */
-    public function setLargeur($largeur) {
+    protected function setLargeur($largeur) {
         $this->largeur = $largeur;
     }
 
@@ -281,7 +281,7 @@ abstract class ressourceObject {
      * Hauteur en px
      * @param int $hauteur
      */
-    public function setHauteur($hauteur) {
+    protected function setHauteur($hauteur) {
         $this->hauteur = $hauteur;
     }
 
@@ -289,7 +289,7 @@ abstract class ressourceObject {
      * Poids de la ressource
      * @param int $poids
      */
-    public function setPoids($poids) {
+    protected function setPoids($poids) {
         $this->poids = $poids;
     }
 
@@ -297,7 +297,7 @@ abstract class ressourceObject {
      * Date de dernier affichage
      * @param type $lastView
      */
-    public function setLastView($lastView) {
+    protected function setLastView($lastView) {
         $this->lastView = $lastView;
     }
 
@@ -305,7 +305,7 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv4
      * @param int $nbViewIPv4
      */
-    public function setNbViewIPv4($nbViewIPv4) {
+    protected function setNbViewIPv4($nbViewIPv4) {
         $this->nbViewIPv4 = $nbViewIPv4;
     }
 
@@ -313,7 +313,7 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv6
      * @param int $nbViewIPv6
      */
-    public function setNbViewIPv6($nbViewIPv6) {
+    protected function setNbViewIPv6($nbViewIPv6) {
         $this->nbViewIPv6 = $nbViewIPv6;
     }
 
@@ -321,7 +321,7 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @param type $dateEnvoi
      */
-    public function setDateEnvoi($dateEnvoi) {
+    protected function setDateEnvoi($dateEnvoi) {
         $this->dateEnvoi = $dateEnvoi;
     }
 
@@ -329,7 +329,7 @@ abstract class ressourceObject {
      * MD5 de la ressource
      * @param string $md5
      */
-    public function setMd5($md5) {
+    protected function setMd5($md5) {
         $this->md5 = $md5;
     }
 
@@ -337,7 +337,7 @@ abstract class ressourceObject {
      * @ IP d'envoi
      * @param string $ipEnvoi
      */
-    public function setIpEnvoi($ipEnvoi) {
+    protected function setIpEnvoi($ipEnvoi) {
         $this->ipEnvoi = $ipEnvoi;
     }
 
