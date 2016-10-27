@@ -52,8 +52,11 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
 
         /**
          *  Appel de la page
+         * Sans affichage du code HTML...
          */
+        ob_start();
         require 'membre/creerCompte.php';
+        ob_end_clean();
 
         /**
          * Récupération d'un objet
@@ -64,7 +67,7 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals('contrib@anael.eu', $monMembre->getEmail());
+        $this->assertEquals('contrib@anael.eu', $monMembre->getEmail(), "Vérification email");
         // ID
         $this->assertEquals(1, $monMembre->getId());
         // @ IP d'inscription
