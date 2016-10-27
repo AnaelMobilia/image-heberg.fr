@@ -142,4 +142,32 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $req->execute();
     }
 
+    /**
+     * Enregistre une nouvelle image dans le système
+     * @param string $path path sur le filesystem
+     */
+    public function creer($path) {
+        /**
+         * Détermination du nom
+         */
+        $adresseIP = abs(crc32($_SERVER['REMOTE_ADDR']));
+        $random = rand(10, 99);
+
+        $debutTimestamp = substr($_SERVER['REQUEST_TIME'], 0, 5);
+        $finTimestamp = substr($_SERVER['REQUEST_TIME'], 6);
+        $new_name = $debutTimestamp . $addresseIP . $random . $finTimestamp . '.' . outils::getExtension($path);
+
+        $this->setNomNouveau($new_name);
+
+        /**
+         * Déplacement du fichier
+         */
+        // copier le fichier au bon endroit
+        //
+
+        /**
+         * GERER LE CHANGEMENT D'EXTENSION SI BESOIN JPEG / JPG
+         */
+    }
+
 }
