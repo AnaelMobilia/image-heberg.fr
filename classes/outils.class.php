@@ -61,6 +61,25 @@ class outils {
     }
 
     /**
+     * Fourni l'extension officielle d'une ressource
+     * @param string $path chemin sur le filesystem
+     * @return string
+     */
+    public static function getExtension($path) {
+        switch (outils::getType($path)) {
+            case IMAGETYPE_GIF:
+                return 'gif';
+                break;
+            case IMAGETYPE_JPEG:
+                return 'jpg';
+                break;
+            case IMAGETYPE_PNG:
+                return 'png';
+                break;
+        }
+    }
+
+    /**
      * Redimensionne une image
      * @param type $pathSrc path source
      * @param type $pathDst path destination
