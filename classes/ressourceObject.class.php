@@ -21,7 +21,7 @@
 /**
  * Fonctions génériques aux images et miniatures
  */
-class ressourceObject {
+abstract class ressourceObject {
     private $id;
     private $nomOriginal;
     private $nomNouveau;
