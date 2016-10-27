@@ -209,7 +209,7 @@ abstract class ressourceObject {
      * Nom original de la ressource
      * @return string
      */
-    public function getNomOriginal() {
+    protected function getNomOriginal() {
         return $this->nomOriginal;
     }
 
