@@ -38,50 +38,6 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     /**
-     * Création d'un compte membre
-     */
-    public function testMembreCreerCompte() {
-        /**
-         *  Injection des valeurs du formulaire
-         */
-        $_POST['valider'] = 1;
-        $_POST['userName'] = 'admin';
-        $_POST['userPassword'] = 'password';
-        $_POST['userMail'] = 'contrib@anael.eu';
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
-        /**
-         *  Appel de la page
-         */
-        require 'membre/creerCompte.php';
-
-        /**
-         * Récupération d'un objet
-         */
-        $monMembre = new utilisateurObject(1);
-
-        /**
-         * Vérification des valeurs
-         */
-        // Email
-        $this->assertEquals('contrib@anael.eu', $monMembre->getEmail(), "Vérification email");
-        // ID
-        $this->assertEquals(1, $monMembre->getId());
-        // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
-        // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel());
-        // Nom
-        $this->assertEquals('admin', $monMembre->getUserName());
-        // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD());
-        // Login / password
-        $monMembre->setUserName('admin');
-        $monMembre->setPassword('password');
-        $this->assertEquals(TRUE, $monMembre->connexion());
-    }
-
-    /**
      * Rotation des images
      */
     public function testRotationImages() {
