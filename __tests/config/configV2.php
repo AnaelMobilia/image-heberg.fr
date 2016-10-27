@@ -64,6 +64,8 @@ define('_PATH_', '/home/travis/build/AnaelMobilia/image-heberg.fr/');
 define('_PATH_IMAGES_', _PATH_ . 'files/');
 define('_PATH_MINIATURES_', _PATH_IMAGES_ . 'thumbs/');
 define('_PATH_ADMIN_', _PATH_ . 'admin/');
+define('_PATH_TESTS_IMAGES_', _PATH_ . '__tests/images/');
+define('_PATH_TESTS_OUTPUT_', _PATH_ . '__tests/output/');
 define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
 define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
