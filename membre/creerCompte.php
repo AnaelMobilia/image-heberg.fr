@@ -18,9 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 require __DIR__ . '/../config/configV2.php';
-if (!_TRAVIS_) {
-    require _TPL_TOP_;
-}
+require _TPL_TOP_;
 
 // Un utilisateur...
 $monUtilisateur = new utilisateurObject();
@@ -77,8 +75,8 @@ if (isset($_POST['valider'])) {
         if (!_TRAVIS_) {
             // Redirection sur la page d'accueil - sauf si mode tests
             header('Location: ' . _URL_);
+            die();
         }
-        die();
     } else {
         ?>
         <div class="alert alert-danger">
