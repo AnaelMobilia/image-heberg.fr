@@ -146,25 +146,21 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Type EXIF de l'image
-     * @return type
-     */
-    public function getType() {
-        return exif_imagetype($this->getPath());
-    }
-
-    /**
      * La ressource PHP image
      * @return type
      */
     public function getImage() {
         // Je charge l'image en mémoire en fonction de son type
-        if ($this->getType() == IMAGETYPE_GIF) {
-            return imagecreatefromgif($this->getPath());
-        } else if ($this->getType() == IMAGETYPE_JPEG) {
-            return imagecreatefromjpeg($this->getPath());
-        } else if ($this->getType() == IMAGETYPE_PNG) {
-            return imagecreatefrompng($this->getPath());
+        switch (outils::getType($this->getPath())) {
+            case IMAGETYPE_GIF:
+                return imagecreatefromgif($this->getPath());
+                break;
+            case IMAGETYPE_JPEG:
+                return imagecreatefromjpeg($this->getPath());
+                break;
+            case IMAGETYPE_PNG:
+                return imagecreatefrompng($this->getPath());
+                break;
         }
     }
 

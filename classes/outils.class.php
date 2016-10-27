@@ -20,10 +20,17 @@
 
 /**
  * Bibliothèque d'outils pour la gestion des images
- *
- * @author anael
  */
-class toolPicsObject {
+class outils {
+
+    /**
+     * Type de l'image
+     * @param string $path chemin sur le filesystem
+     * @return string
+     */
+    public static function getType($path) {
+        return exif_imagetype($path);
+    }
 
     /**
      * Effectue une rotation
@@ -129,12 +136,17 @@ class toolPicsObject {
 
         // Création de la miniature (en mémoire + HDD)
         $path = _PATH_MINIATURES_ . $uneImage->getNomNouveau();
-        if ($uneImage->getType() == IMAGETYPE_GIF) {
-            imagegif($newImage, $path);
-        } else if ($uneImage->getType() == IMAGETYPE_JPEG) {
-            imagejpeg($newImage, $path, 100);
-        } else if ($uneImage->getType() == IMAGETYPE_PNG) {
-            imagepng($newImage, $path, 9);
+
+        switch (outils::getType($uneImage->getPath())) {
+            case IMAGETYPE_GIF:
+                imagegif($newImage, $path);
+                break;
+            case IMAGETYPE_JPEG:
+                imagejpeg($newImage, $path, 100);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($newImage, $path, 9);
+                break;
         }
 
         // Je crée l'objet
