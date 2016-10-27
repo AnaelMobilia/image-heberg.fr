@@ -82,7 +82,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     /**
-     * Création d'un compte membre
+     * Modification du mail
      */
     public function testMembreModifierMail() {
         /**
@@ -121,6 +121,121 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $monMembre->setUserName('admin');
         $monMembre->setPassword('password');
         $this->assertEquals(TRUE, $monMembre->connexion());
+    }
+
+    /**
+     * Modification du mot de passe
+     */
+    public function testMembreModifierPassword() {
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['modifierPwd'] = 1;
+        $_POST['oldUserPassword'] = 'password';
+        $_POST['newUserPassword'] = 'monPassword';
+
+        /**
+         *  Appel de la page
+         */
+        require 'membre/monCompte.php';
+
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(1);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
+        // ID
+        $this->assertEquals(1, $monMembre->getId());
+        // @ IP d'inscription
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        // Niveau de droits
+        $this->assertEquals('membre', $monMembre->getLevel());
+        // Nom
+        $this->assertEquals('admin', $monMembre->getUserName());
+        // Nom en BDD
+        $this->assertEquals('admin', $monMembre->getUserNameBDD());
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPassword('monPassword');
+        $this->assertEquals(TRUE, $monMembre->connexion());
+    }
+
+    /**
+     * Suppression du compte sans cochage de la checkbox
+     */
+    public function testMembreSupprimerCompteRequiertCheckbox() {
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['supprimerCompte'] = 1;
+        $_POST['userPasswordDelete'] = 'monPassword';
+
+        /**
+         *  Appel de la page
+         */
+        require 'membre/monCompte.php';
+
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(1);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
+        // ID
+        $this->assertEquals(1, $monMembre->getId());
+        // @ IP d'inscription
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        // Niveau de droits
+        $this->assertEquals('membre', $monMembre->getLevel());
+        // Nom
+        $this->assertEquals('admin', $monMembre->getUserName());
+        // Nom en BDD
+        $this->assertEquals('admin', $monMembre->getUserNameBDD());
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPassword('monPassword');
+        $this->assertEquals(TRUE, $monMembre->connexion());
+    }
+
+    /**
+     * Suppression du compte
+     */
+    public function testMembreSupprimerCompte() {
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['supprimerCompte'] = 1;
+        $_POST['userPasswordDelete'] = 'monPassword';
+        $_POST['confirmeDelete'] = '1';
+
+        /**
+         *  Appel de la page
+         */
+        require 'membre/monCompte.php';
+
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(1);
+
+        /**
+         * Vérification des valeurs
+         */
+        // ID
+        $this->assertEquals(NULL, $monMembre->getId());
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPassword('monPassword');
+        $this->assertEquals(FALSE, $monMembre->connexion());
     }
 
 }
