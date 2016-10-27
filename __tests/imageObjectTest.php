@@ -18,24 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
-
-    /**
-     * Fonction requise par l'extension Database
-     * @return type
-     */
-    public function getConnection() {
-        $pdo = new PDO('sqlite::memory:');
-        return $this->createDefaultDBConnection($pdo, ':memory:');
-    }
-
-    /**
-     * Fonction requise par l'extension Database
-     * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
-     */
-    public function getDataSet() {
-        return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
-    }
+class imageObjectTest extends PHPUnit_TestCase {
 
     /**
      * Rotation des images
