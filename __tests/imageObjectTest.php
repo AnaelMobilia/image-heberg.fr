@@ -22,6 +22,7 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Rotation des images
+     * @runInSeparateProcess
      */
     public function testRotationImages() {
         require 'config/configV2.php';
