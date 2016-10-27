@@ -145,23 +145,4 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $this->setPoids(filesize($this->getPath()));
     }
 
-    /**
-     * La ressource PHP image
-     * @return type
-     */
-    public function getImage() {
-        // Je charge l'image en mémoire en fonction de son type
-        switch (outils::getType($this->getPath())) {
-            case IMAGETYPE_GIF:
-                return imagecreatefromgif($this->getPath());
-                break;
-            case IMAGETYPE_JPEG:
-                return imagecreatefromjpeg($this->getPath());
-                break;
-            case IMAGETYPE_PNG:
-                return imagecreatefrompng($this->getPath());
-                break;
-        }
-    }
-
 }

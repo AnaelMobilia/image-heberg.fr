@@ -33,6 +33,25 @@ class outils {
     }
 
     /**
+     * Ressource PHP image
+     * @return type
+     */
+    public static function getImage($path) {
+        // Je charge l'image en mémoire en fonction de son type
+        switch (outils::getType($path)) {
+            case IMAGETYPE_GIF:
+                return imagecreatefromgif($path);
+                break;
+            case IMAGETYPE_JPEG:
+                return imagecreatefromjpeg($path);
+                break;
+            case IMAGETYPE_PNG:
+                return imagecreatefrompng($path);
+                break;
+        }
+    }
+
+    /**
      * Effectue une rotation
      * @param type $pathSrc path source
      * @param type $pathDst path destination
@@ -132,7 +151,7 @@ class outils {
         }
 
         // Redimensionnement (en mémoire)
-        $newImage = imagescale($uneImage->getImage(), $largeurMiniature, $hauteurMiniature);
+        $newImage = imagescale(outils::getImage($uneImage->getPath()), $largeurMiniature, $hauteurMiniature);
 
         // Création de la miniature (en mémoire + HDD)
         $path = _PATH_MINIATURES_ . $uneImage->getNomNouveau();
