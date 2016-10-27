@@ -30,7 +30,7 @@
                 $ip = 'IPv6';
             }
             ?>
-            Image-Heberg.fr - <a href="<?= _URL_ ?>changelog.php">v1.9 (2014)</a> - <a href="<?= _URL_ ?>stats.php">Statistiques</a> - <a href="<?= _URL_ ?>cgu.php">CGU</a> - Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s - <?= $ip ?> - Un service proposé par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
+            Image-Heberg.fr - <a href="<?= _URL_ ?>changelog.php">v1.9 (2014)&nbsp;<span class="glyphicon glyphicon-flash"></span></a> - <a href="<?= _URL_ ?>stats.php">Statistiques&nbsp;<span class="glyphicon glyphicon-stats"></span></a> - <a href="<?= _URL_ ?>cgu.php">CGU&nbsp;<span class="glyphicon glyphicon-briefcase"></span></a> - Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s - <?= $ip ?> - Un service proposé par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
         </p>
     </div>
 </div>

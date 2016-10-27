@@ -59,9 +59,24 @@ $timeStart = microtime(TRUE);
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>">Accueil</a></li>
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>a_propos.php">A propos</a></li>
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "class='active'" : "" ?>><a href="<?= _URL_ ?>contact.php">Contact</a></li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "class='active'" : "" ?>>
+                                <a href="<?= _URL_ ?>">
+                                    <span class="glyphicon glyphicon-home"></span>&nbsp;
+                                    Accueil
+                                </a>
+                            </li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "class='active'" : "" ?>>
+                                <a href="<?= _URL_ ?>a_propos.php">
+                                    <span class="glyphicon glyphicon-cloud"></span>&nbsp;
+                                    A propos
+                                </a>
+                            </li>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "class='active'" : "" ?>>
+                                <a href="<?= _URL_ ?>contact.php">
+                                    <span class="glyphicon glyphicon-envelope"></span>&nbsp;
+                                    Contact
+                                </a>
+                            </li>
                         </ul>
                         <?php
                         $visiteur = new sessionObject();
@@ -70,12 +85,18 @@ $timeStart = microtime(TRUE);
                             ?>
                             <div id="monCompteGestion">
                                 <form class="navbar-form navbar-right">
-                                    <button id="buttonMonCompteGestion" class="btn btn-success">Mon compte</button>
+                                    <button id="buttonMonCompteGestion" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                        Mon compte
+                                    </button>
                                 </form>
                             </div>
                             <div id="monCompte">
                                 <form action="<?= _URL_MEMBRE_ ?>creerCompte.php" class="navbar-form navbar-right">
-                                    <button type="submit" class="btn btn-success">S'enregistrer</button>
+                                    <button type="submit" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;
+                                        S'enregistrer
+                                    </button>
                                 </form>
                                 <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="navbar-form navbar-right">
                                     <div class="form-group">
@@ -84,23 +105,42 @@ $timeStart = microtime(TRUE);
                                     <div class="form-group">
                                         <input type="password" name="userPassword" placeholder="Mot de passe" class="form-control" required="required">
                                     </div>
-                                    <button type="submit" name="valider" class="btn btn-success">Se connecter</button>
+                                    <button type="submit" name="valider" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                                        Se connecter
+                                    </button>
                                 </form>
                             </div>
                         <?php else : ?>
                             <!-- Menu utilisateur connecté -->
                             <form action="<?= _URL_MEMBRE_ ?>deconnexionCompte.php" class="navbar-form navbar-right">
                                 <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-log-out"></span>&nbsp;
                                     Se déconnecter (<?= $visiteur->getUserName() ?>)
                                 </button>
                             </form>
                             <!-- Bloc à déclarer en second... les float feront qu'il sera à gauche -->
                             <ul class="nav navbar-nav navbar-right">
-                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/mesImages.php") ? "class='active'" : "" ?>><a href="<?= _URL_MEMBRE_ ?>mesImages.php">Mes images</a></li>
-                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/monCompte.php") ? "class='active'" : "" ?>><a href="<?= _URL_MEMBRE_ ?>monCompte.php">Mon compte</a></li>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/mesImages.php") ? "class='active'" : "" ?>>
+                                    <a href="<?= _URL_MEMBRE_ ?>mesImages.php">
+                                        <span class="glyphicon glyphicon-picture"></span>&nbsp;
+                                        Mes images
+                                    </a>
+                                </li>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/monCompte.php") ? "class='active'" : "" ?>>
+                                    <a href="<?= _URL_MEMBRE_ ?>monCompte.php">
+                                        <span class="glyphicon glyphicon-user"></span>&nbsp;
+                                        Mon compte
+                                    </a>
+                                </li>
                                 <!-- Si c'est un admin : lien vers le panneau admin -->
                                 <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
-                                    <li <?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "class='active'" : "" ?>><a href="<?= _URL_ADMIN_ ?>">Administration</a></li>
+                                    <li <?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "class='active'" : "" ?>>
+                                        <a href="<?= _URL_ADMIN_ ?>">
+                                            <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                                            Administration
+                                        </a>
+                                    </li>
                                 <?php endif; ?>
                             </ul>
                         <?php endif; ?>
