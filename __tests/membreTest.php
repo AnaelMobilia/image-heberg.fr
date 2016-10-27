@@ -98,6 +98,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
 
         /**
          *  Appel de la page
@@ -136,6 +137,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
 
         /**
          *  Appel de la page
@@ -171,6 +173,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
 
         /**
          *  Appel de la page
@@ -207,6 +210,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
 
         /**
          *  Appel de la page
