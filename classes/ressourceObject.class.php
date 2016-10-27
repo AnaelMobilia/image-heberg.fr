@@ -298,7 +298,7 @@ abstract class ressourceObject {
      * Fichier bloqué ?
      * @return boolean
      */
-    public function getBloque() {
+    public function isBloque() {
         return $this->bloque;
     }
 
