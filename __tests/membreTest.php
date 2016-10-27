@@ -113,16 +113,6 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Email
         $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
-        // ID
-        $this->assertEquals(1, $monMembre->getId(), "getId");
-        // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription(), "getIpInscription");
-        // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel(), "getLevel");
-        // Nom
-        $this->assertEquals('admin', $monMembre->getUserName(), "getUserName");
-        // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD(), "getUserNameBDD");
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('password');
