@@ -155,8 +155,10 @@ class sessionObject {
      * Déconnexion d'un utilisateur
      */
     public function deconnexion() {
-        // Je détruis la session
-        session_destroy();
+        if (!_TRAVIS_) {
+            // Je détruis la session
+            session_destroy();
+        }
     }
 
 }
