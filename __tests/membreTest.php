@@ -107,9 +107,9 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          *  Appel de la page
          */
-        //ob_start();
+        ob_start();
         require 'membre/monCompte.php';
-        //ob_end_clean();
+        ob_end_clean();
 
         /**
          * Récupération d'un objet
@@ -204,7 +204,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPasswordToCrypt('monPasssdfword');
+        $monMembre->setPasswordToCrypt('monPasssword');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion devrait être possible");
     }
 
