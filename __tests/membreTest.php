@@ -231,11 +231,11 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // ID
-        $this->assertEquals(NULL, $monMembre->getId());
+        $this->assertEquals(NULL, $monMembre->getId(), "Compte membre supprimé mais toujours accessible");
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('monPassword');
-        $this->assertEquals(FALSE, $monMembre->connexion());
+        $this->assertEquals(FALSE, $monMembre->connexion(), "Compte membre supprimé mais toujours connectable");
     }
 
 }
