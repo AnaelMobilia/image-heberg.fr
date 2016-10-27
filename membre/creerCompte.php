@@ -18,7 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 require __DIR__ . '/../config/configV2.php';
-require _TPL_TOP_;
+if (!_TRAVIS_) {
+    require _TPL_TOP_;
+}
 
 // Un utilisateur...
 $monUtilisateur = new utilisateurObject();
