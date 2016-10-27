@@ -84,9 +84,8 @@ abstract class ressourceObject {
 
         // Mise à jour des propriétés de l'image
         // Dimensions
-        $dim = getimagesize($pathDst);
-        $this->setLargeur($dim[0]);
-        $this->setHauteur($dim[1]);
+        $this->setLargeur(imagesx($imgRotate));
+        $this->setHauteur(imagesy($imgRotate));
 
         // Poids de l'image
         $this->setPoids(filesize($pathDst));
