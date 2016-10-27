@@ -95,6 +95,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_POST['modifierMail'] = 1;
         $_POST['userPasswordMail'] = 'password';
         $_POST['userMail'] = 'john.doe@example.com';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         /**
          *  Appel de la page
@@ -130,6 +131,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_POST['modifierPwd'] = 1;
         $_POST['oldUserPassword'] = 'password';
         $_POST['newUserPassword'] = 'monPassword';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         /**
          *  Appel de la page
@@ -162,6 +164,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         $_POST['supprimerCompte'] = 1;
         $_POST['userPasswordDelete'] = 'monPassword';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         /**
          *  Appel de la page
@@ -195,6 +198,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_POST['supprimerCompte'] = 1;
         $_POST['userPasswordDelete'] = 'monPassword';
         $_POST['confirmeDelete'] = '1';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         /**
          *  Appel de la page
