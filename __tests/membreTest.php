@@ -103,6 +103,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         $monMembre = new utilisateurObject(1);
 
+        $this->AssertEquals(TRUE, FALSE);
         /**
          * Vérification des valeurs
          */
