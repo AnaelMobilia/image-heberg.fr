@@ -109,21 +109,21 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
+        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
         // ID
-        $this->assertEquals(1, $monMembre->getId());
+        $this->assertEquals(1, $monMembre->getId(), "getId");
         // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription(), "getIpInscription");
         // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel());
+        $this->assertEquals('membre', $monMembre->getLevel(), "getLevel");
         // Nom
-        $this->assertEquals('admin', $monMembre->getUserName());
+        $this->assertEquals('admin', $monMembre->getUserName(), "getUserName");
         // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD());
+        $this->assertEquals('admin', $monMembre->getUserNameBDD(), "getUserNameBDD");
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('password');
-        $this->assertEquals(TRUE, $monMembre->connexion());
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
     /**
