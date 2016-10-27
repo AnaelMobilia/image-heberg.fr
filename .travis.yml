@@ -18,4 +18,4 @@ before_script:
   # Copie du fichier de configuration
   - sh -c "mv __tests/config/configV2.php config/"
 
-script: phpunit __tests/imageObjectTest.php
+script: phpunit --debug --coverage-text __tests/imageObjectTest.php
