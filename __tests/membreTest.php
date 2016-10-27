@@ -21,6 +21,14 @@
 class membreTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
+     * Constructeur
+     */
+    public function __construct() {
+        require 'config/configV2.php';
+        parent::__construct();
+    }
+
+    /**
      * Fonction requise par l'extension Database
      * @return type
      */
@@ -34,7 +42,6 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
      * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
      */
     public function getDataSet() {
-        require 'config/configV2.php';
         return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
     }
 
