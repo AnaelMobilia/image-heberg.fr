@@ -48,8 +48,12 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * Charger les infos d'une image
      * @param string $newName nom de l'image
+     * @return boolean Image chargée ?
      */
     public function charger($newName) {
+        // Retour
+        $monRetour = FALSE;
+
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM " . imageObject::tableName . " WHERE new_name = ?");
         $req->bindParam(1, $newName, PDO::PARAM_STR);
@@ -57,19 +61,26 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
         // J'éclate les informations
         $resultat = $req->fetch();
-        $this->setId($resultat->id);
-        $this->setIpEnvoi($resultat->ip_envoi);
-        $this->setDateEnvoi($resultat->date_envoi);
-        $this->setNomOriginal($resultat->old_name);
-        // Permet l'effacement des fichiers non enregistrés en BDD
-        $this->setNomNouveau($newName);
-        $this->setPoids($resultat->size);
-        $this->setHauteur($resultat->height);
-        $this->setLargeur($resultat->width);
-        $this->setLastView($resultat->last_view);
-        $this->setNbViewIPv4($resultat->nb_view_v4);
-        $this->setNbViewIPv6($resultat->nb_view_v6);
-        $this->setMd5($resultat->md5);
+        if ($resultat !== FALSE) {
+            $this->setId($resultat->id);
+            $this->setIpEnvoi($resultat->ip_envoi);
+            $this->setDateEnvoi($resultat->date_envoi);
+            $this->setNomOriginal($resultat->old_name);
+            // Permet l'effacement des fichiers non enregistrés en BDD
+            $this->setNomNouveau($newName);
+            $this->setPoids($resultat->size);
+            $this->setHauteur($resultat->height);
+            $this->setLargeur($resultat->width);
+            $this->setLastView($resultat->last_view);
+            $this->setNbViewIPv4($resultat->nb_view_v4);
+            $this->setNbViewIPv6($resultat->nb_view_v6);
+            $this->setMd5($resultat->md5);
+
+            // Gestion du retour
+            $monRetour = TRUE;
+        }
+
+        return $monRetour;
     }
 
     /**
@@ -103,7 +114,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Supprimer l'image (HDD & BDD)
-     * @return type
      */
     public function supprimer() {
         // Existe-t-il un propriétaire de l'image ?
@@ -130,19 +140,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
-    }
-
-    /**
-     * Met à jour les caractéristiques (dimensions & poids) d'une image
-     */
-    public function refreshInfos() {
-        // Dimensions
-        $dim = getimagesize($this->getPath());
-        $this->setLargeur($dim[0]);
-        $this->setHauteur($dim[1]);
-
-        // Poids de l'image
-        $this->setPoids(filesize($this->getPath()));
     }
 
 }
