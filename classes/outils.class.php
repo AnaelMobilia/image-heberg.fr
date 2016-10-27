@@ -33,6 +33,15 @@ class outils {
     }
 
     /**
+     * MIME type de l'image
+     * @param string $path chemin sur le filesystem
+     * @return string
+     */
+    public static function getMimeType($path) {
+        return image_type_to_mime_type(outils::getType($path));
+    }
+
+    /**
      * Ressource PHP image
      * @return type
      */
