@@ -156,22 +156,10 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Email
-        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
-        // ID
-        $this->assertEquals(1, $monMembre->getId());
-        // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
-        // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel());
-        // Nom
-        $this->assertEquals('admin', $monMembre->getUserName());
-        // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('monPassword');
-        $this->assertEquals(TRUE, $monMembre->connexion());
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
     /**
@@ -200,26 +188,15 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Email
-        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
-        // ID
-        $this->assertEquals(1, $monMembre->getId());
-        // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
-        // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel());
-        // Nom
-        $this->assertEquals('admin', $monMembre->getUserName());
-        // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('monPasssdfword');
-        $this->assertEquals(TRUE, $monMembre->connexion());
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion devrait être possible");
     }
 
     /**
      * Suppression du compte
+     * @depends testMembreSupprimerCompteRequiertCheckbox
      */
     public function testMembreSupprimerCompte() {
         /**
@@ -232,7 +209,9 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          *  Appel de la page
          */
+        ob_start();
         require 'membre/monCompte.php';
+        ob_end_clean();
 
         /**
          * Récupération d'un objet
@@ -242,12 +221,10 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // ID
-        $this->assertEquals(NULL, $monMembre->getId(), "Compte membre supprimé mais toujours accessible");
         // Login / password
         $monMembre->setUserName('admin');
         $monMembre->setPassword('monPassword');
-        $this->assertEquals(FALSE, $monMembre->connexion(), "Compte membre supprimé mais toujours connectable");
+        $this->assertEquals(FALSE, $monMembre->connexion(), "connexion ne deverait plus être possible");
     }
 
 }
