@@ -78,14 +78,6 @@ class utilisateurObject {
     }
 
     /**
-     * Mot de passe crypté version BDD
-     * @return type
-     */
-    private function getPasswordEncrypted() {
-        return hash('sha256', _GRAIN_DE_SEL_ . $this->getPassword());
-    }
-
-    /**
      * Email
      * @return type
      */
@@ -146,8 +138,16 @@ class utilisateurObject {
      * Mot de passe
      * @param type $password
      */
-    public function setPassword($password) {
+    private function setPassword($password) {
         $this->password = $password;
+    }
+
+    /**
+     * Mot de passe à crypter
+     * @param string $password
+     */
+    public function setPasswordToCrypt($password) {
+        $this->password = hash('sha256', _GRAIN_DE_SEL_ . $password);
     }
 
     /**
@@ -213,7 +213,7 @@ class utilisateurObject {
         }
 
         // Si les mots de passe ne correspondent pas... on retourne un sessionObject vide
-        if ($this->getPasswordEncrypted() !== $values->pass) {
+        if ($this->getPassword() !== $values->pass) {
             echo "pass";
             return FALSE;
         }
@@ -270,7 +270,7 @@ class utilisateurObject {
         $req = maBDD::getInstance()->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
-        $req->bindValue(3, $this->getPasswordEncrypted(), PDO::PARAM_STR);
+        $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
         // Date est définie par NOW()
         $req->bindValue(4, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
         $req->bindValue(5, $this->getLevel(), PDO::PARAM_INT);
@@ -285,7 +285,8 @@ class utilisateurObject {
         $req = maBDD::getInstance()->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, lvl = ? WHERE pk_membres = ?");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
-        $req->bindValue(3, $this->getPasswordEncrypted(), PDO::PARAM_STR);
+        // ?????
+        $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
         $req->bindValue(4, $this->getLevel(), PDO::PARAM_INT);
         $req->bindValue(5, $this->getId(), PDO::PARAM_INT);
 
@@ -319,10 +320,10 @@ class utilisateurObject {
     public function checkPassword($password) {
         // Je créée un nouvel utilisateur pour encrypter le mot de passe
         $monUtilisateurTest = new utilisateurObject();
-        $monUtilisateurTest->setPassword($password);
+        $monUtilisateurTest->setPasswordToCrypt($password);
 
         // Comparons (le mdp local est toujours encrypté quand je charge depuis la BDD un utilisateur)
-        if ($monUtilisateurTest->getPasswordEncrypted() === $this->getPassword()) {
+        if ($monUtilisateurTest->getPassword() === $this->getPassword()) {
             return TRUE;
         }
         return FALSE;

@@ -32,7 +32,7 @@ if (isset($_POST['modifierPwd'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->checkPassword($_POST['oldUserPassword'])) {
         // Je met à jour en BDD
-        $monUtilisateur->setPassword($_POST['newUserPassword']);
+        $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
         $monUtilisateur->modifier();
 
         // Retour utilisateur

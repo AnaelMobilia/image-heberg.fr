@@ -60,7 +60,7 @@ if (isset($_POST['valider'])) {
     // Nom d'utilisateur
     $monUtilisateur->setUserName($_POST['userName']);
     // Mot de passe
-    $monUtilisateur->setPassword($_POST['userPassword']);
+    $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
     // Adresse mail
     $monUtilisateur->setEmail($_POST['userMail']);
 

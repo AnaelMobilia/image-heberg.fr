@@ -80,7 +80,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('admin', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('password');
+        $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
@@ -123,7 +123,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('password');
+        $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
@@ -164,7 +164,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('monPassword');
+        $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
@@ -204,7 +204,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('monPasssdfword');
+        $monMembre->setPasswordToCrypt('monPasssdfword');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion devrait être possible");
     }
 
@@ -245,7 +245,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Login / password
         $monMembre->setUserName('admin');
-        $monMembre->setPassword('monPassword');
+        $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(FALSE, $monMembre->connexion(), "connexion ne deverait plus être possible");
     }
 
