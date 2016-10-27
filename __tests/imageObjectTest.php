@@ -81,4 +81,43 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
+    /**
+     * Rotation des images
+     */
+    public function testRotationImages() {
+        $monImage = new imageObject();
+        // JPG
+        $angle = 90;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+        $angle = 180;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+        $angle = 270;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
+
+        // PNG
+        $angle = 90;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.png-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+        $angle = 180;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.png-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+        $angle = 270;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.png-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
+
+        // GIF
+        $angle = 90;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+        $angle = 180;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+        $angle = 270;
+        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
+    }
+
 }

@@ -36,14 +36,63 @@ abstract class ressourceObject {
     private $ipEnvoi;
 
     /**
-     * Rotation d'une ressource
+     * Rotation d'une ressource <br />
+     * Inclus mise à jour largeur / hauteur / poids de l'image
      * @param int $angle xxx° de rotation GAUCHE
+     * @param string $pathSrc chemin de la ressource d'origine
+     * @param string $pathDst chemin de la ressource de destination
+     * @return boolean succès ?
      */
     function rotation($angle, $pathSrc, $pathDst) {
-        /**
-         * TODO - PHP5.5
-         * http://fr2.php.net/manual/fr/function.imageflip.php
-         */
+        // Je charge l'image en mémoire
+        $resImg = outils::getImage($pathSrc);
+        // Je vérifie que tout va bien
+        if ($resImg === FALSE) {
+            return FALSE;
+        }
+
+        // J'effectue la rotation
+        $imgRotate = imagerotate($resImg, $angle, 0);
+
+        // Je vérifie que tout va bien
+        if ($imgRotate === FALSE) {
+            return FALSE;
+        }
+
+        // Nettoyage mémoire (image d'origine)
+        imagedestroy($resImg);
+
+        // J'enregistre l'image
+        switch (outils::getType($pathSrc)) {
+            case IMAGETYPE_GIF:
+                $retour = imagegif($imgRotate, $pathDst);
+                break;
+            case IMAGETYPE_JPEG:
+                // 100 : taux de qualité (avec pertes)
+                $retour = imagejpeg($imgRotate, $pathDst, 100);
+                break;
+            case IMAGETYPE_PNG:
+                // 9 : niveau de compression (sans pertes)
+                $retour = imagepng($imgRotate, $pathDst, 9);
+                break;
+        }
+
+        // La création du fichier s'est bien passé ?
+        if ($retour === FALSE) {
+            return FALSE;
+        }
+
+        // Mise à jour des propriétés de l'image
+        // Dimensions
+        $dim = getimagesize($pathDst);
+        $this->setLargeur($dim[0]);
+        $this->setHauteur($dim[1]);
+
+        // Poids de l'image
+        $this->setPoids(filesize($pathDst));
+
+
+        return $retour;
     }
 
     /**

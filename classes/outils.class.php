@@ -61,65 +61,6 @@ class outils {
     }
 
     /**
-     * Effectue une rotation
-     * @param type $pathSrc path source
-     * @param type $pathDst path destination
-     * @param type $angle angle de rotation
-     * @return boolean Succès / Echec
-     */
-    public static function faireRotation($pathSrc, $pathDst, $angle) {
-        // Je détermine le type de l'image
-        $typeImage = exif_imagetype($pathSrc);
-
-        // Je charge l'image en mémoire
-        $resImg = '';
-        switch ($typeImage) {
-            case IMAGETYPE_GIF:
-                $resImg = imagecreatefromgif($pathSrc);
-                break;
-            case IMAGETYPE_JPEG:
-                $resImg = imagecreatefromjpeg($pathSrc);
-                break;
-            case IMAGETYPE_PNG:
-                $resImg = imagecreatefrompng($pathSrc);
-                break;
-        }
-        // Je vérifie que tout va bien
-        if ($resImg === FALSE) {
-            return FALSE;
-        }
-
-        // J'effectue la rotation
-        $imgRotate = imagerotate($resImg, $angle);
-
-        // Je vérifie que tout va bien
-        if ($imgRotate === FALSE) {
-            return FALSE;
-        }
-
-        // On commence le ménage mémoire (l'image d'origine)
-        imagedestroy($resImg);
-
-        // J'enregistre l'image
-        switch ($typeImage) {
-            case IMAGETYPE_GIF:
-                $retour = imagegif($imgRotate, $pathDst);
-                break;
-            case IMAGETYPE_JPEG:
-                // 100 : taux de qualité (avec pertes)
-                $retour = imagejpeg($imgRotate, $pathDst, 100);
-                break;
-            case IMAGETYPE_PNG:
-                // 9 : niveau de compression (sans pertes)
-                $retour = imagepng($imgRotate, $pathDst, 9);
-                break;
-        }
-
-        // On fait le retour final
-        return $retour;
-    }
-
-    /**
      * Redimensionne une image
      * @param type $pathSrc path source
      * @param type $pathDst path destination
