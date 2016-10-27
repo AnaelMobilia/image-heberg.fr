@@ -83,6 +83,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
      * Modification du mail
+     * @depends testMembreCreerCompte
      */
     public function testMembreModifierMail() {
         /**
@@ -125,6 +126,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
      * Modification du mot de passe
+     * @depends testMembreModifierMail
      */
     public function testMembreModifierPassword() {
         /**
@@ -167,6 +169,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
      * Suppression du compte sans cochage de la checkbox
+     * @depends testMembreModifierPassword
      */
     public function testMembreSupprimerCompteRequiertCheckbox() {
         /**
