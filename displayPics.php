@@ -21,8 +21,6 @@
  * Affichage d'une image & mise à jour des stats
  */
 // TODO : gestion du blocage des images
-// TODO : ne pas avoir besoin de la connexion à la bdd jusqu'au moment où on veut mettre à jour les stats
-// today si pas bdd, pas d'image...
 
 require 'config/configV2.php';
 
