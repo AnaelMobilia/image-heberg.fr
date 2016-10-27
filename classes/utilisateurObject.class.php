@@ -208,13 +208,11 @@ class utilisateurObject {
 
         // Si l'utilisateur n'existe pas... on retourne un sessionObject vide
         if ($values === FALSE) {
-            echo "values";
             return FALSE;
         }
 
         // Si les mots de passe ne correspondent pas... on retourne un sessionObject vide
         if ($this->getPassword() !== $values->pass) {
-            echo "pass";
             return FALSE;
         }
 
