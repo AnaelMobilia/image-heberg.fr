@@ -81,4 +81,46 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
+    /**
+     * Création d'un compte membre
+     */
+    public function testMembreModifierMail() {
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['modifierMail'] = 1;
+        $_POST['userPasswordMail'] = 'password';
+        $_POST['userMail'] = 'john.doe@example.com';
+
+        /**
+         *  Appel de la page
+         */
+        require 'membre/monCompte.php';
+
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(1);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "Vérification email");
+        // ID
+        $this->assertEquals(1, $monMembre->getId());
+        // @ IP d'inscription
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        // Niveau de droits
+        $this->assertEquals('membre', $monMembre->getLevel());
+        // Nom
+        $this->assertEquals('admin', $monMembre->getUserName());
+        // Nom en BDD
+        $this->assertEquals('admin', $monMembre->getUserNameBDD());
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPassword('password');
+        $this->assertEquals(TRUE, $monMembre->connexion());
+    }
+
 }
