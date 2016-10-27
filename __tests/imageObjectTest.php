@@ -52,11 +52,8 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
 
         /**
          *  Appel de la page
-         * Sans affichage du code HTML...
          */
-        ob_start();
         require 'membre/creerCompte.php';
-        ob_end_clean();
 
         /**
          * Récupération d'un objet
