@@ -44,7 +44,7 @@ interface ressourceInterface {
      * Crée sur le HDD & BDD
      * @param string $path
      */
-    //function creer($path);
+    function creer($path);
 
     /**
      * Path sur le filesystem
