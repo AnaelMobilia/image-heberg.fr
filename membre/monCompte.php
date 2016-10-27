@@ -17,7 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
-require __DIR__ . '/../config/configV2.php';
+if (!defined(_TRAVIS_)) {
+    require '../config/configV2.php';
+}
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 

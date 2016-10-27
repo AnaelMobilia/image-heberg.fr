@@ -71,7 +71,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         // @ IP d'inscription
         $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
         // Niveau de droits
-        $this->assertEquals('membre', $monMembre->getLevel());
+        $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
         // Nom
         $this->assertEquals('admin', $monMembre->getUserName());
         // Nom en BDD
