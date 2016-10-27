@@ -26,6 +26,7 @@ interface ressourceInterface {
     /**
      * Charge depuis la BDD
      * @param string $nom Identifiant image-heberg
+     * @return boolean Chargement réussi ?
      */
     function charger($nom);
 
@@ -41,8 +42,9 @@ interface ressourceInterface {
 
     /**
      * Crée sur le HDD & BDD
+     * @param string $path
      */
-    //function creer();
+    //function creer($path);
 
     /**
      * Path sur le filesystem
