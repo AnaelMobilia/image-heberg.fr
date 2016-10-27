@@ -41,6 +41,8 @@ class imageObjectTest extends PHPUnit_Extensions_Database_TestCase {
      * Rotation des images
      */
     public function testRotationImages() {
+        require 'config/configV2.php';
+
         $monImage = new imageObject();
         // JPG
         $angle = 90;
