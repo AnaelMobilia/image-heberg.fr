@@ -52,18 +52,24 @@ if (!_TRAVIS_) {
 // mail admin
 define('_MAIL_ADMIN_', 'contrib@anael.eu');
 
+// Répertoires
+define('_REPERTOIRE_IMAGE_', 'files/');
+define('_REPERTOIRE_MINIATURE_', _REPERTOIRE_IMAGE_ . 'thumbs/');
+define('_REPERTOIRE_ADMIN_', 'admin/');
+define('_REPERTOIRE_MEMBRE_', 'membre/');
+
 // URL
 define('_URL_', 'http://www.image-heberg.fr/');
-define('_URL_ADMIN_', _URL_ . 'admin/');
-define('_URL_MEMBRE_', _URL_ . 'membre/');
-define('_URL_IMAGES_', _URL_ . 'files/');
-define('_URL_MINIATURES_', _URL_IMAGES_ . 'thumbs/');
+define('_URL_ADMIN_', _URL_ . _REPERTOIRE_ADMIN_);
+define('_URL_MEMBRE_', _URL_ . _REPERTOIRE_MEMBRE_);
+define('_URL_IMAGES_', _URL_ . _REPERTOIRE_IMAGE_);
+define('_URL_MINIATURES_', _URL_ . _REPERTOIRE_MINIATURE_);
 
 // Système de fichiers
 define('_PATH_', '/home/travis/build/AnaelMobilia/image-heberg.fr/');
-define('_PATH_IMAGES_', _PATH_ . 'files/');
-define('_PATH_MINIATURES_', _PATH_IMAGES_ . 'thumbs/');
-define('_PATH_ADMIN_', _PATH_ . 'admin/');
+define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);
+define('_PATH_MINIATURES_', _PATH_ . _REPERTOIRE_MINIATURE_);
+define('_PATH_ADMIN_', _PATH_ . _REPERTOIRE_ADMIN_);
 define('_PATH_TESTS_IMAGES_', _PATH_ . '__tests/images/');
 define('_PATH_TESTS_OUTPUT_', _PATH_ . '__tests/output/');
 define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
