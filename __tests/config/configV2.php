@@ -29,22 +29,25 @@ if (_DEBUG_) {
 }
 define('_TRAVIS_', TRUE);
 
-// Gestion des exceptions de l'application
-function exception_handler($exception) {
-    /* @var $exception Exception */
-    if (_DEBUG_) {
-        echo '<pre>';
-        print_r($exception->getMessage());
-        echo '<br /><br /><hr /><br />';
-        print_r($exception->getTraceAsString());
-        echo '</pre>';
-    } else {
-        echo 'Une erreur a été rencontrée';
-        // TODO : log de l'erreur / mail
-    }
-}
+if (!_TRAVIS_) {
 
-set_exception_handler('exception_handler');
+    // Gestion des exceptions de l'application
+    function exception_handler($exception) {
+        /* @var $exception Exception */
+        if (_DEBUG_) {
+            echo '<pre>';
+            print_r($exception->getMessage());
+            echo '<br /><br /><hr /><br />';
+            print_r($exception->getTraceAsString());
+            echo '</pre>';
+        } else {
+            echo 'Une erreur a été rencontrée';
+            // TODO : log de l'erreur / mail
+        }
+    }
+
+    set_exception_handler('exception_handler');
+}
 
 // mail admin
 define('_MAIL_ADMIN_', 'contrib@anael.eu');
