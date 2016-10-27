@@ -19,18 +19,6 @@
  */
 require 'config/configV2.php';
 require _TPL_TOP_;
-/* TODO List
-  Espace membre
-  -> case "rester connecte depuis cet ordinateur" (cookie save en db + sur pc + check user agent) (corwin)
-  -> user friendly pour voir mes images / envoyer une image
-  -> Fonctionnalité retrouver mon mot de passe (envoi mail sur @ donn�e a l'enregistrement, validation d'un token save en db, proposition new password)
-
-  Fonctionnalités
-  -> Album photo (plusieurs images via une seule url)
-  -> Album photo (gestion d'une arborescence)
-  -> Mot de passe sur image / album
-  -> Envoi depuis un tiers (forum) / API ?
- */
 
 // **************************************
 //	./index.php
