@@ -21,14 +21,6 @@
 class membreTest extends PHPUnit_Extensions_Database_TestCase {
 
     /**
-     * Constructeur
-     */
-    public function __construct() {
-        require 'config/configV2.php';
-        parent::__construct();
-    }
-
-    /**
      * Fonction requise par l'extension Database
      * @return type
      */
@@ -49,6 +41,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
      * Création d'un compte membre
      */
     public function testMembreCreerCompte() {
+        require 'config/configV2.php';
         /**
          *  Injection des valeurs du formulaire
          */
