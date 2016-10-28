@@ -182,7 +182,7 @@ abstract class ressourceObject {
      * Incrémente le nombre d'affichage IPv4
      */
     public function setNbViewIpv4PlusUn() {
-        $this->nbViewIPV4 = $this->getNbViewIPv4() + 1;
+        $this->nbViewIPv4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
     }
 
@@ -190,7 +190,7 @@ abstract class ressourceObject {
      * Incrémente le nombre d'affichage IPv6
      */
     public function setNbViewIpv6PlusUn() {
-        $this->nbViewIPV6 = $this->getNbViewIPv6() + 1;
+        $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
     }
 
