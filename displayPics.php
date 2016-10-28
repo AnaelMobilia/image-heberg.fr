@@ -32,10 +32,10 @@ $fileName = basename($url);
  */
 $monObjet;
 if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) {
-    // Miniature
+// Miniature
     $monObjet = new miniatureObject();
 } else {
-    // Image (ou erreur)
+// Image (ou erreur)
     $monObjet = new imageObject();
 }
 
@@ -43,7 +43,7 @@ if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) 
  * Est-ce que le fichier existe ?
  */
 if (!$monObjet->charger($fileName)) {
-    // Fichier non trouvé...
+// Fichier non trouvé...
     $monObjet->charger(_IMAGE_404_);
 }
 
@@ -58,22 +58,30 @@ if ($monObjet->isBloque()) {
  * Envoi du bon entête HTTP
  */
 if (!_TRAVIS_) {
-    header("Content-type: " . outils::getMimeType($monObjet->getPath()));
+    if (file_exists($monObjet->getPath())) {
+        header("Content-type: " . outils::getMimeType($monObjet->getPath()));
+    } else {
+        header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
+    }
 }
 
 /**
  * Envoi du fichier
  */
-readfile($monObjet->getPath());
+if (file_exists($monObjet->getPath())) {
+    readfile($monObjet->getPath());
+} else {
+    readfile($monObjet->getPathMd5());
+}
 
 /**
  * Mise à jour des stats d'affichage
  */
 if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-    // IPv4
+// IPv4
     $monObjet->setNbViewIpv4PlusUn();
 } else {
-    // IPv6
+// IPv6
     $monObjet->setNbViewIpv6PlusUn();
 }
 $monObjet->sauver();
