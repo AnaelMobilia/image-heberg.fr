@@ -25,6 +25,7 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testImageInexistante() {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/fichierInexistant.jpg';
         ob_start();
         require 'displayPics.php';
@@ -38,6 +39,7 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testRépertoireInexistant() {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/repertoireInexistant/fichierInexistant.jpg';
         ob_start();
         require 'displayPics.php';
