@@ -290,6 +290,10 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
      */
     public function testConnexionCompteHistorique() {
         /**
+         * Injection de la session
+         */
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        /**
          * Récupération d'un objet
          */
         $monMembre = new utilisateurObject();
