@@ -38,7 +38,43 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     /**
-     * Création d'un compte membre
+     * Création d'un compte membre avec un nom déjà existant
+     */
+    public function testMembreCreerCompteDoublon() {
+        require 'config/configV2.php';
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['valider'] = 1;
+        $_POST['userName'] = 'admin';
+        $_POST['userPassword'] = 'monPassword';
+        $_POST['userMail'] = 'contrib@anael.eu';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/creerCompte.php';
+        ob_end_clean();
+
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(2);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Login / password
+        $monMembre->setUserName('admin');
+        $monMembre->setPasswordToCrypt('monPassword');
+        $this->assertEquals(FALSE, $monMembre->connexion(), "connexion : le nom d'utilisateur doit être unique");
+    }
+
+    /**
+     * Création d'un compte membre.
+     * @depends testMembreCreerCompteDoublon
      */
     public function testMembreCreerCompte() {
         require 'config/configV2.php';
@@ -46,7 +82,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          *  Injection des valeurs du formulaire
          */
         $_POST['valider'] = 1;
-        $_POST['userName'] = 'admin';
+        $_POST['userName'] = 'username';
         $_POST['userPassword'] = 'password';
         $_POST['userMail'] = 'contrib@anael.eu';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -75,11 +111,11 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         // Niveau de droits
         $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
         // Nom
-        $this->assertEquals('admin', $monMembre->getUserName());
+        $this->assertEquals('username', $monMembre->getUserName());
         // Nom en BDD
-        $this->assertEquals('admin', $monMembre->getUserNameBDD());
+        $this->assertEquals('username', $monMembre->getUserNameBDD());
         // Login / password
-        $monMembre->setUserName('admin');
+        $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion());
     }
@@ -102,7 +138,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
-        $_SESSION['userName'] = 'admin';
+        $_SESSION['userName'] = 'username';
 
         /**
          *  Appel de la page
@@ -122,7 +158,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         // Email
         $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
         // Login / password
-        $monMembre->setUserName('admin');
+        $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
@@ -145,7 +181,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
-        $_SESSION['userName'] = 'admin';
+        $_SESSION['userName'] = 'username';
 
         /**
          *  Appel de la page
@@ -163,7 +199,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // Login / password
-        $monMembre->setUserName('admin');
+        $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
@@ -185,7 +221,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
-        $_SESSION['userName'] = 'admin';
+        $_SESSION['userName'] = 'username';
 
         /**
          *  Appel de la page
@@ -203,7 +239,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // Login / password
-        $monMembre->setUserName('admin');
+        $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion devrait être possible");
     }
@@ -226,7 +262,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
-        $_SESSION['userName'] = 'admin';
+        $_SESSION['userName'] = 'username';
 
         /**
          *  Appel de la page
@@ -244,9 +280,28 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Vérification des valeurs
          */
         // Login / password
-        $monMembre->setUserName('admin');
+        $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(FALSE, $monMembre->connexion(), "connexion ne deverait plus être possible");
+    }
+
+    /**
+     * Connexion au compte créé lors de la création de la BDD
+     * @depends testMembreSupprimerCompte
+     */
+    public function testConnexionCompteHistorique() {
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(2);
+
+        /**
+         * Vérification des valeurs
+         */
+        // Login / password
+        $monMembre->setUserName('username');
+        $monMembre->setPasswordToCrypt('password');
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion au compte créé à l'import de la BDD devrait être possible");
     }
 
 }
