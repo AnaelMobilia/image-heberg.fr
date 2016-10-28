@@ -25,7 +25,7 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testImageInexistante() {
-        $_SERVER['REQUEST_URI'] = _URL_IMAGES_ . 'fichierInexistant.jpg';
+        $_SERVER['REQUEST_URI'] = 'files/fichierInexistant.jpg';
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
@@ -38,7 +38,7 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testRépertoireInexistant() {
-        $_SERVER['REQUEST_URI'] = _URL_IMAGES_ . 'repertoireInexistant/fichierInexistant.jpg';
+        $_SERVER['REQUEST_URI'] = 'files/repertoireInexistant/fichierInexistant.jpg';
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
