@@ -65,22 +65,6 @@ CREATE TABLE IF NOT EXISTS `images` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 --
--- Structure de la table `ip2ban`
---
-
-CREATE TABLE IF NOT EXISTS `ip2ban` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` enum('ip','user-agent','reverse-ip') NOT NULL,
-  `info` text NOT NULL,
-  `end_date` date DEFAULT NULL,
-  `nb_bans` int(11) NOT NULL DEFAULT '0',
-  `last_date` datetime DEFAULT NULL,
-  `last_ip` text,
-  `commentaire` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
---
 -- Structure de la table `liste_erreurs`
 --
 

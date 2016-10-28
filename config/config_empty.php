@@ -139,9 +139,4 @@ foreach ($library as $load_lib) {
         die('Une erreur &agrave; &eacute;t&eacute; rencontr&eacute;e.<br />L\'administrateur &agrave; &eacute;t&eacute; averti.');
     }
 }
-
-//-------------------------------------------
-//	VERIFICATION DES BANS DE l'@ IP
-//-------------------------------------------
-check_ban();
 ?>
