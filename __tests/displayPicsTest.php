@@ -25,8 +25,12 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testImageInexistante() {
-        require 'config/configV2.php';
-        $this->assertFileEquals(_URL_IMAGES_ . 'fichierInexistant.jpg', _PATH_IMAGES_ . _IMAGE_404_, "image_404");
+        $_SERVER['REQUEST_URI'] = _URL_IMAGES_ . 'fichierInexistant.jpg';
+        ob_start();
+        require 'displayPics.php';
+        ob_end_clean();
+        /* @var $monObjet ressourceObject */
+        $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), "image_404 si inexistante");
     }
 
     /**
@@ -34,8 +38,12 @@ class displayPicsTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testRépertoireInexistant() {
-        require 'config/configV2.php';
-        $this->assertFileEquals(_URL_IMAGES_ . 'repertoireInexistant/fichierInexistant.jpg', _PATH_IMAGES_ . _IMAGE_404_, "image_404");
+        $_SERVER['REQUEST_URI'] = _URL_IMAGES_ . 'repertoireInexistant/fichierInexistant.jpg';
+        ob_start();
+        require 'displayPics.php';
+        ob_end_clean();
+        /* @var $monObjet ressourceObject */
+        $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), "image_404 si mauvais sous répertoire");
     }
 
 }
