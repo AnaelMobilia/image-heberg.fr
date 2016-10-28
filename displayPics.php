@@ -57,7 +57,9 @@ if ($monObjet->isBloque()) {
 /**
  * Envoi du bon entête HTTP
  */
-header("Content-type: " . outils::getMimeType($monObjet->getPath()));
+if (!_TRAVIS_) {
+    header("Content-type: " . outils::getMimeType($monObjet->getPath()));
+}
 
 /**
  * Envoi du fichier
