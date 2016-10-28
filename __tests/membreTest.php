@@ -104,7 +104,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         // Email
         $this->assertEquals('contrib@anael.eu', $monMembre->getEmail(), "Vérification email");
         // ID
-        $this->assertEquals(1, $monMembre->getId());
+        $this->assertEquals(2, $monMembre->getId());
         // @ IP d'inscription
         $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
         // Niveau de droits
@@ -134,7 +134,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 1;
+        $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -177,7 +177,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 1;
+        $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -217,7 +217,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 1;
+        $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -258,7 +258,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 1;
+        $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
