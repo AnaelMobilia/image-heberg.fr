@@ -80,7 +80,7 @@ define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
 
 // Salt pour les mots de passe
-define('_GRAIN_DE_SEL_', '123456789azertyuiop');
+define('_GRAIN_DE_SEL_', '');
 
 // BDD
 define('_BDD_HOST_', 'localhost');
