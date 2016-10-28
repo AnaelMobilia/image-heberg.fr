@@ -45,6 +45,10 @@ class imageObject extends ressourceObject implements ressourceInterface {
         return _PATH_IMAGES_ . $this->getNomNouveau();
     }
 
+    public function getPathMd5() {
+        return _PATH_IMAGES_ . $this->getMd5();
+    }
+
     /**
      * Charger les infos d'une image
      * @param string $newName nom de l'image

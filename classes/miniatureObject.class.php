@@ -48,6 +48,10 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         return _PATH_MINIATURES_ . $this->getNomNouveau();
     }
 
+    public function getPathMd5() {
+        return _PATH_MINIATURES_ . $this->getMd5();
+    }
+
     /**
      * Charger une miniature
      * @param string $newName newName de l'image maître

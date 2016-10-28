@@ -50,4 +50,9 @@ interface ressourceInterface {
      * Path sur le filesystem
      */
     function getPath();
+
+    /**
+     * Path sur le filesystem avec le nouveau système anti doublon
+     */
+    function getPathMd5();
 }
