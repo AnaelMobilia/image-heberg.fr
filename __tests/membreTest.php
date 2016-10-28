@@ -292,13 +292,13 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject(2);
+        $monMembre = new utilisateurObject(1);
 
         /**
          * Vérification des valeurs
          */
         // Login / password
-        $monMembre->setUserName('username');
+        $monMembre->setUserName('admin');
         $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion(), "connexion au compte créé à l'import de la BDD devrait être possible");
     }
