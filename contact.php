@@ -54,7 +54,7 @@ if (isset($_POST['envoyer'])) {
 <div class="jumbotron">
     <h1><small>Contact</small></h1>
 
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Administrateur - <?= _ADMINISTRATEUR_NOM_ ?></h3>
         </div>
