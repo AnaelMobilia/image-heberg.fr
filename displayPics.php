@@ -20,12 +20,7 @@
 /**
  * Affichage d'une image & mise à jour des stats
  */
-// TODO : gestion du blocage des images
-
 require 'config/configV2.php';
-
-// Gestion des erreurs
-$erreurImage = FALSE;
 
 // URL demandée
 $url = $_SERVER['REQUEST_URI'];
