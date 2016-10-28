@@ -1,24 +1,21 @@
--- phpMyAdmin SQL Dump
--- version 4.1.9
--- http://www.phpmyadmin.net
---
--- Généré le :  Sam 10 Janvier 2015 à 19:32
--- Version du serveur :  5.1.73-2+squeeze+build1+1-log
--- Version de PHP :  5.3.8
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
---
-
--- --------------------------------------------------------
+/*
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
 
 --
 -- Structure de la table `erreurs`
@@ -31,8 +28,6 @@ CREATE TABLE IF NOT EXISTS `erreurs` (
   `ip` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `hacks`
@@ -47,8 +42,6 @@ CREATE TABLE IF NOT EXISTS `hacks` (
   `last_ip` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `images`
@@ -71,8 +64,6 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `ip2ban`
 --
@@ -89,8 +80,6 @@ CREATE TABLE IF NOT EXISTS `ip2ban` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `liste_erreurs`
 --
@@ -103,8 +92,6 @@ CREATE TABLE IF NOT EXISTS `liste_erreurs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `login`
 --
@@ -116,8 +103,6 @@ CREATE TABLE IF NOT EXISTS `login` (
   `pk_membres` int(11) NOT NULL,
   PRIMARY KEY (`pk_login`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `membres`
@@ -134,8 +119,6 @@ CREATE TABLE IF NOT EXISTS `membres` (
   PRIMARY KEY (`pk_membres`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `possede`
 --
@@ -145,8 +128,6 @@ CREATE TABLE IF NOT EXISTS `possede` (
   `pk_membres` int(11) NOT NULL,
   PRIMARY KEY (`id`,`pk_membres`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `sondage`
@@ -175,8 +156,6 @@ CREATE TABLE IF NOT EXISTS `sondage` (
   PRIMARY KEY (`index`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `thumbnails`
 --
@@ -194,19 +173,20 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+--
 -- Création du compte administrateur
+--
 INSERT INTO `membres` (`pk_membres`, `email`, `login`, `pass`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
 (1, 'john.doe@example.com', 'admin', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 'admin');
 
-
+--
 -- Images 404 & bannie
+--
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `bloque`) VALUES
 (1, '127.0.0.1', '2008-01-01 00:00:00', '_image_404.png', '_image_404.png', 30703, 150, 640, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 0),
 (2, '127.0.0.1', '2008-01-01 00:00:00', '_image_banned.png', '_image_banned.png', 28713, 150, 640, '0000-00-00', 0, 0, '12c357976276091e7cd42e98debb7fb1', 0);
 
+--
 -- Assignation à l'administrateur
+--
 INSERT INTO `possede` (`id`, `pk_membres`) VALUES ('1', '1'), ('2', '1');

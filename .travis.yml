@@ -1,3 +1,21 @@
+#/*
+# * Copyright 2008-2016 Anael Mobilia
+# *
+# * This file is part of image-heberg.fr.
+# *
+# * image-heberg.fr is free software: you can redistribute it and/or modify
+# * it under the terms of the GNU General Public License as published by
+# * the Free Software Foundation, either version 3 of the License, or
+# * (at your option) any later version.
+# *
+# * image-heberg.fr is distributed in the hope that it will be useful,
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# * GNU General Public License for more details.
+# *
+# * You should have received a copy of the GNU General Public License
+# * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+# */
 # Language
 language: php
 # Versions de PHP testées
@@ -13,9 +31,14 @@ services:
 
 # Créer la BDD avant de commencer
 before_script:
+  # Création de la BDD
   - mysql -e "CREATE DATABASE imageheberg;"
+  # Injection des tables de base
   - mysql imageheberg < database.sql
   # Copie du fichier de configuration
   - sh -c "mv __tests/config/configV2.php config/"
+  # Insertion d'un jeu de données de test
+  - mysql imageheberg < __tests/data.sql
+
 
 script: phpunit --colors --debug __tests/
