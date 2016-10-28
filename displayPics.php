@@ -24,42 +24,60 @@
 
 require 'config/configV2.php';
 
+// Gestion des erreurs
+$erreurImage = FALSE;
+
+// URL demandée
+$url = $_SERVER['REQUEST_URI'];
 // Nom du fichier demandé
-$fileName = basename($_SERVER['REQUEST_URI']);
+$fileName = basename($url);
 
-// Path du fichier
-// $_GET['type'] est fourni par le .htaccess
-switch ($_GET['type']) {
-    case 'pics':
-        $filePath = _PATH_IMAGES_ . $fileName;
-        break;
-    case 'thumbs':
-        $filePath = _PATH_MINIATURES_ . $fileName;
-        break;
+/**
+ * Définition du type
+ */
+$monObjet;
+if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) {
+    // Miniature
+    $monObjet = new miniatureObject();
+} else {
+    // Image (ou erreur)
+    $monObjet = new imageObject();
 }
 
-// Envoi de l'entête HTTP
-header("Content-type: " . outils::getMimeType($filePath));
-
-// Envoi du fichier
-readfile($filePath);
-
-// Mise à jour des stats du fichier
-switch ($_GET['type']) {
-    case 'pics':
-        $fileObject = new imageObject($fileName);
-        break;
-    case 'thumbs':
-        $fileObject = new miniatureObject($fileName);
-        break;
+/**
+ * Est-ce que le fichier existe ?
+ */
+if (!$monObjet->charger($fileName)) {
+    // Fichier non trouvé...
+    $monObjet->charger(_IMAGE_404_);
 }
-// On enregistre l'affichage
+
+/**
+ * Le fichier est-il bloqué ?
+ */
+if ($monObjet->isBloque()) {
+    $monObjet->charger(_IMAGE_BAN_);
+}
+
+/**
+ * Envoi du bon entête HTTP
+ */
+header("Content-type: " . outils::getMimeType($monObjet->getPath()));
+
+/**
+ * Envoi du fichier
+ */
+readfile($monObjet->getPath());
+
+/**
+ * Mise à jour des stats d'affichage
+ */
 if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     // IPv4
-    $fileObject->setNbViewIpv4PlusUn();
+    $monObjet->setNbViewIpv4PlusUn();
 } else {
     // IPv6
-    $fileObject->setNbViewIpv6PlusUn();
+    $monObjet->setNbViewIpv6PlusUn();
 }
-$fileObject->sauver();
+$monObjet->sauver();
 ?>
