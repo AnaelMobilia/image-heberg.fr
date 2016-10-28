@@ -77,7 +77,6 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
      * @depends testMembreCreerCompteDoublon
      */
     public function testMembreCreerCompte() {
-        require 'config/configV2.php';
         /**
          *  Injection des valeurs du formulaire
          */
