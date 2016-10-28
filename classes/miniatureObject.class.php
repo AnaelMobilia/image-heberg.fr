@@ -107,7 +107,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         $req->bindValue(6, $this->getNbViewIPv4(), PDO::PARAM_INT);
         $req->bindValue(7, $this->getNbViewIPv6(), PDO::PARAM_INT);
         $req->bindValue(8, $this->getMd5(), PDO::PARAM_STR);
-        $req->bindValue(9, $this->getBloque(), PDO::PARAM_INT);
+        $req->bindValue(9, $this->isBloque(), PDO::PARAM_INT);
 
         $req->execute();
     }
@@ -131,6 +131,10 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_STR);
         $req->execute();
+    }
+
+    public function creer($path) {
+
     }
 
 }
