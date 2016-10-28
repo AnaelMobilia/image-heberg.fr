@@ -27,7 +27,7 @@ $reqImage = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 *
 $valImage = $reqImage->fetch();
 
 // Stats Miniatures
-$reqMiniature = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(t_nb_view_v4 * t_size) AS bpv4, SUM(t_nb_view_v6 * t_size) AS bpv6, SUM(t_nb_view_v4 + t_nb_view_v6) AS nbAff FROM thumbnails");
+$reqMiniature = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff FROM thumbnails");
 /* @var $reqMiniature PDOStatement */
 // Je récupère les valeurs
 $valMiniature = $reqMiniature->fetch();
