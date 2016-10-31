@@ -44,7 +44,10 @@ class utilisateurObject {
     public function __construct($userID = FALSE) {
         // Utilisateur à charger
         if ($userID) {
-            $this->charger($userID);
+            if (!$this->charger($userID)) {
+                // Envoi d'une exception si l'utilisateur n'existe pas
+                throw new Exception('Utilisateur ' . $userID . ' inexistant.');
+            }
         }
         // Cas par défaut
         else {
@@ -237,6 +240,8 @@ class utilisateurObject {
      * @param int $userID ID en BDD
      */
     public function charger($userID) {
+        $monRetour = FALSE;
+
         // Je récupère les données en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE pk_membres = ?");
         /* @var $req PDOStatement */
@@ -247,18 +252,21 @@ class utilisateurObject {
         $values = $req->fetch();
 
         // Si l'utilisateur n'existe pas... on retourne un utilisateurObject vide
-        if ($values === FALSE) {
-            return FALSE;
+        if ($values !== FALSE) {
+            // Je charge les informations de l'utilisateur
+            $this->setId($userID);
+            $this->setEmail($values->email);
+            $this->setUserName($values->login);
+            $this->setPassword($values->pass);
+            $this->setDateInscription($values->date_inscription);
+            $this->setIpInscription($values->ip_inscription);
+            $this->setLevel($values->lvl);
+
+            // Gestion du retour
+            $monRetour = TRUE;
         }
 
-        // Je charge les informations de l'utilisateur
-        $this->setId($userID);
-        $this->setEmail($values->email);
-        $this->setUserName($values->login);
-        $this->setPassword($values->pass);
-        $this->setDateInscription($values->date_inscription);
-        $this->setIpInscription($values->ip_inscription);
-        $this->setLevel($values->lvl);
+        return $monRetour;
     }
 
     /**
