@@ -65,23 +65,25 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         // J'éclate les informations
         $resultat = $req->fetch();
         if ($resultat !== FALSE) {
-            $this->setId($resultat->id);
             $this->setPoids($resultat->size);
             $this->setHauteur($resultat->height);
-            $this->setPoids($resultat->width);
+            $this->setLargeur($resultat->width);
             $this->setLastView($resultat->last_view);
             $this->setNbViewIPv4($resultat->nb_view_v4);
             $this->setNbViewIPv6($resultat->nb_view_v6);
             $this->setMd5($resultat->md5);
-            $this->setBloque($imageMaitre->isBloque());
 
-            // Et je reprend le nom de l'image maître
+            // Reprise des informations de l'image maitresse
+            $this->setId($imageMaitre->getId());
             $this->setNomNouveau($imageMaitre->getNomNouveau());
+            $this->setBloque($imageMaitre->isBloque());
+            $this->setNomOriginal($imageMaitre->getNomOriginal());
+            $this->setDateEnvoi($imageMaitre->getDateEnvoi());
+            $this->setIpEnvoi($imageMaitre->getIpEnvoi());
 
             // Notification du chargement réussi
             $monRetour = TRUE;
         }
-
         return $monRetour;
     }
 
@@ -94,7 +96,6 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
-
 
         // J'enregistre les infos en BDD
         $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, size, height, width, last_view, nb_view_v4, nb_view_v6, md5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
