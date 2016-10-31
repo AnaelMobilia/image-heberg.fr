@@ -38,7 +38,7 @@ class outils {
      * @return string
      */
     public static function getMimeType($path) {
-        return image_type_to_mime_type(outils::getType($path));
+        return image_type_to_mime_type(self::getType($path));
     }
 
     /**
@@ -47,7 +47,7 @@ class outils {
      */
     public static function getImage($path) {
         // Je charge l'image en mémoire en fonction de son type
-        switch (outils::getType($path)) {
+        switch (self::getType($path)) {
             case IMAGETYPE_GIF:
                 return imagecreatefromgif($path);
                 break;
@@ -66,17 +66,7 @@ class outils {
      * @return string
      */
     public static function getExtension($path) {
-        switch (outils::getType($path)) {
-            case IMAGETYPE_GIF:
-                return 'gif';
-                break;
-            case IMAGETYPE_JPEG:
-                return 'jpg';
-                break;
-            case IMAGETYPE_PNG:
-                return 'png';
-                break;
-        }
+        image_type_to_extension(self::getType($path), FALSE);
     }
 
     /**
