@@ -33,7 +33,10 @@ class imageObject extends ressourceObject implements ressourceInterface {
     function __construct($newName = FALSE) {
         // Si on me donne un ID d'image, je charge l'objet
         if ($newName) {
-            $this->charger($newName);
+            if (!$this->charger($newName)) {
+                // Envoi d'une exception si l'image n'existe pas
+                throw new Exception('Image ' . $newName . ' inexistante');
+            }
         }
     }
 
@@ -41,12 +44,18 @@ class imageObject extends ressourceObject implements ressourceInterface {
      * Path sur le HDD
      * @return string
      */
-    public function getPath() {
-        return _PATH_IMAGES_ . $this->getNomNouveau();
-    }
-
     public function getPathMd5() {
-        return _PATH_IMAGES_ . $this->getMd5();
+        $pathFinal = '';
+
+        if ($this->getId() == 1 || $this->getId() == 2) {
+            // Gestion des images spécificques 404 / ban
+            $pathFinal = _PATH_IMAGES_ . $this->getNomNouveau();
+        } else {
+            // Cas par défaut
+            $rep = substr($this->getMd5(), 0, 1) . '/';
+            $pathFinal = _PATH_IMAGES_ . $rep . $this->getMd5();
+        }
+        return $pathFinal;
     }
 
     /**
@@ -140,7 +149,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         echo "<br />Suppression de " . $this->getNomNouveau();
 
         // Je supprime l'image sur le HDD
-        unlink($this->getPath());
+        unlink($this->getPathMd5());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */

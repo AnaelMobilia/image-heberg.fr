@@ -194,12 +194,12 @@ class outils {
         }
 
         // Redimensionnement (en mémoire)
-        $newImage = imagescale(outils::getImage($uneImage->getPath()), $largeurMiniature, $hauteurMiniature);
+        $newImage = imagescale(outils::getImage($uneImage->getPathMd5()), $largeurMiniature, $hauteurMiniature);
 
         // Création de la miniature (en mémoire + HDD)
         $path = _PATH_MINIATURES_ . $uneImage->getNomNouveau();
 
-        switch (outils::getType($uneImage->getPath())) {
+        switch (outils::getType($uneImage->getPathMd5())) {
             case IMAGETYPE_GIF:
                 imagegif($newImage, $path);
                 break;

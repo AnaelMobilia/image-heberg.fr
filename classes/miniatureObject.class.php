@@ -27,29 +27,24 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * Constructeur
      * @param string $newName newName de l'image maître
-     * @return boolean Chargement réussi
      */
     function __construct($newName = FALSE) {
-        $monRetour = FALSE;
-
         // Si on me donne un newName d'image, je charge l'objet
         if ($newName) {
-            $monRetour = $this->charger($newName);
+            if (!$this->charger($newName)) {
+                // Envoi d'une exception si l'image n'existe pas
+                throw new Exception('Miniature ' . $newName . ' inexistante');
+            }
         }
-
-        return $monRetour;
     }
 
     /**
      * Path sur le HDD
      * @return
      */
-    public function getPath() {
-        return _PATH_MINIATURES_ . $this->getNomNouveau();
-    }
-
     public function getPathMd5() {
-        return _PATH_MINIATURES_ . $this->getMd5();
+        $rep = substr($this->getMd5(), 0, 1) . '/';
+        return _PATH_MINIATURES_ . $rep . $this->getMd5();
     }
 
     /**
@@ -128,7 +123,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         }
 
         // Je supprime l'image sur le HDD
-        unlink($this->getPath());
+        unlink($this->getPathMd5());
         // Je supprime l'image en BDD
         $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
         /* @var $req PDOStatement */

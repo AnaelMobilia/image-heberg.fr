@@ -58,21 +58,13 @@ if ($monObjet->isBloque()) {
  * Envoi du bon entête HTTP
  */
 if (!_TRAVIS_) {
-    if (file_exists($monObjet->getPath())) {
-        header("Content-type: " . outils::getMimeType($monObjet->getPath()));
-    } else {
-        header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
-    }
+    header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
 }
 
 /**
  * Envoi du fichier
  */
-if (file_exists($monObjet->getPath())) {
-    readfile($monObjet->getPath());
-} else {
-    readfile($monObjet->getPathMd5());
-}
+readfile($monObjet->getPathMd5());
 
 /**
  * Mise à jour des stats d'affichage
