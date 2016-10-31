@@ -32,10 +32,10 @@ $fileName = basename($url);
  */
 $monObjet;
 if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) {
-// Miniature
+    // Miniature
     $monObjet = new miniatureObject();
 } else {
-// Image (ou erreur)
+    // Image (ou erreur)
     $monObjet = new imageObject();
 }
 
@@ -43,7 +43,7 @@ if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) 
  * Est-ce que le fichier existe ?
  */
 if (!$monObjet->charger($fileName)) {
-// Fichier non trouvé...
+    // Fichier non trouvé...
     $monObjet->charger(_IMAGE_404_);
 }
 
