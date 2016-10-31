@@ -153,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
   `nb_view_v4` int(11) NOT NULL DEFAULT '0',
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   `md5` tinytext NOT NULL,
-  `bloque` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
