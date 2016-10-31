@@ -70,6 +70,89 @@ class outils {
     }
 
     /**
+     * Taille mémoire maximale autorisée
+     * @see http://php.net/manual/fr/function.ini-get.php
+     */
+    public static function getMemoireAllouee() {
+        // Récupération de la valeur du php.ini
+        $val = trim(ini_get('memory_limit'));
+
+        // Gestion de l'unité multiplicatrice...
+        $unite = strtolower($val[strlen($val) - 1]);
+        switch ($unite) {
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
+    }
+
+    /**
+     * Est-il possible de modifier l'image (mémoire suffisante ?)
+     * @param imageObject $uneImage
+     * @return boolean Possible ?
+     * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
+     */
+    public static function isModifiableEnMemoire($uneImage) {
+        /* @var $uneImage imageObject */
+        $monRetour = FALSE;
+        // Nombre de canaux d'information de l'image
+        $nbCanaux = 4;
+
+        /**
+         * Information sur les canaux ?
+         */
+        $imageinfo = [];
+        getimagesize($uneImage->getPathMigration(), $imageinfo);
+        // Si information sur les canaux de l'image...
+        if (isset($imageinfo['channels']) && is_int($imageinfo['channels'])) {
+            $nbCanaux = $imageinfo['channels'];
+        }
+
+        /**
+         * Mémoire requise :
+         * (hauteur x largeur x profondeur)
+         * => x 2 [imageSource + imageDest]
+         * => x 1.8 [fudge factor]
+         */
+        $memReq = $uneImage->getHauteur() * $uneImage->getLargeur() * $nbCanaux;
+        $memReq *= 2;
+        $memReq *= _FUDGE_FACTOR_;
+
+        // Est-ce possible ?
+        if ($memReq < self::getMemoireAllouee()) {
+            $monRetour = TRUE;
+        }
+
+        return $monRetour;
+    }
+
+    /**
+     * Dimension maximale acceptable en mémoire pour les images
+     * <br />Suppose que l'image est carrée (donc indicatif !)
+     * <br /> Suppose 4 canaux dans l'image
+     * @return int
+     * @see isModifiableEnMemoire
+     */
+    public static function getMaxDimension() {
+        $memDispo = self::getMemoireAllouee();
+
+        /**
+         * Mémoire requise :
+         * (hauteur x largeur x profondeur)
+         * => x 2 [imageSource + imageDest]
+         * => x 1.8 [fudge factor]
+         */
+        $dimMax = round(sqrt($memDispo / 4 / 2 / _FUDGE_FACTOR_), 0);
+
+        return $dimMax;
+    }
+
+    /**
      * Redimensionne une image
      * @param type $pathSrc path source
      * @param type $pathDst path destination

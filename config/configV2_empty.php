@@ -71,6 +71,22 @@ define('_PATH_TESTS_OUTPUT_', _PATH_ . '__tests/output/');
 define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
 define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
+// Fonction de chargement des classes en cas de besoin
+spl_autoload_register(function ($class) {
+    // Code pour TRAVIS
+    $charger = TRUE;
+
+    // Code spécifique Travis : pas de chargement des classes de PHPUnit
+    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== FALSE || strpos($class, "Composer") !== FALSE)) {
+        $charger = FALSE;
+    }
+
+    if ($charger) {
+        require _PATH_ . 'classes/' . $class . '.class.php';
+    }
+});
+
+
 // Images spécifiques
 define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
@@ -92,18 +108,7 @@ define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
 define('_HEBERGEUR_NOM_', 'OVH');
 define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
 
-// Fonction de chargement des classes en cas de besoin
-spl_autoload_register(function ($class) {
-    // Code pour TRAVIS
-    $charger = TRUE;
-
-    // Code spécifique Travis : pas de chargement des classes de PHPUnit
-    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== FALSE || strpos($class, "Composer") !== FALSE)) {
-        $charger = FALSE;
-    }
-
-    if ($charger) {
-        require _PATH_ . 'classes/' . $class . '.class.php';
-    }
-});
+// Spécification mémoire
+define('_FUDGE_FACTOR_', 1.8);
+define('_IMAGE_MAX_SIZE_', outils::getMaxDimension());
 ?>
