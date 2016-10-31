@@ -31,7 +31,7 @@ $fileName = basename($url);
  * Définition du type
  */
 $monObjet;
-if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) {
+if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
     // Miniature
     $monObjet = new miniatureObject();
 } else {
@@ -44,6 +44,7 @@ if (preg_match("#/" . _REPERTOIRE_IMAGE_ . _REPERTOIRE_MINIATURE_ . "#", $url)) 
  */
 if (!$monObjet->charger($fileName)) {
     // Fichier non trouvé...
+    $monObjet = new imageObject();
     $monObjet->charger(_IMAGE_404_);
 }
 
@@ -51,6 +52,7 @@ if (!$monObjet->charger($fileName)) {
  * Le fichier est-il bloqué ?
  */
 if ($monObjet->isBloque()) {
+    $monObjet = new imageObject();
     $monObjet->charger(_IMAGE_BAN_);
 }
 
