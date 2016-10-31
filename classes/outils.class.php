@@ -75,10 +75,11 @@ class outils {
      */
     public static function getMemoireAllouee() {
         // Récupération de la valeur du php.ini
-        $val = trim(ini_get('memory_limit'));
+        $valBrute = trim(ini_get('memory_limit'));
 
         // Gestion de l'unité multiplicatrice...
-        $unite = strtolower($val[strlen($val) - 1]);
+        $unite = strtolower(substr($valBrute, -1));
+        $val = (int) substr($valBrute, 0, -1);
         switch ($unite) {
             case 'g':
                 $val *= 1024;
