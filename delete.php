@@ -57,7 +57,7 @@ require_once('./config/config.php');    //config du script
 // Y a-t-il une miniature ?
             $thumb = sql_query('SELECT COUNT(*) FROM `thumbnails` WHERE `id` = "' . mysql_real_escape_string($data['id']) . '"');
 // Quid du propri�taire ?
-            $owner = sql_query('SELECT `pk_membres` FROM `possede` WHERE `id` = ' . $data['id']);
+            $owner = sql_query('SELECT `pk_membres` FROM `possede` WHERE `image_id` = ' . $data['id']);
 
             if (!file_exists(__PATH__ . __TARGET__ . $file)) { //Fichier sur hdd?
                 retour_erreur('Le fichier requis (' . $file . ') n\'existe pas sur le serveur !</p>', __FILE__, 'die', FALSE);
@@ -96,7 +96,7 @@ require_once('./config/config.php');    //config du script
 //	GESTION DU PROPRIETAIRE
 //---------------------------------
             if (isset($_SESSION['connected']) && $_SESSION['connected'] == TRUE) { //connect�
-                sql_query('DELETE FROM `possede` WHERE `id` = "' . mysql_real_escape_string($data['id']) . '"');
+                sql_query('DELETE FROM `possede` WHERE `image_id` = "' . mysql_real_escape_string($data['id']) . '"');
             }
 
             if ($thumb) {
