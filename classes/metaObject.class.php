@@ -142,7 +142,7 @@ class metaObject {
      */
     public static function getAllPicsOffOneUser($userId) {
         // Toutes les images
-        $req = maBDD::getInstance()->prepare("SELECT new_name FROM " . utilisateurObject::tableNamePossede . " a, " . imageObject::tableName . " b WHERE a.id = b.id AND pk_membres = ? ");
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM " . utilisateurObject::tableNamePossede . ", " . imageObject::tableName . " WHERE id = image_id AND pk_membres = ? ");
         /* @var $req PDOStatement */
         $req->bindParam(1, $userId, PDO::PARAM_INT);
 

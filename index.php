@@ -200,7 +200,7 @@ if (isset($_POST['Submit'])) {
 //	GESTION DU PROPRIETAIRE
 //---------------------------------
         if (isset($_SESSION['connected']) && $_SESSION['connected'] == TRUE) {//connecte
-            sql_query('INSERT INTO `possede` (pk_membres, id) VALUES (' . mysql_real_escape_string($_SESSION['user_id']) . ', ' . mysql_real_escape_string($id) . ')');
+            sql_query('INSERT INTO `possede` (pk_membres, image_id) VALUES (' . mysql_real_escape_string($_SESSION['user_id']) . ', ' . mysql_real_escape_string($id) . ')');
         }
 
 //---------------------------------

@@ -108,9 +108,9 @@ CREATE TABLE IF NOT EXISTS `membres` (
 --
 
 CREATE TABLE IF NOT EXISTS `possede` (
-  `id` int(11) NOT NULL,
+  `image_id` int(11) NOT NULL,
   `pk_membres` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`pk_membres`)
+  PRIMARY KEY (`image_id`,`pk_membres`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
