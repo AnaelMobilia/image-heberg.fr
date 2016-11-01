@@ -36,10 +36,6 @@ class utilisateurObject {
     const levelGuest = 0;
     const levelUser = 1;
     const levelAdmin = 2;
-    // Noms des tables
-    const tableNameUtilisateur = 'membres';
-    const tableNameLoginHistory = 'login';
-    const tableNamePossede = 'possede';
 
     public function __construct($userID = FALSE) {
         // Utilisateur à charger
@@ -201,7 +197,7 @@ class utilisateurObject {
         // Le sessionObject qui sera retourné
         $monUser = new sessionObject();
 
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE login = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getUserName(), PDO::PARAM_STR);
         $req->execute();
@@ -226,7 +222,7 @@ class utilisateurObject {
         $monUser->setUserName($values->login);
 
         // J'enregistre en BDD la connexion réussie
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . utilisateurObject::tableNameLoginHistory . " (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
         $req->bindValue(1, $monUser->getIP(), PDO::PARAM_STR);
         $req->bindValue(2, $monUser->getId(), PDO::PARAM_INT);
 
@@ -243,7 +239,7 @@ class utilisateurObject {
         $monRetour = FALSE;
 
         // Je récupère les données en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $userID, PDO::PARAM_INT);
         $req->execute();
@@ -273,7 +269,7 @@ class utilisateurObject {
      * Enregistrement (BDD) d'un utilisateur
      */
     public function enregistrer() {
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . utilisateurObject::tableNameUtilisateur . " (email, login, pass, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, pass, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
@@ -288,7 +284,7 @@ class utilisateurObject {
      * Modifier (BDD) un utilisateur déjà existant
      */
     public function modifier() {
-        $req = maBDD::getInstance()->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, lvl = ? WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, pass = ?, lvl = ? WHERE id = ?");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         // ?????
@@ -304,17 +300,17 @@ class utilisateurObject {
      */
     public function supprimer() {
         // Les images possédées
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . utilisateurObject::tableNamePossede . " WHERE pk_membres = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = ?");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Historique des logins
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . utilisateurObject::tableNameLoginHistory . " WHERE pk_membres = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = ?");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Paramètres du compte
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . utilisateurObject::tableNameUtilisateur . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = ?");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }

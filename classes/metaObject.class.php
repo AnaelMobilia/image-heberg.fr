@@ -32,7 +32,7 @@ class metaObject {
     public static function getNeverUsedOneYear() {
         // Toutes les images jamais affichées & envoyées il y a plus d'un an
         $dateUnAn = date('Y-m-d', strtotime('-1year'));
-        $req = "SELECT new_name FROM " . imageObject::tableName . " where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "'";
+        $req = "SELECT new_name FROM images where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "'";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
@@ -55,7 +55,7 @@ class metaObject {
     public static function getUnusedThreeYear() {
         // Toutes les images jnon affichées depuis 3 ans
         $dateTroisAns = date('Y-m-d', strtotime('-3year'));
-        $req = "SELECT new_name FROM " . imageObject::tableName . " where last_view < '" . $dateTroisAns . "'";
+        $req = "SELECT new_name FROM images where last_view < '" . $dateTroisAns . "'";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
@@ -77,7 +77,7 @@ class metaObject {
      */
     public static function getAllImagesNameBDD() {
         // Toutes les images
-        $req = "SELECT new_name FROM " . imageObject::tableName;
+        $req = "SELECT new_name FROM images";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
@@ -119,7 +119,7 @@ class metaObject {
      */
     public static function getAllMiniaturesNameBDD() {
         // Toutes les images
-        $req = "SELECT new_name FROM " . imageObject::tableName . ", " . miniatureObject::tableName . " WHERE " . imageObject::tableName . ".id = " . miniatureObject::tableName . ".id";
+        $req = "SELECT new_name FROM images, thumbnails WHERE images.id = thumbnails.id";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
@@ -142,7 +142,7 @@ class metaObject {
      */
     public static function getAllPicsOffOneUser($userId) {
         // Toutes les images
-        $req = maBDD::getInstance()->prepare("SELECT new_name FROM " . utilisateurObject::tableNamePossede . ", " . imageObject::tableName . " WHERE id = image_id AND pk_membres = ? ");
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = ? ");
         /* @var $req PDOStatement */
         $req->bindParam(1, $userId, PDO::PARAM_INT);
 
@@ -184,7 +184,7 @@ class metaObject {
      * @return boolean
      */
     public static function verifierLoginDisponible($login) {
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE login = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $login, PDO::PARAM_STR);
         $req->execute();

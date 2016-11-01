@@ -22,7 +22,6 @@
  * Les miniatures
  */
 class miniatureObject extends ressourceObject implements ressourceInterface {
-    const tableName = 'thumbnails';
 
     /**
      * Constructeur
@@ -57,7 +56,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         $imageMaitre = new imageObject($newName);
 
         // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $imageMaitre->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -92,13 +91,13 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      */
     public function sauver() {
         // Je supprime les infos pouvant déjà être en BDD pour cette image
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . miniatureObject::tableName . " (id, size, height, width, last_view, nb_view_v4, nb_view_v6, md5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id, size, height, width, last_view, nb_view_v4, nb_view_v6, md5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getPoids(), PDO::PARAM_INT);
         $req->bindValue(3, $this->getHauteur(), PDO::PARAM_INT);
@@ -126,7 +125,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         // Je supprime l'image sur le HDD
         unlink($this->getPathMd5());
         // Je supprime l'image en BDD
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . miniatureObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_STR);
         $req->execute();

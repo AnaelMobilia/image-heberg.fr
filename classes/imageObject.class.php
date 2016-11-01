@@ -24,7 +24,6 @@
  * @author anael
  */
 class imageObject extends ressourceObject implements ressourceInterface {
-    const tableName = 'images';
 
     /**
      * Constructeur
@@ -68,7 +67,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         $monRetour = FALSE;
 
         // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . imageObject::tableName . " WHERE new_name = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = ?");
         $req->bindParam(1, $newName, PDO::PARAM_STR);
         $req->execute();
 
@@ -102,14 +101,14 @@ class imageObject extends ressourceObject implements ressourceInterface {
      */
     public function sauver() {
         // Je supprime les infos pouvant déjà être en BDD pour cette image
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
 
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO " . imageObject::tableName . " (id, ip_envoi, date_envoi, old_name, new_name, size, height, width, last_view, nb_view_v4, nb_view_v6, md5, bloque) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $req = maBDD::getInstance()->prepare("INSERT INTO images (id, ip_envoi, date_envoi, old_name, new_name, size, height, width, last_view, nb_view_v4, nb_view_v6, md5, bloque) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getIpEnvoi(), PDO::PARAM_STR);
         $req->bindValue(3, $this->getDateEnvoi());
@@ -151,7 +150,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         // Je supprime l'image sur le HDD
         unlink($this->getPathMd5());
         // Je supprime l'image en BDD
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . imageObject::tableName . " WHERE id = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -180,9 +179,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
         // copier le fichier au bon endroit
         //
 
-        /**
-         * GERER LE CHANGEMENT D'EXTENSION SI BESOIN JPEG / JPG
-         */
+        var_dump($this);
     }
 
 }
