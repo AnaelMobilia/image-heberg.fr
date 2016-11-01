@@ -42,8 +42,24 @@ if (!_TRAVIS_) {
             echo '</pre>';
         } else {
             echo 'Une erreur a été rencontrée';
-            // TODO : log de l'erreur / mail
         }
+
+        /**
+         * Envoi d'un mail avec le détail de l'erreur à l'administrateur
+         */
+        // Adresse expediteur
+        $headers = 'From: ' . __MAIL_ADMIN__ . "\n";
+        // Adresse de retour
+        $headers .= 'Reply-To: ' . __MAIL_ADMIN__ . "\n";
+        // Agent mail
+        $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
+        // Ip
+        $headers .= 'User-IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
+        // Date
+        $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
+        $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
+
+        mail(__MAIL_ADMIN__, '[' . __URL_SITE__ . '] Erreur rencontree', $message, $headers);
     }
 
     set_exception_handler('exception_handler');
