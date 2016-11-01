@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 --
 -- Création du compte administrateur
 --
-INSERT INTO `membres` (`pk_membres`, `email`, `login`, `pass`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
+INSERT INTO `membres` (`id`, `email`, `login`, `pass`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
 (1, 'john.doe@example.com', 'admin', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 'admin');
 
 --
@@ -172,4 +172,4 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 --
 -- Assignation à l'administrateur
 --
-INSERT INTO `possede` (`id`, `pk_membres`) VALUES ('1', '1'), ('2', '1');
+INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('1', '1'), ('2', '1');
