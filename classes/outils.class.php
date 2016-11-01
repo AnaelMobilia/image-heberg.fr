@@ -152,6 +152,55 @@ class outils {
     }
 
     /**
+     * Vérifie l'existence de l'image pour :
+     * @param type $unMD5 le md5 du fichier
+     * @param type $uneIp l'adresse IP d'envoi
+     * @param type $unUtilisateur [optionnel] utilisateurObject
+     * @return string|NULL Nom de l'image si déjà présente
+     */
+    public static function verifierRenvoiImage($unMD5, $uneIp, $unUtilisateur = NULL) {
+        $monRetour = NULL;
+
+        /**
+         * MD5, @IP
+         */
+        $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images WHERE md5 = ? AND ip_envoi = ? AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) ORDER BY date_envoi DESC");
+        /* @var $req PDOStatement */
+        $req->bindValue(1, $unMD5, PDO::PARAM_STR);
+        $req->bindValue(2, $uneIp, PDO::PARAM_STR);
+        $req->execute();
+
+        // Je récupère les potentielles valeurs
+        $valuesIP = $req->fetch();
+
+        if ($valuesIP !== FALSE) {
+            // Données éventuelles
+            $monRetour = $valuesIP->new_name;
+        }
+
+
+        /**
+         * MD5, possede
+         */
+        if (!is_null($unUtilisateur)) {
+            $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images, possede, membres WHERE md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id ORDER BY date_envoi DESC");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
+            $req->execute();
+
+            // Je récupère les potentielles valeurs
+            $valuesPossede = $req->fetch();
+
+            if ($valuesPossede !== FALSE) {
+                // Données éventuelles
+                $monRetour = $valuesPossede->new_name;
+            }
+        }
+
+        return $monRetour;
+    }
+
+    /**
      * Redimensionne une image
      * @param type $pathSrc path source
      * @param type $pathDst path destination
