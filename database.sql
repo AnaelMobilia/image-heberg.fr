@@ -93,14 +93,14 @@ CREATE TABLE IF NOT EXISTS `login` (
 --
 
 CREATE TABLE IF NOT EXISTS `membres` (
-  `pk_membres` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` text NOT NULL,
   `login` text NOT NULL,
   `pass` text NOT NULL,
   `date_inscription` date NOT NULL,
   `ip_inscription` text NOT NULL,
   `lvl` text NOT NULL,
-  PRIMARY KEY (`pk_membres`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 --

@@ -221,7 +221,7 @@ class utilisateurObject {
 
         // Je charge les informations de la session
         $monUser->setIP($_SERVER['REMOTE_ADDR']);
-        $monUser->setId($values->pk_membres);
+        $monUser->setId($values->id);
         $monUser->setLevel($values->lvl);
         $monUser->setUserName($values->login);
 
@@ -243,7 +243,7 @@ class utilisateurObject {
         $monRetour = FALSE;
 
         // Je récupère les données en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE pk_membres = ?");
+        $req = maBDD::getInstance()->prepare("SELECT * FROM " . utilisateurObject::tableNameUtilisateur . " WHERE id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $userID, PDO::PARAM_INT);
         $req->execute();
@@ -288,7 +288,7 @@ class utilisateurObject {
      * Modifier (BDD) un utilisateur déjà existant
      */
     public function modifier() {
-        $req = maBDD::getInstance()->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, lvl = ? WHERE pk_membres = ?");
+        $req = maBDD::getInstance()->prepare("UPDATE " . utilisateurObject::tableNameUtilisateur . " SET email = ?, login = ?, pass = ?, lvl = ? WHERE id = ?");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
         // ?????
@@ -314,7 +314,7 @@ class utilisateurObject {
         $req->execute();
 
         // Paramètres du compte
-        $req = maBDD::getInstance()->prepare("DELETE FROM " . utilisateurObject::tableNameUtilisateur . " WHERE pk_membres = ?");
+        $req = maBDD::getInstance()->prepare("DELETE FROM " . utilisateurObject::tableNameUtilisateur . " WHERE id = ?");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }
