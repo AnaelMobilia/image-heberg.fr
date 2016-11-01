@@ -98,8 +98,7 @@ class outils {
      * @return boolean Possible ?
      * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
      */
-    public static function isModifiableEnMemoire($uneImage) {
-        /* @var $uneImage imageObject */
+    public static function isModifiableEnMemoire($path) {
         $monRetour = FALSE;
         // Nombre de canaux d'information de l'image
         $nbCanaux = 4;
@@ -108,7 +107,7 @@ class outils {
          * Information sur les canaux ?
          */
         $imageinfo = [];
-        getimagesize($uneImage->getPathMd5(), $imageinfo);
+        getimagesize($path, $imageinfo);
         // Si information sur les canaux de l'image...
         if (isset($imageinfo['channels']) && is_int($imageinfo['channels'])) {
             $nbCanaux = $imageinfo['channels'];
@@ -120,7 +119,7 @@ class outils {
          * => x 2 [imageSource + imageDest]
          * => x 1.8 [fudge factor]
          */
-        $memReq = $uneImage->getHauteur() * $uneImage->getLargeur() * $nbCanaux;
+        $memReq = $imageinfo[1] * $imageinfo[0] * $nbCanaux;
         $memReq *= 2;
         $memReq *= _FUDGE_FACTOR_;
 
