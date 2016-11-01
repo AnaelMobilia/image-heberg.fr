@@ -106,8 +106,7 @@ class outils {
         /**
          * Information sur les canaux ?
          */
-        $imageinfo = [];
-        getimagesize($path, $imageinfo);
+        $imageinfo = getimagesize($path);
         // Si information sur les canaux de l'image...
         if (isset($imageinfo['channels']) && is_int($imageinfo['channels'])) {
             $nbCanaux = $imageinfo['channels'];
