@@ -35,6 +35,7 @@ abstract class ressourceObject {
     private $md5;
     private $ipEnvoi;
     private $bloque;
+    private $pathTemp;
 
     /**
      * Rotation d'une ressource <br />
@@ -300,6 +301,22 @@ abstract class ressourceObject {
      */
     public function isBloque() {
         return $this->bloque;
+    }
+
+    /**
+     * Path temporaire (upload d'image)
+     * @return string
+     */
+    public function getPathTemp() {
+        return $this->pathTemp;
+    }
+
+    /**
+     * Path temporaire (upload d'image)
+     * @param string $pathTemp
+     */
+    public function setPathTemp($pathTemp) {
+        $this->pathTemp = $pathTemp;
     }
 
     /**

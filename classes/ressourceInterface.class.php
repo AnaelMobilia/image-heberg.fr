@@ -42,9 +42,8 @@ interface ressourceInterface {
 
     /**
      * Crée sur le HDD & BDD
-     * @param string $path
      */
-    function creer($path);
+    function creer();
 
     /**
      * Path sur le filesystem avec le nouveau système anti doublon
