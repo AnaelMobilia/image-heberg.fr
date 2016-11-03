@@ -66,7 +66,13 @@ class outils {
      * @return string
      */
     public static function getExtension($path) {
-        image_type_to_extension(self::getType($path), FALSE);
+        $ext = image_type_to_extension(self::getType($path), FALSE);
+        if ($ext === 'jpeg') {
+            // Préférence pour .jpg [filenmae.ext]
+            $ext = 'jpg';
+        }
+
+        return $ext;
     }
 
     /**
