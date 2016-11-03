@@ -127,7 +127,6 @@ $pass = 'xxx';
 $library = array(// liste des librairies
     __PATH__ . 'includes/sql.php', // sql_connect(), sql_query(), sql_close()
     __PATH__ . 'includes/erreur.php', // retour_erreur(), send_mail_admin()
-    __PATH__ . 'includes/spam.php', // cadeau pour les spammeurs - ouvre connexion SQL !
     __PATH__ . 'includes/pictures.php'  // filename_serialize(), is_allowed_type(), is_picture()
 );
 
