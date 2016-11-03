@@ -213,7 +213,7 @@ if (isset($_POST['Submit'])) {
 //	ROTATION DE L'IMAGE (si requis)
 //-------------------------------------
         if (isset($_POST['rotate'])) { //si la checkbox est cochée
-            $angle = $_POST['angle']; //angle de rotation
+            $angle = $_POST['angleRotation']; //angle de rotation
             include(__PATH__ . "rotate.php");
         }
 //------------------------------------------
@@ -332,7 +332,7 @@ if (isset($_POST['Submit'])) {
                                 </select>
                                 <br />-->
                                 <input type="checkbox" name="rotate"/>Rotation de l'image
-                                <select name="angle">
+                                <select name="angleRotation">
                                     <optgroup label="Rotation vers la gauche">
                                         <option value="90">90&deg; (&frac14; tour)</option>
                                         <option value="180">180&deg; (&frac12; tour)</option>
