@@ -15,3 +15,8 @@ Service d'hébergement d'images en ligne
   - Renommer le fichier config_empty.php en config.php et compléter les différents champs
   - Configurer l'URL du site dans le fichier .htaccess
   - Se connecter avec le compte admin / password. Ce compte sera le compte de l'administrateur du site (prévoir de modifier le hash stocké en base si un salt est défini !)
+
+# Stockage des images
+  - Les images sont stockées dans le répertoire /files ou /files/thumbs en fonction de leur type.
+  - Chaque image est stockée sous forme de md5 (correspondance en BDD)
+  - Pour limiter le nombre de fichiers par répertoire, chaque image est stockée dans un sous répertoire qui est la première lettre de son md5
