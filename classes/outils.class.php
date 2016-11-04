@@ -69,20 +69,25 @@ class outils {
      * @param ressource $uneImage Image a enregistrer
      * @param int $imageType type PHP de l'image
      * @param string $path chemin du fichier
+     * @return boolean Succès ?
      */
     public static function setImage($uneImage, $imageType, $path) {
+        $monRetour = FALSE;
+
         // Je charge l'image en mémoire en fonction de son type
         switch ($imageType) {
             case IMAGETYPE_GIF:
-                imagegif($uneImage, $path);
+                $monRetour = imagegif($uneImage, $path);
                 break;
             case IMAGETYPE_JPEG:
-                imagejpeg($uneImage, $path, 100);
+                $monRetour = imagejpeg($uneImage, $path, 100);
                 break;
             case IMAGETYPE_PNG:
-                imagepng($uneImage, $path, 9);
+                $monRetour = imagepng($uneImage, $path, 9);
                 break;
         }
+
+        return $monRetour;
     }
 
     /**
