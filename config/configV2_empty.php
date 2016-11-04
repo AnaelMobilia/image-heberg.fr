@@ -44,9 +44,9 @@ if (!_TRAVIS_) {
          * Envoi d'un mail avec le détail de l'erreur à l'administrateur
          */
         // Adresse expediteur
-        $headers = 'From: ' . __MAIL_ADMIN__ . "\n";
+        $headers = 'From: ' . _MAIL_ADMIN_ . "\n";
         // Adresse de retour
-        $headers .= 'Reply-To: ' . __MAIL_ADMIN__ . "\n";
+        $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
         // Agent mail
         $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
         // Ip
