@@ -132,7 +132,8 @@ if (!$erreur) {
         $monImage = new imageObject($doublon);
     } else {
         // Création de l'image
-        if (!$monImage->creer($_FILES['fichier']['name'])) {
+        $monImage->setNomTemp($_FILES['fichier']['name']);
+        if (!$monImage->creer()) {
             $erreur = TRUE;
             $msgErreur .= 'Erreur lors de l\'enregistrement du fichier.<br />';
         }

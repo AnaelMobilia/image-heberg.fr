@@ -40,6 +40,7 @@ abstract class ressourceObject {
     private $bloque;
     private $pathTemp;
     private $type;
+    private $nomTemp;
 
     /**
      * Path sur le HDD
@@ -375,6 +376,22 @@ abstract class ressourceObject {
      */
     public function getType() {
         return $this->type;
+    }
+
+    /**
+     * Nom temporaire (PC utilisateur - upload d'image)
+     * @return string
+     */
+    public function getNomTemp() {
+        return $this->nomTemp;
+    }
+
+    /**
+     * Nom temporaire (PC utilisateur - upload d'image)
+     * @param string $nomTemp
+     */
+    public function setNomTemp($nomTemp) {
+        $this->nomTemp = $nomTemp;
     }
 
     /**

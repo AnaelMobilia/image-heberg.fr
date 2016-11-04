@@ -175,7 +175,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
             // Poids
             $this->setPoids(filesize($this->getPathMd5()));
             // Nom originel (non récupérable sur le fichier)
-            $this->setNomOriginal($nomOriginal);
+            $this->setNomOriginal($this->getNomTemp());
             // @ IP d'envoi
             $this->setIpEnvoi($_SERVER['REMOTE_ADDR']);
 
