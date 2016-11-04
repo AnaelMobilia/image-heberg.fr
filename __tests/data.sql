@@ -21,3 +21,9 @@
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `bloque`) VALUES
 (10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1);
+
+--
+-- Second compte utilisateur
+--
+INSERT INTO `membres` (`id`, `email`, `login`, `pass`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
+(2, 'john.doe2@example.com', 'user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 'user');
