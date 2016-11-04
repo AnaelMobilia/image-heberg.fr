@@ -96,7 +96,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject(2);
+        $monMembre = new utilisateurObject(3);
 
         /**
          * Vérification des valeurs
@@ -147,7 +147,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject(2);
+        $monMembre = new utilisateurObject(3);
 
         /**
          * Vérification des valeurs
