@@ -25,10 +25,6 @@
 //	DEFINITION DES CONSTANTES
 //--------------------------------------
 /**
- * Activation du mode debug
- */
-define('__DEBUG__', TRUE);
-/**
  * Activation du mode debug - SQL
  */
 define('__DEBUG_SQL__', TRUE);
@@ -40,21 +36,7 @@ define('__URL_SITE__', 'http://www.image-heberg.fr/');
  * @ mail de l'administrateur
  */
 define('__MAIL_ADMIN__', 'john.doe@example.com');
-/**
- * Grain de sel pour l'encryptage des mots de passe des utilisateur
- */
-define('__GRAIN_DE_SEL__', 'xxx');
 
-//--------------------------------------
-//	INITIALISATION DES SESSIONS
-//--------------------------------------
-//if(! defined('__NO_SESSION__'))							// session_start <-> 1 header envoy?. D?sactiv? pour l'affichage des images
-//{
-//	session_start();
-//}
-if (__DEBUG__) {           // Dur?e d'ex?cution du script
-    $time_start = microtime(TRUE); //float
-}
 if (!isset($_SESSION['level'])) {       // Utilisateur non authentifi? <-> invit?
     $_SESSION['level'] = 'guest';
 }
@@ -66,18 +48,6 @@ if (!isset($_SESSION['level'])) {       // Utilisateur non authentifi? <-> invit
  * Emplacement physique
  */
 define('__PATH__', '/path/to/image-heberg.fr/');
-/**
- * R?pertoire du template
- */
-define('__TPL_PATH__', 'template/');
-/**
- * R?pertoire zone admin
- */
-define('__ADMIN_PATH__', 'admin/');
-/**
- * R?pertoire zone membre
- */
-define('__MEMBRE_PATH__', 'membre/');
 /**
  * R?pertoire d'enregistrement des images
  */
@@ -95,14 +65,6 @@ define('__EXTENSIONS_OK__', 'jpg, gif, png');
  */
 define('__MAX_SIZE__', 5242880);
 /**
- * Largeur max de l'image (px)
- */
-define('__WIDTH_MAX__', 3500);
-/**
- * Hauteur max de l'image (px)
- */
-define('__HEIGHT_MAX__', 3500);
-/**
  * Hauteur de la miniature par d?faut (px)
  */
 define('__DEFAULT_T_HEIGHT__', 140);
@@ -110,10 +72,6 @@ define('__DEFAULT_T_HEIGHT__', 140);
  * Largeur de la miniature par d?faut (px)
  */
 define('__DEFAULT_T_WIDTH__', 100);
-/**
- * Classe de caract?res autoris?s pour les logins
- */
-define('__REG_EXP_LOGIN__', '#^[a-zA-Z0-9]+$#');
 
 // Connexion SQL
 $hote = 'xxx';
@@ -126,8 +84,7 @@ $pass = 'xxx';
 //--------------------------------------
 $library = array(// liste des librairies
     __PATH__ . 'includes/sql.php', // sql_connect(), sql_query(), sql_close()
-    __PATH__ . 'includes/erreur.php', // retour_erreur(), send_mail_admin()
-    __PATH__ . 'includes/pictures.php'  // filename_serialize(), is_allowed_type(), is_picture()
+    __PATH__ . 'includes/erreur.php' // retour_erreur(), send_mail_admin()
 );
 
 foreach ($library as $load_lib) {
