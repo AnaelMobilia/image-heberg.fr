@@ -37,6 +37,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
      * @runInSeparateProcess
      */
     public function testEnvoiFlood() {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
 
         ob_start();
