@@ -28,6 +28,9 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * @param string $newName newName de l'image maître
      */
     function __construct($newName = FALSE) {
+        // Définition du type pour le ressourceObject
+        $this->setType(ressourceObject::typeMiniature);
+
         // Si on me donne un newName d'image, je charge l'objet
         if ($newName) {
             if (!$this->charger($newName)) {
@@ -35,15 +38,6 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
                 throw new Exception('Miniature ' . $newName . ' inexistante');
             }
         }
-    }
-
-    /**
-     * Path sur le HDD
-     * @return
-     */
-    public function getPathMd5() {
-        $rep = substr($this->getMd5(), 0, 1) . '/';
-        return _PATH_MINIATURES_ . $rep . $this->getMd5();
     }
 
     /**

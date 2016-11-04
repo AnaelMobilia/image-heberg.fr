@@ -22,6 +22,9 @@
  * Fonctions génériques aux images et miniatures
  */
 abstract class ressourceObject {
+    const typeImage = 1;
+    const typeMiniature = 2;
+
     private $id;
     private $nomOriginal;
     private $nomNouveau;
@@ -36,6 +39,43 @@ abstract class ressourceObject {
     private $ipEnvoi;
     private $bloque;
     private $pathTemp;
+    private $type;
+
+    /**
+     * Path sur le HDD
+     * @return string
+     */
+    public function getPathMd5() {
+        // Path final
+        $pathFinal = '';
+
+        // Path du type d'image
+        $pathDuType = '';
+        if ($this->type == $this->getType()) {
+            // Image
+            $pathDuType = _PATH_IMAGES_;
+        } else {
+            // Miniature
+            $pathDuType = _PATH_MINIATURES_;
+        }
+
+        if ($this->getId() == 1 || $this->getId() == 2) {
+            // Gestion des images spécificques 404 / ban
+            $pathFinal = $pathDuType . $this->getNomNouveau();
+        } else {
+            // Cas par défaut
+            $rep = substr($this->getMd5(), 0, 1) . '/';
+            $pathFinal = $pathDuType . $rep . $this->getMd5();
+        }
+
+        // TODO : suppression
+        // Fix temporaire avant fin upload v2
+        if (!file_exists($pathFinal) && is_null($this->getPathTemp())) {
+            $pathFinal = $pathDuType . $this->getNomNouveau();
+        }
+
+        return $pathFinal;
+    }
 
     /**
      * Rotation d'une ressource <br />
@@ -309,6 +349,22 @@ abstract class ressourceObject {
      */
     public function getPathTemp() {
         return $this->pathTemp;
+    }
+
+    /**
+     * Type d'image
+     * @return int ressoruceObject const
+     */
+    public function getType() {
+        return $this->type;
+    }
+
+    /**
+     * Type d'image
+     * @param int $type ressourceObject const
+     */
+    public function setType($type) {
+        $this->type = $type;
     }
 
     /**

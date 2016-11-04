@@ -20,8 +20,6 @@
 
 /**
  * Les images
- *
- * @author anael
  */
 class imageObject extends ressourceObject implements ressourceInterface {
 
@@ -30,6 +28,9 @@ class imageObject extends ressourceObject implements ressourceInterface {
      * @param string $newName nom de l'image
      */
     function __construct($newName = FALSE) {
+        // Définition du type pour le ressourceObject
+        $this->setType(ressourceObject::typeMiniature);
+
         // Si on me donne un ID d'image, je charge l'objet
         if ($newName) {
             if (!$this->charger($newName)) {
@@ -37,24 +38,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
                 throw new Exception('Image ' . $newName . ' inexistante');
             }
         }
-    }
-
-    /**
-     * Path sur le HDD
-     * @return string
-     */
-    public function getPathMd5() {
-        $pathFinal = '';
-
-        if ($this->getId() == 1 || $this->getId() == 2) {
-            // Gestion des images spécificques 404 / ban
-            $pathFinal = _PATH_IMAGES_ . $this->getNomNouveau();
-        } else {
-            // Cas par défaut
-            $rep = substr($this->getMd5(), 0, 1) . '/';
-            $pathFinal = _PATH_IMAGES_ . $rep . $this->getMd5();
-        }
-        return $pathFinal;
     }
 
     /**
