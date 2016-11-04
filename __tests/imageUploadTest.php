@@ -25,6 +25,12 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
      * @return int
      */
     private static function countImagesEnBdd() {
+        $maReq = maBDD::getInstance()->query("SELECT * FROM images");
+        foreach ($maReq->fetchAll() as $result) {
+            echo "\r\n<br/>" . $result->new_name;
+        }
+
+
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
         $nb = $result->nb;
