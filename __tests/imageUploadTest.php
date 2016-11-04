@@ -18,6 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+/**
+ * @runInSeparateProcess
+ */
 class imageUploadTest extends PHPUnit_Framework_TestCase {
     // 404, banned, une image bloquée
     private $nbImagesOriginal = 3;
