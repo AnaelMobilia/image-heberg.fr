@@ -27,7 +27,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
     private static function countImagesEnBdd() {
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
-
+        $nb = $result->nb;
+        echo $nb;
         return $result->nb;
     }
 
@@ -43,8 +44,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait empêcher l'enregistrement d'une image");
-        $this->assertEquals(self::countImagesEnBdd(), 2, "Non affichage du formulaire d'upload devrait empêcher l'enregistrement d'une image");
+        $this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
+        $this->assertEquals(self::countImagesEnBdd(), 2, "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
     }
 
     /**
