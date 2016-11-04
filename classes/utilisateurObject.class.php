@@ -64,7 +64,7 @@ class utilisateurObject {
      * BDD - Nom d'utilisateur non htmlentities
      * @return type
      */
-    public function getUserNameBDD() {
+    private function getUserNameBDD() {
         return $this->userName;
     }
 

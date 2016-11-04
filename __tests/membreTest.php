@@ -111,8 +111,6 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
         // Nom
         $this->assertEquals('username', $monMembre->getUserName());
-        // Nom en BDD
-        $this->assertEquals('username', $monMembre->getUserNameBDD());
         // Login / password
         $monMembre->setUserName('username');
         $monMembre->setPasswordToCrypt('password');
