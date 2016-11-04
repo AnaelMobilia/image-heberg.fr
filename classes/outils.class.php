@@ -42,8 +42,8 @@ class outils {
     }
 
     /**
-     * Ressource PHP image
-     * @return type
+     * Chargement ressource PHP image
+     * @return resource
      */
     public static function getImage($path) {
         // Je charge l'image en mémoire en fonction de son type
@@ -159,48 +159,42 @@ class outils {
 
     /**
      * Vérifie l'existence de l'image pour :
-     * @param type $unMD5 le md5 du fichier
-     * @param type $uneIp l'adresse IP d'envoi
-     * @param type $unUtilisateur [optionnel] utilisateurObject
+     * @param string $unMD5 le md5 du fichier
+     * @param string $uneIp l'adresse IP d'envoi
+     * @param utilisateurObject $unUtilisateur utilisateurObject
      * @return string|NULL Nom de l'image si déjà présente
      */
-    public static function verifierRenvoiImage($unMD5, $uneIp, $unUtilisateur = NULL) {
+    public static function verifierRenvoiImage($unMD5, $uneIp, $unUtilisateur) {
         $monRetour = NULL;
 
-        /**
-         * MD5, @IP
-         */
-        $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images WHERE md5 = ? AND ip_envoi = ? AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) ORDER BY date_envoi DESC");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-        $req->bindValue(2, $uneIp, PDO::PARAM_STR);
+        if ($unUtilisateur->getLevel() === utilisateurObject::levelGuest) {
+            /**
+             * Utilisateur anonyme
+             * Recherche sur MD5, @IP (sauf images possédées)
+             */
+            $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images WHERE md5 = ? AND ip_envoi = ? AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id NOT IN (SELECT image_id from possede) ORDER BY date_envoi DESC");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
+            $req->bindValue(2, $uneIp, PDO::PARAM_STR);
+        } else {
+            /**
+             * Utilisateur authentifié
+             * Recherche sur MD5, possede (sur ses images)
+             */
+            $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images, possede, membres WHERE md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = ? ORDER BY date_envoi DESC");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
+            $req->bindValue(2, $unUtilisateur->getId(), PDO::PARAM_INT);
+        }
+
+        // Exécution de la requête
         $req->execute();
 
         // Je récupère les potentielles valeurs
-        $valuesIP = $req->fetch();
-
-        if ($valuesIP !== FALSE) {
+        $values = $req->fetch();
+        if ($values !== FALSE) {
             // Données éventuelles
-            $monRetour = $valuesIP->new_name;
-        }
-
-
-        /**
-         * MD5, possede
-         */
-        if (!is_null($unUtilisateur)) {
-            $req = maBDD::getInstance()->prepare("SELECT new_name, date_envoi FROM images, possede, membres WHERE md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id ORDER BY date_envoi DESC");
-            /* @var $req PDOStatement */
-            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-            $req->execute();
-
-            // Je récupère les potentielles valeurs
-            $valuesPossede = $req->fetch();
-
-            if ($valuesPossede !== FALSE) {
-                // Données éventuelles
-                $monRetour = $valuesPossede->new_name;
-            }
+            $monRetour = $values->new_name;
         }
 
         return $monRetour;
