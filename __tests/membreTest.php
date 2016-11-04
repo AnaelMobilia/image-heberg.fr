@@ -104,7 +104,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         // Email
         $this->assertEquals('contrib@anael.eu', $monMembre->getEmail(), "Vérification email");
         // ID
-        $this->assertEquals(2, $monMembre->getId());
+        $this->assertEquals(3, $monMembre->getId());
         // @ IP d'inscription
         $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
         // Niveau de droits
