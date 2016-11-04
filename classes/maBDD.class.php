@@ -40,7 +40,7 @@ class maBDD {
 
     /**
      * Crée & renvoi l'objet d'instance
-     * @return type
+     * @return PDO
      */
     public static function getInstance() {
         // Si pas de connexion active, en crée une
@@ -66,6 +66,14 @@ class maBDD {
      */
     public function prepare($query) {
         return $this->maBDD->prepare($query);
+    }
+
+    /**
+     * PDO::lastInsertId
+     * @return type
+     */
+    public function lastInsertId() {
+        return $this->maBDD->lastInsertId();
     }
 
 }
