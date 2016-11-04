@@ -59,7 +59,6 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo $msgErreur;
         $this->assertEquals($erreur, FALSE, "Envoi image ne doit pas être bloqué dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), ++$this->nbImagesOriginal, "Envoi image doit créer d'image en BDD");
         $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '6/6a9dd81ae12c79d953031bc54c07f900'), "Envoi image doit créer d'image sur HDD");
