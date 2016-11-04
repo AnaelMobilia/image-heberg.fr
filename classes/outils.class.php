@@ -61,6 +61,27 @@ class outils {
     }
 
     /**
+     * Enregistrement d'une ressource PHP image
+     * @param ressource $uneImage Image a enregistrer
+     * @param int $imageType type PHP de l'image
+     * @param string $path chemin du fichier
+     */
+    public static function setImage($uneImage, $imageType, $path) {
+        // Je charge l'image en mémoire en fonction de son type
+        switch ($imageType) {
+            case IMAGETYPE_GIF:
+                imagegif($uneImage, $path);
+                break;
+            case IMAGETYPE_JPEG:
+                imagejpeg($uneImage, $path, 100);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($uneImage, $path, 9);
+                break;
+        }
+    }
+
+    /**
      * Fourni l'extension officielle d'une ressource
      * @param string $path chemin sur le filesystem
      * @return string
