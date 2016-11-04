@@ -50,17 +50,17 @@ CREATE TABLE IF NOT EXISTS `hacks` (
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `ip_envoi` text NOT NULL,
-  `date_envoi` datetime NOT NULL,
+  `date_envoi` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `old_name` text NOT NULL,
   `new_name` text NOT NULL,
   `size` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
-  `last_view` date NOT NULL,
+  `last_view` date NOT NULL DEFAULT '0000-00-00',
   `nb_view_v4` int(11) NOT NULL DEFAULT '0',
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
-  `md5` tinytext,
-  `bloque` tinyint(1) NOT NULL,
+  `md5` tinytext NOT NULL,
+  `bloque` tinyint(1) NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
