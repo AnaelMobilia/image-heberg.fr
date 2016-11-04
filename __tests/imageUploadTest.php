@@ -1,0 +1,74 @@
+<?php
+/*
+ * Copyright 2008-2016 Anael Mobilia
+ *
+ * This file is part of image-heberg.fr.
+ *
+ * image-heberg.fr is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * image-heberg.fr is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
+ */
+
+class imageUploadTest extends PHPUnit_Framework_TestCase {
+
+    /**
+     * Nombre d'images en BDD
+     * @return int
+     */
+    private static function countImagesEnBdd() {
+        $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
+        $result = $maReq->fetch();
+
+        return $result->nb;
+    }
+
+    /**
+     * Envoi flood (sans affichage page index.php
+     * => $erreur = TRUE
+     * @runInSeparateProcess
+     */
+    public function testEnvoiFlood() {
+        $_POST['Submit'] = 1;
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait empêcher l'enregistrement d'une image");
+        $this->assertEquals(self::countImagesEnBdd(), 2, "Non affichage du formulaire d'upload devrait empêcher l'enregistrement d'une image");
+    }
+
+    /**
+     * Poids
+     */
+    /**
+     * Type mime
+     * bonne ext mais mauvais fic
+     * mauvaise ext mais bon fic
+     * mauvais fic & mauvaise extension
+     */
+    /**
+     * Taille trop grande
+     * trop long
+     * trop large
+     * trop tout
+     */
+    /**
+     * envoi et renvoi
+     * => $doublon
+     */
+    /**
+     *  Envoi d'une image
+     * -> présence sur hdd
+     * -> présence sur BDD
+     * $erreur = FALSE
+     */
+}
