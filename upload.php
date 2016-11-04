@@ -79,8 +79,10 @@ if (!$erreur) {
 /**
  * Création d'une image pour effectuer les traitements requis
  */
-$monImage = new imageObject();
-$monImage->setPathTemp($pathTmp);
+if (!$erreur) {
+    $monImage = new imageObject();
+    $monImage->setPathTemp($pathTmp);
+}
 
 /**
  * Traitement du redimensionnement
