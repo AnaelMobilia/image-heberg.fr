@@ -132,7 +132,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 2;
+        $_SESSION['id'] = 3;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -175,7 +175,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 2;
+        $_SESSION['id'] = 3;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -215,7 +215,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 2;
+        $_SESSION['id'] = 3;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
@@ -256,7 +256,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          * Injection de la session
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SESSION['id'] = 2;
+        $_SESSION['id'] = 3;
         $_SESSION['IP'] = '127.0.0.1';
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
