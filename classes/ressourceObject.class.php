@@ -78,6 +78,24 @@ abstract class ressourceObject {
     }
 
     /**
+     * URL de la ressource
+     * @return string
+     */
+    public function getURL() {
+        // Path du type d'image
+        $urlDuType = '';
+        if ($this->type == $this->getType()) {
+            // Image
+            $urlDuType = _URL_IMAGES_;
+        } else {
+            // Miniature
+            $urlDuType = _URL_MINIATURES_;
+        }
+
+        return $urlDuType . $this->getNomNouveau();
+    }
+
+    /**
      * Rotation d'une ressource <br />
      * Inclus mise à jour largeur / hauteur / poids de l'image
      * @param int $angle xxx° de rotation GAUCHE
