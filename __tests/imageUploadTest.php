@@ -19,22 +19,16 @@
  */
 
 class imageUploadTest extends PHPUnit_Framework_TestCase {
+    // 404, banned, une image bloquée
+    const nbImagesParDefaut = 3;
 
     /**
      * Nombre d'images en BDD
      * @return int
      */
     private static function countImagesEnBdd() {
-        $maReq = maBDD::getInstance()->query("SELECT * FROM images");
-        foreach ($maReq->fetchAll() as $result) {
-            echo "\r\n<br/>" . $result->new_name;
-        }
-
-
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
-        $nb = $result->nb;
-        echo $nb;
         return $result->nb;
     }
 
@@ -51,7 +45,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 2, "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), self::nbImagesParDefaut, "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
     }
 
     /**
