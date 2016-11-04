@@ -54,6 +54,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_banned.gif';
+        $_FILES['fichier']['name'] = 'image_banned.gif';
 
         ob_start();
         require 'upload.php';
@@ -103,6 +104,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
+        $_FILES['fichier']['name'] = 'nomFichier';
         $_FILES['fichier']['size'] = _IMAGE_POIDS_MAX_ + 1;
 
         ob_start();
@@ -121,6 +123,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'fichier_doc.doc';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'fichier_doc.doc';
 
         ob_start();
@@ -139,6 +142,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'fichier_doc.jpg';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'fichier_doc.jpg';
 
         ob_start();
@@ -157,6 +161,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_jpg.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_jpg.png';
 
         ob_start();
@@ -175,6 +180,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_tres_large.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_tres_large.png';
 
         ob_start();
@@ -193,6 +199,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_tres_haute.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_tres_haute.png';
 
 
@@ -204,7 +211,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Dimensions de l'image - Trop grende
+     * Dimensions de l'image - Trop grande
      * @depends testTresHaute
      */
     public function testTropGrande() {
@@ -212,6 +219,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_10000x10000.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_10000x10000.png';
 
 
@@ -231,6 +239,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_authentifie.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_authentifie.png';
 
         // Création d'une session
@@ -254,6 +263,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_tres_haute.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_tres_haute.png';
 
 
@@ -274,6 +284,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_tres_haute.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_tres_haute.png';
 
         // Création d'une session
@@ -297,6 +308,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_authentifie.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_authentifie.png';
 
         ob_start();
@@ -316,6 +328,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_authentifie.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_authentifie.png';
 
         // Création d'une session
@@ -339,6 +352,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_authentifie.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_authentifie.png';
 
         // Création d'une session
