@@ -46,7 +46,6 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Test de l'envoi simple : présence BDD et HDD
-     * @runInSeparateProcess
      */
     public function testEnvoi() {
         require 'config/configV2.php';
