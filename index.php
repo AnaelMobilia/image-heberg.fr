@@ -32,9 +32,9 @@ $_SESSION['_upload'] = TRUE;
         <div class="panel-body">
             Image-heberg.fr est un service gratuit vous permettant d'héberger vos images sur internet.
             <ul>
-                <li>Fichiers : <?= strtoupper(__EXTENSIONS_OK__) ?></li>
+                <li>Images de type JPG, PNG, GIF</li>
                 <li>Taille max. : <?= round(__MAX_SIZE__ / 1048576, 1) ?> Mo</li>
-                <li>Dimensions max. : <?= _IMAGE_MAX_SIZE_ ?> x <?= _IMAGE_MAX_SIZE_ ?> pixels (hauteur x largeur)</li>
+                <li>Dimensions max. : <?= _IMAGE_DIMENSION_MAX_ ?> x <?= _IMAGE_DIMENSION_MAX_ ?> pixels (hauteur x largeur)</li>
             </ul>
             <form enctype="multipart/form-data" action="upload.php" method="post" class="form-inline">
                 <div class="form-group">

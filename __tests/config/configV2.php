@@ -127,7 +127,8 @@ define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
 define('_HEBERGEUR_NOM_', 'OVH');
 define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
 
-// Spécification mémoire
+// Spécifications mémoire
 define('_FUDGE_FACTOR_', 1.8);
-define('_IMAGE_MAX_SIZE_', outils::getMaxDimension());
+define('_IMAGE_DIMENSION_MAX_', outils::getMaxDimension());
+define('_IMAGE_POIDS_MAX_', 5242880);
 ?>

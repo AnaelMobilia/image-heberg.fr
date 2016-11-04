@@ -57,14 +57,6 @@ define('__TARGET__', 'files/');
  */
 define('__T_TARGET__', __TARGET__ . 'thumbs/');
 /**
- * Extensions d'images autoris?es
- */
-define('__EXTENSIONS_OK__', 'jpg, gif, png');
-/**
- * Taille max de l'image (octets)
- */
-define('__MAX_SIZE__', 5242880);
-/**
  * Hauteur de la miniature par d?faut (px)
  */
 define('__DEFAULT_T_HEIGHT__', 140);

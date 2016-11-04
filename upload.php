@@ -18,7 +18,6 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 require 'config/configV2.php';
-require 'config/config.php';
 require _TPL_TOP_;
 
 $erreur = FALSE;
@@ -48,9 +47,9 @@ if (!$erreur && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier'][
  */
 if (!$erreur) {
     $poids = $_FILES['fichier']['size'];
-    if ($poids > __MAX_SIZE__ && $_SESSION['connected'] !== TRUE) {
+    if ($poids > _IMAGE_POIDS_MAX_ && $_SESSION['connected'] !== TRUE) {
         $erreur = TRUE;
-        $msgErreur .= 'Le poids du fichier ' . round($taille / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(__MAX_SIZE__ / 1048576, 1) . ' Mo).<br />';
+        $msgErreur .= 'Le poids du fichier ' . round($taille / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
@@ -73,7 +72,7 @@ if (!$erreur) {
 if (!$erreur) {
     if (!outils::isModifiableEnMemoire($pathTmp)) {
         $erreur = TRUE;
-        $msgErreur .= 'Les dimensions de l\'image dépassent la limite autorisée ' . _IMAGE_MAX_SIZE_ . ' x ' . _IMAGE_MAX_SIZE_ . '<br />';
+        $msgErreur .= 'Les dimensions de l\'image dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
     }
 }
 
