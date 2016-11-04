@@ -46,18 +46,22 @@ class outils {
      * @return resource
      */
     public static function getImage($path) {
+        $monImage = NULL;
+
         // Je charge l'image en mémoire en fonction de son type
         switch (self::getType($path)) {
             case IMAGETYPE_GIF:
-                return imagecreatefromgif($path);
+                $monImage = imagecreatefromgif($path);
                 break;
             case IMAGETYPE_JPEG:
-                return imagecreatefromjpeg($path);
+                $monImage = imagecreatefromjpeg($path);
                 break;
             case IMAGETYPE_PNG:
-                return imagecreatefrompng($path);
+                $monImage = imagecreatefrompng($path);
                 break;
         }
+
+        return $monImage;
     }
 
     /**
