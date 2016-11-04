@@ -145,6 +145,8 @@ if (!$erreur) {
  */
 if (!$erreur) {
     $maSession = new sessionObject();
+    echo $maSession->getId();
+    var_dump($maSession->getId());
     // Si j'ai un ID d'utilisateur en session && que cette image n'est pas déjà enregistrée
     if ($maSession->getId() !== 0 && is_null($doublon)) {
         // Nouvelle image : assignation à l'utilisateur
