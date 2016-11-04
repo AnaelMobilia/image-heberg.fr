@@ -331,4 +331,20 @@ class utilisateurObject {
         return FALSE;
     }
 
+    /**
+     * Assigne une image à un utilisateur en BDD
+     * @param imageObject $imageObject
+     */
+    public function assignerImage($imageObject) {
+        if ($this->getId() === 0) {
+            throw new Exception("Aucun utilisateur n'est défini !");
+        }
+
+        // Les images possédées
+        $req = maBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (?, ?)");
+        $req->bindValue(1, $imageObject->getId(), PDO::PARAM_INT);
+        $req->bindValue(2, $this->getId(), PDO::PARAM_INT);
+        $req->execute();
+    }
+
 }
