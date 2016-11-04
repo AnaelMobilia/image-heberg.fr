@@ -48,7 +48,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
      * Test de l'envoi simple : présence BDD et HDD
      */
     public function testEnvoi() {
-        require 'config/configV2.php';
+        require_once 'config/configV2.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;

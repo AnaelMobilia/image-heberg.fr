@@ -41,7 +41,7 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
      * Création d'un compte membre avec un nom déjà existant
      */
     public function testMembreCreerCompteDoublon() {
-        require 'config/configV2.php';
+        require_once 'config/configV2.php';
         /**
          *  Injection des valeurs du formulaire
          */
