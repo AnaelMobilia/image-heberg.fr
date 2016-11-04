@@ -100,28 +100,21 @@ class imageObject extends ressourceObject implements ressourceInterface {
      * Sauver en BDD les infos d'une image
      */
     public function sauver() {
-        // Je supprime les infos pouvant déjà être en BDD pour cette image
-        $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
-
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO images (id, ip_envoi, date_envoi, old_name, new_name, size, height, width, last_view, nb_view_v4, nb_view_v6, md5, bloque) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->bindValue(2, $this->getIpEnvoi(), PDO::PARAM_STR);
-        $req->bindValue(3, $this->getDateEnvoi());
-        $req->bindValue(4, $this->getNomOriginal(), PDO::PARAM_STR);
-        $req->bindValue(5, $this->getNomNouveau(), PDO::PARAM_STR);
-        $req->bindValue(6, $this->getPoids(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getHauteur(), PDO::PARAM_INT);
-        $req->bindValue(8, $this->getLargeur(), PDO::PARAM_INT);
-        $req->bindValue(9, $this->getLastView());
-        $req->bindValue(10, $this->getNbViewIPv4(), PDO::PARAM_INT);
-        $req->bindValue(11, $this->getNbViewIPv6(), PDO::PARAM_INT);
-        $req->bindValue(12, $this->getMd5(), PDO::PARAM_STR);
-        $req->bindValue(13, $this->isBloque(), PDO::PARAM_INT);
+        $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = ?, date_envoi = ?, old_name = ?, new_name = ?, size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ?, bloque = ? WHERE id = ?");
+        $req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
+        $req->bindValue(2, $this->getDateEnvoi());
+        $req->bindValue(3, $this->getNomOriginal(), PDO::PARAM_STR);
+        $req->bindValue(4, $this->getNomNouveau(), PDO::PARAM_STR);
+        $req->bindValue(5, $this->getPoids(), PDO::PARAM_INT);
+        $req->bindValue(6, $this->getHauteur(), PDO::PARAM_INT);
+        $req->bindValue(7, $this->getLargeur(), PDO::PARAM_INT);
+        $req->bindValue(8, $this->getLastView());
+        $req->bindValue(9, $this->getNbViewIPv4(), PDO::PARAM_INT);
+        $req->bindValue(10, $this->getNbViewIPv6(), PDO::PARAM_INT);
+        $req->bindValue(11, $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(12, $this->isBloque(), PDO::PARAM_INT);
+        $req->bindValue(13, $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
     }
