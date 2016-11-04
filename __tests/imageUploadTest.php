@@ -56,6 +56,9 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . 'image_banned.gif';
         $_FILES['fichier']['name'] = 'image_banned.gif';
 
+        // Gestion des différents tests
+        unset($_SESSION['id']);
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
