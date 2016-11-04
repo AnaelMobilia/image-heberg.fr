@@ -59,7 +59,7 @@ if (!_TRAVIS_) {
         $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
         $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
 
-        mail(__MAIL_ADMIN__, '[' . __URL_SITE__ . '] Erreur rencontree', $message, $headers);
+        mail(_MAIL_ADMIN_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
     }
 
     set_exception_handler('exception_handler');
