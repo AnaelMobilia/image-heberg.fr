@@ -134,9 +134,11 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Enregistre une nouvelle image dans le système
-     * @param string $path path sur le filesystem
+     * @return boolean Enregistré ?
      */
-    public function creer($path) {
+    public function creer() {
+        $monRetour = TRUE;
+
         /**
          * Détermination du nom
          */
@@ -145,17 +147,64 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
         $debutTimestamp = substr($_SERVER['REQUEST_TIME'], 0, 5);
         $finTimestamp = substr($_SERVER['REQUEST_TIME'], 6);
-        $new_name = $debutTimestamp . $addresseIP . $random . $finTimestamp . '.' . outils::getExtension($path);
+        $new_name = $debutTimestamp . $random . $adresseIP . $finTimestamp . '.' . outils::getExtension($this->getPathTemp());
 
         $this->setNomNouveau($new_name);
 
         /**
+         * Calcul du MD5
+         */
+        $md5 = md5_file($this->getPathTemp());
+        $this->setMd5($md5);
+
+        /**
          * Déplacement du fichier
          */
-        // copier le fichier au bon endroit
-        //
+        // Chargement de l'image + enregistrement : permet de réduire la taille
+        $monRetour = outils::setImage(outils::getImage($this->getPathTemp()), outils::getType($this->getPathTemp()), $this->getPathMd5());
 
-        var_dump($this);
+        // Ssi copie du fichier réussie
+        if ($monRetour) {
+            /**
+             * Informations sur l'image
+             */
+            // Dimensions
+            $imageInfo = getimagesize($this->getPathMd5());
+            $this->setLargeur($imageInfo[0]);
+            $this->setHauteur($imageInfo[1]);
+            // Poids
+            $this->setPoids(filesize($this->getPathMd5()));
+            // Nom originel (non récupérable sur le fichier)
+            $this->setNomOriginal($nomOriginal);
+            // @ IP d'envoi
+            $this->setIpEnvoi($_SERVER['REMOTE_ADDR']);
+
+            /**
+             * Création en BDD
+             */
+            $req = maBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)");
+            $req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
+            // Date : NOW()
+            $req->bindValue(2, $this->getNomOriginal(), PDO::PARAM_STR);
+            $req->bindValue(3, $this->getNomNouveau(), PDO::PARAM_STR);
+            $req->bindValue(4, $this->getPoids(), PDO::PARAM_INT);
+            $req->bindValue(5, $this->getHauteur(), PDO::PARAM_INT);
+            $req->bindValue(6, $this->getLargeur(), PDO::PARAM_INT);
+            $req->bindValue(7, $this->getMd5(), PDO::PARAM_STR);
+
+            if (!$req->execute()) {
+                // Gestion de l'erreur d'insertion en BDD
+                $monRetour = FALSE;
+            } else {
+                /**
+                 * Récupération de l'ID de l'image
+                 */
+                $idEnregistrement = maBDD::getInstance()->lastInsertId();
+                $this->setId($idEnregistrement);
+            }
+        }
+
+        return $monRetour;
     }
 
 }
