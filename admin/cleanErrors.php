@@ -60,9 +60,10 @@ require _TPL_TOP_;
         }
         // Images uniquement en HDD
         foreach ((array) $listeErreursImagesHDD as $value) {
-            // Je crée mon objet et lance la suppression
-            $monImage = new imageObject($value);
-            $monImage->supprimer();
+            // Suppression du fichier
+            $rep = substr($value, 0, 1) . '/';
+            $pathFinal = _PATH_IMAGES_ . $rep . $value;
+            unlink($pathFinal);
         }
         // Miniatures uniquement en BDD
         foreach ((array) $listeErreursMiniaturesBDD as $value) {
@@ -70,51 +71,77 @@ require _TPL_TOP_;
             $maMiniature = new miniatureObject($value);
             $maMiniature->supprimer();
         }
-// On ne sait pas faire ça : je cherche à récupérer l'id à partir du nom de l'image maitre qui n'existe pas...
-//            // Miniatures uniquement en HDD
-//            foreach ((array) $listeErreursMiniaturesHDD as $value) {
-//                // Je crée mon objet et lance la suppression
-//                $maMiniature = new miniatureObject($value);
-//                $maMiniature->supprimer();
-//            }
+
+        // Miniatures uniquement en HDD
+        foreach ((array) $listeErreursMiniaturesHDD as $value) {
+            // Suppression du fichier
+            $rep = substr($value, 0, 1) . '/';
+            $pathFinal = _PATH_MINIATURES_ . $rep . $value;
+            unlink($pathFinal);
+        }
         echo '<br /><br />Effacement terminé';
     }
     ?>
     <br />
-    <?= $listeErreursImagesBDD->count() ?> image(s) présente(s) uniquement en BDD
-    <br />
-    <ul>
-        <?php foreach ((array) $listeErreursImagesBDD as $value): ?>
-            <li><?= $value ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <br />
-    <?= $listeErreursImagesHDD->count() ?> image(s) présente(s) uniquement sur HDD
-    <br />
-    <ul>
-        <?php foreach ((array) $listeErreursImagesHDD as $value): ?>
-            <li><?= $value ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <br />
-    <?= $listeErreursMiniaturesBDD->count() ?> miniature(s) présente(s) uniquement en BDD
-    <br />
-    <ul>
-        <?php foreach ((array) $listeErreursMiniaturesBDD as $value): ?>
-            <li><?= $value ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <br />
-    <?= $listeErreursMiniaturesHDD->count() ?> miniature(s) présente(s) uniquement sur HDD
-    <br />
-    <ul>
-        <?php foreach ((array) $listeErreursMiniaturesHDD as $value): ?>
-            <li><?= $value ?> (<strong>A effacer manuellement</strong>)</li>
-        <?php endforeach; ?>
-    </ul>
-    <br />
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <?= $listeErreursImagesBDD->count() ?> image(s) présente(s) uniquement en BDD
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ((array) $listeErreursImagesBDD as $value): ?>
+                    <li><?= $value ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <?= $listeErreursImagesHDD->count() ?> image(s) présente(s) uniquement sur HDD
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ((array) $listeErreursImagesHDD as $value): ?>
+                    <li><?= $value ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <?= $listeErreursMiniaturesBDD->count() ?> miniature(s) présente(s) uniquement en BDD
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ((array) $listeErreursMiniaturesBDD as $value): ?>
+                    <li><?= $value ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <?= $listeErreursMiniaturesHDD->count() ?> miniature(s) présente(s) uniquement sur HDD
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ((array) $listeErreursMiniaturesHDD as $value): ?>
+                    <li><?= $value ?> (<strong>A effacer manuellement</strong>)</li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
     <form method="post">
-        <input type="submit" name="effacer" value="Effacer ces fichiers" />
+        <input type="submit" name="effacer" value="Effacer ces fichiers" class="btn btn-danger"/>
     </form>
 </div>
 <?php require _TPL_BOTTOM_; ?>
