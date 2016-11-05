@@ -27,16 +27,32 @@ require _TPL_TOP_;
     <h1><small>Images présentes</small></h1>
     <ul>
         <?php
-        // Liste des fichiers d'administration
-        $scan_rep = scandir(_PATH_IMAGES_);
-        // Pour chaque image
-        foreach ($scan_rep as $item) :
-            ?>
-            <li>
-                <?= $item ?>
-            </li>
-            <?php
-        endforeach;
+
+        /**
+         * Scan récursif
+         * @param string $path
+         * @return string
+         */
+        function getScandirRecursif($path) {
+            $monRetour = '<ul>';
+
+            // Scanne le répertoire fourni
+            $scan_rep = scandir($path);
+            // Pour chaque item
+            foreach ($scan_rep as $item) {
+                if ($item != '.' && $item != '..') {
+                    $monRetour .= '<li>' . $path . $item . '</li>';
+                    if (is_dir($path . $item)) {
+                        // Appel récursif
+                        $monRetour .= getScandirRecursif($path . $item . '/');
+                    }
+                }
+            }
+            $monRetour .= '</ul>';
+            return $monRetour;
+        }
+
+        echo getScandirRecursif(_PATH_IMAGES_);
         ?>
     </ul>
 </div>
