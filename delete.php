@@ -19,102 +19,64 @@
  */
 require 'config/configV2.php';
 require _TPL_TOP_;
-//**************************************
-//	./delete.php
-//	Suppression d'une image
-//**************************************
-require_once('./config/config.php');    //config du script
+
+$erreur = FALSE;
+$msgErreur = '';
+
+/**
+ * Vérification du paramètre
+ */
+if (!isset($_GET['id'])) {
+    $erreur = TRUE;
+    $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
+}
+
+/**
+ * Chargement de l'image depuis la BDD
+ */
+if (!$erreur) {
+    $monImage = new imageObject();
+    $retour = $monImage->charger($_GET['id']);
+
+    // Gestion du retour
+    if (!$retour) {
+        $erreur = TRUE;
+        $msgErreur .= 'Cette image n\'existe pas !<br />';
+    }
+}
+
+/**
+ * Vérification des droits sur l'image
+ * -> Possession
+ * -> Envoi il y a moins d'une heure par la même @ IP
+ */
+if (!$erreur) {
+    if ($monImage->isProprietaire() || (strtotime($monImage->getDateEnvoiBrute() + 3600) < strtotime("now") && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
+        // Effacement...
+        $monImage->supprimer();
+    } else {
+        $erreur = TRUE;
+        $msgErreur = 'Vous n\'avez pas le droit de supprimer cette image !<br />';
+    }
+}
 ?>
 <div class="jumbotron">
     <h1><small>Suppression du fichier</small></h1>
-
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <?php
-//---------------------------------
-//	VARIABLES
-//---------------------------------
-            if (isset($_GET['id'])) {
-                $file = mysql_real_escape_string($_GET['id']); //id de l'image concern�e
-            } else {
-                retour_erreur('Aucun fichier n\'a &eacute;t&eacute; sp&eacute;cifi&eacute; pour suppression!</p>', __FILE__, 'die', FALSE);
-            }
-
-//---------------------------------
-//	VERIFICATIONS
-//---------------------------------
-            if (basename($file) == 'index.php') { //listage r�pertoire
-                erreur('HACK', 'delete_index'); //hack
-            }
-            if (!preg_match('#^[0-9]+.[a-z]{3}$#', $file)) { //passage de param�tres
-                erreur('HACK', 'delete_params'); //hack
-            }
-
-// V�rifie l'existence du fichier dans la DB
-            if (!$data = sql_query('SELECT `id`, `ip_envoi`, `date_envoi` FROM `images` WHERE `new_name` = "' . mysql_real_escape_string($file) . '"')) {
-                retour_erreur('Le fichier requis (' . $file . ') n\'est pas enregistr&eacute; dans la base de donn&eacute;es !</p>', __FILE__, 'die', FALSE);
-            }
-// Y a-t-il une miniature ?
-            $thumb = sql_query('SELECT COUNT(*) FROM `thumbnails` WHERE `id` = "' . mysql_real_escape_string($data['id']) . '"');
-// Quid du propri�taire ?
-            $owner = sql_query('SELECT `pk_membres` FROM `possede` WHERE `image_id` = ' . $data['id']);
-
-            if (!file_exists(__PATH__ . __TARGET__ . $file)) { //Fichier sur hdd?
-                retour_erreur('Le fichier requis (' . $file . ') n\'existe pas sur le serveur !</p>', __FILE__, 'die', FALSE);
-            }
-
-            if (isset($_SESSION['connected']) && $_SESSION['level'] != 'admin') { //admin =  GOD !!!
-                if (!(isset($_SESSION['connected']) && $owner == $_SESSION['user_id'])) {
-                    if ($data['ip_envoi'] != $_SERVER['REMOTE_ADDR']) { //M�me IP?
-                        retour_erreur('Vous ne pouvez pas supprimer ce fichier : vous ne semblez pas &ecirctre son propri&eacute;taire !</p>', __FILE__, 'die', FALSE);
-                    }
-
-                    if ((strtotime($data['date_envoi']) + 3600) < strtotime("now")) { //d�lai de suppression : 10 min
-                        //send_mail_admin('Fichier &agrave; supprimer', $file);
-                        retour_erreur('Vous ne pouvez plus effacer ce fichier : plus de 60 minutes se sont &eacute;coul&eacute;es !</p>', __FILE__, 'die', FALSE);
-                    }
-                }
-            }
-
-//--------------------
-//	SUPPRESSION HDD
-//--------------------
-            if (!@unlink(__PATH__ . __TARGET__ . $file)) { //Suppression du fichier
-                retour_erreur('L\'image (' . $file . ') ne peut �tre supprim&eacute;e.</p>', __FILE__, 'die', FALSE);
-            }
-
-            if ($thumb) { //suppression miniature le cas �ch�ant
-                if (!@unlink(__PATH__ . __T_TARGET__ . $file)) {
-                    retour_erreur('Erreur rencontr&eacute;e lors de la suppression de la miniature (' . $file . ').</p>', __FILE__, 'die', FALSE);
-                }
-            }
-
-//--------------------
-//	SUPPRESSION BDD
-//--------------------
-//---------------------------------
-//	GESTION DU PROPRIETAIRE
-//---------------------------------
-            if (isset($_SESSION['connected']) && $_SESSION['connected'] == TRUE) { //connect�
-                sql_query('DELETE FROM `possede` WHERE `image_id` = "' . mysql_real_escape_string($data['id']) . '"');
-            }
-
-            if ($thumb) {
-                sql_query('DELETE FROM `thumbnails` WHERE `id` = "' . mysql_real_escape_string($data['id']) . '"');
-            }
-            sql_query('DELETE FROM `images` WHERE `new_name` = "' . mysql_real_escape_string($file) . '"');
-
-            //$lang['CORPS'] = 'Le fichier &agrave; &eacute;t&eacute; effac&eacute; avec succ&egrave;s';
-            ?>
-            <div class = "alert alert-success">
-                Le fichier &agrave; &eacute;t&eacute; effac&eacute; avec succ&egrave;s !
-            </div>
+    <?php if (!empty($msgErreur)): ?>
+        <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+            &nbsp;
+            <b>Une erreur a été rencontrée !</b>
+            <br />
+            <?= $msgErreur ?>
         </div>
-    </div>
+    <?php else: ?>
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok"></span>
+            &nbsp;
+            <b>L'image a été supprimée avec succès !</b>
+        </div>
+    <?php endif; ?>
 </div>
 
-
-<?php
-//template('template.html', __FILE__);
-?>
-<?php require _TPL_BOTTOM_ ?>
+<?php require _TPL_BOTTOM_; ?>
