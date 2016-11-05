@@ -161,7 +161,7 @@ class utilisateurObject {
      * Date d'inscription
      * @param type $dateInscription
      */
-    public function setDateInscription($dateInscription) {
+    private function setDateInscription($dateInscription) {
         $this->dateInscription = $dateInscription;
     }
 
@@ -169,7 +169,7 @@ class utilisateurObject {
      * @ IP d'inscription
      * @param type $ipInscription
      */
-    public function setIpInscription($ipInscription) {
+    private function setIpInscription($ipInscription) {
         $this->ipInscription = $ipInscription;
     }
 
@@ -185,7 +185,7 @@ class utilisateurObject {
      * ID en BDD
      * @param type $id
      */
-    public function setId($id) {
+    private function setId($id) {
         $this->id = $id;
     }
 
@@ -320,15 +320,18 @@ class utilisateurObject {
      * @param type $password
      */
     public function checkPassword($password) {
+        $monRetour = FALSE;
+
         // Je créée un nouvel utilisateur pour encrypter le mot de passe
         $monUtilisateurTest = new utilisateurObject();
         $monUtilisateurTest->setPasswordToCrypt($password);
 
         // Comparons (le mdp local est toujours encrypté quand je charge depuis la BDD un utilisateur)
         if ($monUtilisateurTest->getPassword() === $this->getPassword()) {
-            return TRUE;
+            $monRetour = TRUE;
         }
-        return FALSE;
+
+        return $monRetour;
     }
 
     /**
