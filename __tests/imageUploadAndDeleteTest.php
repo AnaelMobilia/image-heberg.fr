@@ -19,7 +19,6 @@
  */
 
 class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
-    private $pathImageASupprimer = _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29';
 
     /**
      * Nombre d'images en BDD
@@ -433,7 +432,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
      */
     public function testSuppressionImagePropriétaireAuthentifié() {
         // Copie du fichier
-        rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', $this->pathImageASupprimer);
+        rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_GET['id'] = '100000019001334055750.png';
@@ -450,7 +449,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($erreur, FALSE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 13, "Suppression image possédée ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image possédée ne doit pas être bloqué en BDD");
-        $this->assertEquals(file_exists($this->pathImageASupprimer), TRUE, "Suppression image possédée ne doit pas être effacé du HDD car encore en usage");
+        $this->assertEquals(file_exists(_PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29'), TRUE, "Suppression image possédée ne doit pas être effacé du HDD car encore en usage");
     }
 
     /**
@@ -483,7 +482,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($erreur, FALSE, "Suppression image dans délai ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 12, "Suppression image dans délai ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image dans délai ne doit pas être bloqué en BDD");
-        $this->assertEquals(file_exists($this->pathImageASupprimer), FALSE, "Suppression image dans délai doit être effacé du HDD");
+        $this->assertEquals(file_exists(_PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29'), FALSE, "Suppression image dans délai doit être effacé du HDD");
     }
 
 }
