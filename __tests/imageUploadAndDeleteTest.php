@@ -443,9 +443,9 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_SESSION['level'] = utilisateurObject::levelUser;
         $_SESSION['userName'] = 'username';
 
-        //ob_start();
+        ob_start();
         require 'delete.php';
-        //ob_end_clean();
+        ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 13, "Suppression image possédée ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image possédée ne doit pas être bloqué en BDD");
@@ -469,11 +469,27 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Suppression d'une image - Anonyme en étant dans délai mais pas la bonne IP
+     * @depends testSuppressionImageProprietaireAuthentifie
+     */
+    public function testSuppressionImageAnonymeDansDelaiMauvaiseIP() {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
+        $_GET['id'] = '147834019001334055750.png';
+
+        ob_start();
+        require 'delete.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
+        $this->assertEquals(self::countImagesEnBdd(), 13, "Suppression image dans délai par autre IP doit être bloqué en BDD");
+        $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image dans délai par autre IP doit être bloqué en BDD");
+    }
+
+    /**
      * Suppression d'une image - Anonyme en étant dans le délai
-     * @depends testSuppressionImageAnonymeHorsDelai
+     * @depends testSuppressionImageAnonymeDansDelaiMauvaiseIP
      */
     public function testSuppressionImageAnonymeDansDelai() {
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
         $_GET['id'] = '147834019001334055750.png';
 
         ob_start();
