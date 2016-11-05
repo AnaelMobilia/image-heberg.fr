@@ -134,7 +134,7 @@ $timeStart = microtime(TRUE);
                                     </a>
                                 </li>
                                 <!-- Si c'est un admin : lien vers le panneau admin -->
-                                <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
+                                <?php if ($visiteur->getLevel() == utilisateurObject::levelAdmin) : ?>
                                     <li <?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "class='active'" : "" ?>>
                                         <a href="<?= _URL_ADMIN_ ?>">
                                             <span class="glyphicon glyphicon-wrench"></span>&nbsp;
