@@ -136,7 +136,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         return $monRetour;
     }
 
-    public function creer($path) {
+    public function creer() {
 
     }
 
