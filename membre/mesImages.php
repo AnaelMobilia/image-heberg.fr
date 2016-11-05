@@ -49,7 +49,7 @@ require _TPL_TOP_;
                 ?>
                 <tr>
                     <td><?= $uneImage->getNomOriginalFormate() ?></td>
-                    <td><?= $uneImage->getDateEnvoiFormate() ?></td>
+                    <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
                     <td><?= $uneImage->getLastViewFormate() ?></td>
                     <td><?= $uneImage->getNbViewTotal() ?></td>
                     <td>

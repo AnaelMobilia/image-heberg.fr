@@ -202,7 +202,7 @@ abstract class ressourceObject {
      * Date d'envoi formatée
      * @return string
      */
-    public function getDateEnvoiFormate() {
+    public function getDateEnvoiFormatee() {
         $phpdate = strtotime($this->getDateEnvoi());
         return date("d/m/Y H:i:s", $phpdate);
     }
