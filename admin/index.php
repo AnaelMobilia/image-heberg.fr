@@ -25,24 +25,40 @@ require _TPL_TOP_;
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Panneau d'administration</small></h1>
-    <ul>
-        <?php
-        // Liste des fichiers d'administration
-        $scan_rep = scandir(_PATH_ADMIN_);
-        // Pour chaque image
-        foreach ($scan_rep as $item) {
-            // On ne rapporte pas les répertoires
-            if (!is_dir(_PATH_ADMIN_ . $item)):
-                ?>
-                <li>
-                    <a href="<?= _URL_ADMIN_ ?><?= $item ?>">
-                        <?= $item ?>
-                    </a>
-                </li>
-                <?php
-            endif;
-        }
-        ?>
-    </ul>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Outils
+            </h2>
+        </div>
+        <div class="panel-body">
+            <a href="listeFichiers.php" class="btn btn-default">
+                <span class="glyphicon glyphicon-list-alt"></span>
+                &nbsp;
+                Lister les fichiers présents sur le disque
+            </a>
+            <div class="clearfix"></div>
+            <br />
+            <a href="cleanNeverUsedOneYear.php" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+                &nbsp;
+                Fichiers non affichés et envoi > 1 an
+            </a>
+            <div class="clearfix"></div>
+            <br />
+            <a href="cleanUnusedThreeYears.php" class="btn btn-danger">
+                <span class="glyphicon glyphicon-flash"></span>
+                &nbsp;
+                Fichiers dernier affichage > 3 ans
+            </a>
+            <div class="clearfix"></div>
+            <br />
+            <a href="cleanErrors.php" class="btn btn-warning">
+                <span class="glyphicon glyphicon-check"></span>
+                &nbsp;
+                Vérifier la cohérence disque / BDD
+            </a>
+        </div>
+    </div>
 </div>
 <?php require _TPL_BOTTOM_ ?>
