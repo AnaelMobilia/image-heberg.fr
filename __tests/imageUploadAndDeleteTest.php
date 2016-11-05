@@ -441,11 +441,11 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.2';
         $_SESSION['level'] = utilisateurObject::levelUser;
-        $_SESSION['userName'] = 'admin';
+        $_SESSION['userName'] = 'username';
 
-        ob_start();
+        //ob_start();
         require 'delete.php';
-        ob_end_clean();
+        //ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 13, "Suppression image possédée ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image possédée ne doit pas être bloqué en BDD");
