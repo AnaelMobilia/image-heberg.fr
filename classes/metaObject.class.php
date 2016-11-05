@@ -76,18 +76,17 @@ class metaObject {
      * @return \ArrayObject
      */
     public static function getAllImagesNameBDD() {
-        // Toutes les images
-        $req = "SELECT new_name FROM images";
+        // Toutes les images (sauf 404 & banned)
+        $req = "SELECT md5 FROM images WHERE id > 2";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
-
 
         $retour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $retour->append($value->md5);
         }
 
         return $retour;
@@ -99,19 +98,29 @@ class metaObject {
      * @return \ArrayObject
      */
     public static function getAllImagesNameHDD($path) {
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
 
         // Scanne le répertoire des images
         $scan_rep = scandir($path);
-        // Pour chaque image
+        // Pour chaque item
         foreach ($scan_rep as $item) {
-            // On ne rapporte pas les répertoires
-            if (!is_dir($path . $item)) {
-                $retour->append($item);
+            if ($item != '.' && $item != '..' && $item != '_dummy') {
+                if (is_dir($path . $item)) {
+                    // Appel récursif
+                    if ($path . $item . '/' != _PATH_MINIATURES_) {
+                        $monRetourTmp = self::getAllImagesNameHDD($path . $item . '/');
+                        // Parsage et récupération des sous fichiers...
+                        foreach ($monRetourTmp as $fichier) {
+                            $monRetour->append($fichier);
+                        }
+                    }
+                } elseif ($item !== _IMAGE_404_ && $item !== _IMAGE_BAN_) {
+                    $monRetour->append($item);
+                }
             }
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -119,7 +128,7 @@ class metaObject {
      */
     public static function getAllMiniaturesNameBDD() {
         // Toutes les images
-        $req = "SELECT new_name FROM images, thumbnails WHERE images.id = thumbnails.id";
+        $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
@@ -129,7 +138,7 @@ class metaObject {
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $retour->append($value->md5);
         }
 
         return $retour;
