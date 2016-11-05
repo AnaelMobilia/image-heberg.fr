@@ -189,15 +189,11 @@ abstract class ressourceObject {
             $uneSession = new sessionObject();
 
             // Est-ce le propriétaire de l'image ?
-            if ($values->pk_membres === $uneSession->getId()) {
+            if ($values->pk_membres == $uneSession->getId()) {
                 // Si oui... on confirme !
                 $monRetour = TRUE;
             }
         }
-
-        var_dump($values);
-        var_dump($uneSession);
-        var_dump($monRetour);
 
         return $monRetour;
     }
