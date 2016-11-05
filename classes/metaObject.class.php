@@ -55,7 +55,7 @@ class metaObject {
     public static function getUnusedThreeYear() {
         // Toutes les images jnon affichées depuis 3 ans
         $dateTroisAns = date('Y-m-d', strtotime('-3year'));
-        $req = "SELECT new_name FROM images where last_view < '" . $dateTroisAns . "'";
+        $req = "SELECT new_name FROM images where last_view < '" . $dateTroisAns . "' AND date_envoi < '" . $dateTroisAns . "'";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
