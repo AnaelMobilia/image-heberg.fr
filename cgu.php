@@ -26,7 +26,6 @@ require _TPL_TOP_;
 
 require_once('./config/config.php');
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Conditions Générales d'Utilisation</small></h1>
 

@@ -89,7 +89,6 @@ if (isset($_POST['valider'])) {
     }
 }
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Créer mon compte</small></h1>
 

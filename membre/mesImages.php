@@ -25,7 +25,6 @@ require __DIR__ . '/../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Mes images</small></h1>
     <table class="table table-hover">

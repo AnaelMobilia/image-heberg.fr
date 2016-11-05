@@ -22,7 +22,6 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Nettoyage des fichiers jamais utilisés depuis 1 année</small></h1>
     <?php

@@ -22,7 +22,6 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Panneau d'administration</small></h1>
     <div class="panel panel-primary">

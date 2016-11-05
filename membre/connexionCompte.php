@@ -66,7 +66,6 @@ if (isset($messageErreur)) :
         <?= $messageErreur ?>
     </div>
 <?php endif; ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Se connecter à mon compte</small></h1>
 

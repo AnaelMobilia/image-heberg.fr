@@ -50,7 +50,6 @@ if (isset($_POST['envoyer'])) {
     }
 }
 ?>
-<!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
     <h1><small>Contact</small></h1>
 
