@@ -20,8 +20,6 @@
 require 'config/configV2.php';
 require _TPL_TOP_;
 
-require_once ("./config/config.php");
-
 // Anti-flood
 $_SESSION['_upload'] = TRUE;
 ?>
