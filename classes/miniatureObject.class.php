@@ -84,22 +84,17 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * Sauver en BDD les infos d'une miniature
      */
     public function sauver() {
-        // Je supprime les infos pouvant déjà être en BDD pour cette image
-        $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id, size, height, width, last_view, nb_view_v4, nb_view_v6, md5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->bindValue(2, $this->getPoids(), PDO::PARAM_INT);
-        $req->bindValue(3, $this->getHauteur(), PDO::PARAM_INT);
-        $req->bindValue(4, $this->getLargeur(), PDO::PARAM_INT);
-        $req->bindValue(5, $this->getLastView());
-        $req->bindValue(6, $this->getNbViewIPv4(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getNbViewIPv6(), PDO::PARAM_INT);
-        $req->bindValue(8, $this->getMd5(), PDO::PARAM_STR);
+        $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ? WHERE id = ?");
+
+        $req->bindValue(1, $this->getPoids(), PDO::PARAM_INT);
+        $req->bindValue(2, $this->getHauteur(), PDO::PARAM_INT);
+        $req->bindValue(3, $this->getLargeur(), PDO::PARAM_INT);
+        $req->bindValue(4, $this->getLastView());
+        $req->bindValue(5, $this->getNbViewIPv4(), PDO::PARAM_INT);
+        $req->bindValue(6, $this->getNbViewIPv6(), PDO::PARAM_INT);
+        $req->bindValue(7, $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(8, $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
     }
