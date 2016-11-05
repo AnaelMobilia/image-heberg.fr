@@ -114,7 +114,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Type Mime : envoi d'un fichier doc
-     * @depends testEnvoiSansFichier
+     * @depends testEnvoiGrosFichier
      */
     public function testTypeMimePasUneImage() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -135,7 +135,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
      * Type Mime : mauvais type de fichier (DOC).jpg
      * @depends testTypeMimePasUneImage
      */
-    public function testTypeMimeMauvaiseTypeFichier() {
+    public function testTypeMimeMauvaisTypeFichier() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
@@ -152,7 +152,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Type Mime : mauvaise extension (JPG).png
-     * @depends testTypeMimeMauvaiseTypeFichier
+     * @depends testTypeMimeMauvaisTypeFichier
      */
     public function testTypeMimeMauvaiseExtension() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
