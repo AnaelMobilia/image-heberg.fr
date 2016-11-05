@@ -45,11 +45,6 @@ class sessionObject {
                 $this->setId($_SESSION['id']);
                 $this->setLevel($_SESSION['level']);
                 $this->setUserName($_SESSION['userName']);
-
-                // TODO : à supprimer : compatibilité pour la migration
-                $_SESSION['connected'] = TRUE;
-                $_SESSION['user_id'] = $this->getId();
-                $_SESSION['user'] = $this->getUserName();
             } else {
                 // Par défaut on défini un niveau Invité
                 $this->setLevel(utilisateurObject::levelGuest);

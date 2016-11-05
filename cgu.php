@@ -19,12 +19,6 @@
  */
 require 'config/configV2.php';
 require _TPL_TOP_;
-//**************************************
-//	./cgu.php
-//	Conditions G�n�rales d'Utilisation
-//**************************************
-
-require_once('./config/config.php');
 ?>
 <div class="jumbotron">
     <h1><small>Conditions Générales d'Utilisation</small></h1>

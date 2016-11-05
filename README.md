@@ -12,7 +12,6 @@ Service d'hébergement d'images en ligne
   - Créer une base de données à partir du fichier database.sql
   - Copier les fichiers dans le répertoire du serveur web
   - Renommer le fichier configV2_empty.php en configV2.php et compléter les différents champs
-  - Renommer le fichier config_empty.php en config.php et compléter les différents champs
   - Configurer l'URL du site dans le fichier .htaccess
   - Se connecter avec le compte admin / password. Ce compte sera le compte de l'administrateur du site (prévoir de modifier le hash stocké en base si un salt est défini !)
 

@@ -49,8 +49,7 @@ if (!$erreur && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier'][
  */
 if (!$erreur) {
     $poids = $_FILES['fichier']['size'];
-    // TODO : mieux gérer ce cas
-    if ($poids > _IMAGE_POIDS_MAX_ && !isset($_SESSION['connected'])) {
+    if ($poids > _IMAGE_POIDS_MAX_) {
         $erreur = TRUE;
         $msgErreur .= 'Le poids du fichier ' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
