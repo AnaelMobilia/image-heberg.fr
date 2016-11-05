@@ -168,10 +168,10 @@ abstract class ressourceObject {
     }
 
     /**
-     * Un utilisateur est-il propriétaire de l'image ?
+     * Cet utilisateur est-il propriétaire de l'image ?
      * @return boolean
      */
-    public function verifierProprietaire() {
+    public function isProprietaire() {
         $monRetour = FALSE;
 
         // Je vais chercher les infos en BDD
