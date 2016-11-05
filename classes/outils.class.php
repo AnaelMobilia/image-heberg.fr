@@ -266,7 +266,7 @@ class outils {
         } else if ($largeurImage < $hauteurImage) {
             $largeurMiniature = $largeurImage / $hauteurImage * $hauteurDemandee;
             $hauteurMiniature = $hauteurDemandee;
-        } else if ($largeurImage == $hauteurImage) {
+        } else if ($largeurImage === $hauteurImage) {
             $largeurMiniature = $largeurDemandee;
             $hauteurMiniature = $hauteurDemandee;
         }

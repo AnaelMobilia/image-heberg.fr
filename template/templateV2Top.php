@@ -59,19 +59,19 @@ $timeStart = microtime(TRUE);
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/index.php") ? "class='active'" : "" ?>>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] === "/index.php") ? "class='active'" : "" ?>>
                                 <a href="<?= _URL_ ?>">
                                     <span class="glyphicon glyphicon-home"></span>&nbsp;
                                     Accueil
                                 </a>
                             </li>
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/a_propos.php") ? "class='active'" : "" ?>>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] === "/a_propos.php") ? "class='active'" : "" ?>>
                                 <a href="<?= _URL_ ?>a_propos.php">
                                     <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                                     A propos
                                 </a>
                             </li>
-                            <li <?= ($_SERVER['SCRIPT_NAME'] == "/contact.php") ? "class='active'" : "" ?>>
+                            <li <?= ($_SERVER['SCRIPT_NAME'] === "/contact.php") ? "class='active'" : "" ?>>
                                 <a href="<?= _URL_ ?>contact.php">
                                     <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                                     Contact
@@ -121,21 +121,21 @@ $timeStart = microtime(TRUE);
                             </form>
                             <!-- Bloc à déclarer en second... les float feront qu'il sera à gauche -->
                             <ul class="nav navbar-nav navbar-right">
-                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/mesImages.php") ? "class='active'" : "" ?>>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] === "/membre/mesImages.php") ? "class='active'" : "" ?>>
                                     <a href="<?= _URL_MEMBRE_ ?>mesImages.php">
                                         <span class="glyphicon glyphicon-picture"></span>&nbsp;
                                         Mes images
                                     </a>
                                 </li>
-                                <li <?= ($_SERVER['SCRIPT_NAME'] == "/membre/monCompte.php") ? "class='active'" : "" ?>>
+                                <li <?= ($_SERVER['SCRIPT_NAME'] === "/membre/monCompte.php") ? "class='active'" : "" ?>>
                                     <a href="<?= _URL_MEMBRE_ ?>monCompte.php">
                                         <span class="glyphicon glyphicon-user"></span>&nbsp;
                                         Mon compte
                                     </a>
                                 </li>
                                 <!-- Si c'est un admin : lien vers le panneau admin -->
-                                <?php if ($visiteur->getLevel() == utilisateurObject::levelAdmin) : ?>
-                                    <li <?= ($_SERVER['SCRIPT_NAME'] == "/admin/index.php") ? "class='active'" : "" ?>>
+                                <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
+                                    <li <?= ($_SERVER['SCRIPT_NAME'] === "/admin/index.php") ? "class='active'" : "" ?>>
                                         <a href="<?= _URL_ADMIN_ ?>">
                                             <span class="glyphicon glyphicon-wrench"></span>&nbsp;
                                             Administration

@@ -150,7 +150,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
             $values = $req->fetch();
 
             // Il n'y a plus d'image identique...
-            if ($values !== FALSE && $values->nb == 0) {
+            if ($values !== FALSE && (int) $values->nb === 0) {
                 // Je supprime l'image sur le HDD
                 $monRetour = unlink($this->getPathMd5());
             } elseif ($values === FALSE) {

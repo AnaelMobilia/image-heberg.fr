@@ -52,7 +52,7 @@ abstract class ressourceObject {
 
         // Path du type d'image
         $pathDuType = '';
-        if ($this->type == $this->getType()) {
+        if ($this->type === $this->getType()) {
             // Image
             $pathDuType = _PATH_IMAGES_;
         } else {
@@ -60,7 +60,7 @@ abstract class ressourceObject {
             $pathDuType = _PATH_MINIATURES_;
         }
 
-        if ($this->getId() == 1 || $this->getId() == 2) {
+        if ($this->getId() === 1 || $this->getId() === 2) {
             // Gestion des images spécificques 404 / ban
             $pathFinal = $pathDuType . $this->getNomNouveau();
         } else {
@@ -85,7 +85,7 @@ abstract class ressourceObject {
     public function getURL() {
         // Path du type d'image
         $urlDuType = '';
-        if ($this->type == $this->getType()) {
+        if ($this->type === $this->getType()) {
             // Image
             $urlDuType = _URL_IMAGES_;
         } else {
@@ -189,7 +189,7 @@ abstract class ressourceObject {
             $uneSession = new sessionObject();
 
             // Est-ce le propriétaire de l'image ?
-            if ($values->pk_membres == $uneSession->getId()) {
+            if ((int) $values->pk_membres === $uneSession->getId()) {
                 // Si oui... on confirme !
                 $monRetour = TRUE;
             }
@@ -215,7 +215,7 @@ abstract class ressourceObject {
         $phpdate = strtotime($this->getLastView());
 
         // Gestion du cas de non affichage
-        if ($phpdate == 0) {
+        if ($phpdate === 0) {
             return "-";
         }
         return date("d/m/Y", $phpdate);
