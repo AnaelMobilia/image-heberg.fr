@@ -112,12 +112,6 @@ class sessionObject {
      * @param type $level
      */
     public function setLevel($level) {
-        // TODO : en attendant la mise à jour de la BDD
-        if ($level === 'admin') {
-            $level = utilisateurObject::levelAdmin;
-        } elseif ($level === 'user') {
-            $level = utilisateurObject::levelUser;
-        }
         $this->level = $level;
         // On enregistre dans la session
         $_SESSION['level'] = $this->getLevel();
