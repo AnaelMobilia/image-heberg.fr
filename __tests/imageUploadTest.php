@@ -185,7 +185,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Image 10000x1 ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 5, "Image 10000x1 ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 6, "Image 10000x1 ne doit pas être bloquée en BDD");
     }
 
     /**
@@ -204,7 +204,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Image 1x10000 ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 6, "Image 1x10000 ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 7, "Image 1x10000 ne doit pas être bloquée en BDD");
     }
 
     /**
@@ -224,7 +224,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, TRUE, "Image 10000x10000 doit être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 6, "Image 10000x10000 doit être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 7, "Image 10000x10000 doit être bloquée en BDD");
     }
 
     /**
@@ -247,7 +247,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 7, "Envoi image authentifié ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 8, "Envoi image authentifié ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 3, "Envoi image authentifié ne doit pas être bloquée en BDD");
     }
 
@@ -268,7 +268,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 7, "Renvoi image doit être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 8, "Renvoi image doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 3, "Renvoi image doit être bloquée en BDD");
     }
 
@@ -292,7 +292,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 8, "Renvoi image ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 9, "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 4, "Renvoi image ne doit pas être bloquée en BDD");
     }
 
@@ -312,7 +312,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 9, "Renvoi image ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 10, "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 4, "Renvoi image doit être bloquée en BDD");
     }
 
@@ -336,7 +336,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 9, "Renvoi image doit être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 10, "Renvoi image doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 4, "Renvoi image doit être bloquée en BDD");
     }
 
@@ -360,7 +360,7 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         require 'upload.php';
         ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
-        $this->assertEquals(self::countImagesEnBdd(), 10, "Renvoi image ne doit pas être bloquée en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), 11, "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Renvoi image ne doit pas être bloquée en BDD");
     }
 
