@@ -194,8 +194,11 @@ abstract class ressourceObject {
                 $monRetour = TRUE;
             }
         }
-        echo $uneSession->getId();
-        echo $monRetour;
+
+        var_dump($values);
+        var_dump($uneSession);
+        var_dump($monRetour);
+
         return $monRetour;
     }
 
