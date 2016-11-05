@@ -492,14 +492,9 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
         $_GET['id'] = '147834019001334055750.png';
 
-        //ob_start();
+        ob_start();
         require 'delete.php';
-        //ob_end_clean();
-        var_dump(strtotime($monImage->getDateEnvoiBrute()));
-        var_dump(strtotime($monImage->getDateEnvoiBrute()) + 3600);
-        var_dump(strtotime("now"));
-        var_dump($monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR']);
-
+        ob_end_clean();
         $this->assertEquals($erreur, FALSE, "Suppression image dans délai ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 12, "Suppression image dans délai ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image dans délai ne doit pas être bloqué en BDD");
