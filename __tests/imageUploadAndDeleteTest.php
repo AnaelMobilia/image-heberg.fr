@@ -392,7 +392,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
      * Suppression d'une image - Propriétaire en étant Anonyme
      * @depends testSuppressionImageInexistante
      */
-    public function testSuppressionImagePropriétaireAnonyme() {
+    public function testSuppressionImageProprietaireAnonyme() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_GET['id'] = '_image_404.png';
 
@@ -406,9 +406,9 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Suppression d'une image - Propriétaire en étant Authentifié mais Autre
-     * @depends testSuppressionImagePropriétaireAnonyme
+     * @depends testSuppressionImageProprietaireAnonyme
      */
-    public function testSuppressionImagePropriétaireAuthentifié2() {
+    public function testSuppressionImageProprietaireAuthentifie2() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_GET['id'] = '_image_404.png';
 
@@ -428,13 +428,13 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Suppression d'une image - Propriétaire en étant Authentifié
-     * @depends testSuppressionImagePropriétaireAuthentifié2
+     * @depends testSuppressionImageProprietaireAuthentifie2
      */
-    public function testSuppressionImagePropriétaireAuthentifié() {
+    public function testSuppressionImageProprietaireAuthentifie() {
         // Copie du fichier
         rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
 
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
         $_GET['id'] = '100000019001334055750.png';
 
         // Création d'une session
@@ -446,6 +446,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
+        echo $msgErreur;
         $this->assertEquals($erreur, FALSE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), 13, "Suppression image possédée ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), 5, "Suppression image possédée ne doit pas être bloqué en BDD");
@@ -454,7 +455,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Suppression d'une image - Anonyme en étant hors délai
-     * @depends testSuppressionImagePropriétaireAuthentifié
+     * @depends testSuppressionImageProprietaireAuthentifie
      */
     public function testSuppressionImageAnonymeHorsDelai() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
