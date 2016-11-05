@@ -32,28 +32,28 @@ require _TPL_TOP_;
             </h2>
         </div>
         <div class="panel-body">
-            <a href="listeFichiers.php" class="btn btn-default">
+            <a href="<?= _URL_ADMIN_ ?>listeFichiers.php" class="btn btn-default">
                 <span class="glyphicon glyphicon-list-alt"></span>
                 &nbsp;
                 Lister les fichiers présents sur le disque
             </a>
             <div class="clearfix"></div>
             <br />
-            <a href="cleanNeverUsedOneYear.php" class="btn btn-danger">
+            <a href="<?= _URL_ADMIN_ ?>cleanNeverUsedOneYear.php" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span>
                 &nbsp;
                 Fichiers non affichés et envoi > 1 an
             </a>
             <div class="clearfix"></div>
             <br />
-            <a href="cleanUnusedThreeYears.php" class="btn btn-danger">
+            <a href="<?= _URL_ADMIN_ ?>cleanUnusedThreeYears.php" class="btn btn-danger">
                 <span class="glyphicon glyphicon-flash"></span>
                 &nbsp;
                 Fichiers dernier affichage > 3 ans
             </a>
             <div class="clearfix"></div>
             <br />
-            <a href="cleanErrors.php" class="btn btn-warning">
+            <a href="<?= _URL_ADMIN_ ?>cleanErrors.php" class="btn btn-warning">
                 <span class="glyphicon glyphicon-check"></span>
                 &nbsp;
                 Vérifier la cohérence disque / BDD

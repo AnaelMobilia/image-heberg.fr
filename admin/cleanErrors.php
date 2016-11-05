@@ -26,6 +26,8 @@ require _TPL_TOP_;
 <div class="jumbotron">
     <h1><small>Nettoyage des incohérences</small></h1>
     <?php
+    $message = '';
+
     // Je récupère la liste des images en BDD
     $listeImagesBDD = metaObject::getAllImagesNameBDD();
     // Je récupère la liste des images sur le HDD
@@ -51,15 +53,19 @@ require _TPL_TOP_;
 
 
     // Si l'effacement est demandé
-    if (isset($_POST['effacer'])) {
+    if (isset($_POST['effacer'])) :
         // Images uniquement en BDD
         foreach ((array) $listeErreursImagesBDD as $value) {
+            $message .= '<br />Suppression de la BDD de l\'image ' . $value;
+
             // Je crée mon objet et lance la suppression
             $monImage = new imageObject($value);
             $monImage->supprimer();
         }
         // Images uniquement en HDD
         foreach ((array) $listeErreursImagesHDD as $value) {
+            $message .= '<br />Suppression du disque de l\'image ' . $value;
+
             // Suppression du fichier
             $rep = substr($value, 0, 1) . '/';
             $pathFinal = _PATH_IMAGES_ . $rep . $value;
@@ -67,6 +73,8 @@ require _TPL_TOP_;
         }
         // Miniatures uniquement en BDD
         foreach ((array) $listeErreursMiniaturesBDD as $value) {
+            $message .= '<br />Suppression de la BDD de la miniature ' . $value;
+
             // Je crée mon objet et lance la suppression
             $maMiniature = new miniatureObject($value);
             $maMiniature->supprimer();
@@ -74,16 +82,21 @@ require _TPL_TOP_;
 
         // Miniatures uniquement en HDD
         foreach ((array) $listeErreursMiniaturesHDD as $value) {
+            $message .= '<br />Suppression du disque de la miniature ' . $value;
+
             // Suppression du fichier
             $rep = substr($value, 0, 1) . '/';
             $pathFinal = _PATH_MINIATURES_ . $rep . $value;
             unlink($pathFinal);
         }
-        echo '<br /><br />Effacement terminé';
-    }
-    ?>
-    <br />
+        $message .= '<br />Effacement terminé !';
+        ?>
 
+        <div class="alert alert-success">
+            <?= $message ?>
+        </div>
+    </div>
+<?php else: ?>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h2 class="panel-title">
@@ -141,7 +154,15 @@ require _TPL_TOP_;
         </div>
     </div>
     <form method="post">
-        <input type="submit" name="effacer" value="Effacer ces fichiers" class="btn btn-danger"/>
+        <button class="btn btn-danger" type="submit" name="effacer">
+            <span class="glyphicon glyphicon-trash"></span>
+            &nbsp;
+            Effacer ces fichiers
+        </button>
     </form>
-</div>
-<?php require _TPL_BOTTOM_; ?>
+    </div>
+    </div>
+<?php
+endif;
+require _TPL_BOTTOM_;
+?>

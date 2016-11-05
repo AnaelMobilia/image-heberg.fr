@@ -26,30 +26,51 @@ require _TPL_TOP_;
 <div class="jumbotron">
     <h1><small>Nettoyage des fichiers dormants depuis 3 ans</small></h1>
     <?php
+    $message = '';
+
     // Je récupère la liste des images non affichées depuis un an
     $listeImages = metaObject::getUnusedThreeYear();
 
     // Si l'effacement est demandé
-    if (isset($_POST['effacer'])) {
+    if (isset($_POST['effacer'])) :
         foreach ((array) $listeImages as $value) {
+            $message .= '<br />Suppression de l\'image ' . $value;
+
             // Je crée mon objet et lance la suppression
             $monImage = new imageObject($value);
             $monImage->supprimer();
         }
-        echo '<br /><br />Effacement terminé';
-    }
-    ?>
-    <br />
-    <?= $listeImages->count() ?> image(s) non affichée(s) depuis au moins 3 ans.
-    <br />
-    <ul>
-        <?php foreach ((array) $listeImages as $value): ?>
-            <li><?= $value ?></li>
-        <?php endforeach; ?>
-    </ul>
-    <br />
-    <form method="post">
-        <input type="submit" name="effacer" value="Effacer ces fichiers" />
-    </form>
-</div>
-<?php require _TPL_BOTTOM_; ?>
+        $message .= '<br />Effacement terminé !';
+        ?>
+        <div class = "alert alert-success">
+            <?= $message ?>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <?= $listeImages->count() ?> image(s) non affichée(s) depuis au moins 3 ans.
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <?php foreach ((array) $listeImages as $value): ?>
+                    <li><?= $value ?></li>
+                <?php endforeach; ?>
+            </ul>
+
+        </div>
+        <form method="post">
+            <button class="btn btn-danger" type="submit" name="effacer">
+                <span class="glyphicon glyphicon-trash"></span>
+                &nbsp;
+                Effacer ces fichiers
+            </button>
+        </form>
+    </div>
+    </div>
+<?php
+endif;
+require _TPL_BOTTOM_;
+?>

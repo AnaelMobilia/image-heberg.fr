@@ -24,7 +24,7 @@ require _TPL_TOP_;
 ?>
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron">
-    <h1><small>Images présentes</small></h1>
+    <h1><small>Images présentes sur le disque</small></h1>
     <ul>
         <?php
 
