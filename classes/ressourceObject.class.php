@@ -333,7 +333,7 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @return type
      */
-    protected function getDateEnvoiBrute() {
+    public function getDateEnvoiBrute() {
         return $this->dateEnvoi;
     }
 
