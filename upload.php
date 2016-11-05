@@ -97,7 +97,7 @@ if (!$erreur) {
 /**
  * Traitement de la rotation
  */
-if (!$erreur && isset($_POST['rotate']) && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotation'])) {
+if (!$erreur && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotation'])) {
     // On effectue la rotation
     $result = $monImage->rotation($_POST['angleRotation'], $monImage->getPathTemp(), $monImage->getPathTemp());
 
