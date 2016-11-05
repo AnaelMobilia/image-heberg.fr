@@ -30,7 +30,7 @@ $msgErreur = '';
  */
 if (isset($_POST['Submit']) && isset($_SESSION['_upload'])) {
     // Suppression du marqueur d'affichage du formulaire d'envoi
-    //unset($_SESSION['_upload']);
+    unset($_SESSION['_upload']);
 } else {
     $erreur = TRUE;
     $msgErreur .= 'La page n\'a pas été appelée correctement.<br />';
