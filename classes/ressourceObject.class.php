@@ -172,14 +172,13 @@ abstract class ressourceObject {
      * @return boolean
      */
     public function verifierProprietaire() {
+        $monRetour = FALSE;
+
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = ?");
         /* @var $req PDOStatement */
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
-
-        // Retour négatif par défaut
-        $retour = FALSE;
 
         // Je récupère les potentielles valeurs
         $values = $req->fetch();
@@ -192,11 +191,11 @@ abstract class ressourceObject {
             // Est-ce le propriétaire de l'image ?
             if ($values->pk_membres === $uneSession->getId()) {
                 // Si oui... on confirme !
-                $retour = TRUE;
+                $monRetour = TRUE;
             }
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
