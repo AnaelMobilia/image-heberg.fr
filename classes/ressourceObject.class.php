@@ -203,7 +203,7 @@ abstract class ressourceObject {
      * @return string
      */
     public function getDateEnvoiFormatee() {
-        $phpdate = strtotime($this->getDateEnvoi());
+        $phpdate = strtotime($this->getDateEnvoiBrute());
         return date("d/m/Y H:i:s", $phpdate);
     }
 
@@ -333,7 +333,7 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @return type
      */
-    protected function getDateEnvoi() {
+    protected function getDateEnvoiBrute() {
         return $this->dateEnvoi;
     }
 

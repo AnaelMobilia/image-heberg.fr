@@ -71,7 +71,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
             $this->setNomNouveau($imageMaitre->getNomNouveau());
             $this->setBloque($imageMaitre->isBloque());
             $this->setNomOriginal($imageMaitre->getNomOriginal());
-            $this->setDateEnvoi($imageMaitre->getDateEnvoi());
+            $this->setDateEnvoi($imageMaitre->getDateEnvoiBrute());
             $this->setIpEnvoi($imageMaitre->getIpEnvoi());
 
             // Notification du chargement réussi
