@@ -496,7 +496,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         require 'delete.php';
         //ob_end_clean();
         var_dump(strtotime($monImage->getDateEnvoiBrute()));
-        var_dump(strtotime($monImage->getDateEnvoiBrute() + 3600));
+        var_dump(strtotime($monImage->getDateEnvoiBrute()) + 3600);
         var_dump(strtotime("now"));
         var_dump($monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR']);
 
