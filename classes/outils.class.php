@@ -108,6 +108,7 @@ class outils {
     /**
      * Taille mémoire maximale autorisée
      * @see http://php.net/manual/fr/function.ini-get.php
+     * @return int
      */
     public static function getMemoireAllouee() {
         // Récupération de la valeur du php.ini
@@ -130,7 +131,7 @@ class outils {
 
     /**
      * Est-il possible de modifier l'image (mémoire suffisante ?)
-     * @param imageObject $uneImage
+     * @param string $path
      * @return boolean Possible ?
      * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
      */
@@ -184,7 +185,7 @@ class outils {
          */
         $dimMax = round(sqrt($memDispo / 4 / 2 / _FUDGE_FACTOR_), 0);
 
-        return $dimMax;
+        return (int) $dimMax;
     }
 
     /**

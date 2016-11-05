@@ -226,7 +226,7 @@ abstract class ressourceObject {
      * @return int
      */
     public function getNbViewTotal() {
-        return $this->getNbViewIPv4() + $this->getNbViewIPv6();
+        return (int) $this->getNbViewIPv4() + $this->getNbViewIPv6();
     }
 
     /**
@@ -262,7 +262,7 @@ abstract class ressourceObject {
      * @return int
      */
     public function getId() {
-        return $this->id;
+        return (int) $this->id;
     }
 
     /**
@@ -286,7 +286,7 @@ abstract class ressourceObject {
      * @return int
      */
     public function getLargeur() {
-        return $this->largeur;
+        return (int) $this->largeur;
     }
 
     /**
@@ -294,7 +294,7 @@ abstract class ressourceObject {
      * @return int
      */
     public function getHauteur() {
-        return $this->hauteur;
+        return (int) $this->hauteur;
     }
 
     /**
@@ -302,7 +302,7 @@ abstract class ressourceObject {
      * @return int
      */
     public function getPoids() {
-        return $this->poids;
+        return (int) $this->poids;
     }
 
     /**
@@ -318,7 +318,7 @@ abstract class ressourceObject {
      * @return int
      */
     protected function getNbViewIPv4() {
-        return $this->nbViewIPv4;
+        return (int) $this->nbViewIPv4;
     }
 
     /**
@@ -326,7 +326,7 @@ abstract class ressourceObject {
      * @return int
      */
     protected function getNbViewIPv6() {
-        return $this->nbViewIPv6;
+        return (int) $this->nbViewIPv6;
     }
 
     /**

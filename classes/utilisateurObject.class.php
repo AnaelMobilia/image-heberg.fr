@@ -114,7 +114,7 @@ class utilisateurObject {
      * @return type
      */
     public function getLevel() {
-        return $this->level;
+        return (int) $this->level;
     }
 
     /**
@@ -122,7 +122,7 @@ class utilisateurObject {
      * @return type
      */
     public function getId() {
-        return $this->id;
+        return (int) $this->id;
     }
 
     /**
