@@ -194,7 +194,8 @@ abstract class ressourceObject {
                 $monRetour = TRUE;
             }
         }
-
+        echo $uneSession->getId();
+        echo $monRetour;
         return $monRetour;
     }
 
