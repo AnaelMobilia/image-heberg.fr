@@ -33,7 +33,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 --
 -- Possessions
 --
-INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('12', '2');
+INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('11', '2');
 
 
 --
