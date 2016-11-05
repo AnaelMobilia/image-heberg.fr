@@ -242,6 +242,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         // Création d'une session
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
+        $_SESSION['userName'] = 'username';
 
         ob_start();
         require 'upload.php';
@@ -287,6 +289,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         // Création d'une session
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
+        $_SESSION['userName'] = 'username';
 
         ob_start();
         require 'upload.php';
@@ -331,6 +335,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         // Création d'une session
         $_SESSION['id'] = 1;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
+        $_SESSION['userName'] = 'username';
 
         ob_start();
         require 'upload.php';
@@ -355,6 +361,8 @@ class imageUploadTest extends PHPUnit_Framework_TestCase {
         // Création d'une session
         $_SESSION['id'] = 2;
         $_SESSION['IP'] = '127.0.0.1';
+        $_SESSION['level'] = utilisateurObject::levelUser;
+        $_SESSION['userName'] = 'username';
 
         ob_start();
         require 'upload.php';
