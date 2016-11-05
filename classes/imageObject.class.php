@@ -104,32 +104,61 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Supprimer l'image (HDD & BDD)
+     * @return boolean Supprimée ?
      */
     public function supprimer() {
-        // Existe-t-il un propriétaire de l'image ?
-        if ($this->verifierProprietaire()) {
-            // TODO
-            echo "proprio " . $this->getNomNouveau();
-            return;
+        $monRetour = TRUE;
+
+        /**
+         * Suppression de la miniature
+         */
+        $maMiniature = new miniatureObject();
+        // S'il y a une miniature...
+        if ($maMiniature->charger($this->getNomNouveau())) {
+            $monRetour = $maMiniature->supprimer();
         }
 
         /**
-         * MINIATURE ?
+         * Suppression de l'affectation
          */
-        $maMiniature = new miniatureObject($this->getNomNouveau());
-        // Existe-t-il une miniature de l'image ?
-        if ($maMiniature) {
-            $maMiniature->supprimer();
+        if ($monRetour) {
+            $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = ?");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+            $monRetour = $req->execute();
         }
-        echo "<br />Suppression de " . $this->getNomNouveau();
 
-        // Je supprime l'image sur le HDD
-        unlink($this->getPathMd5());
-        // Je supprime l'image en BDD
-        $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-        $req->execute();
+        /**
+         * Suppression de l'image en BDD
+         */
+        if ($monRetour) {
+            $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+            $monRetour = $req->execute();
+        }
+
+        /**
+         * Suppression du HDD
+         */
+        if ($monRetour) {
+            // Existe-t-il d'autres occurences de cette image ?
+            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = ?");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $this->getMd5(), PDO::PARAM_STR);
+            $req->execute();
+            $values = $req->fetch();
+
+            // Il n'y a plus d'image identique...
+            if ($values !== FALSE && $values->nb === 0) {
+                // Je supprime l'image sur le HDD
+                $monRetour = unlink($this->getPathMd5());
+            } elseif ($values === FALSE) {
+                $monRetour = FALSE;
+            }
+        }
+
+        return $monRetour;
     }
 
     /**

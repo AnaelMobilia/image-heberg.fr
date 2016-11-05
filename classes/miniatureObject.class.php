@@ -106,23 +106,39 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 
     /**
      * Supprimer la miniature (HDD & BDD)
-     * @return type
+     * @return boolean Supprimée ?
      */
     public function supprimer() {
-        // Existe-t-il un propriétaire de l'image ?
-        if ($this->verifierProprietaire()) {
-            // @TODO
-            echo "proprio " . $this->getNomNouveau();
-            return;
-        }
-
-        // Je supprime l'image sur le HDD
-        unlink($this->getPathMd5());
-        // Je supprime l'image en BDD
+        $monRetour = TRUE;
+        /**
+         * Suppression de l'image en BDD
+         */
         $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = ?");
         /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getId(), PDO::PARAM_STR);
-        $req->execute();
+        $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+        $monRetour = $req->execute();
+
+        /**
+         * Suppression du HDD
+         */
+        if ($monRetour) {
+            // Existe-t-il d'autres occurences de cette image ?
+            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM miniatures WHERE md5 = ?");
+            /* @var $req PDOStatement */
+            $req->bindValue(1, $this->getMd5(), PDO::PARAM_STR);
+            $req->execute();
+            $values = $req->fetch();
+
+            // Il n'y a plus d'image identique...
+            if ($values !== FALSE && $values->nb === 0) {
+                // Je supprime l'image sur le HDD
+                $monRetour = unlink($this->getPathMd5());
+            } elseif ($values === FALSE) {
+                $monRetour = FALSE;
+            }
+        }
+
+        return $monRetour;
     }
 
     public function creer($path) {
