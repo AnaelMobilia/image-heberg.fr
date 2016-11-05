@@ -52,7 +52,7 @@ if (!$erreur) {
     // TODO : mieux gérer ce cas
     if ($poids > _IMAGE_POIDS_MAX_ && !isset($_SESSION['connected'])) {
         $erreur = TRUE;
-        $msgErreur .= 'Le poids du fichier ' . round($taille / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
+        $msgErreur .= 'Le poids du fichier ' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
