@@ -114,33 +114,6 @@ CREATE TABLE IF NOT EXISTS `possede` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Structure de la table `sondage`
---
-
-CREATE TABLE IF NOT EXISTS `sondage` (
-  `index` int(11) NOT NULL AUTO_INCREMENT,
-  `actuelSpeed` tinyint(1) DEFAULT NULL,
-  `actuelExt` tinyint(1) DEFAULT NULL,
-  `actuelDim` tinyint(1) DEFAULT NULL,
-  `actuelPoidsweight` tinyint(1) DEFAULT NULL,
-  `actuelOptions` tinyint(1) DEFAULT NULL,
-  `bmp` tinyint(1) DEFAULT NULL,
-  `uploadMultiple` tinyint(1) DEFAULT NULL,
-  `resterCo` tinyint(1) DEFAULT NULL,
-  `renamePic` tinyint(1) DEFAULT NULL,
-  `statsPic` tinyint(1) DEFAULT NULL,
-  `thumbsListeImages` tinyint(1) DEFAULT NULL,
-  `albums` tinyint(1) DEFAULT NULL,
-  `albumShare` tinyint(1) DEFAULT NULL,
-  `albumPwd` tinyint(1) DEFAULT NULL,
-  `deleteCheckbox` tinyint(1) DEFAULT NULL,
-  `divers` text,
-  `ip` text NOT NULL,
-  `quand` datetime NOT NULL,
-  PRIMARY KEY (`index`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
-
---
 -- Structure de la table `thumbnails`
 --
 
