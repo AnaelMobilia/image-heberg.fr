@@ -189,7 +189,9 @@ if (!$erreur) {
     <h1><small>Envoi d'une image</small></h1>
     <?php if (!empty($msgErreur)): ?>
         <div class="alert alert-danger">
-            <h2>Une erreur a été rencontrée : </h2>
+            <span class="glyphicon glyphicon-remove"></span>
+            &nbsp;
+            <b>Une erreur a été rencontrée !</b>
             <br />
             <?= $msgErreur ?>
         </div>
