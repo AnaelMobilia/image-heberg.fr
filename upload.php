@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
-if (!_TRAVIS_) {
+if (!defined('_TRAVIS_')) {
     require 'config/configV2.php';
 }
 require _TPL_TOP_;
@@ -29,8 +29,8 @@ $msgErreur = '';
  * Vérification de l'utilisation normale
  */
 if (isset($_POST['Submit']) && isset($_SESSION['_upload'])) {
-// Suppression du marqueur d'affichage du formulaire d'envoi
-    unset($_SESSION['_upload']);
+    // Suppression du marqueur d'affichage du formulaire d'envoi
+    //unset($_SESSION['_upload']);
 } else {
     $erreur = TRUE;
     $msgErreur .= 'La page n\'a pas été appelée correctement.<br />';
@@ -188,28 +188,70 @@ if (!$erreur) {
 <div class="jumbotron">
     <h1><small>Envoi d'une image</small></h1>
     <?php if (!empty($msgErreur)): ?>
-        <div class = "alert alert-danger">
-            <b>Une erreur a été rencontrée : </b>
+        <div class="alert alert-danger">
+            <h2>Une erreur a été rencontrée : </h2>
             <br />
             <?= $msgErreur ?>
         </div>
     <?php else: ?>
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok"></span>
+            &nbsp;
+            <b>Image enregistrée avec succès !</b>
+        </div>
         <div class="panel panel-primary">
             <div class="panel-body">
-                <p style="float:right;"><a href="./delete.php?id=<?= $monImage->getNomNouveau() ?>"><img src="./template/images/trash.png" alt="Supprimer l'image" /></a></p>
-                <p>Image enregistrée avec succès !</p>
-                <ul><li>Fichier : <?= $monImage->getNomOriginalFormate() ?></li>
-                    <li>Taille : <?= $monImage->getPoids() ?>&nbsp;octets</li>
-                    <li>Largeur : <?= $monImage->getLargeur() ?>&nbsp;px</li>
-                    <li>Hauteur : <?= $monImage->getHauteur() ?>&nbsp;px</li>
-                    <li>Liens
-                        <ul>
-                            <li>URL : <a href="<?= $monImage->getURL() ?>"><?= $monImage->getURL() ?></a></li>
-                            <li>Forum <em>(BBcode)</em> : <input type="text" size="50" onFocus="this.select();" value="[img]<?= $monImage->getURL() ?>[/img]" /></li>
-                            <li>HTML : <input type="text" size="50" onFocus="this.select();" value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' /></li>
-                        </ul>
-                    </li>
-                </ul>
+                <h2>Afficher l'image</h2>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Lien direct</label>
+                        <div class="col-sm-10">
+                            <a href="<?= $monImage->getURL() ?>"><?= $monImage->getURL() ?></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Forum <em>(BBcode)</em></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" onFocus="this.select();" value="[img]<?= $monImage->getURL() ?>[/img]" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">HTML</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" onFocus="this.select();" value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+                <div>
+                    <span class="col-sm-2">Nom de l'image</span>
+                    <span class="col-sm-10"><?= $monImage->getNomOriginalFormate() ?> </span>
+                </div>
+                <div>
+                    <span class="col-sm-2">Poids</span>
+                    <span class="col-sm-10"><?= $monImage->getPoids() ?>&nbsp;octets</span>
+                </div>
+                <div>
+                    <span class="col-sm-2">Largeur</span>
+                    <span class="col-sm-10"><?= $monImage->getLargeur() ?>&nbsp;px</span>
+                </div>
+                <div>
+                    <span class="col-sm-2">Hauteur</span>
+                    <span class="col-sm-10"><?= $monImage->getHauteur() ?>&nbsp;px</span>
+                </div>
+                <div class="clearfix"></div>
+                <br />
+                <a href="<?= _URL_ ?>" class="btn btn-success">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    &nbsp;
+                    Envoyer une autre image
+                </a>
+                <a href="<?= _URL_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    &nbsp;
+                    Effacer cette image
+                </a>
             </div>
         </div>
     <?php endif; ?>
