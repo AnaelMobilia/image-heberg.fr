@@ -47,7 +47,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      */
     public function charger($newName) {
         $monRetour = FALSE;
-        $imageMaitre = new imageObject($newName);
+        $imageMaitre = new imageObject();
+        $imageMaitre->charger($newName);
 
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE id = ?");
