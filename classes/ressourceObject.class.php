@@ -159,7 +159,7 @@ abstract class ressourceObject {
         $hauteurImage = imagesy($monImage);
 
         // Dimension nulle : on arrête
-        if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0) {
+        if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0 || $largeurImage <= $largeurDemandee || $hauteurImage <= $hauteurDemandee) {
             return false;
         }
 
