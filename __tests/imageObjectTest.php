@@ -94,8 +94,8 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
         $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png', "Redimensionnement paysage 400x200");
 
         // Doit être 200x150
-        $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png', 200, 400);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png', "Redimensionnement paysage 200x400");
+        $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', 200, 400);
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', "Redimensionnement paysage 200x400");
 
         // Doit être 800x600
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_800x600.png', 800, 600);
