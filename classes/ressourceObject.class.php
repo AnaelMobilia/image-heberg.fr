@@ -152,7 +152,7 @@ abstract class ressourceObject {
      */
     public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee) {
         // Chargement de l'image
-        $monImage = self::getImage($pathSrc);
+        $monImage = outils::getImage($pathSrc);
 
         // Récupération de ses dimensions
         $largeurImage = imagesx($monImage);
