@@ -66,7 +66,7 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
      * Redimensionnement des images
      * @runInSeparateProcess
      */
-    public function testRotationImages() {
+    public function testRedimensionnementImages() {
         require 'config/configV2.php';
 
         $monImage = new imageObject();
