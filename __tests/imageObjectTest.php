@@ -72,6 +72,18 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
         $monImage = new imageObject();
 
         /**
+         * Cas NULL
+         */
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 800), "Pas d'agrandissement");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 601, 800), "Pas d'agrandissement");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 801), "Pas d'agrandissement");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 599, 800), "Pas d'agrandissement");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 799), "Pas d'agrandissement");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 799), "Image de taille zéro");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 0), "Image de taille zéro");
+        $this->assertEquals(NULL, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 10, 0), "Image de taille zéro");
+
+        /**
          * Format portrait
          */
         // Doit être 200x267
@@ -81,10 +93,6 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
         // Doit être 150x200
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png', 400, 200);
         $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png', "Redimensionnement portrait 400x200");
-
-        //Doit être 600x800
-        $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_600x800.png', 600, 800);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_600x800.png', "Redimensionnement portrait 600x800");
 
         /**
          * Format paysage
@@ -96,10 +104,6 @@ class imageObjectTest extends PHPUnit_Framework_TestCase {
         // Doit être 200x150
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', 200, 400);
         $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', "Redimensionnement paysage 200x400");
-
-        // Doit être 800x600
-        $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_800x600.png', 800, 600);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_800x600.png', "Redimensionnement paysage 800x600");
     }
 
 }
