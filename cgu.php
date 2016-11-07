@@ -33,7 +33,7 @@ require _TPL_TOP_;
         </div>
         <div class="panel-body">
             <ul>
-                <li>Toutes images de type <?= strtoupper(__EXTENSIONS_OK__) ?>.</li>
+                <li>Toutes images de type JPG, PNG, GIF.</li>
                 <li>Contenu conforme &agrave; la l&eacute;gislation fran&ccedil;aise.</li>
                 <li>Pornographie et &eacute;rotisme non autoris&eacute;s.</li>
             </ul>
