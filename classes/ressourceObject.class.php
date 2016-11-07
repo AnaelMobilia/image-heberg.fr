@@ -124,19 +124,7 @@ abstract class ressourceObject {
         imagedestroy($resImg);
 
         // J'enregistre l'image
-        switch (outils::getType($pathSrc)) {
-            case IMAGETYPE_GIF:
-                $retour = imagegif($imgRotate, $pathDst);
-                break;
-            case IMAGETYPE_JPEG:
-                // 100 : taux de qualité (avec pertes)
-                $retour = imagejpeg($imgRotate, $pathDst, 100);
-                break;
-            case IMAGETYPE_PNG:
-                // 9 : niveau de compression (sans pertes)
-                $retour = imagepng($imgRotate, $pathDst, 9);
-                break;
-        }
+        $retour = outils::setImage($imgRotate, outils::getType($pathSrc), $pathDst);
 
         // La création du fichier s'est bien passé ?
         if ($retour === FALSE) {
@@ -151,20 +139,57 @@ abstract class ressourceObject {
         // Poids de l'image
         $this->setPoids(filesize($pathDst));
 
-
         return $retour;
     }
 
     /**
-     * Redimensionnement d'une ressource
-     * @param int $hauteurVoulue Largeur finale
-     * @param int $largeurVoulue Hauteur finale
+     * Redimensionne une image en respectant le ratio de l'image original
+     * @param string $pathSrc chemin de la ressource d'origine
+     * @param string $pathDst chemin de la ressource de destination
+     * @param int $largeurDemandee largeur souhaitée
+     * @param int $hauteurDemandee hauteur souhaitée
+     * @return boolean réussi ?
      */
-    function redimensionnement($hauteurVoulue, $largeurVoulue, $pathSrc, $pathDst) {
-        /*
-         * TODO - PHP5.5
-         * http://fr2.php.net/manual/fr/function.imagescale.php
+    public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee) {
+        // Chargement de l'image
+        $monImage = self::getImage($pathSrc);
+
+        // Récupération de ses dimensions
+        $largeurImage = imagesx($monImage);
+        $hauteurImage = imagesy($monImage);
+
+        // Dimension nulle : on arrête
+        if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0) {
+            return false;
+        }
+
+        /**
+         * @author Nicolas
          */
+        if ($largeurImage > $hauteurImage) {
+            // Format paysage
+            $largeurMax = max(array($largeurDemandee, $hauteurDemandee));
+            $hauteurMax = min(array($largeurDemandee, $hauteurDemandee));
+        } else {
+            // Format portrait ou carré
+            $largeurMax = min(array($largeurDemandee, $hauteurDemandee));
+            $hauteurMax = max(array($largeurDemandee, $hauteurDemandee));
+        }
+        // Calcul du ratio
+        $monRatio = min(array($largeurMax / $largeurImage, $hauteurMax / $hauteurImage));
+
+        // Dimensions finales
+        $largeurFinale = round($largeurImage * $monRatio);
+        $hauteurFinale = round($hauteurImage * $monRatio);
+
+
+        // Redimensionnement (en mémoire)
+        $newImage = imagescale($monImage, $largeurFinale, $hauteurFinale);
+
+        // Ecriture de l'image
+        $monRetour = outils::setImage($newImage, outils::getType($pathSrc), $pathDst);
+
+        return $monRetour;
     }
 
     /**
