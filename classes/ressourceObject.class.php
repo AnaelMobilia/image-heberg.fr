@@ -181,9 +181,13 @@ abstract class ressourceObject {
         // Dimensions finales
         $largeurFinale = round($largeurImage * $monRatio);
         $hauteurFinale = round($hauteurImage * $monRatio);
-        echo "Initial : " . $largeurImage . " x " . $hauteurImage . "\r\n";
-        echo "Demandé : " . $largeurDemandee . " x " . $hauteurDemandee . "\r\n";
-        echo "Fourni : " . $largeurFinale . " x " . $hauteurFinale . "\r\n";
+
+        // Debug
+        if (_TRAVIS_) {
+            echo "Initial : " . $largeurImage . " x " . $hauteurImage . "\r\n";
+            echo "Demandé : " . $largeurDemandee . " x " . $hauteurDemandee . "\r\n";
+            echo "Fourni : " . $largeurFinale . " x " . $hauteurFinale . "\r\n";
+        }
 
         // Redimensionnement (en mémoire)
         $newImage = imagescale($monImage, $largeurFinale, $hauteurFinale);
