@@ -181,7 +181,7 @@ abstract class ressourceObject {
         // Dimensions finales
         $largeurFinale = round($largeurImage * $monRatio);
         $hauteurFinale = round($hauteurImage * $monRatio);
-
+        echo $largeurFinale . "\r\n" . $hauteurFinale;
 
         // Redimensionnement (en mémoire)
         $newImage = imagescale($monImage, $largeurFinale, $hauteurFinale);
