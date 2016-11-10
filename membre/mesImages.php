@@ -57,7 +57,7 @@ require _TPL_TOP_;
                         </a>
                     </td>
                     <td>
-                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>' target="_blank">
+                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </td>

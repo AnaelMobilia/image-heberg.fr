@@ -28,7 +28,7 @@ $msgErreur = '';
 /**
  * Vérification du paramètre
  */
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || !isset($_GET['type'])) {
     $erreur = TRUE;
     $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
 }
@@ -37,7 +37,12 @@ if (!isset($_GET['id'])) {
  * Chargement de l'image depuis la BDD
  */
 if (!$erreur) {
-    $monImage = new imageObject();
+    if ($_GET['type'] == ressourceObject::typeImage) {
+        $monImage = new imageObject();
+    } else {
+        $monImage = new miniatureObject();
+    }
+
     $retour = $monImage->charger($_GET['id']);
 
     // Gestion du retour

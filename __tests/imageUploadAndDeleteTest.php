@@ -436,6 +436,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageInexistante() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$_GET['id'] = 'fichierInexistant';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		ob_start();
 		require 'delete.php';
@@ -452,6 +453,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageProprietaireAnonyme() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$_GET['id'] = '_image_404.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		ob_start();
 		require 'delete.php';
@@ -468,6 +470,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageProprietaireAuthentifie2() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$_GET['id'] = '_image_404.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		// Création d'une session
 		$_SESSION['id'] = 3;
@@ -493,6 +496,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.2';
 		$_GET['id'] = '100000019001334055750.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		// Création d'une session
 		$_SESSION['id'] = 2;
@@ -518,6 +522,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageAnonymeHorsDelai() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$_GET['id'] = '146734019451334055750.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		ob_start();
 		require 'delete.php';
@@ -534,6 +539,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageAnonymeDansDelaiMauvaiseIP() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.2';
 		$_GET['id'] = '147834019001334055750.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		ob_start();
 		require 'delete.php';
@@ -550,6 +556,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	public function testSuppressionImageAnonymeDansDelai() {
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.10';
 		$_GET['id'] = '147834019001334055750.png';
+		$_GET['type'] = ressourceObject::typeImage;
 
 		ob_start();
 		require 'delete.php';
