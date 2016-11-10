@@ -70,12 +70,6 @@ abstract class ressourceObject {
             $pathFinal = $pathDuType . $rep . $this->getMd5();
         }
 
-        // TODO : suppression
-        // Fix temporaire avant fin upload v2
-        if (!file_exists($pathFinal) && is_null($this->getPathTemp())) {
-            $pathFinal = $pathDuType . $this->getNomNouveau();
-        }
-
         return $pathFinal;
     }
 
