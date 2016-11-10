@@ -94,7 +94,12 @@ if (!$erreur && isset($_POST['redimImage']) && !empty($_POST['redimImage'])) {
 	$maLargeur = substr(strstr($_POST['redimImage'], 'x'), 1);
 	$maHauteur = strstr($_POST['redimImage'], 'x', TRUE);
 
-	$monImage->redimensionner($monImage->getPathTemp(), $monImage->getPathTemp(), $maLargeur, $maHauteur);
+	$result = $monImage->redimensionner($monImage->getPathTemp(), $monImage->getPathTemp(), $maLargeur, $maHauteur);
+
+	// Une erreur ?
+	if (!$result) {
+		$msgErreur .= 'Impossible d\'effectuer le redimensionnement.<br />';
+	}
 }
 
 /**
