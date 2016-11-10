@@ -18,32 +18,6 @@
  */
 
 --
--- Structure de la table `erreurs`
---
-
-CREATE TABLE IF NOT EXISTS `erreurs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_erreur` int(11) NOT NULL,
-  `date_erreur` datetime DEFAULT NULL,
-  `ip` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
---
--- Structure de la table `hacks`
---
-
-CREATE TABLE IF NOT EXISTS `hacks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
-  `description` text NOT NULL,
-  `count` smallint(6) NOT NULL DEFAULT '0',
-  `last_date` datetime DEFAULT NULL,
-  `last_ip` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
---
 -- Structure de la table `images`
 --
 
@@ -61,18 +35,6 @@ CREATE TABLE IF NOT EXISTS `images` (
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   `md5` tinytext NOT NULL,
   `bloque` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
---
--- Structure de la table `liste_erreurs`
---
-
-CREATE TABLE IF NOT EXISTS `liste_erreurs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
-  `type` enum('hack','flood','picture') DEFAULT NULL,
-  `description` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
