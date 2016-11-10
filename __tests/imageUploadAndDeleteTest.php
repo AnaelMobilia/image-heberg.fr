@@ -302,7 +302,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		self::setNbPlus(self::fichierImage);
 		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image authentifié ne doit pas être bloquée en BDD");
 		self::setNbPlus(self::fichierPossede);
-		$this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierImage), "Envoi image authentifié ne doit pas être bloquée en BDD");
+		$this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Envoi image authentifié ne doit pas être bloquée en BDD");
 	}
 
 	/**
