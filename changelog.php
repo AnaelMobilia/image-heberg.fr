@@ -36,6 +36,10 @@ require _TPL_TOP_;
                 <ul>
                     <li>Albums photos (création, affichage, partage)</li>
                     <li>API permettant l'intégration à un site tiers</li>
+                    <li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
+                    <li>Membres : Permettre le changement de mot de passe</li>
+                    <li>Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
+                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
                 </ul>
             </div>
         </div>
@@ -52,14 +56,13 @@ require _TPL_TOP_;
         <div id="v20" class="panel-collapse">
             <div class="panel-body">
                 <ul>
+                    <li>Réactivation de l'ensemble des fonctionnalités du site (miniatures, retournement, ...)</li>
                     <li>Modèle orienté objet pour une meilleure évolutivité sur le long terme</li>
-					<li>Nouveau thème graphique</li>
+                    <li>Nouveau thème graphique</li>
                     <li>Admin : Refonte de l'administration</li>
-					<li>Admin : création de fonctions pour nettoyer les images oboslètes</li>
-					<li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
-                    <li>Membres : Permettre le changement de mot de passe</li>
-                    <li>Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
-                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
+                    <li>Admin : création de fonctions pour nettoyer les images oboslètes</li>
+                    <li>Reprise du schéma de la BDD</li>
+                    <li>Mise en place de tests automatisés sur l'ensemble des fonctionnalités du site</li>
                 </ul>
             </div>
         </div>
