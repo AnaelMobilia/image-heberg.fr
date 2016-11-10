@@ -79,7 +79,7 @@ $_SESSION['_upload'] = TRUE;
                 <div class="form-group">
                     <label class="col-sm-3">Redimensionner l'image</label>
                     <div class="col-sm-9">
-                        <select name="dimImage" class="form-control" disabled>
+                        <select name="redimImage" class="form-control" disabled>
                             <option value="" selected>-- Option non disponible actuellement --</option>
                             <option value="">-- Ne pas effectuer --</option>
                             <option value="320x240">320x240</option>
