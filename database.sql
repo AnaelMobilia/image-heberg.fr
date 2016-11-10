@@ -81,6 +81,9 @@ CREATE TABLE IF NOT EXISTS `possede` (
 
 CREATE TABLE IF NOT EXISTS `thumbnails` (
   `id` int(11) NOT NULL,
+  `id_image` int(11) NOT NULL,
+  `date_creation` date NOT NULL DEFAULT '0000-00-00',
+  `new_name` text NOT NULL,
   `size` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
