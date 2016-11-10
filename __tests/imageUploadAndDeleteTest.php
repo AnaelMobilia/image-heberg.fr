@@ -20,6 +20,10 @@
 
 class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 
+	// Fichiers pour le nombre d'images / possessions attendues
+	const fichierImage = '../_nbImages';
+	const fichierPossede = '../_nbPossede';
+
 	/**
 	 * Nombre d'images en BDD
 	 * @return int
@@ -41,6 +45,48 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Nombre d'éléments présents dans le fichier
+	 * @param string $nomFichier nom du fichier
+	 * @return int nb éléments
+	 */
+	private static function getNb($nomFichier) {
+		$f = fopen(_PATH_TESTS_IMAGES_ . $nomFichier, 'r');
+		$val = fread($f, 10);
+		fclose($f);
+
+		return $val;
+	}
+
+	/**
+	 * Ecrit une valeur dans le fichier
+	 * @param string $nomFichier
+	 * @param int $valeur
+	 */
+	private static function setNb($nomFichier, $valeur) {
+		$f = fopen(_PATH_TESTS_IMAGES_ . $nomFichier, 'w');
+		fwrite($f, $valeur);
+		fclose($f);
+	}
+
+	/**
+	 * $val--
+	 * @param string $nomFichier
+	 */
+	private static function setNbMoins($nomFichier) {
+		$val = self::getNb($nomFichier);
+		self::setNb($nomFichier, --$val);
+	}
+
+	/**
+	 * $val++
+	 * @param string $nomFichier
+	 */
+	private static function setNbPlus($nomFichier) {
+		$val = self::getNb($nomFichier);
+		self::setNb($nomFichier, ++$val);
+	}
+
+	/**
 	 * Test de l'envoi simple : présence BDD et HDD
 	 */
 	public function testEnvoi() {
@@ -59,7 +105,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, FALSE, "Envoi image ne doit pas être bloqué dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "Envoi image doit créer d'image en BDD");
+		self::setNbPlus(self::fichierImage);
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer d'image en BDD");
 		$this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '6/6a9dd81ae12c79d953031bc54c07f900'), "Envoi image doit créer d'image sur HDD");
 	}
 
@@ -75,7 +122,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
 	}
 
 	/**
@@ -91,7 +138,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, TRUE, "Absence de fichier envoyé devrait être détecté dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "Absence de fichier envoyé ne doit pas créer d'image en BDD");
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Absence de fichier envoyé ne doit pas créer d'image en BDD");
 	}
 
 	/**
@@ -109,7 +156,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, TRUE, "Fichier trop gros devrait être détecté dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "Fichier trop gros ne doit pas créer d'image en BDD");
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Fichier trop gros ne doit pas créer d'image en BDD");
 	}
 
 	/**
@@ -128,7 +175,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, TRUE, "Type mime : pas une image doit être bloquée dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "type mime : pas une image doit être bloquée en BDD");
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "type mime : pas une image doit être bloquée en BDD");
 	}
 
 	/**
@@ -147,7 +194,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, TRUE, "Type mime : fausse image doit être bloquée dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 7, "type mime : fausse image doit être bloquée en BDD");
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "type mime : fausse image doit être bloquée en BDD");
 	}
 
 	/**
@@ -166,7 +213,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		require 'upload.php';
 		ob_end_clean();
 		$this->assertEquals($erreur, FALSE, "Type mime : extension incorrecte ne doit pas poser de soucis dans upload.php");
-		$this->assertEquals(self::countImagesEnBdd(), 8, "Type mime : extension incorrecte ne doit pas être bloquée en BDD");
+		self::setNbPlus(self::fichierImage);
+		$this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Type mime : extension incorrecte ne doit pas être bloquée en BDD");
 	}
 
 	/**
