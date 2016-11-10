@@ -28,12 +28,22 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `bloque`) VALUES
 (11, '127.0.0.1', '2008-01-01 00:00:00', 'image_a_supprimer.png', '100000019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0),
 (12, '127.0.0.10', NOW(), 'image_a_supprimer.png', '147834019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0),
-(13, '127.0.0.1', '20016-01-01 00:00:00', 'image.png', '146734019451334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'a876d1b6582a15f0f458006898b40e29', 0);
+(13, '127.0.0.1', '2016-01-01 00:00:00', 'image.png', '146734019451334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'a876d1b6582a15f0f458006898b40e29', 0),
+(14, '127.0.0.1', '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', '14777777.png', 4239, 400, 640, '0000-00-00', 0, 0, 'aec65c6b4469bb7267d2d55af5fbd87b', 0);
+
+--
+-- Miniatures à supprimer
+--
+INSERT INTO `thumbnails` (`id`, `id_image`, `date_creation`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`) VALUES
+(1, 14, '2016-01-01', '14777777.png', 10316, 100, 100, '2016-01-01', 19, 0, '031328c1a7ffe7eed0a2cab4eca05a63'),
+(2, 14, '2016-01-01', '14777777.png', 10316, 200, 200, '2016-01-01', 19, 0, '278a70a02e036cc85e0d7e605fdc517f');
+
 
 --
 -- Possessions
 --
-INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('11', '2');
+INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('11', '2'),
+('14', '1');
 
 
 --
