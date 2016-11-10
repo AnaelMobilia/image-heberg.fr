@@ -110,12 +110,19 @@ class imageObject extends ressourceObject implements ressourceInterface {
 		$monRetour = TRUE;
 
 		/**
-		 * Suppression de la miniature
+		 * Suppression de la ou les miniatures
 		 */
-		$maMiniature = new miniatureObject();
-		// S'il y a une miniature...
-		if ($maMiniature->charger($this->getNomNouveau())) {
-			$monRetour = $maMiniature->supprimer();
+		// Chargement des miniatures
+		$req = maBDD::getInstance()->prepare("SELECT new_name FROM thumbnails where id_image = ?");
+		$req->bindParam(1, $this->getId(), PDO::PARAM_STR);
+		$req->execute();
+
+		// Je passe toutes les lignes de résultat
+		foreach ($req->fetchAll() as $value) {
+			// Chargement de la miniature
+			$maMiniature = new miniatureObject($value->new_name);
+			// Suppression
+			$maMiniature->supprimer();
 		}
 
 		/**
