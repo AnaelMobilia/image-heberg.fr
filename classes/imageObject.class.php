@@ -29,7 +29,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 	 */
 	function __construct($newName = FALSE) {
 		// Définition du type pour le ressourceObject
-		$this->setType(ressourceObject::typeMiniature);
+		$this->setType(ressourceObject::typeImage);
 
 		// Si on me donne un ID d'image, je charge l'objet
 		if ($newName) {
