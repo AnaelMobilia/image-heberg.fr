@@ -23,217 +23,215 @@
  */
 class imageObject extends ressourceObject implements ressourceInterface {
 
-    /**
-     * Constructeur
-     * @param string $newName nom de l'image
-     */
-    function __construct($newName = FALSE) {
-        // Définition du type pour le ressourceObject
-        $this->setType(ressourceObject::typeMiniature);
+	/**
+	 * Constructeur
+	 * @param string $newName nom de l'image
+	 */
+	function __construct($newName = FALSE) {
+		// Définition du type pour le ressourceObject
+		$this->setType(ressourceObject::typeMiniature);
 
-        // Si on me donne un ID d'image, je charge l'objet
-        if ($newName) {
-            if (!$this->charger($newName)) {
-                // Envoi d'une exception si l'image n'existe pas
-                throw new Exception('Image ' . $newName . ' inexistante');
-            }
-        }
-    }
+		// Si on me donne un ID d'image, je charge l'objet
+		if ($newName) {
+			if (!$this->charger($newName)) {
+				// Envoi d'une exception si l'image n'existe pas
+				throw new Exception('Image ' . $newName . ' inexistante');
+			}
+		}
+	}
 
-    /**
-     * Charger les infos d'une image
-     * @param string $newName nom de l'image
-     * @return boolean Image chargée ?
-     */
-    public function charger($newName) {
-        // Retour
-        $monRetour = FALSE;
+	/**
+	 * Charger les infos d'une image
+	 * @param string $newName nom de l'image
+	 * @return boolean Image chargée ?
+	 */
+	public function charger($newName) {
+		// Retour
+		$monRetour = FALSE;
 
-        // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = ?");
-        $req->bindParam(1, $newName, PDO::PARAM_STR);
-        $req->execute();
+		// Je vais chercher les infos en BDD
+		$req = maBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = ?");
+		$req->bindParam(1, $newName, PDO::PARAM_STR);
+		$req->execute();
 
-        // J'éclate les informations
-        $resultat = $req->fetch();
-        if ($resultat !== FALSE) {
-            $this->setId($resultat->id);
-            $this->setIpEnvoi($resultat->ip_envoi);
-            $this->setDateEnvoi($resultat->date_envoi);
-            $this->setNomOriginal($resultat->old_name);
-            // Permet l'effacement des fichiers non enregistrés en BDD
-            $this->setNomNouveau($newName);
-            $this->setPoids($resultat->size);
-            $this->setHauteur($resultat->height);
-            $this->setLargeur($resultat->width);
-            $this->setLastView($resultat->last_view);
-            $this->setNbViewIPv4($resultat->nb_view_v4);
-            $this->setNbViewIPv6($resultat->nb_view_v6);
-            $this->setMd5($resultat->md5);
-            $this->setBloque($resultat->bloque);
+		// J'éclate les informations
+		$resultat = $req->fetch();
+		if ($resultat !== FALSE) {
+			$this->setId($resultat->id);
+			$this->setIpEnvoi($resultat->ip_envoi);
+			$this->setDateEnvoi($resultat->date_envoi);
+			$this->setNomOriginal($resultat->old_name);
+			// Permet l'effacement des fichiers non enregistrés en BDD
+			$this->setNomNouveau($newName);
+			$this->setPoids($resultat->size);
+			$this->setHauteur($resultat->height);
+			$this->setLargeur($resultat->width);
+			$this->setLastView($resultat->last_view);
+			$this->setNbViewIPv4($resultat->nb_view_v4);
+			$this->setNbViewIPv6($resultat->nb_view_v6);
+			$this->setMd5($resultat->md5);
+			$this->setBloque($resultat->bloque);
 
-            // Gestion du retour
-            $monRetour = TRUE;
-        }
+			// Gestion du retour
+			$monRetour = TRUE;
+		}
 
-        return $monRetour;
-    }
+		return $monRetour;
+	}
 
-    /**
-     * Sauver en BDD les infos d'une image
-     */
-    public function sauver() {
-        // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = ?, date_envoi = ?, old_name = ?, new_name = ?, size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ?, bloque = ? WHERE id = ?");
-        $req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
-        $req->bindValue(2, $this->getDateEnvoiBrute());
-        $req->bindValue(3, $this->getNomOriginal(), PDO::PARAM_STR);
-        $req->bindValue(4, $this->getNomNouveau(), PDO::PARAM_STR);
-        $req->bindValue(5, $this->getPoids(), PDO::PARAM_INT);
-        $req->bindValue(6, $this->getHauteur(), PDO::PARAM_INT);
-        $req->bindValue(7, $this->getLargeur(), PDO::PARAM_INT);
-        $req->bindValue(8, $this->getLastView());
-        $req->bindValue(9, $this->getNbViewIPv4(), PDO::PARAM_INT);
-        $req->bindValue(10, $this->getNbViewIPv6(), PDO::PARAM_INT);
-        $req->bindValue(11, $this->getMd5(), PDO::PARAM_STR);
-        $req->bindValue(12, $this->isBloque(), PDO::PARAM_INT);
-        $req->bindValue(13, $this->getId(), PDO::PARAM_INT);
+	/**
+	 * Sauver en BDD les infos d'une image
+	 */
+	public function sauver() {
+		// J'enregistre les infos en BDD
+		$req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = ?, date_envoi = ?, old_name = ?, new_name = ?, size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ?, bloque = ? WHERE id = ?");
+		$req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
+		$req->bindValue(2, $this->getDateEnvoiBrute());
+		$req->bindValue(3, $this->getNomOriginal(), PDO::PARAM_STR);
+		$req->bindValue(4, $this->getNomNouveau(), PDO::PARAM_STR);
+		$req->bindValue(5, $this->getPoids(), PDO::PARAM_INT);
+		$req->bindValue(6, $this->getHauteur(), PDO::PARAM_INT);
+		$req->bindValue(7, $this->getLargeur(), PDO::PARAM_INT);
+		$req->bindValue(8, $this->getLastView());
+		$req->bindValue(9, $this->getNbViewIPv4(), PDO::PARAM_INT);
+		$req->bindValue(10, $this->getNbViewIPv6(), PDO::PARAM_INT);
+		$req->bindValue(11, $this->getMd5(), PDO::PARAM_STR);
+		$req->bindValue(12, $this->isBloque(), PDO::PARAM_INT);
+		$req->bindValue(13, $this->getId(), PDO::PARAM_INT);
 
-        $req->execute();
-    }
+		$req->execute();
+	}
 
-    /**
-     * Supprimer l'image (HDD & BDD)
-     * @return boolean Supprimée ?
-     */
-    public function supprimer() {
-        $monRetour = TRUE;
+	/**
+	 * Supprimer l'image (HDD & BDD)
+	 * @return boolean Supprimée ?
+	 */
+	public function supprimer() {
+		$monRetour = TRUE;
 
-        /**
-         * Suppression de la miniature
-         */
-        $maMiniature = new miniatureObject();
-        // S'il y a une miniature...
-        if ($maMiniature->charger($this->getNomNouveau())) {
-            $monRetour = $maMiniature->supprimer();
-        }
+		/**
+		 * Suppression de la miniature
+		 */
+		$maMiniature = new miniatureObject();
+		// S'il y a une miniature...
+		if ($maMiniature->charger($this->getNomNouveau())) {
+			$monRetour = $maMiniature->supprimer();
+		}
 
-        /**
-         * Suppression de l'affectation
-         */
-        if ($monRetour) {
-            $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = ?");
-            /* @var $req PDOStatement */
-            $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-            $monRetour = $req->execute();
-        }
+		/**
+		 * Suppression de l'affectation
+		 */
+		if ($monRetour) {
+			$req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = ?");
+			/* @var $req PDOStatement */
+			$req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+			$monRetour = $req->execute();
+		}
 
-        /**
-         * Suppression de l'image en BDD
-         */
-        if ($monRetour) {
-            $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
-            /* @var $req PDOStatement */
-            $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-            $monRetour = $req->execute();
-        }
+		/**
+		 * Suppression de l'image en BDD
+		 */
+		if ($monRetour) {
+			$req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = ?");
+			/* @var $req PDOStatement */
+			$req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+			$monRetour = $req->execute();
+		}
 
-        /**
-         * Suppression du HDD
-         */
-        if ($monRetour) {
-            // Existe-t-il d'autres occurences de cette image ?
-            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = ?");
-            /* @var $req PDOStatement */
-            $req->bindValue(1, $this->getMd5(), PDO::PARAM_STR);
-            $req->execute();
-            $values = $req->fetch();
+		/**
+		 * Suppression du HDD
+		 */
+		if ($monRetour) {
+			// Existe-t-il d'autres occurences de cette image ?
+			$req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = ?");
+			/* @var $req PDOStatement */
+			$req->bindValue(1, $this->getMd5(), PDO::PARAM_STR);
+			$req->execute();
+			$values = $req->fetch();
 
-            // Il n'y a plus d'image identique...
-            if ($values !== FALSE && (int) $values->nb === 0) {
-                // Je supprime l'image sur le HDD
-                $monRetour = unlink($this->getPathMd5());
-            } elseif ($values === FALSE) {
-                $monRetour = FALSE;
-            }
-        }
+			// Il n'y a plus d'image identique...
+			if ($values !== FALSE && (int) $values->nb === 0) {
+				// Je supprime l'image sur le HDD
+				$monRetour = unlink($this->getPathMd5());
+			} elseif ($values === FALSE) {
+				$monRetour = FALSE;
+			}
+		}
 
-        return $monRetour;
-    }
+		return $monRetour;
+	}
 
-    /**
-     * Enregistre une nouvelle image dans le système
-     * @return boolean Enregistré ?
-     */
-    public function creer() {
-        $monRetour = TRUE;
+	/**
+	 * Enregistre une nouvelle image dans le système
+	 * @return boolean Enregistré ?
+	 */
+	public function creer() {
+		$monRetour = TRUE;
 
-        /**
-         * Détermination du nom
-         */
-        $adresseIP = abs(crc32($_SERVER['REMOTE_ADDR']));
-        $random = rand(10, 99);
+		/**
+		 * Détermination du nom
+		 */
+		$adresseIP = abs(crc32($_SERVER['REMOTE_ADDR']));
+		$random = rand(10, 99);
 
-        $debutTimestamp = substr($_SERVER['REQUEST_TIME'], 0, 5);
-        $finTimestamp = substr($_SERVER['REQUEST_TIME'], 6);
-        $new_name = $debutTimestamp . $random . $adresseIP . $finTimestamp . '.' . outils::getExtension($this->getPathTemp());
+		$new_name = $_SERVER['REQUEST_TIME'] . $adresseIP . $random . '.' . outils::getExtension($this->getPathTemp());
 
-        $this->setNomNouveau($new_name);
+		$this->setNomNouveau($new_name);
 
-        /**
-         * Calcul du MD5
-         */
-        $md5 = md5_file($this->getPathTemp());
-        $this->setMd5($md5);
+		/**
+		 * Calcul du MD5
+		 */
+		$md5 = md5_file($this->getPathTemp());
+		$this->setMd5($md5);
 
-        /**
-         * Déplacement du fichier
-         */
-        // Chargement de l'image + enregistrement : permet de réduire la taille
-        $monRetour = outils::setImage(outils::getImage($this->getPathTemp()), outils::getType($this->getPathTemp()), $this->getPathMd5());
+		/**
+		 * Déplacement du fichier
+		 */
+		// Chargement de l'image + enregistrement : permet de réduire la taille
+		$monRetour = outils::setImage(outils::getImage($this->getPathTemp()), outils::getType($this->getPathTemp()), $this->getPathMd5());
 
-        // Ssi copie du fichier réussie
-        if ($monRetour) {
-            /**
-             * Informations sur l'image
-             */
-            // Dimensions
-            $imageInfo = getimagesize($this->getPathMd5());
-            $this->setLargeur($imageInfo[0]);
-            $this->setHauteur($imageInfo[1]);
-            // Poids
-            $this->setPoids(filesize($this->getPathMd5()));
-            // Nom originel (non récupérable sur le fichier)
-            $this->setNomOriginal($this->getNomTemp());
-            // @ IP d'envoi
-            $this->setIpEnvoi($_SERVER['REMOTE_ADDR']);
+		// Ssi copie du fichier réussie
+		if ($monRetour) {
+			/**
+			 * Informations sur l'image
+			 */
+			// Dimensions
+			$imageInfo = getimagesize($this->getPathMd5());
+			$this->setLargeur($imageInfo[0]);
+			$this->setHauteur($imageInfo[1]);
+			// Poids
+			$this->setPoids(filesize($this->getPathMd5()));
+			// Nom originel (non récupérable sur le fichier)
+			$this->setNomOriginal($this->getNomTemp());
+			// @ IP d'envoi
+			$this->setIpEnvoi($_SERVER['REMOTE_ADDR']);
 
-            /**
-             * Création en BDD
-             */
-            $req = maBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)");
-            $req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
-            // Date : NOW()
-            $req->bindValue(2, $this->getNomOriginal(), PDO::PARAM_STR);
-            $req->bindValue(3, $this->getNomNouveau(), PDO::PARAM_STR);
-            $req->bindValue(4, $this->getPoids(), PDO::PARAM_INT);
-            $req->bindValue(5, $this->getHauteur(), PDO::PARAM_INT);
-            $req->bindValue(6, $this->getLargeur(), PDO::PARAM_INT);
-            $req->bindValue(7, $this->getMd5(), PDO::PARAM_STR);
+			/**
+			 * Création en BDD
+			 */
+			$req = maBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)");
+			$req->bindValue(1, $this->getIpEnvoi(), PDO::PARAM_STR);
+			// Date : NOW()
+			$req->bindValue(2, $this->getNomOriginal(), PDO::PARAM_STR);
+			$req->bindValue(3, $this->getNomNouveau(), PDO::PARAM_STR);
+			$req->bindValue(4, $this->getPoids(), PDO::PARAM_INT);
+			$req->bindValue(5, $this->getHauteur(), PDO::PARAM_INT);
+			$req->bindValue(6, $this->getLargeur(), PDO::PARAM_INT);
+			$req->bindValue(7, $this->getMd5(), PDO::PARAM_STR);
 
-            if (!$req->execute()) {
-                // Gestion de l'erreur d'insertion en BDD
-                $monRetour = FALSE;
-            } else {
-                /**
-                 * Récupération de l'ID de l'image
-                 */
-                $idEnregistrement = maBDD::getInstance()->lastInsertId();
-                $this->setId($idEnregistrement);
-            }
-        }
+			if (!$req->execute()) {
+				// Gestion de l'erreur d'insertion en BDD
+				$monRetour = FALSE;
+			} else {
+				/**
+				 * Récupération de l'ID de l'image
+				 */
+				$idEnregistrement = maBDD::getInstance()->lastInsertId();
+				$this->setId($idEnregistrement);
+			}
+		}
 
-        return $monRetour;
-    }
+		return $monRetour;
+	}
 
 }
