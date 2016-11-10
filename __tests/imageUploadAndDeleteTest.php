@@ -631,7 +631,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($erreur, FALSE, "Suppression image ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image ne doit pas être bloqué en BDD");
-        $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image ne doit pas être bloqué en BDD");
+        self::setNbMoins(self::fichierPossede);
+        $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression possession ne doit pas être bloqué en BDD");
         $this->assertEquals(file_exists(_PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b'), FALSE, "Suppression image doit être effacé du HDD");
         self::setNbMoins(self::fichierMiniature);
         self::setNbMoins(self::fichierMiniature);
