@@ -36,7 +36,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 --
 INSERT INTO `thumbnails` (`id`, `id_image`, `date_creation`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`) VALUES
 (1, 14, '2016-01-01', '14777777.png', 10316, 100, 100, '2016-01-01', 19, 0, '031328c1a7ffe7eed0a2cab4eca05a63'),
-(2, 14, '2016-01-01', '14777777.png', 10316, 200, 200, '2016-01-01', 19, 0, '278a70a02e036cc85e0d7e605fdc517f');
+(2, 14, '2016-01-01', '147777772.png', 10316, 200, 200, '2016-01-01', 19, 0, '278a70a02e036cc85e0d7e605fdc517f');
 
 
 --
