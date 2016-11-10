@@ -522,8 +522,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
 		ob_end_clean();
 		$this->assertEquals($erreur, FALSE, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
 		$this->assertEquals(self::countImagesEnBdd(), 13, "Envoi image avec redim doit créer d'image en BDD");
-		$this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/43b604c3a5c18a161bc3a01bdb58ebf7'), "Envoi image &vec redim doit créer d'image sur HDD");
-		$this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image &vec redim ne doit pas créer d'image originale sur HDD");
+		$this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/43b604c3a5c18a161bc3a01bdb58ebf7'), "Envoi image avec redim doit créer image redim sur HDD");
+		$this->assertEquals(FALSE, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image avec redim ne doit pas créer d'image originale sur HDD");
 	}
 
 }
