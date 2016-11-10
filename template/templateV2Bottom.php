@@ -20,7 +20,7 @@
 -->
 </div> <!-- /container -->
 </div><!-- /wrap -->
-<div id="footer">
+<footer>
     <div class="container">
         <p class="text-muted">
             <?php
@@ -30,11 +30,22 @@
                 $ip = 'IPv6';
             }
             ?>
-            Image-Heberg.fr - <a href="<?= _URL_ ?>changelog.php">v1.9 (2014)&nbsp;<span class="glyphicon glyphicon-flash"></span></a> - <a href="<?= _URL_ ?>stats.php">Statistiques&nbsp;<span class="glyphicon glyphicon-stats"></span></a> - <a href="<?= _URL_ ?>cgu.php">CGU&nbsp;<span class="glyphicon glyphicon-briefcase"></span></a> - Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s - <?= $ip ?> - Un service proposé par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
+            Image-Heberg.fr
+            -
+            <a href="<?= _URL_ ?>changelog.php">v1.9 (2014) <span class="glyphicon glyphicon-flash"></span></a>
+            -
+            <a href="<?= _URL_ ?>stats.php">Statistiques <span class="glyphicon glyphicon-stats"></span></a>
+            -
+            <a href="<?= _URL_ ?>cgu.php">CGU <span class="glyphicon glyphicon-briefcase"></span></a>
+            -
+            Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s
+            -
+            <?= $ip ?>
+            -
+            Un service proposé par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
         </p>
     </div>
-</div>
-
+</footer>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
