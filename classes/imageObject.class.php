@@ -114,7 +114,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
 		 */
 		// Chargement des miniatures
 		$req = maBDD::getInstance()->prepare("SELECT new_name FROM thumbnails where id_image = ?");
-		$req->bindParam(1, $this->getId(), PDO::PARAM_STR);
+		$req->bindParam(1, $this->getId(), PDO::PARAM_INT);
 		$req->execute();
 
 		// Je passe toutes les lignes de résultat
