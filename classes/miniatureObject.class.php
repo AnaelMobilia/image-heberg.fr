@@ -53,7 +53,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
 		// Je vais chercher les infos en BDD
 		$req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = ?");
 		/* @var $req PDOStatement */
-		$req->bindValue(1, $imageMaitre->getId(), PDO::PARAM_INT);
+		$req->bindValue(1, $newName, PDO::PARAM_INT);
 		$req->execute();
 
 		// J'éclate les informations
