@@ -52,20 +52,14 @@ require _TPL_TOP_;
         <div id="v20" class="panel-collapse">
             <div class="panel-body">
                 <ul>
-                    <li>Modèle orienté objet</li>
-                    <li>Création d'une nouvelle fonction pour gérer les erreurs.</li>
-                    <li>Fin de la migration sur le nouveau système de gestion des erreurs.</li>
-                    <li>Fin de la migration sur le nouveau système de gestion de la langue.</li>
-                    <li>Nouvelle gestion de l'affichage des erreurs pour l'utilisateur.</li>
-                    <li>Nouvelle gestion de l'affichage des erreurs pour l'administrateur.</li>
-                    <li>Suivi plus précis des erreurs (log++)</li>
-                    <li>Nouveau calcul des erreurs via l'administration</li>
-                    <li>Permettre la connexion longue duré sur un ordinateur</li>
-                    <li>Cacher les options par défaut à l'upload</li>
-                    <li>Permettre le changement de mot de passe</li>
+                    <li>Modèle orienté objet pour une meilleure évolutivité sur le long terme</li>
+					<li>Nouveau thème graphique</li>
+                    <li>Admin : Refonte de l'administration</li>
+					<li>Admin : création de fonctions pour nettoyer les images oboslètes</li>
+					<li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
+                    <li>Membres : Permettre le changement de mot de passe</li>
                     <li>Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
-                    <li>Refonte de l'administration</li>
-                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
+                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>s
                 </ul>
             </div>
         </div>
