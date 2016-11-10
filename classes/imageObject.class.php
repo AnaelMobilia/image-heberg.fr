@@ -162,6 +162,25 @@ class imageObject extends ressourceObject implements ressourceInterface {
 	}
 
 	/**
+	 * Génère le nom d'une nouvelle image
+	 * @param int $nb nombre de chiffres à rajouter à la fin du nom
+	 * @return string nom de l'image
+	 */
+	private function genererNom($nb = 0) {
+		// Random pour unicité + cassage lien nom <-> @IP
+		$random = rand(100, 999);
+		// @IP expéditeur
+		$adresseIP = abs(crc32($_SERVER['REMOTE_ADDR'] . $random));
+		// Timestamp d'envoi
+		$timestamp = $_SERVER['REQUEST_TIME'];
+
+		// Calcul du nom de l'image
+		$new_name = $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . outils::getExtension($this->getPathTemp());
+
+		return $new_name;
+	}
+
+	/**
 	 * Enregistre une nouvelle image dans le système
 	 * @return boolean Enregistré ?
 	 */
@@ -169,13 +188,21 @@ class imageObject extends ressourceObject implements ressourceInterface {
 		$monRetour = TRUE;
 
 		/**
-		 * Détermination du nom
+		 * Détermination du nom &&
+		 * Vérification de sa disponibilité
 		 */
-		$adresseIP = abs(crc32($_SERVER['REMOTE_ADDR']));
-		$random = rand(10, 99);
+		$tmpImage = new imageObject();
+		$nb = 0;
+		do {
+			// Récupération d'un nouveau nom
+			$new_name = $this->genererNom($nb);
+			// Incrémentation compteur entropie sur le nom
+			$nb++;
+		} while ($tmpImage->charger($new_name) != FALSE);
+		// Effacement de l'objet temporaire
+		unset($tmpImage);
 
-		$new_name = $_SERVER['REQUEST_TIME'] . $adresseIP . $random . '.' . outils::getExtension($this->getPathTemp());
-
+		// On enregistre le nom
 		$this->setNomNouveau($new_name);
 
 		/**
