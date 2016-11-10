@@ -59,7 +59,7 @@ require _TPL_TOP_;
 					<li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
                     <li>Membres : Permettre le changement de mot de passe</li>
                     <li>Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
-                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>s
+                    <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
                 </ul>
             </div>
         </div>
