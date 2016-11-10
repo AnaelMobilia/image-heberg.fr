@@ -615,7 +615,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple-100x100.png', _PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63');
         rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple-200x200.png', _PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f');
 
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_GET['id'] = '14777777.png';
         $_GET['type'] = ressourceObject::typeImage;
 
