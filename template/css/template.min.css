@@ -1,2 +1,2 @@
 
-body{padding-top:50px}#wrap{margin:0 auto -10px}.navbar,footer{background-color:#ebf578}.navbar-nav>.active>a{background-color:#bfd83e!important;color:white!important;font-weight:bold!important}.jumbotron{padding-bottom:10px!important;padding-top:0!important}
+html{height:100%}body{height:100%;padding-top:50px}#wrap{min-height:100%;height:auto;padding:0 0 30px;margin:0 auto -30px}.navbar,footer{background-color:#ebf578}.navbar-nav>.active>a{background-color:#bfd83e!important;color:white!important;font-weight:bold!important}.jumbotron{padding-bottom:10px!important;padding-top:0!important}

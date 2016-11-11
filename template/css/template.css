@@ -1,11 +1,21 @@
+html {
+    /* Sticky footer */
+    height: 100%;
+}
+
 body {
+    /* Sticky footer */
+    height: 100%;
     /* Hauteur de la navbar */
     padding-top: 50px;
 }
 
 #wrap {
-    /* Diminution des marges avant le footer */
-    margin: 0 auto -10px;
+    /* Sticky footer */
+    min-height: 100%;
+    height: auto;
+    padding: 0 0 30px;
+    margin: 0 auto -30px;
 }
 
 /* Couleur de fond image-heberg v1 like pour la barre de navigation & footer */
