@@ -47,7 +47,7 @@ abstract class ressourceObject {
      * @param int $nb nombre de chiffres à rajouter à la fin du nom
      * @return string nom de l'image
      */
-    private function genererNom($nb = 0) {
+    protected function genererNom($nb = 0) {
         // Random pour unicité + cassage lien nom <-> @IP
         $random = rand(100, 999);
         // @IP expéditeur
