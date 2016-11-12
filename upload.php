@@ -22,8 +22,8 @@ if (!defined('_TRAVIS_')) {
 }
 require _TPL_TOP_;
 
-$erreur = FALSE;
 $msgErreur = '';
+$msgWarning = '';
 
 /**
  * Vérification de l'utilisation normale
@@ -32,25 +32,22 @@ if (isset($_POST['Submit']) && isset($_SESSION['_upload'])) {
     // Suppression du marqueur d'affichage du formulaire d'envoi
     unset($_SESSION['_upload']);
 } else {
-    $erreur = TRUE;
     $msgErreur .= 'La page n\'a pas été appelée correctement.<br />';
 }
 
 /**
  * Vérification de la présence d'un fichier
  */
-if (!$erreur && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier']['name']))) {
-    $erreur = TRUE;
+if (empty($msgErreur) && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier']['name']))) {
     $msgErreur .= 'Aucun fichier n\'a été envoyé.<br />';
 }
 
 /**
  * Vérification du poids (Mo)
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     $poids = $_FILES['fichier']['size'];
     if ($poids > _IMAGE_POIDS_MAX_) {
-        $erreur = TRUE;
         $msgErreur .= 'Le poids du fichier ' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
@@ -58,12 +55,11 @@ if (!$erreur) {
 /**
  * Vérification du type mime
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     $pathTmp = $_FILES['fichier']['tmp_name'];
     // Type mime autorisés
     $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
     if (!in_array(outils::getType($pathTmp), $mimeType)) {
-        $erreur = TRUE;
         $msgErreur .= 'Ce fichier n\'est pas une image valide.<br />';
     }
 }
@@ -71,9 +67,8 @@ if (!$erreur) {
 /**
  * Vérification des dimensions
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     if (!outils::isModifiableEnMemoire($pathTmp)) {
-        $erreur = TRUE;
         $msgErreur .= 'Les dimensions de l\'image dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
     }
 }
@@ -81,7 +76,7 @@ if (!$erreur) {
 /**
  * Création d'une image pour effectuer les traitements requis
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     $monImage = new imageObject();
     $monImage->setPathTemp($pathTmp);
 }
@@ -89,7 +84,7 @@ if (!$erreur) {
 /**
  * Traitement du redimensionnement
  */
-if (!$erreur && isset($_POST['redimImage']) && !empty($_POST['redimImage'])) {
+if (empty($msgErreur) && isset($_POST['redimImage']) && !empty($_POST['redimImage'])) {
     // Calcul des dimensions demandées [largeur]x[hauteur]
     $maLargeur = substr(strstr($_POST['redimImage'], 'x'), 1);
     $maHauteur = strstr($_POST['redimImage'], 'x', TRUE);
@@ -98,27 +93,27 @@ if (!$erreur && isset($_POST['redimImage']) && !empty($_POST['redimImage'])) {
 
     // Une erreur ?
     if (!$result) {
-        $msgErreur .= 'Impossible d\'effectuer le redimensionnement.<br />';
+        $msgWarning .= 'Impossible d\'effectuer le redimensionnement.<br />';
     }
 }
 
 /**
  * Traitement de la rotation
  */
-if (!$erreur && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotation'])) {
+if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotation'])) {
     // On effectue la rotation
     $result = $monImage->rotation($_POST['angleRotation'], $monImage->getPathTemp(), $monImage->getPathTemp());
 
     // Une erreur ?
     if (!$result) {
-        $msgErreur .= 'Impossible d\'effectuer la rotation.<br />';
+        $msgWarning .= 'Impossible d\'effectuer la rotation.<br />';
     }
 }
 
 /**
  * Vérification du non réenvoi par la même personne
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     // Info de l'utilisateur
     $maSession = new sessionObject();
     $monUtilisateur = new utilisateurObject();
@@ -138,7 +133,6 @@ if (!$erreur) {
         // Création de l'image
         $monImage->setNomTemp($_FILES['fichier']['name']);
         if (!$monImage->creer()) {
-            $erreur = TRUE;
             $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image.<br />';
         }
     }
@@ -147,7 +141,7 @@ if (!$erreur) {
 /**
  * Gestion du propriétaire
  */
-if (!$erreur) {
+if (empty($msgErreur)) {
     $maSession = new sessionObject();
     // Si j'ai un ID d'utilisateur en session && que cette image n'est pas déjà enregistrée
     if (is_int($maSession->getId()) && $maSession->getId() !== 0 && is_null($doublon)) {
@@ -160,7 +154,7 @@ if (!$erreur) {
 /**
  * Traitement de la miniature
  */
-if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature'])) {
+if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature'])) {
     // Calcul des dimensions demandées [largeur]x[hauteur]
     $maLargeur = substr(strstr($_POST['dimMiniature'], 'x'), 1);
     $maHauteur = strstr($_POST['dimMiniature'], 'x', TRUE);
@@ -172,7 +166,7 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
     $maMiniature->setIdImage($monImage->getId());
 
     // Génération de la miniature
-    $result = $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
+    $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
 
     // Est-ce un doublon ?
     $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], $monUtilisateur, ressourceObject::typeMiniature);
@@ -184,14 +178,8 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
         // Création de la miniature
         $maMiniature->setNomTemp($_FILES['fichier']['name']);
         if (!$maMiniature->creer()) {
-            $erreur = TRUE;
             $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature.<br />';
         }
-    }
-
-    // Une erreur ?
-    if (!$result) {
-        $msgErreur .= 'Impossible de créer la miniature.<br />';
     }
 }
 ?>
@@ -206,6 +194,15 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
             <?= $msgErreur ?>
         </div>
     <?php else: ?>
+        <?php if (!empty($msgWarning)): ?>
+            <div class="alert alert-warning">
+                <span class="glyphicon glyphicon-remove"></span>
+                &nbsp;
+                <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
+                <br />
+                <?= $msgWarning ?>
+            </div>
+        <?php endif; ?>
         <div class="alert alert-success">
             <span class="glyphicon glyphicon-ok"></span>
             &nbsp;
