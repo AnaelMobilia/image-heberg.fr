@@ -167,7 +167,7 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
 
     // Création d'un objet
     $maMiniature = new miniatureObject();
-    $maMiniature->setPathTemp($monImage->getPathTemp());
+    $maMiniature->setPathTemp($pathTmp);
     // ID image parente
     $maMiniature->setIdImage($monImage->getId());
 
