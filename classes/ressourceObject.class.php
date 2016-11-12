@@ -112,7 +112,7 @@ abstract class ressourceObject {
     public function getURL() {
         // Path du type d'image
         $urlDuType = '';
-        if ($this->type === $this->getType()) {
+        if ($this->getType() === self::typeImage) {
             // Image
             $urlDuType = _URL_IMAGES_;
         } else {
