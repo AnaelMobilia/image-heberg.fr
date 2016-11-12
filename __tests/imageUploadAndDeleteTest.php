@@ -146,6 +146,9 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         self::setNbPlus(self::fichierMiniature);
         $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::fichierMiniature), "Envoi image + miniature doit créer miniature en BDD");
         $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
+        /* @var $maMiniature miniatureObject */
+        var_dump($maMiniature);
+        var_dump($maMiniature->getPathMd5());
         $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '1/18d267ff765248963656eb25ea1f7f29'), "Envoi image + miniature doit créer miniature sur HDD");
     }
 
