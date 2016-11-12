@@ -114,7 +114,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Envoi image ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer d'image en BDD");
         $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '6/6a9dd81ae12c79d953031bc54c07f900'), "Envoi image doit créer d'image sur HDD");
@@ -140,7 +141,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature doit créer image en BDD");
         self::setNbPlus(self::fichierMiniature);
@@ -170,7 +172,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature (rotation) doit créer image en BDD");
         self::setNbPlus(self::fichierMiniature);
@@ -199,7 +202,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image - dde miniature - doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde miniature - doit être bloquée en BDD");
         self::setNbPlus(self::fichierMiniature);
@@ -227,7 +231,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image - dde NOUVELLE miniature - doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde NOUVELLE miniature - doit être bloquée en BDD");
         self::setNbPlus(self::fichierMiniature);
@@ -246,12 +251,13 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Non affichage du formulaire d'upload devrait être détecté dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Non affichage du formulaire d'upload ne doit pas créer d'image en BDD");
     }
 
     /**
-     * Envoi sans fichier
+     * Envoi sans fichierU
      * @depends testEnvoiBrut
      */
     public function testEnvoiSansFichier() {
@@ -262,7 +268,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Absence de fichier envoyé devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Absence de fichier envoyé devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Absence de fichier envoyé devrait être détecté dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Absence de fichier envoyé ne doit pas créer d'image en BDD");
     }
 
@@ -280,7 +287,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Fichier trop gros devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Fichier trop gros devrait être détecté dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Fichier trop gros devrait être détecté dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Fichier trop gros ne doit pas créer d'image en BDD");
     }
 
@@ -299,7 +307,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Type mime : pas une image doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALS, "Type mime : pas une image doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Type mime : pas une image doit être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "type mime : pas une image doit être bloquée en BDD");
     }
 
@@ -318,7 +327,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Type mime : fausse image doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Type mime : fausse image doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Type mime : fausse image doit être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "type mime : fausse image doit être bloquée en BDD");
     }
 
@@ -337,7 +347,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Type mime : extension incorrecte ne doit pas poser de soucis dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Type mime : extension incorrecte ne doit pas poser de soucis dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Type mime : extension incorrecte ne doit pas poser de soucis dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Type mime : extension incorrecte ne doit pas être bloquée en BDD");
     }
@@ -357,7 +368,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Image 10000x1 ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Image 10000x1 ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Image 10000x1 ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Image 10000x1 ne doit pas être bloquée en BDD");
     }
@@ -377,7 +389,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Image 1x10000 ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Image 1x10000 ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Image 1x10000 ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Image 1x10000 ne doit pas être bloquée en BDD");
     }
@@ -398,7 +411,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Image 10000x10000 doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Image 10000x10000 doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Image 10000x10000 doit être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Image 10000x10000 doit être bloquée en BDD");
     }
 
@@ -423,7 +437,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image authentifié ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
@@ -446,7 +461,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image doit être bloquée en BDD");
     }
@@ -472,7 +488,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
@@ -494,7 +511,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image doit être bloquée en BDD");
@@ -521,7 +539,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image doit être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image doit être bloquée en BDD");
     }
@@ -547,7 +566,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
@@ -566,7 +586,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Suppression image inexistante doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image inexistante doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image inexistante doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image inexistante doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image inexistante doit être bloqué en BDD");
     }
@@ -583,7 +604,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée par autrui doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image possédée par autrui doit être bloqué en BDD");
     }
@@ -606,7 +628,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée par autrui doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image possédée par autrui doit être bloqué en BDD");
     }
@@ -632,7 +655,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée ne doit pas être bloqué en BDD");
         self::setNbMoins(self::fichierPossede);
@@ -652,7 +676,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Suppression image hors délai doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image hors délai doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image hors délai doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image hors délai doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image hors délai doit être bloqué en BDD");
     }
@@ -669,7 +694,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image dans délai par autre IP doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image dans délai par autre IP doit être bloqué en BDD");
     }
@@ -686,7 +712,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Suppression image dans délai ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image dans délai ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image dans délai ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image dans délai ne doit pas être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image dans délai ne doit pas être bloqué en BDD");
@@ -712,7 +739,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image avec redim doit créer d'image en BDD");
         $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/43b604c3a5c18a161bc3a01bdb58ebf7'), "Envoi image avec redim doit créer image redim sur HDD");
@@ -742,7 +770,8 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals($erreur, FALSE, "Suppression image ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
+        $this->assertEquals(empty($msgWarning), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image ne doit pas être bloqué en BDD");
         self::setNbMoins(self::fichierPossede);
