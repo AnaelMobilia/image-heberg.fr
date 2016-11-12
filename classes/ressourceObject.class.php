@@ -43,6 +43,25 @@ abstract class ressourceObject {
     private $nomTemp;
 
     /**
+     * Génère le nom d'une nouvelle image
+     * @param int $nb nombre de chiffres à rajouter à la fin du nom
+     * @return string nom de l'image
+     */
+    private function genererNom($nb = 0) {
+        // Random pour unicité + cassage lien nom <-> @IP
+        $random = rand(100, 999);
+        // @IP expéditeur
+        $adresseIP = abs(crc32($_SERVER['REMOTE_ADDR'] . $random));
+        // Timestamp d'envoi
+        $timestamp = $_SERVER['REQUEST_TIME'];
+
+        // Calcul du nom de l'image
+        $new_name = $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . outils::getExtension($this->getPathTemp());
+
+        return $new_name;
+    }
+
+    /**
      * MD5 de la ressource
      * @return string
      */
