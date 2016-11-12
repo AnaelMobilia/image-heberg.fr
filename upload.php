@@ -168,6 +168,8 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
     // Création d'un objet
     $maMiniature = new miniatureObject();
     $maMiniature->setPathTemp($monImage->getPathTemp());
+    // ID image parente
+    $maMiniature->setIdImage($monImage->getId());
 
     // Génération de la miniature
     $result = $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
