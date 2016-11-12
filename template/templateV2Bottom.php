@@ -30,7 +30,7 @@
                 $ip = 'IPv6';
             }
             ?>
-            Image-Heberg.fr
+            <?= _SITE_NAME_ ?>
             -
             <a href="<?= _URL_ ?>changelog.php">v1.9 (2014) <span class="glyphicon glyphicon-flash"></span></a>
             -

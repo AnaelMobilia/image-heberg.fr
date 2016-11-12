@@ -65,6 +65,9 @@ if (!_TRAVIS_) {
     set_exception_handler('exception_handler');
 }
 
+// Nom du service
+define('_SITE_NAME_', 'Image-Heberg');
+
 // mail admin
 define('_MAIL_ADMIN_', 'contrib@anael.eu');
 

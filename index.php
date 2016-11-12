@@ -27,7 +27,7 @@ $_SESSION['_upload'] = TRUE;
     <h1><small>Envoyer une image</small></h1>
 
     <div class = "alert alert-info">
-        Image-heberg.fr est un service gratuit vous permettant d'héberger vos images sur internet.
+        <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
         <ul>
             <li>Image de type JPG, PNG, GIF</li>
             <li>Taille maximale : <?= round(_IMAGE_POIDS_MAX_ / 1048576, 1) ?> Mo</li>

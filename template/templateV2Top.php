@@ -31,7 +31,7 @@ $timeStart = microtime(TRUE);
         <meta name="author" content="Anael Mobilia">
         <link rel="shortcut icon" href="template/images/favicon.ico">
 
-        <title>Image-Heberg.fr - Hébergeur d'images gratuit</title>
+        <title><?= _SITE_NAME_ ?> - Hébergeur d'images gratuit</title>
 
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-3.3.7.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@ $timeStart = microtime(TRUE);
                         <a class="navbar-brand" href="#">
                             <span class="glyphicon glyphicon-cloud-upload"></span>
                             &nbsp;
-                            Image-Heberg
+                            <?= _SITE_NAME_ ?>
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
