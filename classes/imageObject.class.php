@@ -173,8 +173,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
      * @return boolean Enregistré ?
      */
     public function creer() {
-        $monRetour = TRUE;
-
         /**
          * Détermination du nom &&
          * Vérification de sa disponibilité
@@ -192,12 +190,6 @@ class imageObject extends ressourceObject implements ressourceInterface {
 
         // On enregistre le nom
         $this->setNomNouveau($new_name);
-
-        /**
-         * Calcul du MD5
-         */
-        $md5 = md5_file($this->getPathTemp());
-        $this->setMd5($md5);
 
         /**
          * Déplacement du fichier
