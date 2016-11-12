@@ -24,7 +24,7 @@ $timeStart = microtime(TRUE);
     <head>
         <meta charset="utf-8">
 
-        <base href="<?= _URL_ ?>" />
+        <base href="<?= _URL_SANS_SCHEME_ ?>" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Hebergement d'images gratuit et illimité">
