@@ -307,7 +307,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), FALS, "Type mime : pas une image doit être bloquée dans upload.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Type mime : pas une image doit être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Type mime : pas une image doit être bloquée dans upload.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "type mime : pas une image doit être bloquée en BDD");
     }
