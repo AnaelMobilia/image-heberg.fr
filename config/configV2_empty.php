@@ -71,9 +71,10 @@ define('_REPERTOIRE_ADMIN_', 'admin/');
 define('_REPERTOIRE_MEMBRE_', 'membre/');
 
 // URL
-define('_URL_', 'http://www.image-heberg.fr/');
-define('_URL_HTTPS_', 'https://www.image-heberg.fr/');
-define('_URL_SANS_SCHEME_', '//www.image-heberg.fr/');
+define('_BASE_URL_', 'www.image-heberg.fr/');
+define('_URL_', 'http://' . _BASE_URL_);
+define('_URL_HTTPS_', 'https://' . _BASE_URL_);
+define('_URL_SANS_SCHEME_', '//' . _BASE_URL_);
 define('_URL_ADMIN_', _URL_HTTPS_ . _REPERTOIRE_ADMIN_);
 define('_URL_MEMBRE_', _URL_HTTPS_ . _REPERTOIRE_MEMBRE_);
 define('_URL_IMAGES_', _URL_ . _REPERTOIRE_IMAGE_);
