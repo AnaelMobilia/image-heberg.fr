@@ -186,7 +186,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
             /**
              * Création en BDD
              */
-            $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)");
+            $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?)");
             $req->bindValue(1, $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(2, $this->getNomNouveau(), PDO::PARAM_STR);
