@@ -66,13 +66,10 @@ $_SESSION['_upload'] = TRUE;
                         <select name="dimMiniature" class="form-control">
                             <option value="" selected>-- Option non disponible actuellement --</option>
                             <option value="">-- Ne pas effectuer --</option>
+                            <option value="100x100">Avatar (100x100)</option>
+                            <option value="320x240">Miniature (320x240)</option>
+                            <option value="640x480">Miniature XL (640x480)</option>
                             <option value="700x700">Miniature Forum (700x700)</option>
-                            <option value="640x480">Miniature++ (640x480)</option>
-                            <option value="320x240">Miniature+ (320x240)</option>
-                            <option value="140x100">Miniature (140x100)</option>
-                            <option value="100x100">Aperçu (100x100)</option>
-                            <option value="90x90">Avatar (90x90)</option>
-                            <option value="88x31">Bouton (88x31)</option>
                         </select>
                     </div>
                 </div>
