@@ -63,7 +63,7 @@ $_SESSION['_upload'] = TRUE;
                 <div class="form-group">
                     <label class="col-sm-3">Faire une miniature</label>
                     <div class="col-sm-9">
-                        <select name="dimMiniature" class="form-control" disabled>
+                        <select name="dimMiniature" class="form-control">
                             <option value="" selected>-- Option non disponible actuellement --</option>
                             <option value="">-- Ne pas effectuer --</option>
                             <option value="700x700">Miniature Forum (700x700)</option>
