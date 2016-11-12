@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `possede` (
 --
 
 CREATE TABLE IF NOT EXISTS `thumbnails` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_image` int(11) NOT NULL,
   `date_creation` date NOT NULL DEFAULT '0000-00-00',
   `new_name` text NOT NULL,
