@@ -34,11 +34,13 @@ require _TPL_TOP_;
         <div id="v20" class="panel-collapse">
             <div class="panel-body">
                 <ul>
-                    <li>Albums photos (création, affichage, partage)</li>
+                    <li>Envoi de plusieurs fichiers simultanément</li>
+                    <li>Glisser - déposer pour le choix des fichiers</li>
                     <li>API permettant l'intégration à un site tiers</li>
+                    <li>Membres : Albums photos (création, affichage, partage)</li>
                     <li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
                     <li>Membres : Permettre le changement de mot de passe</li>
-                    <li>Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
+                    <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
                     <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
                 </ul>
             </div>
