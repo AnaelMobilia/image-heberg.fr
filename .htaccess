@@ -16,16 +16,20 @@
 #* You should have received a copy of the GNU General Public License
 #* along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
 #*/
-#Mode rescue : coupe le site ;-)
-#rewriteengine on
-#rewriterule . erreur.php
 
 # Interdiction de lister le contenu des répertoires
 Options -Indexes
 
 # Ré-écriture d'URL
 RewriteEngine On
-# Utilisation du NDD souhaité uniquement !
+
+# Redirection systématique - si requise - vers www.image-heberg.fr
+# HTTPS
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
+RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
+RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
+# HTTP
 RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
 RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
 RewriteRule (.*) http://www.image-heberg.fr/$1 [R=301,L,NE]
