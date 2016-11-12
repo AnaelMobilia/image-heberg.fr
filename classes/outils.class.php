@@ -231,7 +231,7 @@ class outils {
                  * Utilisateur anonyme
                  * Recherche sur MD5, @IP (sauf images possédées)
                  */
-                $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images WHERE thumbnail.md5 = ? AND image.ip_envoi = ? AND thumbnails.date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id_image NOT IN (SELECT image_id from possede) AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
+                $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images WHERE thumbnails.md5 = ? AND image.ip_envoi = ? AND thumbnails.date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id_image NOT IN (SELECT image_id from possede) AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
                 /* @var $req PDOStatement */
                 $req->bindValue(1, $unMD5, PDO::PARAM_STR);
                 $req->bindValue(2, $uneIp, PDO::PARAM_STR);
