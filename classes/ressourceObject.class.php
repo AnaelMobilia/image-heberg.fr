@@ -66,15 +66,13 @@ abstract class ressourceObject {
      * @return string
      */
     public function getMd5() {
-        $monMD5 = $this->md5;
-
         // Création d'une image
-        if (is_null($monMD5)) {
+        if (is_null($this->md5)) {
             // Fichier temporaire...
-            $monMD5 = md5_file($this->getPathTemp());
+            $this->md5 = md5_file($this->getPathTemp());
         }
 
-        return $monMD5;
+        return $this->md5;
     }
 
     /**
