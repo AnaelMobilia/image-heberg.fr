@@ -41,7 +41,7 @@ $_SESSION['_upload'] = TRUE;
                 <div class="form-group form-group-lg">
                     <label for="fichier" class="col-sm-3">Fichier à envoyer</label>
                     <div class="col-sm-9">
-                        <input type="file" name="fichier" id="fichier">
+                        <input type="file" accept="image/*" name="fichier" id="fichier">
                         <span class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</span>
                     </div>
                 </div>
