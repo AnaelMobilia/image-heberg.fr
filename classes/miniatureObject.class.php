@@ -152,16 +152,16 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
          * Détermination du nom &&
          * Vérification de sa disponibilité
          */
-        $tmpImage = new miniatureObject();
+        $tmpMiniature = new miniatureObject();
         $nb = 0;
         do {
             // Récupération d'un nouveau nom
             $new_name = $this->genererNom($nb);
             // Incrémentation compteur entropie sur le nom
             $nb++;
-        } while ($tmpImage->charger($new_name) != FALSE);
+        } while ($tmpMiniature->charger($new_name) != FALSE);
         // Effacement de l'objet temporaire
-        unset($tmpImage);
+        unset($tmpMiniature);
 
         // On enregistre le nom
         $this->setNomNouveau($new_name);
