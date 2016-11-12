@@ -32,7 +32,7 @@
             ?>
             <?= _SITE_NAME_ ?>
             -
-            <a href="<?= _URL_ ?>changelog.php">v1.9 (2014) <span class="glyphicon glyphicon-flash"></span></a>
+            <a href="<?= _URL_ ?>changelog.php">v2.0 (2016) <span class="glyphicon glyphicon-flash"></span></a>
             -
             <a href="<?= _URL_ ?>stats.php">Statistiques <span class="glyphicon glyphicon-stats"></span></a>
             -

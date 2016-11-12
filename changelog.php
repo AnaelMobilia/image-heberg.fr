@@ -26,7 +26,7 @@ require _TPL_TOP_;
         <div class="panel-heading">
             <h2 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#v21">
-                    v2.1 - à venir
+                    v2.1 - en cours
                     &nbsp;<span class="caret"></span>
                 </a>
             </h2>
@@ -48,7 +48,7 @@ require _TPL_TOP_;
         <div class="panel-heading">
             <h2 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#v20">
-                    v2.0 - en cours
+                    v2.0 - Novembre 2016
                     &nbsp;<span class="caret"></span>
                 </a>
             </h2>
