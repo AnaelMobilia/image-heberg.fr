@@ -19,7 +19,6 @@
  */
 
 class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
-
     // Fichiers pour le nombre d'images / possessions attendues
     const fichierImage = '../_nbImages';
     const fichierMiniature = '../_nbThumbnails';
@@ -122,8 +121,123 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Envoi sans affichage page index.php
+     * Test de l'envoi avec miniature : présence BDD et HDD
      * @depends testEnvoi
+     */
+    public function testEnvoiMiniature() {
+        require_once 'config/configV2.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['_upload'] = 1;
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_pour_miniature.png';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+        $_POST['dimMiniature'] = '50x50';
+
+        // Gestion des différents tests
+        unset($_SESSION['id']);
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, FALSE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
+        self::setNbPlus(self::fichierImage);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature doit créer image en BDD");
+        self::setNbPlus(self::fichierMiniature);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierMiniature), "Envoi image + miniature doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '1/18d267ff765248963656eb25ea1f7f29'), "Envoi image + miniature doit créer miniature sur HDD");
+    }
+
+    /**
+     * Test de l'envoi avec miniature ET rotation : présence BDD et HDD
+     * @depends testEnvoiMiniature
+     */
+    public function testEnvoiMiniatureRotation() {
+        require_once 'config/configV2.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['_upload'] = 1;
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_pour_miniature.png';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+        $_POST['dimMiniature'] = '50x50';
+        $_POST['angleRotation'] = 90;
+
+        // Gestion des différents tests
+        unset($_SESSION['id']);
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, FALSE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
+        self::setNbPlus(self::fichierImage);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature (rotation) doit créer image en BDD");
+        self::setNbPlus(self::fichierMiniature);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierMiniature), "Envoi image + miniature (rotation) doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/4a3da533b304629c3ef35ece7fb01308'), "Envoi image + miniature (rotation) doit créer image sur HDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . 'a/acad9f2460a7c941a91f888eb476a594'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
+    }
+
+    /**
+     * Test du renvoi d'une image mais avec demande de création d'une miniature
+     * @depends testEnvoiMiniatureRotation
+     */
+    public function testRenvoiImageDemandeMiniature() {
+        require_once 'config/configV2.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['_upload'] = 1;
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+        $_POST['dimMiniature'] = '50x50';
+
+        // Gestion des différents tests
+        unset($_SESSION['id']);
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, FALSE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image - dde miniature - doit être bloquée en BDD");
+        $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde miniature - doit être bloquée en BDD");
+        self::setNbPlus(self::fichierMiniature);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierMiniature), "Renvoi image - dde miniature - doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '1/18d267ff765248963656eb25ea1f7f29'), "Renvoi image - dde miniature - doit créer miniature sur HDD");
+    }
+
+    /**
+     * Test du renvoi d'une image avec miniature mais demande demande de création d'une autre miniature
+     * @depends testRenvoiImageDemandeMiniature
+     */
+    public function testRenvoiImageDemandeNouvelleMiniature() {
+        require_once 'config/configV2.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['_upload'] = 1;
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+        $_POST['dimMiniature'] = '40x40';
+
+        // Gestion des différents tests
+        unset($_SESSION['id']);
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+        $this->assertEquals($erreur, FALSE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image - dde NOUVELLE miniature - doit être bloquée en BDD");
+        $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde NOUVELLE miniature - doit être bloquée en BDD");
+        self::setNbPlus(self::fichierMiniature);
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierMiniature), "Renvoi image - dde NOUVELLE miniature - doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '9/9b2fb055aec30c31adfe12d208e9facf'), "Renvoi image - dde NOUVELLE miniature - doit créer miniature sur HDD");
+    }
+
+    /**
+     * Envoi sans affichage page index.php
+     * @depends testRenvoiImageDemandeNouvelleMiniature
      */
     public function testEnvoiBrut() {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
