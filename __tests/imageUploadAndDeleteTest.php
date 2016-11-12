@@ -586,7 +586,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image inexistante doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Suppression image inexistante doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image inexistante doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image inexistante doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image inexistante doit être bloqué en BDD");
@@ -604,7 +604,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée par autrui doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image possédée par autrui doit être bloqué en BDD");
@@ -628,7 +628,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée par autrui doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image possédée par autrui doit être bloqué en BDD");
@@ -676,7 +676,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image hors délai doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Suppression image hors délai doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image hors délai doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image hors délai doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image hors délai doit être bloqué en BDD");
@@ -694,7 +694,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        $this->assertEquals(empty($msgErreur), TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
+        $this->assertEquals(empty($msgErreur), FALSE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image dans délai par autre IP doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image dans délai par autre IP doit être bloqué en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image dans délai par autre IP doit être bloqué en BDD");
