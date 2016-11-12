@@ -45,7 +45,7 @@ $_SESSION['_upload'] = TRUE;
                         <span class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</span>
                     </div>
                 </div>
-                <h3>Options&nbsp;:</h3>
+                <h3>Options</h3>
                 <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
                 <div class="form-group">
                     <label class="col-sm-3">Rotation de l'image</label>
