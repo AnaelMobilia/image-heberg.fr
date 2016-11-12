@@ -119,10 +119,6 @@ if (!$erreur && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotati
  * Vérification du non réenvoi par la même personne
  */
 if (!$erreur) {
-    // Infos de l'image
-    $monMD5 = md5_file($monImage->getPathTemp());
-    $monIP = $_SERVER['REMOTE_ADDR'];
-
     // Info de l'utilisateur
     $maSession = new sessionObject();
     $monUtilisateur = new utilisateurObject();
@@ -133,7 +129,7 @@ if (!$erreur) {
     }
 
     // Est-ce un doublon ?
-    $doublon = outils::verifierRenvoiImage($monMD5, $monIP, $monUtilisateur);
+    $doublon = outils::verifierRenvoiImage($monImage->getMd5(), $_SERVER['REMOTE_ADDR'], $monUtilisateur, ressourceObject::typeImage);
 
     if (!is_null($doublon)) {
         // C'est un doublon -> chargement de l'image existante
@@ -143,7 +139,7 @@ if (!$erreur) {
         $monImage->setNomTemp($_FILES['fichier']['name']);
         if (!$monImage->creer()) {
             $erreur = TRUE;
-            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier.<br />';
+            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image.<br />';
         }
     }
 }
@@ -169,23 +165,32 @@ if (!$erreur && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature']))
     $maLargeur = substr(strstr($_POST['dimMiniature'], 'x'), 1);
     $maHauteur = strstr($_POST['dimMiniature'], 'x', TRUE);
 
+    // Création d'un objet
+    $maMiniature = new miniatureObject();
+    $maMiniature->setPathTemp($monImage->getPathTemp());
+
     // Génération de la miniature
-    //$result = $monImage->redimensionner($monImage->getPathTemp(), $monImage->getPathTemp(), $maLargeur, $maHauteur);
+    $result = $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
+
+    // Est-ce un doublon ?
+    $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], $monUtilisateur, ressourceObject::typeMiniature);
+
+    if (!is_null($doublon)) {
+        // C'est un doublon -> chargement de la miniature existante
+        $maMiniature = new miniatureObject($doublon);
+    } else {
+        // Création de la miniature
+        $maMiniature->setNomTemp($_FILES['fichier']['name']);
+        if (!$maMiniature->creer()) {
+            $erreur = TRUE;
+            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature.<br />';
+        }
+    }
+
     // Une erreur ?
     if (!$result) {
         $msgErreur .= 'Impossible de créer la miniature.<br />';
     }
-
-
-    // Gestion de l'existance déjà d'une miniature... (plusieurs miniatures pour un fichier)
-    // => Gérer correctement le multi-nommage (rajout de -n avant l'extension ?
-    // Gestion de la demande de création d'une miniature d'une image déjà existante
-    // => Créer la miniature dans le $path_temp où elle est déjà, puis utiliser verifierRenvoi(...)
-    //		=> Si OK, on la crée en BDD / HDD
-    // Gestion de la propriété : faut-il passer les miniatures comme des images standard ?
-    // => NON car si suppression image parente, il faut que les miniatures soient également supprimées
-    //			(notion de parent)
-    // => Il faut rajouter la notion de propriété dans possede du coup... (fait chier !)
 }
 ?>
 <div class="jumbotron">
