@@ -48,7 +48,7 @@ if (empty($msgErreur) && (!isset($_FILES['fichier']['name']) || empty($_FILES['f
 if (empty($msgErreur)) {
     $poids = $_FILES['fichier']['size'];
     if ($poids > _IMAGE_POIDS_MAX_) {
-        $msgErreur .= 'Le poids du fichier ' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
+        $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
@@ -60,7 +60,7 @@ if (empty($msgErreur)) {
     // Type mime autorisés
     $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
     if (!in_array(outils::getType($pathTmp), $mimeType)) {
-        $msgErreur .= 'Ce fichier n\'est pas une image valide.<br />';
+        $msgErreur .= 'Le fichier ' . $_FILES['fichier']['name'] . ' n\'est pas une image valide.<br />';
     }
 }
 
@@ -69,7 +69,7 @@ if (empty($msgErreur)) {
  */
 if (empty($msgErreur)) {
     if (!outils::isModifiableEnMemoire($pathTmp)) {
-        $msgErreur .= 'Les dimensions de l\'image dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
+        $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
     }
 }
 
@@ -93,7 +93,7 @@ if (empty($msgErreur) && isset($_POST['redimImage']) && !empty($_POST['redimImag
 
     // Une erreur ?
     if (!$result) {
-        $msgWarning .= 'Impossible d\'effectuer le redimensionnement.<br />';
+        $msgWarning .= 'Impossible d\'effectuer le redimensionnement de ' . $_FILES['fichier']['name'] . '.<br />';
     }
 }
 
@@ -106,7 +106,7 @@ if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['an
 
     // Une erreur ?
     if (!$result) {
-        $msgWarning .= 'Impossible d\'effectuer la rotation.<br />';
+        $msgWarning .= 'Impossible d\'effectuer la rotation de ' . $_FILES['fichier']['name'] . ' .<br />';
     }
 }
 
@@ -133,7 +133,7 @@ if (empty($msgErreur)) {
         // Création de l'image
         $monImage->setNomTemp($_FILES['fichier']['name']);
         if (!$monImage->creer()) {
-            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image.<br />';
+            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image ' . $_FILES['fichier']['name'] . ' .<br />';
         }
     }
 }
@@ -178,7 +178,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
         // Création de la miniature
         $maMiniature->setNomTemp($_FILES['fichier']['name']);
         if (!$maMiniature->creer()) {
-            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature.<br />';
+            $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name'] . ' .<br />';
         }
     }
 }
