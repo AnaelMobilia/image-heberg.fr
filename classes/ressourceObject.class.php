@@ -22,7 +22,6 @@
  * Fonctions génériques aux images et miniatures
  */
 abstract class ressourceObject {
-
     const typeImage = 1;
     const typeMiniature = 2;
 
@@ -42,6 +41,22 @@ abstract class ressourceObject {
     private $pathTemp;
     private $type;
     private $nomTemp;
+
+    /**
+     * MD5 de la ressource
+     * @return string
+     */
+    public function getMd5() {
+        $monMD5 = $this->md5;
+
+        // Création d'une image
+        if (is_null($monMD5)) {
+            // Fichier temporaire...
+            $monMD5 = md5_file($this->getPathTemp());
+        }
+
+        return $monMD5;
+    }
 
     /**
      * Path sur le HDD
@@ -361,14 +376,6 @@ abstract class ressourceObject {
      */
     public function getDateEnvoiBrute() {
         return $this->dateEnvoi;
-    }
-
-    /**
-     * MD5 de la ressource
-     * @return string
-     */
-    public function getMd5() {
-        return $this->md5;
     }
 
     /**
