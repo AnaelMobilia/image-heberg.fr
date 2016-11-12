@@ -234,7 +234,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                     </div>
                     <?php if (isset($maMiniature)) : ?>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Forum <em>(BBcode) avec miniature</em></label>
+                            <label class="col-sm-2 control-label">Forum <em>(BBcode)</em> avec miniature</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" onFocus="this.select();" value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
                             </div>
