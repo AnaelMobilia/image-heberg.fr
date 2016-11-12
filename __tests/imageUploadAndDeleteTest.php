@@ -159,7 +159,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_pour_miniature.png';
+        $_FILES['fichier']['name'] = 'image_pour_miniature2.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
         $_POST['angleRotation'] = 90;
@@ -189,7 +189,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['name'] = 'image_banned2.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
@@ -218,7 +218,7 @@ class imageUploadAndDeleteTest extends PHPUnit_Framework_TestCase {
         $_POST['Submit'] = 1;
         $_SESSION['_upload'] = 1;
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['name'] = 'image_banned3.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '40x40';
 
