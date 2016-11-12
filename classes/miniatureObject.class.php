@@ -22,7 +22,6 @@
  * Les miniatures
  */
 class miniatureObject extends ressourceObject implements ressourceInterface {
-
     private $idImage;
 
     /**
@@ -144,8 +143,71 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         return $monRetour;
     }
 
+    /**
+     * Enregistre une nouvelle miniature dans le système
+     * @return boolean Enregistré ?
+     */
     public function creer() {
+        /**
+         * Détermination du nom &&
+         * Vérification de sa disponibilité
+         */
+        $tmpImage = new miniatureObject();
+        $nb = 0;
+        do {
+            // Récupération d'un nouveau nom
+            $new_name = $this->genererNom($nb);
+            // Incrémentation compteur entropie sur le nom
+            $nb++;
+        } while ($tmpImage->charger($new_name) != FALSE);
+        // Effacement de l'objet temporaire
+        unset($tmpImage);
 
+        // On enregistre le nom
+        $this->setNomNouveau($new_name);
+
+        /**
+         * Déplacement du fichier
+         */
+        $monRetour = rename($this->getPathTemp(), $this->getPathMd5());
+
+        // Ssi copie du fichier réussie
+        if ($monRetour) {
+            /**
+             * Informations sur l'image
+             */
+            // Dimensions
+            $imageInfo = getimagesize($this->getPathMd5());
+            $this->setLargeur($imageInfo[0]);
+            $this->setHauteur($imageInfo[1]);
+            // Poids
+            $this->setPoids(filesize($this->getPathMd5()));
+
+            /**
+             * Création en BDD
+             */
+            $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)");
+            $req->bindValue(1, $this->getIdImage(), PDO::PARAM_INT);
+            // Date : NOW()
+            $req->bindValue(2, $this->getNomNouveau(), PDO::PARAM_STR);
+            $req->bindValue(3, $this->getPoids(), PDO::PARAM_INT);
+            $req->bindValue(4, $this->getHauteur(), PDO::PARAM_INT);
+            $req->bindValue(5, $this->getLargeur(), PDO::PARAM_INT);
+            $req->bindValue(6, $this->getMd5(), PDO::PARAM_STR);
+
+            if (!$req->execute()) {
+                // Gestion de l'erreur d'insertion en BDD
+                $monRetour = FALSE;
+            } else {
+                /**
+                 * Récupération de l'ID de l'image
+                 */
+                $idEnregistrement = maBDD::getInstance()->lastInsertId();
+                $this->setId($idEnregistrement);
+            }
+        }
+
+        return $monRetour;
     }
 
     /**
