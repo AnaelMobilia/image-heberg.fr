@@ -71,13 +71,7 @@ abstract class ressourceObject {
         // Création d'une image
         if (is_null($monMD5)) {
             // Fichier temporaire...
-            if (is_file($this->getPathTemp())) {
-                // Image
-                $monMD5 = md5_file($this->getPathTemp());
-            } else {
-                // Miniature
-                $monMD5 = md5_file($this->getPathMd5());
-            }
+            $monMD5 = md5_file($this->getPathTemp());
         }
 
         return $monMD5;
