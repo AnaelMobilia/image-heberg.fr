@@ -90,7 +90,6 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
         // J'enregistre les infos en BDD
         $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = ?, date_creation = ?, new_name = ?, size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ? WHERE id = ?");
 
-
         $req->bindValue(1, $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(2, $this->getDateEnvoiBrute());
         $req->bindValue(3, $this->getNomNouveau(), PDO::PARAM_STMT);
