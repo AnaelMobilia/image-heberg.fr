@@ -105,7 +105,7 @@ if (isset($_POST['modifierPwd'])) {
 }
 ?>
 <div class="jumbotron">
-    <h1><small>Mon compte Image-Heberg.fr</small></h1>
+    <h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -184,7 +184,7 @@ if (isset($_POST['modifierPwd'])) {
                     <label class="text-danger">
                         <input type="checkbox" value="" name="confirmeDelete">
                         <span class="glyphicon glyphicon-warning-sign"></span>
-                        Je confirme souhaiter supprimer mon compte Image-Heberg.fr.
+                        Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
                         <br />
                         Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration.
                         <br />
