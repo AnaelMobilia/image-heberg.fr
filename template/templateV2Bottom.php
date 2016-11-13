@@ -18,6 +18,7 @@
 * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
 */
 -->
+</div> <!-- /jumbotron -->
 </div> <!-- /container -->
 </div><!-- /wrap -->
 <footer>

@@ -22,37 +22,35 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<div class="jumbotron">
-    <h1><small>Images présentes sur le disque</small></h1>
-    <ul>
-        <?php
+<h1><small>Images présentes sur le disque</small></h1>
+<ul>
+    <?php
 
-        /**
-         * Scan récursif
-         * @param string $path
-         * @return string
-         */
-        function getScandirRecursif($path) {
-            $monRetour = '<ul>';
+    /**
+     * Scan récursif
+     * @param string $path
+     * @return string
+     */
+    function getScandirRecursif($path) {
+        $monRetour = '<ul>';
 
-            // Scanne le répertoire fourni
-            $scan_rep = scandir($path);
-            // Pour chaque item
-            foreach ($scan_rep as $item) {
-                if ($item != '.' && $item != '..') {
-                    $monRetour .= '<li>' . $path . $item . '</li>';
-                    if (is_dir($path . $item)) {
-                        // Appel récursif
-                        $monRetour .= getScandirRecursif($path . $item . '/');
-                    }
+        // Scanne le répertoire fourni
+        $scan_rep = scandir($path);
+        // Pour chaque item
+        foreach ($scan_rep as $item) {
+            if ($item != '.' && $item != '..') {
+                $monRetour .= '<li>' . $path . $item . '</li>';
+                if (is_dir($path . $item)) {
+                    // Appel récursif
+                    $monRetour .= getScandirRecursif($path . $item . '/');
                 }
             }
-            $monRetour .= '</ul>';
-            return $monRetour;
         }
+        $monRetour .= '</ul>';
+        return $monRetour;
+    }
 
-        echo getScandirRecursif(_PATH_IMAGES_);
-        ?>
-    </ul>
-</div>
+    echo getScandirRecursif(_PATH_IMAGES_);
+    ?>
+</ul>
 <?php require _TPL_BOTTOM_ ?>

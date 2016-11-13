@@ -51,18 +51,16 @@ $bp_all = $bp_v4 + $bp_v6;
 // Nombre d'affichages
 $nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
 ?>
-<div class="jumbotron">
-    <h1><small>Statistiques</small></h1>
+<h1><small>Statistiques</small></h1>
 
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <ul>
-                <li><?= number_format($valImage->nb, 0, ',', ' ') ?> images et <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
-                <li><?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>% en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a></li>
-                <li><?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?>)</em></li>
-                <li><?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images</li>
-            </ul>
-        </div>
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <ul>
+            <li><?= number_format($valImage->nb, 0, ',', ' ') ?> images et <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
+            <li><?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>% en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a></li>
+            <li><?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?>)</em></li>
+            <li><?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images</li>
+        </ul>
     </div>
 </div>
 <?php require _TPL_BOTTOM_ ?>

@@ -22,78 +22,76 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<div class="jumbotron">
-    <h1><small>Nettoyage des incohérences</small></h1>
-    <?php
-    $message = '';
+<h1><small>Nettoyage des incohérences</small></h1>
+<?php
+$message = '';
 
-    // Je récupère la liste des images en BDD
-    $listeImagesBDD = metaObject::getAllImagesNameBDD();
-    // Je récupère la liste des images sur le HDD
-    $listeImagesHDD = metaObject::getAllImagesNameHDD(_PATH_IMAGES_);
+// Je récupère la liste des images en BDD
+$listeImagesBDD = metaObject::getAllImagesNameBDD();
+// Je récupère la liste des images sur le HDD
+$listeImagesHDD = metaObject::getAllImagesNameHDD(_PATH_IMAGES_);
 
-    // Je recherche les erreurs sur les images
-    // Pour chaque images en BDD
-    $listeErreursImagesBDD = new ArrayObject(array_diff((array) $listeImagesBDD, (array) $listeImagesHDD));
-    // Pour chaque images en HDD
-    $listeErreursImagesHDD = new ArrayObject(array_diff((array) $listeImagesHDD, (array) $listeImagesBDD));
-
-
-    // Je récupère la liste des miniatures en BDD
-    $listeMiniaturesBDD = metaObject::getAllMiniaturesNameBDD();
-    // Je récupère la liste des miniatures en HDD
-    $listeMiniaturesHDD = metaObject::getAllImagesNameHDD(_PATH_MINIATURES_);
-
-    // Je recherche les erreurs sur les miniatures
-    // Pour chaque miniatures en BDD
-    $listeErreursMiniaturesBDD = new ArrayObject(array_diff((array) $listeMiniaturesBDD, (array) $listeMiniaturesHDD));
-    // Pour chaque miniatures en HDD
-    $listeErreursMiniaturesHDD = new ArrayObject(array_diff((array) $listeMiniaturesHDD, (array) $listeMiniaturesBDD));
+// Je recherche les erreurs sur les images
+// Pour chaque images en BDD
+$listeErreursImagesBDD = new ArrayObject(array_diff((array) $listeImagesBDD, (array) $listeImagesHDD));
+// Pour chaque images en HDD
+$listeErreursImagesHDD = new ArrayObject(array_diff((array) $listeImagesHDD, (array) $listeImagesBDD));
 
 
-    // Si l'effacement est demandé
-    if (isset($_POST['effacer'])) :
-        // Images uniquement en BDD
-        foreach ((array) $listeErreursImagesBDD as $value) {
-            $message .= '<br />Suppression de la BDD de l\'image ' . $value;
+// Je récupère la liste des miniatures en BDD
+$listeMiniaturesBDD = metaObject::getAllMiniaturesNameBDD();
+// Je récupère la liste des miniatures en HDD
+$listeMiniaturesHDD = metaObject::getAllImagesNameHDD(_PATH_MINIATURES_);
 
-            // Je crée mon objet et lance la suppression
-            $monImage = new imageObject($value);
-            $monImage->supprimer();
-        }
-        // Images uniquement en HDD
-        foreach ((array) $listeErreursImagesHDD as $value) {
-            $message .= '<br />Suppression du disque de l\'image ' . $value;
+// Je recherche les erreurs sur les miniatures
+// Pour chaque miniatures en BDD
+$listeErreursMiniaturesBDD = new ArrayObject(array_diff((array) $listeMiniaturesBDD, (array) $listeMiniaturesHDD));
+// Pour chaque miniatures en HDD
+$listeErreursMiniaturesHDD = new ArrayObject(array_diff((array) $listeMiniaturesHDD, (array) $listeMiniaturesBDD));
 
-            // Suppression du fichier
-            $rep = substr($value, 0, 1) . '/';
-            $pathFinal = _PATH_IMAGES_ . $rep . $value;
-            unlink($pathFinal);
-        }
-        // Miniatures uniquement en BDD
-        foreach ((array) $listeErreursMiniaturesBDD as $value) {
-            $message .= '<br />Suppression de la BDD de la miniature ' . $value;
 
-            // Je crée mon objet et lance la suppression
-            $maMiniature = new miniatureObject($value);
-            $maMiniature->supprimer();
-        }
+// Si l'effacement est demandé
+if (isset($_POST['effacer'])) :
+    // Images uniquement en BDD
+    foreach ((array) $listeErreursImagesBDD as $value) {
+        $message .= '<br />Suppression de la BDD de l\'image ' . $value;
 
-        // Miniatures uniquement en HDD
-        foreach ((array) $listeErreursMiniaturesHDD as $value) {
-            $message .= '<br />Suppression du disque de la miniature ' . $value;
+        // Je crée mon objet et lance la suppression
+        $monImage = new imageObject($value);
+        $monImage->supprimer();
+    }
+    // Images uniquement en HDD
+    foreach ((array) $listeErreursImagesHDD as $value) {
+        $message .= '<br />Suppression du disque de l\'image ' . $value;
 
-            // Suppression du fichier
-            $rep = substr($value, 0, 1) . '/';
-            $pathFinal = _PATH_MINIATURES_ . $rep . $value;
-            unlink($pathFinal);
-        }
-        $message .= '<br />Effacement terminé !';
-        ?>
+        // Suppression du fichier
+        $rep = substr($value, 0, 1) . '/';
+        $pathFinal = _PATH_IMAGES_ . $rep . $value;
+        unlink($pathFinal);
+    }
+    // Miniatures uniquement en BDD
+    foreach ((array) $listeErreursMiniaturesBDD as $value) {
+        $message .= '<br />Suppression de la BDD de la miniature ' . $value;
 
-        <div class="alert alert-success">
-            <?= $message ?>
-        </div>
+        // Je crée mon objet et lance la suppression
+        $maMiniature = new miniatureObject($value);
+        $maMiniature->supprimer();
+    }
+
+    // Miniatures uniquement en HDD
+    foreach ((array) $listeErreursMiniaturesHDD as $value) {
+        $message .= '<br />Suppression du disque de la miniature ' . $value;
+
+        // Suppression du fichier
+        $rep = substr($value, 0, 1) . '/';
+        $pathFinal = _PATH_MINIATURES_ . $rep . $value;
+        unlink($pathFinal);
+    }
+    $message .= '<br />Effacement terminé !';
+    ?>
+
+    <div class="alert alert-success">
+        <?= $message ?>
     </div>
 <?php else: ?>
     <div class="panel panel-primary">
@@ -159,8 +157,6 @@ require _TPL_TOP_;
             Effacer ces fichiers
         </button>
     </form>
-    </div>
-    </div>
 <?php
 endif;
 require _TPL_BOTTOM_;

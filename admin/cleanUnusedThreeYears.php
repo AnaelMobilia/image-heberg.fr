@@ -22,28 +22,26 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<div class="jumbotron">
-    <h1><small>Nettoyage des fichiers dormants depuis 3 ans</small></h1>
-    <?php
-    $message = '';
+<h1><small>Nettoyage des fichiers dormants depuis 3 ans</small></h1>
+<?php
+$message = '';
 
-    // Je récupère la liste des images non affichées depuis un an
-    $listeImages = metaObject::getUnusedThreeYear();
+// Je récupère la liste des images non affichées depuis un an
+$listeImages = metaObject::getUnusedThreeYear();
 
-    // Si l'effacement est demandé
-    if (isset($_POST['effacer'])) :
-        foreach ((array) $listeImages as $value) {
-            $message .= '<br />Suppression de l\'image ' . $value;
+// Si l'effacement est demandé
+if (isset($_POST['effacer'])) :
+    foreach ((array) $listeImages as $value) {
+        $message .= '<br />Suppression de l\'image ' . $value;
 
-            // Je crée mon objet et lance la suppression
-            $monImage = new imageObject($value);
-            $monImage->supprimer();
-        }
-        $message .= '<br />Effacement terminé !';
-        ?>
-        <div class = "alert alert-success">
-            <?= $message ?>
-        </div>
+        // Je crée mon objet et lance la suppression
+        $monImage = new imageObject($value);
+        $monImage->supprimer();
+    }
+    $message .= '<br />Effacement terminé !';
+    ?>
+    <div class="alert alert-success">
+        <?= $message ?>
     </div>
 <?php else: ?>
     <div class="panel panel-primary">
@@ -67,7 +65,6 @@ require _TPL_TOP_;
                 Effacer ces fichiers
             </button>
         </form>
-    </div>
     </div>
 <?php
 endif;

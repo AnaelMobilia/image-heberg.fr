@@ -50,31 +50,29 @@ if (isset($_POST['envoyer'])) {
     }
 }
 ?>
-<div class="jumbotron">
-    <h1><small>Contact</small></h1>
+<h1><small>Contact</small></h1>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Administrateur - <?= _ADMINISTRATEUR_NOM_ ?></h3>
-        </div>
-        <div class="panel-body">
-            Un avis, une remarque, une difficulté, ... ?
-            <br />
-            N'hésitez pas à envoyer un message par le formulaire ci-dessous !
-        </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Administrateur - <?= _ADMINISTRATEUR_NOM_ ?></h3>
     </div>
-
-    <form method="post">
-        <div class="form-group">
-            <label for="userMail">Votre adresse courriel</label>
-            <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Votre adresse courriel" required="required">
-            <span class="help-block">Sera utilisée uniquement pour vous apporter une réponse.</span>
-        </div>
-        <div class="form-group">
-            <label for="userMessage">Votre message</label>
-            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
-        </div>
-        <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
-    </form>
+    <div class="panel-body">
+        Un avis, une remarque, une difficulté, ... ?
+        <br />
+        N'hésitez pas à envoyer un message par le formulaire ci-dessous !
+    </div>
 </div>
+
+<form method="post">
+    <div class="form-group">
+        <label for="userMail">Votre adresse courriel</label>
+        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Votre adresse courriel" required="required">
+        <span class="help-block">Sera utilisée uniquement pour vous apporter une réponse.</span>
+    </div>
+    <div class="form-group">
+        <label for="userMessage">Votre message</label>
+        <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+    </div>
+    <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
+</form>
 <?php require _TPL_BOTTOM_ ?>

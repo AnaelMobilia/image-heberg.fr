@@ -104,101 +104,99 @@ if (isset($_POST['modifierPwd'])) {
     }
 }
 ?>
-<div class="jumbotron">
-    <h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
+<h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <?= $monUtilisateur->getUserName() ?>
-            </h3>
-        </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <?= $monUtilisateur->getUserName() ?>
+        </h3>
+    </div>
+    <div class="panel-body">
+        Membre depuis le : <?= $monUtilisateur->getDateInscriptionFormate() ?>
+        <br />
+        Adresse courriel : <?= $monUtilisateur->getEmail() ?>
+        <br />
+        Images possédées : <?= count(metaObject::getAllPicsOffOneUser($monUtilisateur->getId())) ?>
+    </div>
+</div>
+
+<!-- Modification du mot de passe -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePwd">Changer de mot de passe <span class="caret"></span></a>
+        </h2>
+    </div>
+    <div id="collapsePwd" class="panel-collapse collapse">
         <div class="panel-body">
-            Membre depuis le : <?= $monUtilisateur->getDateInscriptionFormate() ?>
-            <br />
-            Adresse courriel : <?= $monUtilisateur->getEmail() ?>
-            <br />
-            Images possédées : <?= count(metaObject::getAllPicsOffOneUser($monUtilisateur->getId())) ?>
+            <form method="post">
+                <div class="form-group">
+                    <label for="oldUserPassword">Mot de passe actuel</label>
+                    <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword" placeholder="Mot de passe actuel" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="newUserPassword">Nouveau mot de passe</label>
+                    <input type="password" class="form-control" name="newUserPassword" id="newUserPassword" placeholder="Nouveau mot de passe" required="required">
+                </div>
+                <button type="submit" name="modifierPwd" class="btn btn-success">Mettre à jour le mot de passe</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Modification du mot de passe -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapsePwd">Changer de mot de passe <span class="caret"></span></a>
-            </h2>
-        </div>
-        <div id="collapsePwd" class="panel-collapse collapse">
-            <div class="panel-body">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="oldUserPassword">Mot de passe actuel</label>
-                        <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword" placeholder="Mot de passe actuel" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label for="newUserPassword">Nouveau mot de passe</label>
-                        <input type="password" class="form-control" name="newUserPassword" id="newUserPassword" placeholder="Nouveau mot de passe" required="required">
-                    </div>
-                    <button type="submit" name="modifierPwd" class="btn btn-success">Mettre à jour le mot de passe</button>
-                </form>
-            </div>
+<!-- Changer l'adresse mail -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseMail">Changer d'adresse courriel <span class="caret"></span></a>
+        </h2>
+    </div>
+    <div id="collapseMail" class="panel-collapse collapse">
+        <div class="panel-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="userMail">Nouvelle adresse courriel</label>
+                    <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Nouvelle adresse courriel" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="userPasswordMail">Mot de passe</label>
+                    <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail" placeholder="Mot de passe" required="required">
+                </div>
+
+                <button type="submit" name="modifierMail" class="btn btn-success">Mettre à jour l'adresse courriel</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Changer l'adresse mail -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseMail">Changer d'adresse courriel <span class="caret"></span></a>
-            </h2>
-        </div>
-        <div id="collapseMail" class="panel-collapse collapse">
-            <div class="panel-body">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="userMail">Nouvelle adresse courriel</label>
-                        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Nouvelle adresse courriel" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label for="userPasswordMail">Mot de passe</label>
-                        <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail" placeholder="Mot de passe" required="required">
-                    </div>
-
-                    <button type="submit" name="modifierMail" class="btn btn-success">Mettre à jour l'adresse courriel</button>
-                </form>
-            </div>
-        </div>
+<!-- Supprimer le compte -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDelete">Supprimer mon compte <span class="caret"></span></a>
+        </h2>
     </div>
+    <div id="collapseDelete" class="panel-collapse collapse">
+        <div class="panel-body">
+            <form method="post">
+                <label class="text-danger">
+                    <input type="checkbox" value="" name="confirmeDelete">
+                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
+                    <br />
+                    Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration.
+                    <br />
+                    Cette action est irrévocable !
+                </label>
 
-    <!-- Supprimer le compte -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseDelete">Supprimer mon compte <span class="caret"></span></a>
-            </h2>
-        </div>
-        <div id="collapseDelete" class="panel-collapse collapse">
-            <div class="panel-body">
-                <form method="post">
-                    <label class="text-danger">
-                        <input type="checkbox" value="" name="confirmeDelete">
-                        <span class="glyphicon glyphicon-warning-sign"></span>
-                        Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
-                        <br />
-                        Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration.
-                        <br />
-                        Cette action est irrévocable !
-                    </label>
+                <div class="form-group">
+                    <label for="userPasswordDelete">Mot de passe</label>
+                    <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete" placeholder="Mot de passe" required="required">
+                </div>
 
-                    <div class="form-group">
-                        <label for="userPasswordDelete">Mot de passe</label>
-                        <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete" placeholder="Mot de passe" required="required">
-                    </div>
-
-                    <button type="submit" name="supprimerCompte" class="btn btn-danger">Supprimer mon compte</button>
-                </form>
-            </div>
+                <button type="submit" name="supprimerCompte" class="btn btn-danger">Supprimer mon compte</button>
+            </form>
         </div>
     </div>
 </div>

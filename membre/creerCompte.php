@@ -89,24 +89,22 @@ if (isset($_POST['valider'])) {
     }
 }
 ?>
-<div class="jumbotron">
-    <h1><small>Créer mon compte</small></h1>
+<h1><small>Créer mon compte</small></h1>
 
-    <form method="post">
-        <div class="form-group">
-            <label for="userName">Identifiant</label>
-            <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
-        </div>
-        <div class="form-group">
-            <label for="userPassword">Mot de passe</label>
-            <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
-        </div>
-        <div class="form-group">
-            <label for="userMail">Adresse courriel</label>
-            <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Adresse courriel" value="<?= $monUtilisateur->getEmail() ?>" required="required">
-            <span class="help-block">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</span>
-        </div>
-        <button type="submit" name="valider" class="btn btn-success">M'enregistrer</button>
-    </form>
-</div>
+<form method="post">
+    <div class="form-group">
+        <label for="userName">Identifiant</label>
+        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
+    </div>
+    <div class="form-group">
+        <label for="userPassword">Mot de passe</label>
+        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
+    </div>
+    <div class="form-group">
+        <label for="userMail">Adresse courriel</label>
+        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Adresse courriel" value="<?= $monUtilisateur->getEmail() ?>" required="required">
+        <span class="help-block">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</span>
+    </div>
+    <button type="submit" name="valider" class="btn btn-success">M'enregistrer</button>
+</form>
 <?php require _TPL_BOTTOM_ ?>

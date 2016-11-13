@@ -67,23 +67,21 @@ if (!$erreur) {
     }
 }
 ?>
-<div class="jumbotron">
-    <h1><small>Suppression du fichier</small></h1>
-    <?php if (!empty($msgErreur)): ?>
-        <div class="alert alert-danger">
-            <span class="glyphicon glyphicon-remove"></span>
-            &nbsp;
-            <b>Une erreur a été rencontrée !</b>
-            <br />
-            <?= $msgErreur ?>
-        </div>
-    <?php else: ?>
-        <div class="alert alert-success">
-            <span class="glyphicon glyphicon-ok"></span>
-            &nbsp;
-            <b>L'image a été supprimée avec succès !</b>
-        </div>
-    <?php endif; ?>
-</div>
+<h1><small>Suppression du fichier</small></h1>
+<?php if (!empty($msgErreur)): ?>
+    <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-remove"></span>
+        &nbsp;
+        <b>Une erreur a été rencontrée !</b>
+        <br />
+        <?= $msgErreur ?>
+    </div>
+<?php else: ?>
+    <div class="alert alert-success">
+        <span class="glyphicon glyphicon-ok"></span>
+        &nbsp;
+        <b>L'image a été supprimée avec succès !</b>
+    </div>
+<?php endif; ?>
 
 <?php require _TPL_BOTTOM_; ?>

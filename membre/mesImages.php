@@ -25,45 +25,43 @@ require __DIR__ . '/../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 ?>
-<div class="jumbotron">
-    <h1><small>Mes images</small></h1>
-    <table class="table table-hover">
-        <thead>
+<h1><small>Mes images</small></h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nom de l'image</th>
+            <th>Date d'envoi</th>
+            <th>Dernier affichage</th>
+            <th>Nb. vues</th>
+            <th>Voir</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Je récupère la liste des images
+        $laSession = new sessionObject();
+        $mesImages = metaObject::getAllPicsOffOneUser($laSession->getId());
+        foreach ((array) $mesImages as $newName):
+            $uneImage = new imageObject($newName);
+            ?>
             <tr>
-                <th>Nom de l'image</th>
-                <th>Date d'envoi</th>
-                <th>Dernier affichage</th>
-                <th>Nb. vues</th>
-                <th>Voir</th>
-                <th>Supprimer</th>
+                <td><?= $uneImage->getNomOriginalFormate() ?></td>
+                <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                <td><?= $uneImage->getLastViewFormate() ?></td>
+                <td><?= $uneImage->getNbViewTotal() ?></td>
+                <td>
+                    <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
+                        <span class="glyphicon glyphicon-share"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Je récupère la liste des images
-            $laSession = new sessionObject();
-            $mesImages = metaObject::getAllPicsOffOneUser($laSession->getId());
-            foreach ((array) $mesImages as $newName):
-                $uneImage = new imageObject($newName);
-                ?>
-                <tr>
-                    <td><?= $uneImage->getNomOriginalFormate() ?></td>
-                    <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                    <td><?= $uneImage->getLastViewFormate() ?></td>
-                    <td><?= $uneImage->getNbViewTotal() ?></td>
-                    <td>
-                        <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
-                            <span class="glyphicon glyphicon-share"></span>
-                        </a>
-                    </td>
-                    <td>
-                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 <?php require _TPL_BOTTOM_ ?>
