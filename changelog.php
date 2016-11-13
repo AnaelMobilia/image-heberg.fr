@@ -34,7 +34,8 @@ require _TPL_TOP_;
         <div id="v20" class="panel-collapse">
             <div class="panel-body">
                 <ul>
-                    <li>Envoi de plusieurs fichiers simultanément</li>
+                    <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur</li>
+                    <li>Envoi de plusieurs images simultanément</li>
                     <li>Glisser - déposer pour le choix des fichiers</li>
                     <li>API permettant l'intégration à un site tiers</li>
                     <li>Membres : Albums photos (création, affichage, partage)</li>
