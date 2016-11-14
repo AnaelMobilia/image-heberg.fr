@@ -25,7 +25,7 @@
     <div class="container">
         <p class="text-muted">
             <?php
-            if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != FALSE) {
+            if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== FALSE) {
                 $ip = 'IPv4';
             } else {
                 $ip = 'IPv6';

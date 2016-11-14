@@ -23,7 +23,7 @@ require _TPL_TOP_;
 // En cas de validation du formulaire
 if (isset($_POST['envoyer'])) {
     // Vérification du bon format de l'adresse mail
-    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) != FALSE) {
+    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
         // Je complète le message avec l'IP de mon émeteur
         $message = $_POST['userMessage'];
         $message .= "\r\n\r\n ---------------------------------------------";

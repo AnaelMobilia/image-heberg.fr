@@ -37,7 +37,7 @@ if (!isset($_GET['id']) || !isset($_GET['type'])) {
  * Chargement de l'image depuis la BDD
  */
 if (!$erreur) {
-    if ($_GET['type'] == ressourceObject::typeImage) {
+    if ((int) $_GET['type'] === ressourceObject::typeImage) {
         $monImage = new imageObject();
     } else {
         $monImage = new miniatureObject();

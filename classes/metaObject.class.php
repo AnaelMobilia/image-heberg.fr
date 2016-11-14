@@ -104,10 +104,10 @@ class metaObject {
         $scan_rep = scandir($path);
         // Pour chaque item
         foreach ($scan_rep as $item) {
-            if ($item != '.' && $item != '..' && $item != '_dummy') {
+            if ($item !== '.' && $item !== '..' && $item !== '_dummy') {
                 if (is_dir($path . $item)) {
                     // Appel récursif
-                    if ($path . $item . '/' != _PATH_MINIATURES_) {
+                    if ($path . $item . '/' !== _PATH_MINIATURES_) {
                         $monRetourTmp = self::getAllImagesNameHDD($path . $item . '/');
                         // Parsage et récupération des sous fichiers...
                         foreach ($monRetourTmp as $fichier) {

@@ -184,7 +184,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
             $new_name = $this->genererNom($nb);
             // Incrémentation compteur entropie sur le nom
             $nb++;
-        } while ($tmpImage->charger($new_name) != FALSE);
+        } while ($tmpImage->charger($new_name) !== FALSE);
         // Effacement de l'objet temporaire
         unset($tmpImage);
 

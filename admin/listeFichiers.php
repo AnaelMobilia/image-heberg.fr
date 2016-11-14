@@ -38,7 +38,7 @@ require _TPL_TOP_;
         $scan_rep = scandir($path);
         // Pour chaque item
         foreach ($scan_rep as $item) {
-            if ($item != '.' && $item != '..') {
+            if ($item !== '.' && $item !== '..') {
                 $monRetour .= '<li>' . $path . $item . '</li>';
                 if (is_dir($path . $item)) {
                     // Appel récursif
