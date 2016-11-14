@@ -211,7 +211,7 @@ class utilisateurObject {
         }
 
         // Si les mots de passe ne correspondent pas... on retourne un sessionObject vide
-        if ($this->getPassword() !== $values->pass) {
+        if (!hash_equals($values->pass, $this->getPassword())) {
             return FALSE;
         }
 
