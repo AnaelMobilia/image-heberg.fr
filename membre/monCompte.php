@@ -42,7 +42,7 @@ if (isset($_POST['modifierPwd'])) {
     } else {
         // Retour utilisateur
         ?>
-        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+        <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
         <?php
     }
 } else if (isset($_POST['modifierMail'])) {
