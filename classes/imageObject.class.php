@@ -41,9 +41,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Charger les infos d'une image
-     * @param string $newName nom de l'image
-     * @return boolean Image chargée ?
+     * {@inheritdoc}
      */
     public function charger($newName) {
         // Retour
@@ -80,7 +78,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Sauver en BDD les infos d'une image
+     * {@inheritdoc}
      */
     public function sauver() {
         // J'enregistre les infos en BDD
@@ -103,8 +101,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Supprimer l'image (HDD & BDD)
-     * @return boolean Supprimée ?
+     * {@inheritdoc}
      */
     public function supprimer() {
         $monRetour = TRUE;
@@ -169,8 +166,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Enregistre une nouvelle image dans le système
-     * @return boolean Enregistré ?
+     * {@inheritdoc}
      */
     public function creer() {
         /**

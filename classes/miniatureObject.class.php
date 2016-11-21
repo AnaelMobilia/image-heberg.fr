@@ -42,9 +42,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Charger une miniature
-     * @param string $newName newName de l'image maître
-     * @return boolean Chargement réussi ?
+     * {@inheritdoc}
      */
     public function charger($newName) {
         $monRetour = FALSE;
@@ -84,7 +82,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Sauver en BDD les infos d'une miniature
+     * {@inheritdoc}
      */
     public function sauver() {
         // J'enregistre les infos en BDD
@@ -106,8 +104,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Supprimer la miniature (HDD & BDD)
-     * @return boolean Supprimée ?
+     * {@inheritdoc}
      */
     public function supprimer() {
         $monRetour = TRUE;
@@ -143,8 +140,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     }
 
     /**
-     * Enregistre une nouvelle miniature dans le système
-     * @return boolean Enregistré ?
+     * {@inheritdoc}
      */
     public function creer() {
         /**

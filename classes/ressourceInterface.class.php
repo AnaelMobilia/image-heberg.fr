@@ -24,29 +24,27 @@
 interface ressourceInterface {
 
     /**
-     * Charge depuis la BDD
-     * @param string $nom Identifiant image-heberg
-     * @return boolean Chargement réussi ?
-     */
-    function charger($nom);
-
-    /**
-     * Enregistre en BDD
-     */
-    function sauver();
-
-    /**
-     * Supprime en BDD & HDD
-     */
-    function supprimer();
-
-    /**
-     * Crée sur le HDD & BDD
+     * Crée sur le HDD et dans la BDD la ressource
+     * @return boolean Résultat ?
      */
     function creer();
 
     /**
-     * Path sur le filesystem avec le nouveau système anti doublon
+     * Charge unn objet ressource depuis la BDD
+     * @param string $nom Identifiant image-heberg
+     * @return boolean Résultat ?
      */
-    function getPathMd5();
+    function charger($nom);
+
+    /**
+     * Enregistre en BDD un objet ressource
+     * @return boolean Résultat ?
+     */
+    function sauver();
+
+    /**
+     * Supprime sur le HDD et dans la BDD la ressource
+     * @return boolean Résultat ?
+     */
+    function supprimer();
 }
