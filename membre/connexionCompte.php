@@ -24,16 +24,12 @@ $monUtilisateur = new utilisateurObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['valider'])) {
-    // Flag pour la connexion de l'utilisateur
-    $flagConnexion = TRUE;
     $messageErreur = '';
 
     if (empty($_POST['userName'])) {
-        $flagConnexion = FALSE;
         $messageErreur .= "<br />Merci de saisir un identifiant.";
     }
     if (empty($_POST['userPassword'])) {
-        $flagConnexion = FALSE;
         $messageErreur .= "<br />Merci de saisir un mot de passe.";
     }
 
@@ -42,14 +38,13 @@ if (isset($_POST['valider'])) {
     $monUtilisateur->setUserName($_POST['userName']);
 
     // Si tout est bon
-    if ($flagConnexion === TRUE) {
+    if (empty($messageErreur)) {
         // On lance la connexion
         if ($monUtilisateur->connexion($_POST['userPassword']) === TRUE) {
             // Succès -> redirige sur la page d'accueil
             header('Location: ' . _URL_);
             die();
         } else {
-            $flagConnexion = FALSE;
             $messageErreur .= "<br />Erreur dans vos identifiants.";
         }
     }
