@@ -59,16 +59,11 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         ob_end_clean();
 
         /**
-         * Récupération d'un objet
-         */
-        $monMembre = new utilisateurObject();
-
-        /**
          * Vérification des valeurs
          */
-        // Login / password
+        $monMembre = new utilisateurObject();
+        // Login
         $monMembre->setUserName('admin');
-        $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(FALSE, $monMembre->connexion($_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
     }
 
@@ -111,9 +106,8 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
         // Nom
         $this->assertEquals('username', $monMembre->getUserName());
-        // Login / password
+        // Login
         $monMembre->setUserName('username');
-        $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPassword']));
     }
 
@@ -154,9 +148,8 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
          */
         // Email
         $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
-        // Login / password
+        // Login
         $monMembre->setUserName('username');
-        $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPasswordMail']), "connexion");
     }
 
@@ -195,10 +188,9 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Login / password
+        // Login
         $monMembre->setUserName('username');
-        $monMembre->setPasswordToCrypt('monPassword');
-        $this->assertEquals(TRUE, $monMembre->connexion($_POST['oldUserPassword']), "connexion");
+        $this->assertEquals(TRUE, $monMembre->connexion($_POST['newUserPassword']), "connexion");
     }
 
     /**
@@ -235,9 +227,8 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Login / password
+        // Login
         $monMembre->setUserName('username');
-        $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPasswordDelete']), "connexion devrait être possible");
     }
 
@@ -276,9 +267,8 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Login / password
+        // Login
         $monMembre->setUserName('username');
-        $monMembre->setPasswordToCrypt('monPassword');
         $this->assertEquals(FALSE, $monMembre->connexion($_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
     }
 
@@ -299,9 +289,8 @@ class membreTest extends PHPUnit_Extensions_Database_TestCase {
         /**
          * Vérification des valeurs
          */
-        // Login / password
+        // Login
         $monMembre->setUserName('admin');
-        $monMembre->setPasswordToCrypt('password');
         $this->assertEquals(TRUE, $monMembre->connexion('password'), "connexion au compte créé à l'import de la BDD devrait être possible");
     }
 
