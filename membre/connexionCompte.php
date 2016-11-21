@@ -40,13 +40,11 @@ if (isset($_POST['valider'])) {
     // Données fournies par l'utilisateur
     // Nom d'utilisateur
     $monUtilisateur->setUserName($_POST['userName']);
-    // Mot de passe
-    $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
 
     // Si tout est bon
     if ($flagConnexion === TRUE) {
         // On lance la connexion
-        if ($monUtilisateur->connexion() === TRUE) {
+        if ($monUtilisateur->connexion($_POST['userPassword']) === TRUE) {
             // Succès -> redirige sur la page d'accueil
             header('Location: ' . _URL_);
             die();

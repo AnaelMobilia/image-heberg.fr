@@ -146,7 +146,7 @@ class utilisateurObject {
      * @param string $password
      */
     public function setPasswordToCrypt($password) {
-        $this->password = hash('sha256', _GRAIN_DE_SEL_ . $password);
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     /**
@@ -191,9 +191,10 @@ class utilisateurObject {
 
     /**
      * Connexion d'un utilisateur : vérification & création de la session
+     * @param string $password Mot de passe saisi par l'utilisateur
      * @return boolean
      */
-    public function connexion() {
+    public function connexion($password) {
         // Le sessionObject qui sera retourné
         $monUser = new sessionObject();
 
@@ -210,9 +211,40 @@ class utilisateurObject {
             return FALSE;
         }
 
-        // Si les mots de passe ne correspondent pas... on retourne un sessionObject vide
-        if (!hash_equals($values->pass, $this->getPassword())) {
-            return FALSE;
+        // Faut-il mettre à jour le hash du mot de passe ?
+        $updateHash = FALSE;
+
+        // Est-ce un cas de compatibilité avec les anciens mots de passe ?
+        if (substr($values->pass, 0, 1) !== '$') {
+            // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
+            // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
+            if (!hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $password))) {
+                // Ancien mot de passe + ne matche pas
+                return FALSE;
+            } else {
+                // Ancien mot de passe + matche
+                // => update password ;-)
+                $updateHash = TRUE;
+            }
+        } else {
+            // Cas standard
+            if (!$this->checkPassword($password)) {
+                // Nouveau mot de passe + ne matche pas
+                return FALSE;
+            } else {
+                // Nouveau mot de passe + matche
+                // => Faut-il mettre à jour le cryptage utilisé ?
+                if (password_needs_rehash($this->getPassword(), PASSWORD_DEFAULT)) {
+                    $updateHash = TRUE;
+                }
+            }
+        }
+
+        // Mise à jour du hash si requis
+        if ($updateHash) {
+            $this->charger($values->id);
+            $this->setPasswordToCrypt($password);
+            $this->enregistrer();
         }
 
         // Je charge les informations de la session
@@ -227,6 +259,7 @@ class utilisateurObject {
         $req->bindValue(2, $monUser->getId(), PDO::PARAM_INT);
 
         $req->execute();
+
         // On dit que tout s'est bien passé
         return TRUE;
     }
@@ -317,21 +350,11 @@ class utilisateurObject {
 
     /**
      * Vérifie si le mot de passe fourni est bien celui de l'utilisateur
-     * @param type $password
+     * @param string $password Mot de passe saisi par l'utilisateur
      */
     public function checkPassword($password) {
-        $monRetour = FALSE;
-
-        // Je créée un nouvel utilisateur pour encrypter le mot de passe
-        $monUtilisateurTest = new utilisateurObject();
-        $monUtilisateurTest->setPasswordToCrypt($password);
-
-        // Comparons (le mdp local est toujours encrypté quand je charge depuis la BDD un utilisateur)
-        if ($monUtilisateurTest->getPassword() === $this->getPassword()) {
-            $monRetour = TRUE;
-        }
-
-        return $monRetour;
+        // Comparaison du hash du mot de passe fourni avec celui stocké en base
+        return password_verify($password, $this->getPassword());
     }
 
     /**

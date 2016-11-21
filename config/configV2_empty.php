@@ -114,6 +114,7 @@ define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
 
 // Salt pour les mots de passe
+// Legacy - n'est plus requis !!
 define('_GRAIN_DE_SEL_', 'xxx');
 
 // BDD

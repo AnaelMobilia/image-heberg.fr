@@ -13,7 +13,7 @@ Service d'hébergement d'images en ligne
   - Copier les fichiers dans le répertoire du serveur web
   - Renommer le fichier configV2_empty.php en configV2.php et compléter les différents champs
   - Configurer l'URL du site dans le fichier .htaccess
-  - Se connecter avec le compte admin / password. Ce compte sera le compte de l'administrateur du site (prévoir de modifier le hash stocké en base si un salt est défini !)
+  - Se connecter avec le compte admin / password. Ce compte est le compte de l'administrateur du site. (pensez à mettre à jour l'adresse mail associée !)
 
 # Stockage des images
   - Les images sont stockées dans le répertoire /files ou /files/thumbs en fonction de leur type.
