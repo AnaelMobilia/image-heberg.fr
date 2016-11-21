@@ -54,7 +54,7 @@ class utilisateurObject {
 
     /**
      * Nom d'utilisateur avec htmlentities
-     * @return type
+     * @return string
      */
     public function getUserName() {
         return htmlentities($this->userName);
@@ -62,7 +62,7 @@ class utilisateurObject {
 
     /**
      * BDD - Nom d'utilisateur non htmlentities
-     * @return type
+     * @return string
      */
     private function getUserNameBDD() {
         return $this->userName;
@@ -70,7 +70,7 @@ class utilisateurObject {
 
     /**
      * Mot de passe
-     * @return type
+     * @return string
      */
     private function getPassword() {
         return $this->password;
@@ -78,7 +78,7 @@ class utilisateurObject {
 
     /**
      * Email
-     * @return type
+     * @return string
      */
     public function getEmail() {
         return $this->email;
@@ -103,7 +103,7 @@ class utilisateurObject {
 
     /**
      * @ IP d'inscription
-     * @return type
+     * @return string
      */
     public function getIpInscription() {
         return $this->ipInscription;
@@ -111,7 +111,7 @@ class utilisateurObject {
 
     /**
      * Niveau de droits
-     * @return type
+     * @return int
      */
     public function getLevel() {
         return (int) $this->level;
@@ -119,7 +119,7 @@ class utilisateurObject {
 
     /**
      * ID en BDD
-     * @return type
+     * @return int
      */
     public function getId() {
         return (int) $this->id;
@@ -127,7 +127,7 @@ class utilisateurObject {
 
     /**
      * Nom d'utilisateur
-     * @param type $userName
+     * @param string $userName
      */
     public function setUserName($userName) {
         $this->userName = $userName;
@@ -135,7 +135,7 @@ class utilisateurObject {
 
     /**
      * Mot de passe
-     * @param type $password
+     * @param string $password
      */
     private function setPassword($password) {
         $this->password = $password;
@@ -151,7 +151,7 @@ class utilisateurObject {
 
     /**
      * Email
-     * @param type $email
+     * @param string $email
      */
     public function setEmail($email) {
         $this->email = $email;
@@ -167,7 +167,7 @@ class utilisateurObject {
 
     /**
      * @ IP d'inscription
-     * @param type $ipInscription
+     * @param string $ipInscription
      */
     private function setIpInscription($ipInscription) {
         $this->ipInscription = $ipInscription;
@@ -175,7 +175,7 @@ class utilisateurObject {
 
     /**
      * Niveau de droits
-     * @param type $level
+     * @param int $level
      */
     public function setLevel($level) {
         $this->level = $level;
@@ -183,7 +183,7 @@ class utilisateurObject {
 
     /**
      * ID en BDD
-     * @param type $id
+     * @param int $id
      */
     private function setId($id) {
         $this->id = $id;
@@ -244,7 +244,7 @@ class utilisateurObject {
         if ($updateHash) {
             $this->charger($values->id);
             $this->setPasswordToCrypt($password);
-            $this->enregistrer();
+            $this->modifier();
         }
 
         // Je charge les informations de la session
