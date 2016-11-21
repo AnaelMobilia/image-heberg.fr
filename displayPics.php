@@ -46,6 +46,8 @@ if (!$monObjet->charger($fileName)) {
     // Fichier non trouvé...
     $monObjet = new imageObject();
     $monObjet->charger(_IMAGE_404_);
+    // Envoi d'un header en 404
+    header("HTTP/1.0 404 Not Found");
 }
 
 /**
