@@ -227,6 +227,9 @@ class utilisateurObject {
                 $updateHash = TRUE;
             }
         } else {
+            // Définition du mot de passe
+            $this->setPassword($values->pass);
+
             // Cas standard
             if (!$this->checkPassword($password)) {
                 // Nouveau mot de passe + ne matche pas
