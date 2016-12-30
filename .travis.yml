@@ -25,6 +25,9 @@ php:
   - '7.1'
   - nightly
 
+allow_failures:
+  - php: nightly
+
 # Autres prérequis
 services:
   - mysql
