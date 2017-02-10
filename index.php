@@ -37,8 +37,8 @@ $_SESSION['_upload'] = TRUE;
     <div class="panel-body">
         <form enctype="multipart/form-data" action="<?= _URL_ ?>upload.php" method="post" class="form-group">
             <div class="form-group form-group-lg">
-                <label for="fichier" class="col-sm-3">Fichier à envoyer</label>
-                <div class="col-sm-9">
+                <label for="fichier" class="col-md-3">Fichier à envoyer</label>
+                <div class="col-md-9">
                     <input type="file" accept="image/*" name="fichier" id="fichier">
                     <span class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</span>
                 </div>
@@ -46,8 +46,8 @@ $_SESSION['_upload'] = TRUE;
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
             <div class="form-group">
-                <label class="col-sm-3">Rotation de l'image</label>
-                <div class="col-sm-9">
+                <label class="col-md-3">Rotation de l'image</label>
+                <div class="col-md-9">
                     <select name="angleRotation" class="form-control">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <optgroup label="Rotation vers la gauche">
@@ -59,8 +59,8 @@ $_SESSION['_upload'] = TRUE;
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3">Faire une miniature</label>
-                <div class="col-sm-9">
+                <label class="col-md-3">Faire une miniature</label>
+                <div class="col-md-9">
                     <select name="dimMiniature" class="form-control">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="100x100">Avatar (100x100)</option>
@@ -71,8 +71,8 @@ $_SESSION['_upload'] = TRUE;
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3">Redimensionner l'image</label>
-                <div class="col-sm-9">
+                <label class="col-md-3">Redimensionner l'image</label>
+                <div class="col-md-9">
                     <select name="redimImage" class="form-control">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="320x240">320x240</option>
