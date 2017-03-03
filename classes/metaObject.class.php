@@ -26,13 +26,13 @@
 class metaObject {
 
     /**
-     * Liste des images n'ayant jamais été affichée et présente sur le serveur depuis une année
+     * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis une année
      * @return \ArrayObject
      */
     public static function getNeverUsedOneYear() {
         // Toutes les images jamais affichées & envoyées il y a plus d'un an
         $dateUnAn = date('Y-m-d', strtotime('-1year'));
-        $req = "SELECT new_name FROM images where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "'";
+        $req = "SELECT new_name FROM images where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "' AND id NOT IN (SELECT image_id FROM possede)";
 
         // Exécution de la requête
         $resultat = maBDD::getInstance()->query($req);
