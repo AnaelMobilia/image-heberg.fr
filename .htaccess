@@ -44,3 +44,14 @@ RewriteRule .* - [F]
 # Images : redirection pour affichage
 RewriteCond %{REQUEST_URI} ^/files/
 RewriteRule .* displayPics.php [L]
+
+# Page d'accueil en HTTPS (sécurité transmission formulaire)
+RewriteCond %{HTTPS} off
+RewriteRule ^$ https://www.image-heberg.fr/ [R=301]
+RewriteRule ^index.php$ https://www.image-heberg.fr/ [R=301,L]
+
+# Partie membre et admin en HTTPS
+RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_URI} ^/membre/ [OR]
+RewriteCond %{REQUEST_URI} ^/admin/
+RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
