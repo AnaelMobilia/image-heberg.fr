@@ -18,7 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-class membreTest extends PHPUnit_Extensions_Database_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class membreTest extends TestCase {
 
     /**
      * Fonction requise par l'extension Database
