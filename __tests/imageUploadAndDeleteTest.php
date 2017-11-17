@@ -18,7 +18,9 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-class imageUploadAndDeleteTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class imageUploadAndDeleteTest extends TestCase {
     // Fichiers pour le nombre d'images / possessions attendues
     const fichierImage = '../_nbImages';
     const fichierMiniature = '../_nbThumbnails';

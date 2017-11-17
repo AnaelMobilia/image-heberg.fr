@@ -17,8 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+use PHPUnit\Framework\TestCase;
 
-class displayPicsTest extends \PHPUnit_Framework_TestCase {
+class displayPicsTest extends TestCase {
 
     /**
      * Affichage d'une image inexistante
