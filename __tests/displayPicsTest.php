@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-class displayPicsTest extends PHPUnit_Framework_TestCase {
+class displayPicsTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * Affichage d'une image inexistante

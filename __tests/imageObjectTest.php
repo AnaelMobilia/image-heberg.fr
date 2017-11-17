@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-class imageObjectTest extends PHPUnit_Framework_TestCase {
+class imageObjectTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * Rotation des images
