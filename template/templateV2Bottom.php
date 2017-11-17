@@ -50,8 +50,8 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="template/js/jquery-2.2.4.min.js"></script>
-<script src="template/js/bootstrap-3.3.7.min.js"></script>
-<script src="template/js/js.php"></script>
+<script src="template/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="template/js/bootstrap-3.3.7.min.js" type="text/javascript"></script>
+<script src="template/js/js.php" type="text/javascript"></script>
 </body>
 </html>
