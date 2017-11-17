@@ -207,7 +207,7 @@ class utilisateurObject {
         $values = $req->fetch();
 
         // Si l'utilisateur n'existe pas... on retourne un sessionObject vide
-        if ($values === FALSE) {
+        if ($values === FALSE || is_null($values)) {
             return FALSE;
         }
 
