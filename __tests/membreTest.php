@@ -39,7 +39,7 @@ class membreTest extends TestCase {
       return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
    }
 
-   public function testConnexionMembreExistant(){
+   public function testConnexionMembreExistant() {
       // Chargement de la configuration
       require_once 'config/configV2.php';
       unset($_POST);
@@ -64,8 +64,7 @@ class membreTest extends TestCase {
       $maSession = new sessionObject();
       $this->assertEquals(utilisateurObject::levelAdmin, $maSession->getLevel(), "connexion : doit être OK");
    }
-           
-   
+
    /**
     * Création d'un compte membre avec un nom déjà existant
     * @depends testConnexionMembreExistant
@@ -152,6 +151,11 @@ class membreTest extends TestCase {
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
+       * Connexion de l'utilisateur
+       */
+      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+
+      /**
        *  Appel de la page
        */
       ob_start();
@@ -168,7 +172,7 @@ class membreTest extends TestCase {
        */
       // Email
       $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
-      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion");
+      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion après");
    }
 
    /**
