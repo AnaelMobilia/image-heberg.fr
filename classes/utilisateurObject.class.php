@@ -278,7 +278,7 @@ if(_TRAVIS_) {
          $req->execute();
       }
       if(_TRAVIS_) {
-echo $userID . "\r\n user : " . $user . "\r\n pwd : " . $pwd;
+echo "\r\nid : ".$userID . "\r\n user : " . $user . "\r\n pwd : " . $pwd;
 echo "\r\n hash pwd : " . password_hash($pwd, PASSWORD_DEFAULT);
       }
       // Retour...
