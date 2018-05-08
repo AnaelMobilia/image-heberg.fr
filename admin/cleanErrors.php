@@ -52,111 +52,111 @@ $listeErreursMiniaturesHDD = new ArrayObject(array_diff((array) $listeMiniatures
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-    // Images uniquement en BDD
-    foreach ((array) $listeErreursImagesBDD as $value) {
-        $message .= '<br />Suppression de la BDD de l\'image ' . $value;
+   // Images uniquement en BDD
+   foreach ((array) $listeErreursImagesBDD as $value) {
+      $message .= '<br />Suppression de la BDD de l\'image ' . $value;
 
-        // Je crée mon objet et lance la suppression
-        $monImage = new imageObject($value);
-        $monImage->supprimer();
-    }
-    // Images uniquement en HDD
-    foreach ((array) $listeErreursImagesHDD as $value) {
-        $message .= '<br />Suppression du disque de l\'image ' . $value;
+      // Je crée mon objet et lance la suppression
+      $monImage = new imageObject($value);
+      $monImage->supprimer();
+   }
+   // Images uniquement en HDD
+   foreach ((array) $listeErreursImagesHDD as $value) {
+      $message .= '<br />Suppression du disque de l\'image ' . $value;
 
-        // Suppression du fichier
-        $rep = substr($value, 0, 1) . '/';
-        $pathFinal = _PATH_IMAGES_ . $rep . $value;
-        unlink($pathFinal);
-    }
-    // Miniatures uniquement en BDD
-    foreach ((array) $listeErreursMiniaturesBDD as $value) {
-        $message .= '<br />Suppression de la BDD de la miniature ' . $value;
+      // Suppression du fichier
+      $rep = substr($value, 0, 1) . '/';
+      $pathFinal = _PATH_IMAGES_ . $rep . $value;
+      unlink($pathFinal);
+   }
+   // Miniatures uniquement en BDD
+   foreach ((array) $listeErreursMiniaturesBDD as $value) {
+      $message .= '<br />Suppression de la BDD de la miniature ' . $value;
 
-        // Je crée mon objet et lance la suppression
-        $maMiniature = new miniatureObject($value);
-        $maMiniature->supprimer();
-    }
+      // Je crée mon objet et lance la suppression
+      $maMiniature = new miniatureObject($value);
+      $maMiniature->supprimer();
+   }
 
-    // Miniatures uniquement en HDD
-    foreach ((array) $listeErreursMiniaturesHDD as $value) {
-        $message .= '<br />Suppression du disque de la miniature ' . $value;
+   // Miniatures uniquement en HDD
+   foreach ((array) $listeErreursMiniaturesHDD as $value) {
+      $message .= '<br />Suppression du disque de la miniature ' . $value;
 
-        // Suppression du fichier
-        $rep = substr($value, 0, 1) . '/';
-        $pathFinal = _PATH_MINIATURES_ . $rep . $value;
-        unlink($pathFinal);
-    }
-    $message .= '<br />Effacement terminé !';
-    ?>
+      // Suppression du fichier
+      $rep = substr($value, 0, 1) . '/';
+      $pathFinal = _PATH_MINIATURES_ . $rep . $value;
+      unlink($pathFinal);
+   }
+   $message .= '<br />Effacement terminé !';
+   ?>
 
-    <div class="alert alert-success">
-        <?= $message ?>
-    </div>
+   <div class="alert alert-success">
+       <?= $message ?>
+   </div>
 <?php else: ?>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <?= $listeErreursImagesBDD->count() ?> image(s) présente(s) uniquement en BDD
-            </h2>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php foreach ((array) $listeErreursImagesBDD as $value): ?>
-                    <li><?= $value ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <?= $listeErreursImagesHDD->count() ?> image(s) présente(s) uniquement sur HDD
-            </h2>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php foreach ((array) $listeErreursImagesHDD as $value): ?>
-                    <li><?= $value ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <?= $listeErreursMiniaturesBDD->count() ?> miniature(s) présente(s) uniquement en BDD
-            </h2>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php foreach ((array) $listeErreursMiniaturesBDD as $value): ?>
-                    <li><?= $value ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2 class="panel-title">
-                <?= $listeErreursMiniaturesHDD->count() ?> miniature(s) présente(s) uniquement sur HDD
-            </h2>
-        </div>
-        <div class="panel-body">
-            <ul>
-                <?php foreach ((array) $listeErreursMiniaturesHDD as $value): ?>
-                    <li><?= $value ?> (<strong>A effacer manuellement</strong>)</li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-    <form method="post">
-        <button class="btn btn-danger" type="submit" name="effacer">
-            <span class="glyphicon glyphicon-trash"></span>
-            &nbsp;
-            Effacer ces fichiers
-        </button>
-    </form>
+   <div class="panel panel-primary">
+       <div class="panel-heading">
+           <h2 class="panel-title">
+               <?= $listeErreursImagesBDD->count() ?> image(s) présente(s) uniquement en BDD
+           </h2>
+       </div>
+       <div class="panel-body">
+           <ul>
+               <?php foreach ((array) $listeErreursImagesBDD as $value): ?>
+                  <li><?= $value ?></li>
+               <?php endforeach; ?>
+           </ul>
+       </div>
+   </div>
+   <div class="panel panel-primary">
+       <div class="panel-heading">
+           <h2 class="panel-title">
+               <?= $listeErreursImagesHDD->count() ?> image(s) présente(s) uniquement sur HDD
+           </h2>
+       </div>
+       <div class="panel-body">
+           <ul>
+               <?php foreach ((array) $listeErreursImagesHDD as $value): ?>
+                  <li><?= $value ?></li>
+               <?php endforeach; ?>
+           </ul>
+       </div>
+   </div>
+   <div class="panel panel-primary">
+       <div class="panel-heading">
+           <h2 class="panel-title">
+               <?= $listeErreursMiniaturesBDD->count() ?> miniature(s) présente(s) uniquement en BDD
+           </h2>
+       </div>
+       <div class="panel-body">
+           <ul>
+               <?php foreach ((array) $listeErreursMiniaturesBDD as $value): ?>
+                  <li><?= $value ?></li>
+               <?php endforeach; ?>
+           </ul>
+       </div>
+   </div>
+   <div class="panel panel-primary">
+       <div class="panel-heading">
+           <h2 class="panel-title">
+               <?= $listeErreursMiniaturesHDD->count() ?> miniature(s) présente(s) uniquement sur HDD
+           </h2>
+       </div>
+       <div class="panel-body">
+           <ul>
+               <?php foreach ((array) $listeErreursMiniaturesHDD as $value): ?>
+                  <li><?= $value ?> (<strong>A effacer manuellement</strong>)</li>
+               <?php endforeach; ?>
+           </ul>
+       </div>
+   </div>
+   <form method="post">
+       <button class="btn btn-danger" type="submit" name="effacer">
+           <span class="glyphicon glyphicon-trash"></span>
+           &nbsp;
+           Effacer ces fichiers
+       </button>
+   </form>
 <?php
 endif;
 require _TPL_BOTTOM_;

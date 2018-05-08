@@ -24,34 +24,34 @@ $monUtilisateur = new utilisateurObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['valider'])) {
-    $messageErreur = '';
+   $messageErreur = '';
 
-    if (empty($_POST['userName'])) {
-        $messageErreur .= "<br />Merci de saisir un identifiant.";
-    }
-    if (empty($_POST['userPassword'])) {
-        $messageErreur .= "<br />Merci de saisir un mot de passe.";
-    }
-    // Si tout est bon
-    if (empty($messageErreur)) {
-        if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === TRUE) {
-            // Succès -> redirige sur la page d'accueil
-            header('Location: ' . _URL_);
-            die();
-        } else {
-            $messageErreur .= "<br />Erreur dans vos identifiants.";
-        }
-    }
+   if (empty($_POST['userName'])) {
+      $messageErreur .= "<br />Merci de saisir un identifiant.";
+   }
+   if (empty($_POST['userPassword'])) {
+      $messageErreur .= "<br />Merci de saisir un mot de passe.";
+   }
+   // Si tout est bon
+   if (empty($messageErreur)) {
+      if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === TRUE) {
+         // Succès -> redirige sur la page d'accueil
+         header('Location: ' . _URL_);
+         die();
+      } else {
+         $messageErreur .= "<br />Erreur dans vos identifiants.";
+      }
+   }
 }
 
 require _TPL_TOP_;
 // Affichage des erreurs si requis
 if (isset($messageErreur)) :
-    ?>
-    <div class="alert alert-danger">
-        <strong>La connexion à votre compte n'est pas possible :</strong>
-        <?= $messageErreur ?>
-    </div>
+   ?>
+   <div class="alert alert-danger">
+       <strong>La connexion à votre compte n'est pas possible :</strong>
+       <?= $messageErreur ?>
+   </div>
 <?php endif; ?>
 <h1><small>Se connecter à mon compte</small></h1>
 

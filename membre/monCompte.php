@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-    require '../config/configV2.php';
+   require '../config/configV2.php';
 }
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
@@ -29,79 +29,79 @@ $maSession = new sessionObject();
 $monUtilisateur = new utilisateurObject($maSession->getId());
 
 if (isset($_POST['modifierPwd'])) {
-    // Je vérifie qu'on me donne le bon mot de passe
-    if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['oldUserPassword'])) {
-        // Je met à jour en BDD
-        $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
-        $monUtilisateur->modifier();
+   // Je vérifie qu'on me donne le bon mot de passe
+   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['oldUserPassword'])) {
+      // Je met à jour en BDD
+      $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
+      $monUtilisateur->modifier();
 
-        // Retour utilisateur
-        ?>
-        <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
-        <?php
-    } else {
-        // Retour utilisateur
-        ?>
-        <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
-    }
+      // Retour utilisateur
+      ?>
+      <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
+      <?php
+   } else {
+      // Retour utilisateur
+      ?>
+      <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+      <?php
+   }
 } else if (isset($_POST['modifierMail'])) {
-    // Je vérifie qu'on me donne le bon mot de passe
-    if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordMail'])) {
-        // Vérification du bon format de l'adresse mail
-        if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
-            // Je met à jour en BDD
-            $monUtilisateur->setEmail($_POST['userMail']);
-            $monUtilisateur->modifier();
+   // Je vérifie qu'on me donne le bon mot de passe
+   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordMail'])) {
+      // Vérification du bon format de l'adresse mail
+      if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+         // Je met à jour en BDD
+         $monUtilisateur->setEmail($_POST['userMail']);
+         $monUtilisateur->modifier();
 
-            // Retour utilisateur
-            ?>
-            <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
-            <?php
-        } else {
-            // Retour utilisateur
-            ?>
-            <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
-            <?php
-        }
-    } else {
-        // Retour utilisateur
-        ?>
-        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
-    }
+         // Retour utilisateur
+         ?>
+         <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
+         <?php
+      } else {
+         // Retour utilisateur
+         ?>
+         <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
+         <?php
+      }
+   } else {
+      // Retour utilisateur
+      ?>
+      <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+      <?php
+   }
 } else if (isset($_POST['supprimerCompte'])) {
-    // Je vérifie qu'on me donne le bon mot de passe
-    if ($monUtilisateur->checkPassword($_POST['userPasswordDelete'])) {
-        if (isset($_POST['confirmeDelete'])) {
-            // Je met à jour en BDD
-            $monUtilisateur->supprimer();
-            // Retour utilisateur
-            ?>
-            <div class="alert alert-success">
-                Votre compte a été supprimé !
-                <br />
-                Les images qui étaient rattachées à votre compte n'ont pas été supprimées et ne seront plus supprimables avant leur expiration.
-                <br />
-                Cette action est irrévocable !
-                <br />
-                Merci d'avoir utilisé Image-Heberg.fr .
-            </div>
-            <?php
-            // Déconnexion de la session
-            $maSession->deconnexion();
-        } else {
-            // Retour utilisateur
-            ?>
-            <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
-            <?php
-        }
-    } else {
-        // Retour utilisateur
-        ?>
-        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
-    }
+   // Je vérifie qu'on me donne le bon mot de passe
+   if ($monUtilisateur->checkPassword($_POST['userPasswordDelete'])) {
+      if (isset($_POST['confirmeDelete'])) {
+         // Je met à jour en BDD
+         $monUtilisateur->supprimer();
+         // Retour utilisateur
+         ?>
+         <div class="alert alert-success">
+             Votre compte a été supprimé !
+             <br />
+             Les images qui étaient rattachées à votre compte n'ont pas été supprimées et ne seront plus supprimables avant leur expiration.
+             <br />
+             Cette action est irrévocable !
+             <br />
+             Merci d'avoir utilisé Image-Heberg.fr .
+         </div>
+         <?php
+         // Déconnexion de la session
+         $maSession->deconnexion();
+      } else {
+         // Retour utilisateur
+         ?>
+         <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
+         <?php
+      }
+   } else {
+      // Retour utilisateur
+      ?>
+      <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+      <?php
+   }
 }
 ?>
 <h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>

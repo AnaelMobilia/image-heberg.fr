@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-    require 'config/configV2.php';
+   require 'config/configV2.php';
 }
 require _TPL_TOP_;
 
@@ -29,27 +29,27 @@ $msgErreur = '';
  * Vérification du paramètre
  */
 if (!isset($_GET['id']) || !isset($_GET['type'])) {
-    $erreur = TRUE;
-    $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
+   $erreur = TRUE;
+   $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
 }
 
 /**
  * Chargement de l'image depuis la BDD
  */
 if (!$erreur) {
-    if ((int) $_GET['type'] === ressourceObject::typeImage) {
-        $monImage = new imageObject();
-    } else {
-        $monImage = new miniatureObject();
-    }
+   if ((int) $_GET['type'] === ressourceObject::typeImage) {
+      $monImage = new imageObject();
+   } else {
+      $monImage = new miniatureObject();
+   }
 
-    $retour = $monImage->charger($_GET['id']);
+   $retour = $monImage->charger($_GET['id']);
 
-    // Gestion du retour
-    if (!$retour) {
-        $erreur = TRUE;
-        $msgErreur .= 'Cette image n\'existe pas !<br />';
-    }
+   // Gestion du retour
+   if (!$retour) {
+      $erreur = TRUE;
+      $msgErreur .= 'Cette image n\'existe pas !<br />';
+   }
 }
 
 /**
@@ -58,30 +58,30 @@ if (!$erreur) {
  * -> Envoi il y a moins d'une heure par la même @ IP
  */
 if (!$erreur) {
-    if ($monImage->isProprietaire() || ((strtotime($monImage->getDateEnvoiBrute()) + 3600) > strtotime("now") && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
-        // Effacement...
-        $monImage->supprimer();
-    } else {
-        $erreur = TRUE;
-        $msgErreur = 'Vous n\'avez pas le droit de supprimer cette image !<br />';
-    }
+   if ($monImage->isProprietaire() || ((strtotime($monImage->getDateEnvoiBrute()) + 3600) > strtotime("now") && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
+      // Effacement...
+      $monImage->supprimer();
+   } else {
+      $erreur = TRUE;
+      $msgErreur = 'Vous n\'avez pas le droit de supprimer cette image !<br />';
+   }
 }
 ?>
 <h1><small>Suppression du fichier</small></h1>
 <?php if (!empty($msgErreur)): ?>
-    <div class="alert alert-danger">
-        <span class="glyphicon glyphicon-remove"></span>
-        &nbsp;
-        <b>Une erreur a été rencontrée !</b>
-        <br />
-        <?= $msgErreur ?>
-    </div>
+   <div class="alert alert-danger">
+       <span class="glyphicon glyphicon-remove"></span>
+       &nbsp;
+       <b>Une erreur a été rencontrée !</b>
+       <br />
+       <?= $msgErreur ?>
+   </div>
 <?php else: ?>
-    <div class="alert alert-success">
-        <span class="glyphicon glyphicon-ok"></span>
-        &nbsp;
-        <b>L'image a été supprimée avec succès !</b>
-    </div>
+   <div class="alert alert-success">
+       <span class="glyphicon glyphicon-ok"></span>
+       &nbsp;
+       <b>L'image a été supprimée avec succès !</b>
+   </div>
 <?php endif; ?>
 
 <?php require _TPL_BOTTOM_; ?>

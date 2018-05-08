@@ -23,114 +23,114 @@
  */
 class sessionObject {
    // @ IP de l'utilisateur
-    private $IP;
-    // Objet utilisateur
-    private $userObject;
+   private $IP;
+   // Objet utilisateur
+   private $userObject;
 
-    public function __construct() {
-        // Je vérifie qu'une session n'est pas déjà lancée & que pas en test unitaire
-        if (session_status() === PHP_SESSION_NONE && _TRAVIS_ === FALSE) {
-            // Je lance la session côté PHP
-            session_start();
-        }
+   public function __construct() {
+      // Je vérifie qu'une session n'est pas déjà lancée & que pas en test unitaire
+      if (session_status() === PHP_SESSION_NONE && _TRAVIS_ === FALSE) {
+         // Je lance la session côté PHP
+         session_start();
+      }
 
-        // Si j'ai déjà une session existante
-        if (isset($_SESSION['userObject'])) {
-            // Si l'@ IP correspond
-            if ($_SESSION['IP'] === $_SERVER['REMOTE_ADDR']) {
-                // On recharge les informations
-                $this->setIP($_SESSION['IP']);
-                $this->setUserObject($_SESSION['userObject']);
-            }
-        }
-    }
+      // Si j'ai déjà une session existante
+      if (isset($_SESSION['userObject'])) {
+         // Si l'@ IP correspond
+         if ($_SESSION['IP'] === $_SERVER['REMOTE_ADDR']) {
+            // On recharge les informations
+            $this->setIP($_SESSION['IP']);
+            $this->setUserObject($_SESSION['userObject']);
+         }
+      }
+   }
 
-    /**
-     * Mon utilisateur
-     * @return utilisateurObject
-     */
-    private function getUserObject() {
-       return $this->userObject;
-    }
-    
-    /**
-     * Mon utilisateur
-     * @param utilisateurObject $userObject Objet utilisateur
-     */
-    public function setUserObject($userObject) {
-       $this->userObject = $userObject;
-       $_SESSION['userObject'] = $userObject;
-    }
-    
-    /**
-     * Nom d'utilisateur
-     * @return type
-     */
-    public function getUserName() {
-        return $this->getUserObject()->getUserName();
-    }
+   /**
+    * Mon utilisateur
+    * @return utilisateurObject
+    */
+   private function getUserObject() {
+      return $this->userObject;
+   }
 
-    /**
-     * @ IP
-     * @return type
-     */
-    public function getIP() {
-        return $this->IP;
-    }
+   /**
+    * Mon utilisateur
+    * @param utilisateurObject $userObject Objet utilisateur
+    */
+   public function setUserObject($userObject) {
+      $this->userObject = $userObject;
+      $_SESSION['userObject'] = $userObject;
+   }
 
-    /**
-     * Niveau de droits
-     * @return type
-     */
-    public function getLevel() {
-        // Si un utilisateur est défini 
-        if(isset($this->userObject)) {
-           return $this->getUserObject()->getLevel();
-        } else {
-           // Sinon visiteur par défaut !
-           return utilisateurObject::levelGuest;
-        }
-    }
+   /**
+    * Nom d'utilisateur
+    * @return type
+    */
+   public function getUserName() {
+      return $this->getUserObject()->getUserName();
+   }
 
-    /**
-     * ID en BDD
-     * @return type
-     */
-    public function getId() {
-        return $this->getUserObject()->getId();
-    }
+   /**
+    * @ IP
+    * @return type
+    */
+   public function getIP() {
+      return $this->IP;
+   }
 
-    /**
-     * IP
-     * @param type $IP
-     */
-    public function setIP($IP) {
-        $this->IP = $IP;
-        // On enregistre dans la session
-        $_SESSION['IP'] = $this->getIP();
-    }
+   /**
+    * Niveau de droits
+    * @return type
+    */
+   public function getLevel() {
+      // Si un utilisateur est défini 
+      if (isset($this->userObject)) {
+         return $this->getUserObject()->getLevel();
+      } else {
+         // Sinon visiteur par défaut !
+         return utilisateurObject::levelGuest;
+      }
+   }
 
-    /**
-     * Vérification des droits de l'utilisateur pour la page
-     * @param type $levelRequis
-     * @return boolean
-     */
-    public function verifierDroits($levelRequis) {
-        if ($this->getLevel() >= $levelRequis) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
+   /**
+    * ID en BDD
+    * @return type
+    */
+   public function getId() {
+      return $this->getUserObject()->getId();
+   }
 
-    /**
-     * Déconnexion d'un utilisateur
-     */
-    public function deconnexion() {
-        if (!_TRAVIS_) {
-            // Je détruis la session
-            session_destroy();
-        }
-    }
+   /**
+    * IP
+    * @param type $IP
+    */
+   public function setIP($IP) {
+      $this->IP = $IP;
+      // On enregistre dans la session
+      $_SESSION['IP'] = $this->getIP();
+   }
+
+   /**
+    * Vérification des droits de l'utilisateur pour la page
+    * @param type $levelRequis
+    * @return boolean
+    */
+   public function verifierDroits($levelRequis) {
+      if ($this->getLevel() >= $levelRequis) {
+         return TRUE;
+      } else {
+         return FALSE;
+      }
+   }
+
+   /**
+    * Déconnexion d'un utilisateur
+    */
+   public function deconnexion() {
+      if (!_TRAVIS_) {
+         // Je détruis la session
+         session_destroy();
+      }
+   }
 
 }

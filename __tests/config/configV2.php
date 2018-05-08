@@ -25,44 +25,44 @@
 // DEBUG
 define('_DEBUG_', TRUE);
 if (_DEBUG_) {
-    error_reporting(E_ALL | E_STRICT);
+   error_reporting(E_ALL | E_STRICT);
 }
 define('_TRAVIS_', TRUE);
 
 if (!_TRAVIS_) {
 
-    // Gestion des exceptions de l'application
-    function exception_handler($exception) {
-        /* @var $exception Exception */
-        if (_DEBUG_) {
-            echo '<pre>';
-            print_r($exception->getMessage());
-            echo '<br /><br /><hr /><br />';
-            print_r($exception->getTraceAsString());
-            echo '</pre>';
-        } else {
-            echo 'Une erreur a été rencontrée';
-        }
+   // Gestion des exceptions de l'application
+   function exception_handler($exception) {
+      /* @var $exception Exception */
+      if (_DEBUG_) {
+         echo '<pre>';
+         print_r($exception->getMessage());
+         echo '<br /><br /><hr /><br />';
+         print_r($exception->getTraceAsString());
+         echo '</pre>';
+      } else {
+         echo 'Une erreur a été rencontrée';
+      }
 
-        /**
-         * Envoi d'un mail avec le détail de l'erreur à l'administrateur
-         */
-        // Adresse expediteur
-        $headers = 'From: ' . _MAIL_ADMIN_ . "\n";
-        // Adresse de retour
-        $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
-        // Agent mail
-        $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
-        // Ip
-        $headers .= 'User-IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
-        // Date
-        $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
-        $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
+      /**
+       * Envoi d'un mail avec le détail de l'erreur à l'administrateur
+       */
+      // Adresse expediteur
+      $headers = 'From: ' . _MAIL_ADMIN_ . "\n";
+      // Adresse de retour
+      $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
+      // Agent mail
+      $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
+      // Ip
+      $headers .= 'User-IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
+      // Date
+      $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
+      $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
 
-        mail(_MAIL_ADMIN_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
-    }
+      mail(_MAIL_ADMIN_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
+   }
 
-    set_exception_handler('exception_handler');
+   set_exception_handler('exception_handler');
 }
 
 // Nom du service
@@ -99,17 +99,17 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
-    // Code pour TRAVIS
-    $charger = TRUE;
+   // Code pour TRAVIS
+   $charger = TRUE;
 
-    // Code spécifique Travis : pas de chargement des classes de PHPUnit
-    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== FALSE || strpos($class, "Composer") !== FALSE)) {
-        $charger = FALSE;
-    }
+   // Code spécifique Travis : pas de chargement des classes de PHPUnit
+   if (_TRAVIS_ && (strpos($class, "PHPUnit") !== FALSE || strpos($class, "Composer") !== FALSE)) {
+      $charger = FALSE;
+   }
 
-    if ($charger) {
-        require _PATH_ . 'classes/' . $class . '.class.php';
-    }
+   if ($charger) {
+      require _PATH_ . 'classes/' . $class . '.class.php';
+   }
 });
 
 // Images spécifiques

@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-    require '../config/configV2.php';
+   require '../config/configV2.php';
 }
 require _TPL_TOP_;
 
@@ -27,66 +27,66 @@ $monUtilisateur = new utilisateurObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['valider'])) {
-    // Flag pour la création de l'utilisateur
-    $flagCreation = TRUE;
-    $messageErreur = '';
+   // Flag pour la création de l'utilisateur
+   $flagCreation = TRUE;
+   $messageErreur = '';
 
-    if (empty($_POST['userName'])) {
-        $flagCreation = FALSE;
-        $messageErreur .= "<br />Merci de saisir un identifiant.";
-    }
-    if (empty($_POST['userPassword'])) {
-        $flagCreation = FALSE;
-        $messageErreur .= "<br />Merci de saisir un mot de passe.";
-    }
-    if (empty($_POST['userMail'])) {
-        $flagCreation = FALSE;
-        $messageErreur .= "<br />Merci de saisir une adresse courriel.";
-    }
-    // Vérification du bon format de l'adresse mail
-    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) === FALSE) {
-        $flagCreation = FALSE;
-        $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
-    }
-    // Disponibilité du login
-    if (metaObject::verifierLoginDisponible($_POST['userName']) !== TRUE) {
-        $flagCreation = FALSE;
-        $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
-    }
+   if (empty($_POST['userName'])) {
+      $flagCreation = FALSE;
+      $messageErreur .= "<br />Merci de saisir un identifiant.";
+   }
+   if (empty($_POST['userPassword'])) {
+      $flagCreation = FALSE;
+      $messageErreur .= "<br />Merci de saisir un mot de passe.";
+   }
+   if (empty($_POST['userMail'])) {
+      $flagCreation = FALSE;
+      $messageErreur .= "<br />Merci de saisir une adresse courriel.";
+   }
+   // Vérification du bon format de l'adresse mail
+   if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) === FALSE) {
+      $flagCreation = FALSE;
+      $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
+   }
+   // Disponibilité du login
+   if (metaObject::verifierLoginDisponible($_POST['userName']) !== TRUE) {
+      $flagCreation = FALSE;
+      $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
+   }
 
-    // Données administratives : droits de l'utilisateur
-    $monUtilisateur->setLevel(utilisateurObject::levelUser);
-    // Données fournies par l'utilisateur
-    // Nom d'utilisateur
-    $monUtilisateur->setUserName($_POST['userName']);
-    // Mot de passe - Crypté
-    $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
-    // Adresse mail
-    $monUtilisateur->setEmail($_POST['userMail']);
+   // Données administratives : droits de l'utilisateur
+   $monUtilisateur->setLevel(utilisateurObject::levelUser);
+   // Données fournies par l'utilisateur
+   // Nom d'utilisateur
+   $monUtilisateur->setUserName($_POST['userName']);
+   // Mot de passe - Crypté
+   $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
+   // Adresse mail
+   $monUtilisateur->setEmail($_POST['userMail']);
 
-    // Si tout est bon
-    if ($flagCreation === TRUE) {
-        // Création de l'utilisateur
-        $monUtilisateur->enregistrer();
-        // Connexion de l'utilisateur
-        $monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']);
+   // Si tout est bon
+   if ($flagCreation === TRUE) {
+      // Création de l'utilisateur
+      $monUtilisateur->enregistrer();
+      // Connexion de l'utilisateur
+      $monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']);
 
-        // TODO : envoi d'un mail avec les identifiants de l'utilisateur
-        // voir une création de compte avec validation par mail ?
+      // TODO : envoi d'un mail avec les identifiants de l'utilisateur
+      // voir une création de compte avec validation par mail ?
 
-        if (!_TRAVIS_) {
-            // Redirection sur la page d'accueil - sauf si mode tests
-            header('Location: ' . _URL_);
-            die();
-        }
-    } else {
-        ?>
-        <div class="alert alert-danger">
-            <strong>La création de votre compte n'est pas possible :</strong>
-            <?= $messageErreur ?>
-        </div>
-        <?php
-    }
+      if (!_TRAVIS_) {
+         // Redirection sur la page d'accueil - sauf si mode tests
+         header('Location: ' . _URL_);
+         die();
+      }
+   } else {
+      ?>
+      <div class="alert alert-danger">
+          <strong>La création de votre compte n'est pas possible :</strong>
+          <?= $messageErreur ?>
+      </div>
+      <?php
+   }
 }
 ?>
 <h1><small>Créer mon compte</small></h1>

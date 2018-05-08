@@ -23,28 +23,28 @@
  */
 interface ressourceInterface {
 
-    /**
-     * Crée sur le HDD et dans la BDD la ressource
-     * @return boolean Résultat ?
-     */
-    function creer();
+   /**
+    * Crée sur le HDD et dans la BDD la ressource
+    * @return boolean Résultat ?
+    */
+   function creer();
 
-    /**
-     * Charge unn objet ressource depuis la BDD
-     * @param string $nom Identifiant image-heberg
-     * @return boolean Résultat ?
-     */
-    function charger($nom);
+   /**
+    * Charge unn objet ressource depuis la BDD
+    * @param string $nom Identifiant image-heberg
+    * @return boolean Résultat ?
+    */
+   function charger($nom);
 
-    /**
-     * Enregistre en BDD un objet ressource
-     * @return boolean Résultat ?
-     */
-    function sauver();
+   /**
+    * Enregistre en BDD un objet ressource
+    * @return boolean Résultat ?
+    */
+   function sauver();
 
-    /**
-     * Supprime sur le HDD et dans la BDD la ressource
-     * @return boolean Résultat ?
-     */
-    function supprimer();
+   /**
+    * Supprime sur le HDD et dans la BDD la ressource
+    * @return boolean Résultat ?
+    */
+   function supprimer();
 }
