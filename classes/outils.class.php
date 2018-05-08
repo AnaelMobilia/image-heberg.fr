@@ -206,7 +206,7 @@ class outils {
          if ($maSession->getLevel() === utilisateurObject::levelGuest) {
             /**
              * Utilisateur anonyme
-             * Recherche sur MD5, @IP (sauf images possédées)
+             * Recherche sur MD5, @IP (sauf images possédées) sur les 15 derniers jours !
              */
             $req = maBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = ? AND ip_envoi = ? AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id NOT IN (SELECT image_id from possede) ORDER BY date_envoi DESC");
             /* @var $req PDOStatement */
@@ -256,7 +256,9 @@ class outils {
          // Données éventuelles
          $monRetour = $values->new_name;
       }
-
+if(_TRAVIS_) {
+   var_dump($monRetour);
+}
       return $monRetour;
    }
 
