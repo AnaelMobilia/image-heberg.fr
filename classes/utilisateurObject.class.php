@@ -20,8 +20,6 @@
 
 /**
  * Gestion (BDD) des utilisateurs
- *
- * @author anael
  */
 class utilisateurObject {
    private $userName;
@@ -97,7 +95,7 @@ class utilisateurObject {
     * @return type
     */
    public function getDateInscriptionFormate() {
-      $phpdate = strtotime($this->dateInscription);
+      $phpdate = strtotime($this->getDateInscription());
       return date("d/m/Y", $phpdate);
    }
 
@@ -137,7 +135,7 @@ class utilisateurObject {
     * Mot de passe
     * @param string $password
     */
-   public function setPassword($password) {
+   private function setPassword($password) {
       $this->password = $password;
    }
 
@@ -264,7 +262,7 @@ class utilisateurObject {
          $monRetour = true;
 
          // Chargement de mon utilisateur
-         $this->charger($userID)
+         $this->charger($userID);
          // Je supprime le mot de passe de l'objet
          $this->setPassword('');
 
