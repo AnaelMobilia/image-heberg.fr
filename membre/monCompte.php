@@ -24,13 +24,13 @@ metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 
 // Je récupère la session de mon utilisateur
-$laSession = new sessionObject();
+$maSession = new sessionObject();
 // Et je reprend ses données
-$monUtilisateur = new utilisateurObject($laSession->getId());
+$monUtilisateur = new utilisateurObject($maSession->getId());
 
 if (isset($_POST['modifierPwd'])) {
     // Je vérifie qu'on me donne le bon mot de passe
-    if ($monUtilisateur->checkPassword($_POST['oldUserPassword'])) {
+    if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['oldUserPassword'])) {
         // Je met à jour en BDD
         $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
         $monUtilisateur->modifier();
@@ -47,12 +47,11 @@ if (isset($_POST['modifierPwd'])) {
     }
 } else if (isset($_POST['modifierMail'])) {
     // Je vérifie qu'on me donne le bon mot de passe
-    if ($monUtilisateur->checkPassword($_POST['userPasswordMail'])) {
+    if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordMail'])) {
         // Vérification du bon format de l'adresse mail
         if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
             // Je met à jour en BDD
             $monUtilisateur->setEmail($_POST['userMail']);
-            $monUtilisateur->setPasswordToCrypt($_POST['userPasswordMail']);
             $monUtilisateur->modifier();
 
             // Retour utilisateur
@@ -90,7 +89,7 @@ if (isset($_POST['modifierPwd'])) {
             </div>
             <?php
             // Déconnexion de la session
-            $laSession->deconnexion();
+            $maSession->deconnexion();
         } else {
             // Retour utilisateur
             ?>

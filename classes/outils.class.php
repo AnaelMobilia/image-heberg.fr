@@ -192,18 +192,18 @@ class outils {
      * Vérifie l'existence de l'image pour :
      * @param string $unMD5 le md5 du fichier
      * @param string $uneIp l'adresse IP d'envoi
-     * @param utilisateurObject $unUtilisateur utilisateurObject
+     * @param sessionObject $maSession session de l'utilisateur
      * @param int $typeImage ressourceObject::const Type de l'image
      * @return string|NULL Nom de l'image si déjà présente
      */
-    public static function verifierRenvoiImage($unMD5, $uneIp, $unUtilisateur, $typeImage) {
+    public static function verifierRenvoiImage($unMD5, $uneIp, $maSession, $typeImage) {
         $monRetour = NULL;
 
         /**
          * IMAGE
          */
         if ($typeImage === ressourceObject::typeImage) {
-            if ($unUtilisateur->getLevel() === utilisateurObject::levelGuest) {
+            if ($maSession->getLevel() === utilisateurObject::levelGuest) {
                 /**
                  * Utilisateur anonyme
                  * Recherche sur MD5, @IP (sauf images possédées)
@@ -220,13 +220,13 @@ class outils {
                 $req = maBDD::getInstance()->prepare("SELECT new_name FROM images, possede, membres WHERE md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = ? ORDER BY date_envoi DESC");
                 /* @var $req PDOStatement */
                 $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-                $req->bindValue(2, $unUtilisateur->getId(), PDO::PARAM_INT);
+                $req->bindValue(2, $maSession->getId(), PDO::PARAM_INT);
             }
         }
         /**
          * MINIATURE
          */ else {
-            if ($unUtilisateur->getLevel() === utilisateurObject::levelGuest) {
+            if ($maSession->getLevel() === utilisateurObject::levelGuest) {
                 /**
                  * Utilisateur anonyme
                  * Recherche sur MD5, @IP (sauf images possédées)
@@ -243,7 +243,7 @@ class outils {
                 $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images, possede, membres WHERE thumbnails.md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = ? AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
                 /* @var $req PDOStatement */
                 $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-                $req->bindValue(2, $unUtilisateur->getId(), PDO::PARAM_INT);
+                $req->bindValue(2, $maSession->getId(), PDO::PARAM_INT);
             }
         }
 

@@ -61,8 +61,6 @@ if (isset($_POST['valider'])) {
     $monUtilisateur->setUserName($_POST['userName']);
     // Mot de passe - Crypté
     $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
-    // Mot de passe
-    $monUtilisateur->connexion($_POST['userPassword']);
     // Adresse mail
     $monUtilisateur->setEmail($_POST['userMail']);
 
@@ -71,7 +69,7 @@ if (isset($_POST['valider'])) {
         // Création de l'utilisateur
         $monUtilisateur->enregistrer();
         // Connexion de l'utilisateur
-        $monUtilisateur->connexion();
+        $monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']);
 
         // TODO : envoi d'un mail avec les identifiants de l'utilisateur
         // voir une création de compte avec validation par mail ?

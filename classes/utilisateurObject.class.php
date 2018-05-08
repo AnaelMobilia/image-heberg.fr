@@ -190,87 +190,106 @@ class utilisateurObject {
     }
 
     /**
-     * Connexion d'un utilisateur : vérification & création de la session
-     * @return boolean
-     */
-    public function connexion() {
-        // Le sessionObject qui sera retourné
-        $monUser = new sessionObject();
+    * Connexion d'un utilisateur : vérification & création de la session
+    * @param string $user Nom de l'utilisateur
+    * @param string $pwd Mot de passe associé
+    * @return int ID de l'utilisateur (0 si erreur)
+    */
+   public function verifierIdentifiants($user, $pwd) {
+      // Identifiants KO par défaut
+      $monRetour = 0;
 
-        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
-        /* @var $req PDOStatement */
-        $req->bindValue(1, $this->getUserName(), PDO::PARAM_STR);
-        $req->execute();
+      // Vérification de l'existance du login
+      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
+      /* @var $req PDOStatement */
+      $req->bindValue(1, $user, PDO::PARAM_STR);
+      $req->execute();
 
-        // Je récupère les potentielles valeurs
-        $values = $req->fetch();
+      // Je récupère les potentielles valeurs
+      $values = $req->fetch();
 
-        // Si l'utilisateur n'existe pas... on retourne false
-        if ($values === FALSE) {
-            return FALSE;
-        }
+      // Si l'utilisateur existe
+      if ($values !== false) {
+         // Faut-il mettre à jour le hash du mot de passe ?
+         $updateHash = false;
 
-        // Faut-il mettre à jour le hash du mot de passe ?
-        $updateHash = FALSE;
-
-        // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-        if (substr($values->pass, 0, 1) !== '$') {
+         // Est-ce un cas de compatibilité avec les anciens mots de passe ?
+         if (substr($values->pass, 0, 1) !== '$') {
             // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
             // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
-            if (!hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $this->getPassword()))) {
-                // Ancien mot de passe + ne matche pas
-                return FALSE;
-            } else {
-                // Ancien mot de passe + matche
-                // => update password ;-)
-                $updateHash = TRUE;
+            if (hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
+               // Ancien mot de passe => update hash du password ;-)
+               $updateHash = true;
+               // Identifiants matchent !
+               $monRetour = $values->id;
             }
-        } else {
+         } else {
             // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
-            if (! password_verify($this->getPassword(), $values->pass)) {
-                // Nouveau mot de passe + ne matche pas
-                return FALSE;
-            } else {
-                // Nouveau mot de passe + matche
-                // => Faut-il mettre à jour le cryptage utilisé ?
-                if (password_needs_rehash($values->pass, PASSWORD_DEFAULT)) {
-                    $updateHash = TRUE;
-                }
+            if (password_verify($pwd, $values->pass)) {
+               // => Faut-il mettre à jour le cryptage utilisé ?
+               if (password_needs_rehash($values->pass, PASSWORD_DEFAULT)) {
+                  $updateHash = true;
+               }
+               // Identifiants matchent !
+               $monRetour = $values->id;
             }
+         }
+
+         // Mise à jour du hash si requis
+         if ($updateHash) {
+            $monUtilisateur = new utilisateurObject();
+            $monUtilisateur->charger($values->id);
+            $monUtilisateur->setPasswordToCrypt($pwd);
+            $monUtilisateur->modifier();
+         }
+      }
+      return $monRetour;
+   }
+
+   /**
+     * Connexion d'un utilisateur : vérification & création de la session
+     * @param string $user Utilisateur
+     * @param string $pwd Mot de passe
+     * @return boolean
+     */
+    public function connexion($user, $pwd) {
+        // Ma session
+        $maSession = new sessionObject();
+        // Mon retour
+        $monRetour = false;
+
+        // Vérification des identifiants
+        $userID = $this->verifierIdentifiants($user, $pwd);
+        if($userID) {
+           $monRetour = true;
+           
+           // Chargement de mon utilisateur
+           $this->charger($userID)
+            // Je supprime le mot de passe de l'objet
+            $this->setPassword('');
+
+            // Je complète les variables de la session
+            $maSession->setIP($_SERVER['REMOTE_ADDR']);
+            $maSession->setUserObject($this);
+
+            // J'enregistre en BDD la connexion réussie
+            $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
+            $req->bindValue(1, $monUser->getIP(), PDO::PARAM_STR);
+            $req->bindValue(2, $monUser->getId(), PDO::PARAM_INT);
+
+            $req->execute();
         }
 
-        // Mise à jour du hash si requis
-        if ($updateHash) {
-            $this->charger($values->id);
-            $this->setPasswordToCrypt($this->getPassword());
-            $this->modifier();
-        }
-        
-        // Je supprime le mot de passe de l'objet
-        $this->setPassword('');
-
-        // Je charge les informations de la session
-        $monUser->setIP($_SERVER['REMOTE_ADDR']);
-        $monUser->setId($values->id);
-        $monUser->setLevel($values->lvl);
-        $monUser->setUserName($values->login);
-
-        // J'enregistre en BDD la connexion réussie
-        $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
-        $req->bindValue(1, $monUser->getIP(), PDO::PARAM_STR);
-        $req->bindValue(2, $monUser->getId(), PDO::PARAM_INT);
-
-        $req->execute();
-
-        // On dit que tout s'est bien passé
-        return TRUE;
+        // Retour...
+        return $monRetour;
     }
 
     /**
      * Charge un utilisateur depuis la BDD
      * @param int $userID ID en BDD
+     * @return boolean Utilisateur existant ?
      */
-    public function charger($userID) {
+    private function charger($userID) {
         $monRetour = FALSE;
 
         // Je récupère les données en BDD
@@ -291,6 +310,7 @@ class utilisateurObject {
             $this->setDateInscription($values->date_inscription);
             $this->setIpInscription($values->ip_inscription);
             $this->setLevel($values->lvl);
+            $this->setPassword($values->password);
 
             // Gestion du retour
             $monRetour = TRUE;
@@ -321,7 +341,6 @@ class utilisateurObject {
         $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, pass = ?, lvl = ? WHERE id = ?");
         $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
-        // ?????
         $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
         $req->bindValue(4, $this->getLevel(), PDO::PARAM_INT);
         $req->bindValue(5, $this->getId(), PDO::PARAM_INT);
@@ -364,5 +383,5 @@ class utilisateurObject {
         $req->bindValue(2, $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }
-
+ 
 }

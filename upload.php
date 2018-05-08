@@ -121,15 +121,9 @@ if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['an
 if (empty($msgErreur)) {
     // Info de l'utilisateur
     $maSession = new sessionObject();
-    $monUtilisateur = new utilisateurObject();
-    // Si j'ai un ID d'utilisateur en session...
-    if ($maSession->getId() !== 0) {
-        // Je charge mon utilisateur
-        $monUtilisateur->charger($maSession->getId());
-    }
 
     // Est-ce un doublon ?
-    $doublon = outils::verifierRenvoiImage($monImage->getMd5(), $_SERVER['REMOTE_ADDR'], $monUtilisateur, ressourceObject::typeImage);
+    $doublon = outils::verifierRenvoiImage($monImage->getMd5(), $_SERVER['REMOTE_ADDR'], $maSession, ressourceObject::typeImage);
 
     if (!is_null($doublon)) {
         // C'est un doublon -> chargement de l'image existante

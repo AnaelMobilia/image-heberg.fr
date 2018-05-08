@@ -40,8 +40,8 @@ require _TPL_TOP_;
     <tbody>
         <?php
         // Je récupère la liste des images
-        $laSession = new sessionObject();
-        $mesImages = metaObject::getAllPicsOffOneUser($laSession->getId());
+        $maSession = new sessionObject();
+        $mesImages = metaObject::getAllPicsOffOneUser($maSession->getId());
         foreach ((array) $mesImages as $newName):
             $uneImage = new imageObject($newName);
             ?>

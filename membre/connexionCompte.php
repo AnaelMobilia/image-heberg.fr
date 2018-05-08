@@ -32,16 +32,9 @@ if (isset($_POST['valider'])) {
     if (empty($_POST['userPassword'])) {
         $messageErreur .= "<br />Merci de saisir un mot de passe.";
     }
-
-    // Données fournies par l'utilisateur
-    // Nom d'utilisateur
-    $monUtilisateur->setUserName($_POST['userName']);
-
     // Si tout est bon
     if (empty($messageErreur)) {
-        // On lance la connexion
-        $monUtilisateur->setPassword($_POST['userPassword']);
-        if ($monUtilisateur->connexion() === TRUE) {
+        if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === TRUE) {
             // Succès -> redirige sur la page d'accueil
             header('Location: ' . _URL_);
             die();

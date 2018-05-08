@@ -20,14 +20,12 @@
 
 /**
  * Gestion des sessions
- *
- * @author anael
  */
 class sessionObject {
-    private $userName;
+   // @ IP de l'utilisateur
     private $IP;
-    private $level;
-    private $id;
+    // Objet utilisateur
+    private $userObject;
 
     public function __construct() {
         // Je vérifie qu'une session n'est pas déjà lancée & que pas en test unitaire
@@ -37,30 +35,39 @@ class sessionObject {
         }
 
         // Si j'ai déjà une session existante
-        if (isset($_SESSION['id'])) {
+        if (isset($_SESSION['userObject'])) {
             // Si l'@ IP correspond
             if ($_SESSION['IP'] === $_SERVER['REMOTE_ADDR']) {
                 // On recharge les informations
                 $this->setIP($_SESSION['IP']);
-                $this->setId($_SESSION['id']);
-                $this->setLevel($_SESSION['level']);
-                $this->setUserName($_SESSION['userName']);
-            } else {
-                // Par défaut on défini un niveau Invité
-                $this->setLevel(utilisateurObject::levelGuest);
+                $this->setUserObject($_SESSION['userObject']);
             }
-        } else {
-            // Par défaut on défini un niveau Invité
-            $this->setLevel(utilisateurObject::levelGuest);
         }
     }
 
+    /**
+     * Mon utilisateur
+     * @return utilisateurObject
+     */
+    private function getUserObject() {
+       return $this->userObject;
+    }
+    
+    /**
+     * Mon utilisateur
+     * @param utilisateurObject $userObject Objet utilisateur
+     */
+    public function setUserObject($userObject) {
+       $this->userObject = $userObject;
+       $_SESSION['userObject'] = $userObject;
+    }
+    
     /**
      * Nom d'utilisateur
      * @return type
      */
     public function getUserName() {
-        return $this->userName;
+        return $this->getUserObject()->getUserName();
     }
 
     /**
@@ -76,7 +83,13 @@ class sessionObject {
      * @return type
      */
     public function getLevel() {
-        return (int) $this->level;
+        // Si un utilisateur est défini 
+        if(isset($this->userObject)) {
+           return $this->getUserObject()->getLevel();
+        } else {
+           // Sinon visiteur par défaut !
+           return utilisateurObject::levelGuest;
+        }
     }
 
     /**
@@ -84,17 +97,7 @@ class sessionObject {
      * @return type
      */
     public function getId() {
-        return (int) $this->id;
-    }
-
-    /**
-     * Nom d'utilisateur - htmlentities
-     * @param type $userName
-     */
-    public function setUserName($userName) {
-        $this->userName = htmlentities($userName);
-        // On enregistre dans la session
-        $_SESSION['userName'] = $this->getUserName();
+        return $this->getUserObject()->getId();
     }
 
     /**
@@ -108,27 +111,7 @@ class sessionObject {
     }
 
     /**
-     * Niveau de droits
-     * @param type $level
-     */
-    public function setLevel($level) {
-        $this->level = $level;
-        // On enregistre dans la session
-        $_SESSION['level'] = $this->getLevel();
-    }
-
-    /**
-     * ID en BDD
-     * @param type $id
-     */
-    public function setId($id) {
-        $this->id = $id;
-        // On enregistre dans la session
-        $_SESSION['id'] = $this->getId();
-    }
-
-    /**
-     * On vérifie que l'utilisateur à les droits pour la page
+     * Vérification des droits de l'utilisateur pour la page
      * @param type $levelRequis
      * @return boolean
      */
