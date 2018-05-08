@@ -39,11 +39,36 @@ class membreTest extends TestCase {
       return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
    }
 
+   public function testConnexionMembreExistant(){
+      require_once 'config/configV2.php';
+      /**
+       *  Injection des valeurs du formulaire
+       */
+      $_POST['valider'] = 1;
+      $_POST['userName'] = 'admin';
+      $_POST['userPassword'] = 'monPassword';
+      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+      /**
+       *  Appel de la page
+       */
+      ob_start();
+      require 'membre/connexionCompte.php';
+      ob_end_clean();
+
+      /**
+       * Vérification des valeurs
+       */
+      $maSession = new sessionObject();
+      $this->assertEquals(utilisateurObject::levelAdmin, $maSession->getLevel(), "connexion : doit être OK");
+   }
+           
+   
    /**
     * Création d'un compte membre avec un nom déjà existant
+    * @depends testMembreCreerCompteDoublon
     */
    public function testMembreCreerCompteDoublon() {
-      require_once 'config/configV2.php';
       /**
        *  Injection des valeurs du formulaire
        */
