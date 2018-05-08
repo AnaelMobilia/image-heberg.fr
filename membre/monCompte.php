@@ -72,7 +72,7 @@ if (isset($_POST['modifierPwd'])) {
    }
 } else if (isset($_POST['supprimerCompte'])) {
    // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->checkPassword($_POST['userPasswordDelete'])) {
+   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordDelete'])) {
       if (isset($_POST['confirmeDelete'])) {
          // Je met à jour en BDD
          $monUtilisateur->supprimer();
