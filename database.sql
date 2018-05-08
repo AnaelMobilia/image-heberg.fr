@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` text NOT NULL,
   `login` text NOT NULL,
-  `pass` text NOT NULL,
+  `password` text NOT NULL,
   `date_inscription` date NOT NULL,
   `ip_inscription` text NOT NULL,
   `lvl` tinyint(4) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 --
 -- Création du compte administrateur
 --
-INSERT INTO `membres` (`id`, `email`, `login`, `pass`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
 (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', DATE(NOW()), '127.0.0.1', 2);
 
 --

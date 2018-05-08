@@ -212,10 +212,10 @@ class utilisateurObject {
          $updateHash = false;
 
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-         if (substr($values->pass, 0, 1) !== '$') {
+         if (substr($values->password, 0, 1) !== '$') {
             // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
             // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
-            if (hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
+            if (hash_equals($values->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
                // Ancien mot de passe => update hash du password ;-)
                $updateHash = true;
                // Identifiants matchent !
@@ -223,9 +223,9 @@ class utilisateurObject {
             }
          } else {
             // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
-            if (password_verify($pwd, $values->pass)) {
+            if (password_verify($pwd, $values->password)) {
                // => Faut-il mettre à jour le cryptage utilisé ?
-               if (password_needs_rehash($values->pass, PASSWORD_DEFAULT)) {
+               if (password_needs_rehash($values->password, PASSWORD_DEFAULT)) {
                   $updateHash = true;
                }
                // Identifiants matchent !
@@ -321,7 +321,7 @@ class utilisateurObject {
     * Enregistrement (BDD) d'un utilisateur
     */
    public function enregistrer() {
-      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, pass, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
+      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
       $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
       $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
       $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
@@ -336,7 +336,7 @@ class utilisateurObject {
     * Modifier (BDD) un utilisateur déjà existant
     */
    public function modifier() {
-      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, pass = ?, lvl = ? WHERE id = ?");
+      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, password = ?, lvl = ? WHERE id = ?");
       $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
       $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
       $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
