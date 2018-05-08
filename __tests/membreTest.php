@@ -231,8 +231,9 @@ class membreTest extends TestCase {
       /**
        * Vérification des valeurs
        */
+      $this->assertEquals(FALSE, $monMembre->connexion('username', 'password'), "OLD connexion ne devrait plus être possible");
       $this->assertEquals(FALSE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
-      $this->assertEquals(FALSE, $monMembre->connexion('username', 'password'), "connexion ne devrait plus être possible");
+
    }
 
    /**
