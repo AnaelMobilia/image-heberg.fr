@@ -24,6 +24,6 @@ $maSession = new sessionObject();
 $maSession->deconnexion();
 
 // Redirection sur la page d'accueil
-header('Location: ' . _URL_);
+header('Location: ' . _URL_HTTPS_);
 die();
 ?>

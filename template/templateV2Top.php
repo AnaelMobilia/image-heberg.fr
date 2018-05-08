@@ -60,19 +60,19 @@ $timeStart = microtime(TRUE);
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li <?= ($_SERVER['SCRIPT_NAME'] === "/index.php") ? "class='active'" : "" ?>>
-                                <a href="<?= _URL_ ?>">
+                                <a href="<?= _URL_HTTPS_ ?>">
                                     <span class="glyphicon glyphicon-home"></span>&nbsp;
                                     Accueil
                                 </a>
                             </li>
                             <li <?= ($_SERVER['SCRIPT_NAME'] === "/a_propos.php") ? "class='active'" : "" ?>>
-                                <a href="<?= _URL_ ?>a_propos.php">
+                                <a href="<?= _URL_HTTPS_ ?>a_propos.php">
                                     <span class="glyphicon glyphicon-cloud"></span>&nbsp;
                                     A propos
                                 </a>
                             </li>
                             <li <?= ($_SERVER['SCRIPT_NAME'] === "/contact.php") ? "class='active'" : "" ?>>
-                                <a href="<?= _URL_ ?>contact.php">
+                                <a href="<?= _URL_HTTPS_ ?>contact.php">
                                     <span class="glyphicon glyphicon-envelope"></span>&nbsp;
                                     Contact
                                 </a>
