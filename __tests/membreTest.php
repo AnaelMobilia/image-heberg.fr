@@ -46,15 +46,15 @@ class membreTest extends TestCase {
        */
       $_POST['valider'] = 1;
       $_POST['userName'] = 'admin';
-      $_POST['userPassword'] = 'monPassword';
+      $_POST['userPassword'] = 'password';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
        *  Appel de la page
        */
-      ob_start();
+      //ob_start();
       require 'membre/connexionCompte.php';
-      ob_end_clean();
+      //ob_end_clean();
 
       /**
        * Vérification des valeurs
@@ -75,7 +75,7 @@ class membreTest extends TestCase {
       $_POST['valider'] = 1;
       $_POST['userName'] = 'admin';
       $_POST['userPassword'] = 'monPassword';
-      $_POST['userMail'] = 'contrib@anael.eu';
+      $_POST['userMail'] = 'myMail@example.com';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
@@ -103,7 +103,7 @@ class membreTest extends TestCase {
       $_POST['valider'] = 1;
       $_POST['userName'] = 'username';
       $_POST['userPassword'] = 'password';
-      $_POST['userMail'] = 'contrib@anael.eu';
+      $_POST['userMail'] = 'myMail@example.com';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
@@ -122,7 +122,7 @@ class membreTest extends TestCase {
        * Vérification des valeurs
        */
       // Email
-      $this->assertEquals('contrib@anael.eu', $monMembre->getEmail(), "Vérification email");
+      $this->assertEquals('myMail@example.com', $monMembre->getEmail(), "Vérification email");
       // ID
       $this->assertEquals(3, $monMembre->getId());
       // @ IP d'inscription
