@@ -131,7 +131,13 @@ class utilisateurObject {
     * @param string $password
     */
    private function setPassword($password) {
+      if(_TRAVIS_) {
+         echo "\r\n setPassword : $password";
+      }
       $this->password = $password;
+      if(_TRAVIS_) {
+         echo "\r\n setPassword : $this->password";
+      }
    }
 
    /**
