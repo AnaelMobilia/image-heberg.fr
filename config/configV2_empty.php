@@ -48,7 +48,7 @@ if (!_TRAVIS_) {
         // Adresse de retour
         $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
         // Agent mail
-        $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
+        $headers .= 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_ . "\n";
         // Ip
         $headers .= 'User-IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
         // Date
