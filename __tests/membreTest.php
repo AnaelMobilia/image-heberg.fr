@@ -120,7 +120,6 @@ class membreTest extends TestCase {
       $_POST['modifierMail'] = 1;
       $_POST['userPasswordMail'] = 'password';
       $_POST['userMail'] = 'john.doe@example.com';
-      $_POST['userName'] = 'username';
 
       /**
        *  Appel de la page
@@ -139,7 +138,7 @@ class membreTest extends TestCase {
        */
       // Email
       $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
-      $this->assertEquals(TRUE, $monMembre->connexion($_SESSION['userName'], $_POST['userPasswordMail']), "connexion");
+      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion");
    }
 
    /**
@@ -169,7 +168,7 @@ class membreTest extends TestCase {
       /**
        * Vérification des valeurs
        */
-      $this->assertEquals(TRUE, $monMembre->connexion($_SESSION['userName'], $_POST['newUserPassword']), "connexion");
+      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['newUserPassword']), "connexion");
    }
 
    /**
@@ -198,7 +197,7 @@ class membreTest extends TestCase {
       /**
        * Vérification des valeurs
        */
-      $this->assertEquals(TRUE, $monMembre->connexion($_SESSION['userName'], $_POST['userPasswordDelete']), "connexion devrait être possible");
+      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion devrait être possible");
    }
 
    /**
@@ -228,7 +227,7 @@ class membreTest extends TestCase {
       /**
        * Vérification des valeurs
        */
-      $this->assertEquals(FALSE, $monMembre->connexion($_SESSION['userName'], $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
+      $this->assertEquals(FALSE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
    }
 
    /**
