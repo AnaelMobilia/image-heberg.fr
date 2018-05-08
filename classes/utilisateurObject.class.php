@@ -236,7 +236,7 @@ class utilisateurObject {
             $monUtilisateur->modifier();
          }
       }
-      return $monRetour;
+      return (int) $monRetour;
    }
 
    /**
