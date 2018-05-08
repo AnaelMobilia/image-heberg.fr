@@ -99,6 +99,7 @@ class membreTest extends TestCase {
     * @depends testMembreCreerCompteDoublon
     */
    public function testMembreCreerCompte() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -149,12 +150,6 @@ class membreTest extends TestCase {
       $_POST['userPasswordMail'] = 'password';
       $_POST['userMail'] = 'john.doe@example.com';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
-      /**
-       * Simulation d'une connexion
-       */
-      $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
 
       /**
        *  Appel de la page
