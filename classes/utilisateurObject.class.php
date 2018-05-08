@@ -186,7 +186,7 @@ class utilisateurObject {
     * Connexion d'un utilisateur : vérification & création de la session
     * @param string $user Nom de l'utilisateur
     * @param string $pwd Mot de passe associé
-    * @return int ID de l'utilisateur (0 si erreur)
+    * @return int ID de l'utilisateur (0 si identifiants invalides)
     */
    public function verifierIdentifiants($user, $pwd) {
       // Identifiants KO par défaut
