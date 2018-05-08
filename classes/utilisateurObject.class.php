@@ -360,7 +360,6 @@ echo $user;
       $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = ?");
       $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
       $req->execute();
-      echo "suppr : " . $this->getId() . " - ";
    }
 
    /**
