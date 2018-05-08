@@ -141,6 +141,7 @@ class utilisateurObject {
    public function setPasswordToCrypt($password) {
       $this->password = password_hash($password, PASSWORD_DEFAULT);
       if(_TRAVIS_) {
+         echo "\r\npwdEntrant : " . $password;
          echo "\r\nsetPasswordToCrypt " . $this->password;
       }
    }
