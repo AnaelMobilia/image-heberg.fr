@@ -43,11 +43,6 @@ class utilisateurObject {
             throw new Exception('Utilisateur ' . $userID . ' inexistant.');
          }
       }
-      // Cas par défaut
-      else {
-         $this->setLevel(utilisateurObject::levelGuest);
-         $this->setId(0);
-      }
    }
 
    /**
