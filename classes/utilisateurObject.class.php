@@ -211,6 +211,7 @@ class utilisateurObject {
          $updateHash = false;
          if (_TRAVIS_) {
             echo "\r\nBDD : " . $values->password;
+            echo "\r\n" . var_dump($values);
          }
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
          if (substr($values->password, 0, 1) !== '$') {
