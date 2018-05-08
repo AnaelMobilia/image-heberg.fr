@@ -273,7 +273,7 @@ class utilisateurObject {
          $req->execute();
       }
 echo $userID;
-echo $monRetour;
+echo $user;
       // Retour...
       return $monRetour;
    }
