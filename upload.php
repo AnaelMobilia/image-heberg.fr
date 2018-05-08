@@ -119,11 +119,8 @@ if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['an
  * Vérification du non réenvoi par la même personne
  */
 if (empty($msgErreur)) {
-   // Info de l'utilisateur
-   $maSession = new sessionObject();
-
    // Est-ce un doublon ?
-   $doublon = outils::verifierRenvoiImage($monImage->getMd5(), $_SERVER['REMOTE_ADDR'], $maSession, ressourceObject::typeImage);
+   $doublon = outils::verifierRenvoiImage($monImage->getMd5(), $_SERVER['REMOTE_ADDR'], ressourceObject::typeImage);
 
    if (!is_null($doublon)) {
       // C'est un doublon -> chargement de l'image existante
@@ -168,7 +165,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
    $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
 
    // Est-ce un doublon ?
-   $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], $maSession, ressourceObject::typeMiniature);
+   $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], ressourceObject::typeMiniature);
 
    if (!is_null($doublon)) {
       // C'est un doublon -> chargement de la miniature existante

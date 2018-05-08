@@ -192,13 +192,16 @@ class outils {
     * Vérifie l'existence de l'image pour :
     * @param string $unMD5 le md5 du fichier
     * @param string $uneIp l'adresse IP d'envoi
-    * @param sessionObject $maSession session de l'utilisateur
     * @param int $typeImage ressourceObject::const Type de l'image
     * @return string|NULL Nom de l'image si déjà présente
     */
-   public static function verifierRenvoiImage($unMD5, $uneIp, $maSession, $typeImage) {
+   public static function verifierRenvoiImage($unMD5, $uneIp, $typeImage) {
       $monRetour = NULL;
-
+      // Info de l'utilisateur
+      $maSession = new sessionObject();
+      if (_TRAVIS_) {
+         var_dump($maSession);
+      }
       /**
        * IMAGE
        */
@@ -256,9 +259,9 @@ class outils {
          // Données éventuelles
          $monRetour = $values->new_name;
       }
-if(_TRAVIS_) {
-   var_dump($monRetour);
-}
+      if (_TRAVIS_) {
+         var_dump($monRetour);
+      }
       return $monRetour;
    }
 
