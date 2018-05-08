@@ -236,6 +236,9 @@ class utilisateurObject {
 
          // Mise à jour du hash si requis
          if ($updateHash) {
+            if(_TRAVIS_) {
+               echo "\r\n UPDATE HASH !";
+            }
             $monUtilisateur = new utilisateurObject();
             $monUtilisateur->charger($values->id);
             $monUtilisateur->setPasswordToCrypt($pwd);
