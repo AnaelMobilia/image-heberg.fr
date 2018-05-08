@@ -185,7 +185,7 @@ if (isset($_POST['modifierPwd'])) {
                     <span class="glyphicon glyphicon-warning-sign"></span>
                     Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
                     <br />
-                    Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration.
+                    <b>Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration !</b>
                     <br />
                     Cette action est irrévocable !
                 </label>
