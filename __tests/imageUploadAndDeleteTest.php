@@ -742,7 +742,7 @@ class imageUploadAndDeleteTest extends TestCase {
        * Authentification
        */
       $unMembre = new utilisateurObject();
-      $unMembre->connexion('admin', 'password');
+      $unMembre->connexion('user', 'password');
 
       ob_start();
       require 'delete.php';
