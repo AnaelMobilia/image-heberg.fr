@@ -168,7 +168,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
    $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), $maLargeur, $maHauteur);
 
    // Est-ce un doublon ?
-   $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], $monUtilisateur, ressourceObject::typeMiniature);
+   $doublon = outils::verifierRenvoiImage($maMiniature->getMd5(), $_SERVER['REMOTE_ADDR'], $maSession, ressourceObject::typeMiniature);
 
    if (!is_null($doublon)) {
       // C'est un doublon -> chargement de la miniature existante
