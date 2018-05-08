@@ -69,8 +69,6 @@ class membreTest extends TestCase {
     * @depends testConnexionMembreExistant
     */
    public function testMembreCreerCompteDoublon() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -99,8 +97,6 @@ class membreTest extends TestCase {
     * @depends testMembreCreerCompteDoublon
     */
    public function testMembreCreerCompte() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -143,8 +139,6 @@ class membreTest extends TestCase {
     * @depends testMembreCreerCompte
     */
    public function testMembreModifierMail() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -178,8 +172,6 @@ class membreTest extends TestCase {
     * @depends testMembreModifierMail
     */
    public function testMembreModifierPassword() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -212,8 +204,6 @@ class membreTest extends TestCase {
     * @depends testMembreModifierPassword
     */
    public function testMembreSupprimerCompteRequiertCheckbox() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -244,8 +234,6 @@ class membreTest extends TestCase {
     * @depends testMembreSupprimerCompteRequiertCheckbox
     */
    public function testMembreSupprimerCompte() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -277,8 +265,6 @@ class membreTest extends TestCase {
     * @depends testMembreSupprimerCompte
     */
    public function testConnexionCompteHistorique() {
-      unset($_POST);
-      unset($_SERVER);
       /**
        * Injection des valeurs du formulaire
        */

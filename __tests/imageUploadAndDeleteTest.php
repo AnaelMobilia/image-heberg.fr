@@ -414,6 +414,9 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+      // Authentification
+      
+      
       ob_start();
       require 'upload.php';
       ob_end_clean();

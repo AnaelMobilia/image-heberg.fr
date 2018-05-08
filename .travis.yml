@@ -43,4 +43,4 @@ before_script:
 
 script: 
   - phpunit --version
-  - phpunit --colors --debug __tests/
+  - phpunit --colors --globals-backup --debug __tests/
