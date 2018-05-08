@@ -152,6 +152,12 @@ class membreTest extends TestCase {
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
+       * Simulation d'une connexion
+       */
+      $unMembre = new utilisateurObject();
+      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+
+      /**
        *  Appel de la page
        */
       ob_start();
