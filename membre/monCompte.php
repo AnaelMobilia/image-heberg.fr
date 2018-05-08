@@ -26,11 +26,11 @@ require _TPL_TOP_;
 // Je récupère la session de mon utilisateur
 $maSession = new sessionObject();
 // Et je reprend ses données
-$monUtilisateur = new utilisateurObject($maSession->getId());
+$monUtilisateur = new utilisateurObject();
 
 if (isset($_POST['modifierPwd'])) {
    // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['oldUserPassword'])) {
+   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['oldUserPassword'])) {
       // Je met à jour en BDD
       $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
       $monUtilisateur->modifier();
@@ -47,7 +47,7 @@ if (isset($_POST['modifierPwd'])) {
    }
 } else if (isset($_POST['modifierMail'])) {
    // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordMail'])) {
+   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordMail'])) {
       // Vérification du bon format de l'adresse mail
       if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
          // Je met à jour en BDD
@@ -72,7 +72,7 @@ if (isset($_POST['modifierPwd'])) {
    }
 } else if (isset($_POST['supprimerCompte'])) {
    // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->verifierIdentifiants($maSession->getUserName(), $_POST['userPasswordDelete'])) {
+   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordDelete'])) {
       if (isset($_POST['confirmeDelete'])) {
          // Je met à jour en BDD
          $monUtilisateur->supprimer();

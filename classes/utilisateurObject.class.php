@@ -192,7 +192,7 @@ class utilisateurObject {
     * @param string $pwd Mot de passe associé
     * @return int ID de l'utilisateur (0 si identifiants invalides)
     */
-   public function verifierIdentifiants($user, $pwd) {
+   private function verifierIdentifiants($user, $pwd) {
       // Identifiants KO par défaut
       $monRetour = 0;
 
