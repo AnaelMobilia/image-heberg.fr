@@ -325,7 +325,7 @@ class utilisateurObject {
     * Enregistrement (BDD) d'un utilisateur
     */
    public function enregistrer() {
-      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
+      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
       $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
       $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
       $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
