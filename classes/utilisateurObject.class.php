@@ -274,8 +274,6 @@ class utilisateurObject {
 
          // Chargement de mon utilisateur
          $this->charger($userID);
-         // Je supprime le mot de passe de l'objet
-         $this->setPassword('');
 
          // Je complète les variables de la session
          $maSession->setIP($_SERVER['REMOTE_ADDR']);
