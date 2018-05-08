@@ -205,7 +205,9 @@ class utilisateurObject {
       if ($values !== false) {
          // Faut-il mettre à jour le hash du mot de passe ?
          $updateHash = false;
-
+if(_TRAVIS_) {
+   echo $values->password;
+}
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
          if (substr($values->password, 0, 1) !== '$') {
             // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
@@ -272,9 +274,10 @@ class utilisateurObject {
 
          $req->execute();
       }
-echo $userID;
-echo $user;
-echo $pwd;
+      if(_TRAVIS_) {
+echo $userID . "\r\n" . $user . "\r\n" . $pwd;
+echo "\r\n" . password_hash($pwd, PASSWORD_DEFAULT);
+      }
       // Retour...
       return $monRetour;
    }
