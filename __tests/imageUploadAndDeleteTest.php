@@ -105,6 +105,7 @@ class imageUploadAndDeleteTest extends TestCase {
       require_once 'config/configV2.php';
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -130,6 +131,7 @@ class imageUploadAndDeleteTest extends TestCase {
       require_once 'config/configV2.php';
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -159,6 +161,7 @@ class imageUploadAndDeleteTest extends TestCase {
       require_once 'config/configV2.php';
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -189,6 +192,7 @@ class imageUploadAndDeleteTest extends TestCase {
       require_once 'config/configV2.php';
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -217,6 +221,7 @@ class imageUploadAndDeleteTest extends TestCase {
       require_once 'config/configV2.php';
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -244,6 +249,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testEnvoiBrut() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
 
@@ -262,6 +268,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testEnvoiSansFichier() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -281,6 +288,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testEnvoiGrosFichier() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -302,6 +310,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTypeMimePasUneImage() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -324,6 +333,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTypeMimeMauvaisTypeFichier() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -346,6 +356,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTypeMimeMauvaiseExtension() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -369,6 +380,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTresLarge() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -392,6 +404,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTresHaute() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -415,6 +428,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testTropGrande() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -437,6 +451,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testEnvoiImageAuthentifie() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -475,6 +490,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testRenvoiImageAnonymeAnonyme() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -498,6 +514,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testRenvoiImageAnonymeAuthentifie() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -536,6 +553,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testRenvoiImageAuthentifieAnonyme() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -560,6 +578,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testRenvoiImageAuthentifieAuthentifie() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -596,6 +615,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testRenvoiImageAuthentifieAuthentifie2() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -634,6 +654,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageInexistante() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_GET['id'] = 'fichierInexistant';
       $_GET['type'] = ressourceObject::typeImage;
@@ -654,6 +675,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageProprietaireAnonyme() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_GET['id'] = '_image_404.png';
       $_GET['type'] = ressourceObject::typeImage;
@@ -674,6 +696,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageProprietaireAuthentifie2() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_GET['id'] = '_image_404.png';
       $_GET['type'] = ressourceObject::typeImage;
@@ -707,6 +730,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageProprietaireAuthentifie() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       // Copie du fichier
       rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
 
@@ -746,6 +770,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageAnonymeHorsDelai() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_GET['id'] = '146734019451334055750.png';
       $_GET['type'] = ressourceObject::typeImage;
@@ -766,6 +791,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageAnonymeDansDelaiMauvaiseIP() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
       $_GET['id'] = '147834019001334055750.png';
       $_GET['type'] = ressourceObject::typeImage;
@@ -786,6 +812,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImageAnonymeDansDelai() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
       $_GET['id'] = '147834019001334055750.png';
       $_GET['type'] = ressourceObject::typeImage;
@@ -808,6 +835,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testEnvoiRedim() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
       $_SESSION['_upload'] = 1;
@@ -834,6 +862,7 @@ class imageUploadAndDeleteTest extends TestCase {
    public function testSuppressionImagePlusieursMiniatures() {
       unset($_POST);
       unset($_FILES);
+      unset($_GET);
       // Copie des fichiers
       rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple.png', _PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b');
       rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple-100x100.png', _PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63');
