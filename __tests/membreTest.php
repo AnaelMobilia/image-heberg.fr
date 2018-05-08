@@ -151,14 +151,10 @@ class membreTest extends TestCase {
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
-       * Récupération d'un objet
+       * Simulation d'une connexion
        */
-      $monMembre = new utilisateurObject(3);
-
-      /**
-       * Connexion de l'utilisateur
-       */
-      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+      $unMembre = new utilisateurObject();
+      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
 
       /**
        *  Appel de la page
@@ -166,6 +162,11 @@ class membreTest extends TestCase {
       ob_start();
       require 'membre/monCompte.php';
       ob_end_clean();
+
+      /**
+       * Récupération de l'utilisateur
+       */
+      $monMembre = new utilisateurObject(3);
 
       /**
        * Vérification des valeurs
