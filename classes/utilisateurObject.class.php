@@ -236,7 +236,7 @@ class utilisateurObject {
             $monUtilisateur->modifier();
          }
       }
-      return (int) $monRetour;
+      return $monRetour;
    }
 
    /**
@@ -272,7 +272,8 @@ class utilisateurObject {
 
          $req->execute();
       }
-
+echo $userID;
+echo $monRetour;
       // Retour...
       return $monRetour;
    }
