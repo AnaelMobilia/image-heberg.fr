@@ -29,7 +29,7 @@ class sessionObject {
 
    public function __construct() {
       // Je vérifie qu'une session n'est pas déjà lancée & que pas tests travis (session_start déjà effectué)
-      if (session_status() === PHP_SESSION_NONE && ! _TRAVIS_) {
+      if (session_status() === PHP_SESSION_NONE && !_TRAVIS_) {
          // Je lance la session côté PHP
          session_start();
       }
@@ -125,7 +125,10 @@ class sessionObject {
     * Déconnexion d'un utilisateur
     */
    public function deconnexion() {
-      if(!_TRAVIS_) {
+      // Destruction de l'objet utilisateur
+      unset($_SESSION['userObject']);
+
+      if (!_TRAVIS_) {
          // Je détruis la session
          session_destroy();
       }
