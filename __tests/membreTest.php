@@ -40,7 +40,9 @@ class membreTest extends TestCase {
    }
 
    public function testConnexionMembreExistant(){
+      // Chargement de la configuration
       require_once 'config/configV2.php';
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -69,6 +71,7 @@ class membreTest extends TestCase {
     * @depends testConnexionMembreExistant
     */
    public function testMembreCreerCompteDoublon() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -139,6 +142,7 @@ class membreTest extends TestCase {
     * @depends testMembreCreerCompte
     */
    public function testMembreModifierMail() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -172,6 +176,7 @@ class membreTest extends TestCase {
     * @depends testMembreModifierMail
     */
    public function testMembreModifierPassword() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -204,6 +209,7 @@ class membreTest extends TestCase {
     * @depends testMembreModifierPassword
     */
    public function testMembreSupprimerCompteRequiertCheckbox() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -234,6 +240,7 @@ class membreTest extends TestCase {
     * @depends testMembreSupprimerCompteRequiertCheckbox
     */
    public function testMembreSupprimerCompte() {
+      unset($_POST);
       /**
        *  Injection des valeurs du formulaire
        */
@@ -265,6 +272,7 @@ class membreTest extends TestCase {
     * @depends testMembreSupprimerCompte
     */
    public function testConnexionCompteHistorique() {
+      unset($_POST);
       /**
        * Injection des valeurs du formulaire
        */
