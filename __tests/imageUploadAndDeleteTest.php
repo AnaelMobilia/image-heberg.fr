@@ -872,9 +872,22 @@ class imageUploadAndDeleteTest extends TestCase {
       $_GET['id'] = '14777777.png';
       $_GET['type'] = ressourceObject::typeImage;
 
+      /**
+       * Authentification
+       */
+      $unMembre = new utilisateurObject();
+      $unMembre->connexion('admin', 'password');
+
       ob_start();
       require 'delete.php';
       ob_end_clean();
+
+      /**
+       * Désauthentification
+       */
+      $maSession = new sessionObject();
+      $maSession->deconnexion();
+
       $this->assertEquals(empty($msgErreur), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
       $this->assertEquals(empty($msgWarning), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
       self::setNbMoins(self::fichierImage);
