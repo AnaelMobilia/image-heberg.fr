@@ -171,6 +171,7 @@ class membreTest extends TestCase {
        * Vérification des valeurs
        */
       $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['newUserPassword']), "connexion");
+      $this->assertEquals(false, $monMembre->connexion('username', $_POST['oldUserPassword']), "connexion");
    }
 
    /**
@@ -182,7 +183,7 @@ class membreTest extends TestCase {
        *  Injection des valeurs du formulaire
        */
       $_POST['supprimerCompte'] = 1;
-      $_POST['userPasswordDelete'] = 'password';
+      $_POST['userPasswordDelete'] = 'monPassword';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
