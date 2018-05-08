@@ -85,7 +85,7 @@ if (isset($_POST['modifierPwd'])) {
              <br />
              Cette action est irrévocable !
              <br />
-             Merci d'avoir utilisé Image-Heberg.fr .
+             Merci d'avoir utilisé <?= _SITE_NAME_ ?>.
          </div>
          <?php
          // Déconnexion de la session
