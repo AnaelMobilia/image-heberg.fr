@@ -274,6 +274,7 @@ class utilisateurObject {
       }
 echo $userID;
 echo $user;
+echo $pwd;
       // Retour...
       return $monRetour;
    }
