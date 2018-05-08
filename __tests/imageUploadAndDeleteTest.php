@@ -475,9 +475,9 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
-      ob_start();
+      //ob_start();
       require 'upload.php';
-      ob_end_clean();
+      //ob_end_clean();
       $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
       $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
       $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image doit être bloquée en BDD");
