@@ -140,6 +140,9 @@ class utilisateurObject {
     */
    public function setPasswordToCrypt($password) {
       $this->password = password_hash($password, PASSWORD_DEFAULT);
+      if(_TRAVIS_) {
+         echo "\r\nsetPasswordToCrypt " . $this->password;
+      }
    }
 
    /**
@@ -206,7 +209,7 @@ class utilisateurObject {
          // Faut-il mettre à jour le hash du mot de passe ?
          $updateHash = false;
 if(_TRAVIS_) {
-   echo "BDD : " . $values->password;
+   echo "\r\nBDD : " . $values->password;
 }
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
          if (substr($values->password, 0, 1) !== '$') {
@@ -275,8 +278,8 @@ if(_TRAVIS_) {
          $req->execute();
       }
       if(_TRAVIS_) {
-echo $userID . "\r\n" . $user . "\r\n" . $pwd;
-echo "\r\n" . password_hash($pwd, PASSWORD_DEFAULT);
+echo $userID . "\r\n user : " . $user . "\r\n pwd : " . $pwd;
+echo "\r\n hash pwd : " . password_hash($pwd, PASSWORD_DEFAULT);
       }
       // Retour...
       return $monRetour;
