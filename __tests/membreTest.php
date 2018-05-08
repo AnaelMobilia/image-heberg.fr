@@ -52,9 +52,9 @@ class membreTest extends TestCase {
       /**
        *  Appel de la page
        */
-      //ob_start();
+      ob_start();
       require 'membre/connexionCompte.php';
-      //ob_end_clean();
+      ob_end_clean();
 
       /**
        * Vérification des valeurs
@@ -66,7 +66,7 @@ class membreTest extends TestCase {
    
    /**
     * Création d'un compte membre avec un nom déjà existant
-    * @depends testMembreCreerCompteDoublon
+    * @depends testConnexionMembreExistant
     */
    public function testMembreCreerCompteDoublon() {
       /**
