@@ -272,8 +272,8 @@ class utilisateurObject {
 
          // J'enregistre en BDD la connexion réussie
          $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
-         $req->bindValue(1, $monUser->getIP(), PDO::PARAM_STR);
-         $req->bindValue(2, $monUser->getId(), PDO::PARAM_INT);
+         $req->bindValue(1, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+         $req->bindValue(2, $userID, PDO::PARAM_INT);
 
          $req->execute();
       }
