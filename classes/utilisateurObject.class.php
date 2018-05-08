@@ -27,8 +27,8 @@ class utilisateurObject {
    private $email;
    private $dateInscription;
    private $ipInscription;
-   private $level;
-   private $id;
+   private $level = self::levelGuest;
+   private $id = 0;
 
    // Niveaux de droits
    const levelGuest = 0;

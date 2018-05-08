@@ -50,7 +50,11 @@ class sessionObject {
     * @return utilisateurObject
     */
    private function getUserObject() {
-      return $this->userObject;
+      if (isset($this->userObject)) {
+         return $this->userObject;
+      } else {
+         return new utilisateurObject();
+      }
    }
 
    /**
@@ -83,13 +87,7 @@ class sessionObject {
     * @return type
     */
    public function getLevel() {
-      // Si un utilisateur est défini 
-      if (isset($this->userObject)) {
-         return $this->getUserObject()->getLevel();
-      } else {
-         // Sinon visiteur par défaut !
-         return utilisateurObject::levelGuest;
-      }
+      return $this->getUserObject()->getLevel();
    }
 
    /**
