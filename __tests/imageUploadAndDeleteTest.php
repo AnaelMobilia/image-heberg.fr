@@ -453,6 +453,13 @@ class imageUploadAndDeleteTest extends TestCase {
       ob_start();
       require 'upload.php';
       ob_end_clean();
+      
+      /**
+       * Désauthentification
+       */
+      $maSession = new sessionObject();
+      $maSession->deconnexion();
+      
       $this->assertEquals(empty($msgErreur), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
       $this->assertEquals(empty($msgWarning), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
       self::setNbPlus(self::fichierImage);
