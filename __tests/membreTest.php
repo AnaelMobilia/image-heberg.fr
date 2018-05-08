@@ -182,7 +182,7 @@ class membreTest extends TestCase {
        *  Injection des valeurs du formulaire
        */
       $_POST['supprimerCompte'] = 1;
-      $_POST['userPasswordDelete'] = 'monPassword';
+      $_POST['userPasswordDelete'] = 'password';
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
@@ -213,7 +213,7 @@ class membreTest extends TestCase {
        */
       $_POST['supprimerCompte'] = 1;
       $_POST['userPasswordDelete'] = 'monPassword';
-      $_POST['confirmeDelete'] = '1';
+      $_POST['confirmeDelete'] = 1;
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
       /**
