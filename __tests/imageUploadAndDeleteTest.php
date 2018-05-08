@@ -207,7 +207,7 @@ class imageUploadAndDeleteTest extends TestCase {
       $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
       $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
       $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image - dde miniature - doit être bloquée en BDD");
-      $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde miniature - doit être bloquée en BDD");
+      $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image - dde miniature (possède) - doit être bloquée en BDD");
       self::setNbPlus(self::fichierMiniature);
       $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::fichierMiniature), "Renvoi image - dde miniature - doit créer miniature en BDD");
       $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . 'b/b8269be7be4e1d804cd5b82d9734bab7'), "Renvoi image - dde miniature - doit créer miniature sur HDD");
