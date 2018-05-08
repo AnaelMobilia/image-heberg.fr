@@ -121,14 +121,6 @@ class membreTest extends TestCase {
       $_POST['userPasswordMail'] = 'password';
       $_POST['userMail'] = 'john.doe@example.com';
       $_POST['userName'] = 'username';
-      /**
-       * Injection de la session
-       */
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-      $_SESSION['id'] = 3;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       /**
        *  Appel de la page
@@ -161,14 +153,6 @@ class membreTest extends TestCase {
       $_POST['modifierPwd'] = 1;
       $_POST['oldUserPassword'] = 'password';
       $_POST['newUserPassword'] = 'monPassword';
-      /**
-       * Injection de la session
-       */
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-      $_SESSION['id'] = 3;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       /**
        *  Appel de la page
@@ -198,14 +182,6 @@ class membreTest extends TestCase {
        */
       $_POST['supprimerCompte'] = 1;
       $_POST['userPasswordDelete'] = 'monPassword';
-      /**
-       * Injection de la session
-       */
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-      $_SESSION['id'] = 3;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       /**
        *  Appel de la page
@@ -236,14 +212,6 @@ class membreTest extends TestCase {
       $_POST['supprimerCompte'] = 1;
       $_POST['userPasswordDelete'] = 'monPassword';
       $_POST['confirmeDelete'] = '1';
-      /**
-       * Injection de la session
-       */
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-      $_SESSION['id'] = 3;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       /**
        *  Appel de la page
@@ -269,7 +237,7 @@ class membreTest extends TestCase {
     */
    public function testConnexionCompteHistorique() {
       /**
-       * Injection de la session
+       * Injection des valeurs du formulaire
        */
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       /**

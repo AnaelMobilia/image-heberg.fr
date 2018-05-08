@@ -110,9 +110,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_banned.gif';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
-      // Gestion des différents tests
-      unset($_SESSION['id']);
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -136,9 +133,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_pour_miniature.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
       $_POST['dimMiniature'] = '50x50';
-
-      // Gestion des différents tests
-      unset($_SESSION['id']);
 
       ob_start();
       require 'upload.php';
@@ -168,9 +162,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_POST['dimMiniature'] = '50x50';
       $_POST['angleRotation'] = 90;
 
-      // Gestion des différents tests
-      unset($_SESSION['id']);
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -198,9 +189,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
       $_POST['dimMiniature'] = '50x50';
 
-      // Gestion des différents tests
-      unset($_SESSION['id']);
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -226,9 +214,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_banned3.gif';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
       $_POST['dimMiniature'] = '40x40';
-
-      // Gestion des différents tests
-      unset($_SESSION['id']);
 
       ob_start();
       require 'upload.php';
@@ -409,7 +394,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_10000x10000.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -429,12 +413,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
-
-      // Création d'une session
-      $_SESSION['id'] = 1;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       ob_start();
       require 'upload.php';
@@ -459,7 +437,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -480,12 +457,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
-
-      // Création d'une session
-      $_SESSION['id'] = 1;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       ob_start();
       require 'upload.php';
@@ -532,12 +503,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
-      // Création d'une session
-      $_SESSION['id'] = 1;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -558,12 +523,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
-
-      // Création d'une session
-      $_SESSION['id'] = 2;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       ob_start();
       require 'upload.php';
@@ -621,12 +580,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_GET['id'] = '_image_404.png';
       $_GET['type'] = ressourceObject::typeImage;
 
-      // Création d'une session
-      $_SESSION['id'] = 3;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
-
       ob_start();
       require 'delete.php';
       ob_end_clean();
@@ -647,12 +600,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
       $_GET['id'] = '100000019001334055750.png';
       $_GET['type'] = ressourceObject::typeImage;
-
-      // Création d'une session
-      $_SESSION['id'] = 2;
-      $_SESSION['IP'] = '127.0.0.2';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'username';
 
       ob_start();
       require 'delete.php';
@@ -735,9 +682,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
       $_POST['redimImage'] = '400x200';
 
-      // Gestion des différents tests
-      unset($_SESSION['id']);
-
       ob_start();
       require 'upload.php';
       ob_end_clean();
@@ -762,12 +706,6 @@ class imageUploadAndDeleteTest extends TestCase {
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_GET['id'] = '14777777.png';
       $_GET['type'] = ressourceObject::typeImage;
-
-      // Création d'une session
-      $_SESSION['id'] = 1;
-      $_SESSION['IP'] = '127.0.0.1';
-      $_SESSION['level'] = utilisateurObject::levelUser;
-      $_SESSION['userName'] = 'admin';
 
       ob_start();
       require 'delete.php';
