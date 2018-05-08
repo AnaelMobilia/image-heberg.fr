@@ -34,8 +34,7 @@ require _TPL_TOP_;
         <div class="panel-body">
             <ul>
                 <li>Migration jQuery 2 => 3</li>
-            </ul>
-            <ul>
+                <li>Migration bootstrap 3 => 4</li>
                 <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur</li>
                 <li>Envoi de plusieurs images simultanément</li>
                 <li>Glisser - déposer pour le choix des fichiers</li>
@@ -44,7 +43,9 @@ require _TPL_TOP_;
                 <li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
                 <li>Membres : Permettre le changement de mot de passe</li>
                 <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
+                <li>Membres : Afficher les lines de partage dans l'espace membre</li>
                 <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
+                <li>Meilleure gestion des statistiques d'affichage (trop d'appels à la base de données)</li>
             </ul>
         </div>
     </div>
