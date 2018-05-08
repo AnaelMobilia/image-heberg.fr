@@ -52,6 +52,7 @@ if (isset($_POST['modifierPwd'])) {
         if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
             // Je met à jour en BDD
             $monUtilisateur->setEmail($_POST['userMail']);
+            $monUtilisateur->setPasswordToCrypt($_POST['userPasswordMail']);
             $monUtilisateur->modifier();
 
             // Retour utilisateur

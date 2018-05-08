@@ -40,7 +40,8 @@ if (isset($_POST['valider'])) {
     // Si tout est bon
     if (empty($messageErreur)) {
         // On lance la connexion
-        if ($monUtilisateur->connexion($_POST['userPassword']) === TRUE) {
+        $monUtilisateur->setPassword($_POST['userPassword']);
+        if ($monUtilisateur->connexion() === TRUE) {
             // Succès -> redirige sur la page d'accueil
             header('Location: ' . _URL_);
             die();

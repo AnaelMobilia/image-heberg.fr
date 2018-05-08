@@ -65,8 +65,10 @@ class membreTest extends TestCase {
          */
         $monMembre = new utilisateurObject();
         // Login
-        $monMembre->setUserName('admin');
-        $this->assertEquals(FALSE, $monMembre->connexion($_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
+        $monMembre->setUserName($_POST['userName']);
+        // Password
+        $monMembre->setPassword($_POST['userPassword']);
+        $this->assertEquals(FALSE, $monMembre->connexion(), "connexion : le nom d'utilisateur doit être unique");
     }
 
     /**
@@ -109,8 +111,10 @@ class membreTest extends TestCase {
         // Nom
         $this->assertEquals('username', $monMembre->getUserName());
         // Login
-        $monMembre->setUserName('username');
-        $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPassword']));
+        $monMembre->setUserName($_POST['userName']);
+        // Password
+        $monMembre->setPassword($_POST['userPassword']);
+        $this->assertEquals(TRUE, $monMembre->connexion());
     }
 
     /**
@@ -124,6 +128,7 @@ class membreTest extends TestCase {
         $_POST['modifierMail'] = 1;
         $_POST['userPasswordMail'] = 'password';
         $_POST['userMail'] = 'john.doe@example.com';
+        $_POST['userName'] = 'username';
         /**
          * Injection de la session
          */
@@ -151,8 +156,10 @@ class membreTest extends TestCase {
         // Email
         $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
         // Login
-        $monMembre->setUserName('username');
-        $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPasswordMail']), "connexion");
+        $monMembre->setUserName($_SESSION['userName']);
+        // Password
+        $monMembre->setPassword($_POST['userPasswordMail']);
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
     /**
@@ -191,8 +198,10 @@ class membreTest extends TestCase {
          * Vérification des valeurs
          */
         // Login
-        $monMembre->setUserName('username');
-        $this->assertEquals(TRUE, $monMembre->connexion($_POST['newUserPassword']), "connexion");
+        $monMembre->setUserName($_SESSION['userName']);
+        // Password
+        $monMembre->setPassword($_POST['newUserPassword']);
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion");
     }
 
     /**
@@ -230,8 +239,10 @@ class membreTest extends TestCase {
          * Vérification des valeurs
          */
         // Login
-        $monMembre->setUserName('username');
-        $this->assertEquals(TRUE, $monMembre->connexion($_POST['userPasswordDelete']), "connexion devrait être possible");
+        $monMembre->setUserName($_SESSION['userName']);
+        // Password
+        $monMembre->setPassword($_POST['userPasswordDelete']);
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion devrait être possible");
     }
 
     /**
@@ -270,8 +281,10 @@ class membreTest extends TestCase {
          * Vérification des valeurs
          */
         // Login
-        $monMembre->setUserName('username');
-        $this->assertEquals(FALSE, $monMembre->connexion($_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
+        $monMembre->setUserName($_SESSION['userName']);
+        // Password
+        $monMembre->setPassword($_POST['userPasswordDelete']);
+        $this->assertEquals(FALSE, $monMembre->connexion(), "connexion ne devrait plus être possible");
     }
 
     /**
@@ -293,7 +306,9 @@ class membreTest extends TestCase {
          */
         // Login
         $monMembre->setUserName('admin');
-        $this->assertEquals(TRUE, $monMembre->connexion('password'), "connexion au compte créé à l'import de la BDD devrait être possible");
+        // Password
+        $monMembre->setPassword('password');
+        $this->assertEquals(TRUE, $monMembre->connexion(), "connexion au compte créé à l'import de la BDD devrait être possible");
     }
 
 }

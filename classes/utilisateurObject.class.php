@@ -137,7 +137,7 @@ class utilisateurObject {
      * Mot de passe
      * @param string $password
      */
-    private function setPassword($password) {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
@@ -191,10 +191,9 @@ class utilisateurObject {
 
     /**
      * Connexion d'un utilisateur : vérification & création de la session
-     * @param string $password Mot de passe saisi par l'utilisateur
      * @return boolean
      */
-    public function connexion($password) {
+    public function connexion() {
         // Le sessionObject qui sera retourné
         $monUser = new sessionObject();
 
@@ -206,7 +205,7 @@ class utilisateurObject {
         // Je récupère les potentielles valeurs
         $values = $req->fetch();
 
-        // Si l'utilisateur n'existe pas... on retourne un sessionObject vide
+        // Si l'utilisateur n'existe pas... on retourne false
         if ($values === FALSE) {
             return FALSE;
         }
@@ -218,7 +217,7 @@ class utilisateurObject {
         if (substr($values->pass, 0, 1) !== '$') {
             // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
             // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
-            if (!hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $password))) {
+            if (!hash_equals($values->pass, hash('sha256', _GRAIN_DE_SEL_ . $this->getPassword()))) {
                 // Ancien mot de passe + ne matche pas
                 return FALSE;
             } else {
@@ -227,17 +226,14 @@ class utilisateurObject {
                 $updateHash = TRUE;
             }
         } else {
-            // Définition du mot de passe
-            $this->setPassword($values->pass);
-
-            // Cas standard
-            if (!$this->checkPassword($password)) {
+            // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
+            if (! password_verify($this->getPassword(), $values->pass)) {
                 // Nouveau mot de passe + ne matche pas
                 return FALSE;
             } else {
                 // Nouveau mot de passe + matche
                 // => Faut-il mettre à jour le cryptage utilisé ?
-                if (password_needs_rehash($this->getPassword(), PASSWORD_DEFAULT)) {
+                if (password_needs_rehash($values->pass, PASSWORD_DEFAULT)) {
                     $updateHash = TRUE;
                 }
             }
@@ -246,9 +242,12 @@ class utilisateurObject {
         // Mise à jour du hash si requis
         if ($updateHash) {
             $this->charger($values->id);
-            $this->setPasswordToCrypt($password);
+            $this->setPasswordToCrypt($this->getPassword());
             $this->modifier();
         }
+        
+        // Je supprime le mot de passe de l'objet
+        $this->setPassword('');
 
         // Je charge les informations de la session
         $monUser->setIP($_SERVER['REMOTE_ADDR']);
@@ -285,11 +284,10 @@ class utilisateurObject {
 
         // Si l'utilisateur n'existe pas... on retourne un utilisateurObject vide
         if ($values !== FALSE) {
-            // Je charge les informations de l'utilisateur
+            // Je charge les informations de l'utilisateur (sauf password)
             $this->setId($userID);
             $this->setEmail($values->email);
             $this->setUserName($values->login);
-            $this->setPassword($values->pass);
             $this->setDateInscription($values->date_inscription);
             $this->setIpInscription($values->ip_inscription);
             $this->setLevel($values->lvl);
@@ -349,15 +347,6 @@ class utilisateurObject {
         $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = ?");
         $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
         $req->execute();
-    }
-
-    /**
-     * Vérifie si le mot de passe fourni est bien celui de l'utilisateur
-     * @param string $password Mot de passe saisi par l'utilisateur
-     */
-    public function checkPassword($password) {
-        // Comparaison du hash du mot de passe fourni avec celui stocké en base
-        return password_verify($password, $this->getPassword());
     }
 
     /**
