@@ -158,9 +158,9 @@ class membreTest extends TestCase {
       /**
        *  Appel de la page
        */
-      //ob_start();
+      ob_start();
       require 'membre/monCompte.php';
-      //ob_end_clean();
+      ob_end_clean();
 
       /**
        * Récupération d'un objet
@@ -189,9 +189,9 @@ class membreTest extends TestCase {
       /**
        *  Appel de la page
        */
-      //ob_start();
+      ob_start();
       require 'membre/monCompte.php';
-      //ob_end_clean();
+      ob_end_clean();
 
       /**
        * Récupération d'un objet
@@ -220,9 +220,9 @@ class membreTest extends TestCase {
       /**
        *  Appel de la page
        */
-      //ob_start();
+      ob_start();
       require 'membre/monCompte.php';
-      //ob_end_clean();
+      ob_end_clean();
 
       /**
        * Récupération d'un objet

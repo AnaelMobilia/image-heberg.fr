@@ -206,7 +206,7 @@ class utilisateurObject {
          // Faut-il mettre à jour le hash du mot de passe ?
          $updateHash = false;
 if(_TRAVIS_) {
-   echo $values->password;
+   echo "BDD : " . $values->password;
 }
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
          if (substr($values->password, 0, 1) !== '$') {
