@@ -131,13 +131,7 @@ class utilisateurObject {
     * @param string $password
     */
    private function setPassword($password) {
-      if(_TRAVIS_) {
-         echo "\r\n setPassword : $password";
-      }
       $this->password = $password;
-      if(_TRAVIS_) {
-         echo "\r\n setPassword : $this->password";
-      }
    }
 
    /**
@@ -146,10 +140,6 @@ class utilisateurObject {
     */
    public function setPasswordToCrypt($password) {
       $this->password = password_hash($password, PASSWORD_DEFAULT);
-      if (_TRAVIS_) {
-         echo "\r\n pwdEntrant : " . $password;
-         echo "\r\n setPasswordToCrypt " . $this->password;
-      }
    }
 
    /**
@@ -215,10 +205,7 @@ class utilisateurObject {
       if ($values !== false) {
          // Faut-il mettre à jour le hash du mot de passe ?
          $updateHash = false;
-         if (_TRAVIS_) {
-            echo "\r\nBDD : " . $values->password;
-            echo "\r\n" . var_dump($values);
-         }
+
          // Est-ce un cas de compatibilité avec les anciens mots de passe ?
          if (substr($values->password, 0, 1) !== '$') {
             // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
@@ -243,9 +230,6 @@ class utilisateurObject {
 
          // Mise à jour du hash si requis
          if ($updateHash) {
-            if(_TRAVIS_) {
-               echo "\r\n UPDATE HASH !";
-            }
             $monUtilisateur = new utilisateurObject();
             $monUtilisateur->charger($values->id);
             $monUtilisateur->setPasswordToCrypt($pwd);
@@ -286,10 +270,7 @@ class utilisateurObject {
 
          $req->execute();
       }
-      if (_TRAVIS_) {
-         echo "\r\nid : " . $userID . "\r\n user : " . $user . "\r\n pwd : " . $pwd;
-         echo "\r\n hash pwd : " . password_hash($pwd, PASSWORD_DEFAULT);
-      }
+
       // Retour...
       return $monRetour;
    }
