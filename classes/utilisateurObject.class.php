@@ -349,17 +349,17 @@ echo $user;
       // Les images possédées
       $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = ?");
       $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-      $req->execute();
+      echo $req->execute();
 
       // Historique des logins
       $req = maBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = ?");
       $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-      $req->execute();
+      echo $req->execute();
 
       // Paramètres du compte
       $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = ?");
       $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
-      $req->execute();
+      echo $req->execute();
    }
 
    /**
