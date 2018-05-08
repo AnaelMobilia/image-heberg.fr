@@ -195,7 +195,7 @@ class membreTest extends TestCase {
        * Simulation d'une connexion
        */
       $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['oldUserPassword']), "connexion avant");
 
       /**
        *  Appel de la page
@@ -233,7 +233,7 @@ class membreTest extends TestCase {
        * Simulation d'une connexion
        */
       $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
       /**
        *  Appel de la page
@@ -271,7 +271,7 @@ class membreTest extends TestCase {
        * Simulation d'une connexion
        */
       $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
       /**
        *  Appel de la page
