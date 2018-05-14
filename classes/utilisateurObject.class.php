@@ -29,7 +29,7 @@ class utilisateurObject {
    private $ipInscription;
    private $level = self::levelGuest;
    private $id = 0;
-   private $isActif;
+   private $isActif = 1;
    private $token;
 
    // Niveaux de droits
