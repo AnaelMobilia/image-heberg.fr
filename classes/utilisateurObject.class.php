@@ -29,6 +29,8 @@ class utilisateurObject {
    private $ipInscription;
    private $level = self::levelGuest;
    private $id = 0;
+   private $isActif;
+   private $token;
 
    // Niveaux de droits
    const levelGuest = 0;
@@ -116,6 +118,38 @@ class utilisateurObject {
     */
    public function getId() {
       return (int) $this->id;
+   }
+
+   /**
+    * Utilisateur est actif ?
+    * @return boolean
+    */
+   public function getIsActif() {
+      return $this->isActif;
+   }
+
+   /**
+    * Token associé au compte utilisateur
+    * @return string|null
+    */
+   public function getToken() {
+      return $this->token;
+   }
+
+   /**
+    * Utilisateur est actif ?
+    * @param boolean $isActif
+    */
+   public function setIsActif($isActif) {
+      $this->isActif = $isActif;
+   }
+
+   /**
+    * Token lié à l'utilisateur
+    * @param string|null $token
+    */
+   public function setToken($token) {
+      $this->token = $token;
    }
 
    /**
@@ -302,6 +336,8 @@ class utilisateurObject {
          $this->setIpInscription($values->ip_inscription);
          $this->setLevel($values->lvl);
          $this->setPassword($values->password);
+         $this->setIsActif($values->isActif);
+         $this->setToken($values->token);
 
          // Gestion du retour
          $monRetour = TRUE;
@@ -314,13 +350,15 @@ class utilisateurObject {
     * Enregistrement (BDD) d'un utilisateur
     */
    public function enregistrer() {
-      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl) VALUES (?, ?, ?, NOW(), ?, ?)");
+      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?)");
       $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
       $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
       $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
       // Date est définie par NOW()
       $req->bindValue(4, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
       $req->bindValue(5, $this->getLevel(), PDO::PARAM_INT);
+      $req->bindValue(6, $this->getIsActif(), PDO::PARAM_BOOL);
+      $req->bindValue(7, $this->getToken(), PDO::PARAM_STR);
 
       $req->execute();
    }
@@ -329,12 +367,14 @@ class utilisateurObject {
     * Modifier (BDD) un utilisateur déjà existant
     */
    public function modifier() {
-      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, password = ?, lvl = ? WHERE id = ?");
+      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, password = ?, lvl = ?, isActif = ?, token = ? WHERE id = ?");
       $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
       $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
       $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
       $req->bindValue(4, $this->getLevel(), PDO::PARAM_INT);
-      $req->bindValue(5, $this->getId(), PDO::PARAM_INT);
+      $req->bindValue(5, $this->getIsActif(), PDO::PARAM_BOOL);
+      $req->bindValue(6, $this->getToken(), PDO::PARAM_STR);
+      $req->bindValue(7, $this->getId(), PDO::PARAM_INT);
 
       $req->execute();
    }

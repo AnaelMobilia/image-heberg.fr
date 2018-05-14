@@ -62,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `date_inscription` date NOT NULL,
   `ip_inscription` text NOT NULL,
   `lvl` tinyint(4) NOT NULL,
+  `isActif` tinyint(1) NOT NULL DEFAULT '1',
+  `token` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
