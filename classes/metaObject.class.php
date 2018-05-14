@@ -151,9 +151,9 @@ class metaObject {
     */
    public static function getAllPicsOffOneUser($userId) {
       // Toutes les images
-      $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = ? ");
+      $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $userId, PDO::PARAM_INT);
+      $req->bindValue(':pkMembres', $userId, PDO::PARAM_INT);
 
       // Exécution de la requête
       $req->execute();
@@ -191,9 +191,9 @@ class metaObject {
     * @return boolean
     */
    public static function verifierLoginDisponible($login) {
-      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
+      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $login, PDO::PARAM_STR);
+      $req->bindValue(':login', $login, PDO::PARAM_STR);
       $req->execute();
 
       // Par défaut le login est disponible

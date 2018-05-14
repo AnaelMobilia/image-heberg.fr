@@ -227,9 +227,9 @@ class utilisateurObject {
       $monRetour = 0;
 
       // Vérification de l'existance du login
-      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = ?");
+      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $user, PDO::PARAM_STR);
+      $req->bindValue(':login', $user, PDO::PARAM_STR);
       $req->execute();
 
       // Je récupère les potentielles valeurs
@@ -298,9 +298,9 @@ class utilisateurObject {
          $maSession->setUserObject($this);
 
          // J'enregistre en BDD la connexion réussie
-         $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (?, NOW(), ?)");
-         $req->bindValue(1, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-         $req->bindValue(2, $userID, PDO::PARAM_INT);
+         $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (:ipLogin, NOW(), :pkMembres)");
+         $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+         $req->bindValue(':pkMembres', $userID, PDO::PARAM_INT);
 
          $req->execute();
       }
@@ -318,9 +318,9 @@ class utilisateurObject {
       $monRetour = FALSE;
 
       // Je récupère les données en BDD
-      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = ?");
+      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $userID, PDO::PARAM_INT);
+      $req->bindValue(':id', $userID, PDO::PARAM_INT);
       $req->execute();
 
       // Je récupère les potentielles valeurs
@@ -350,15 +350,15 @@ class utilisateurObject {
     * Enregistrement (BDD) d'un utilisateur
     */
    public function enregistrer() {
-      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (?, ?, ?, NOW(), ?, ?, ?, ?)");
-      $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
-      $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
-      $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
+      $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
+      $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+      $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
+      $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
       // Date est définie par NOW()
-      $req->bindValue(4, $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-      $req->bindValue(5, $this->getLevel(), PDO::PARAM_INT);
-      $req->bindValue(6, $this->getIsActif(), PDO::PARAM_BOOL);
-      $req->bindValue(7, $this->getToken(), PDO::PARAM_STR);
+      $req->bindValue(':ipInscription', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+      $req->bindValue(':lvl', $this->getLevel(), PDO::PARAM_INT);
+      $req->bindValue(':isActif', $this->getIsActif(), PDO::PARAM_BOOL);
+      $req->bindValue(':token', $this->getToken(), PDO::PARAM_STR);
 
       $req->execute();
    }
@@ -367,14 +367,14 @@ class utilisateurObject {
     * Modifier (BDD) un utilisateur déjà existant
     */
    public function modifier() {
-      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = ?, login = ?, password = ?, lvl = ?, isActif = ?, token = ? WHERE id = ?");
-      $req->bindValue(1, $this->getEmail(), PDO::PARAM_STR);
-      $req->bindValue(2, $this->getUserNameBDD(), PDO::PARAM_STR);
-      $req->bindValue(3, $this->getPassword(), PDO::PARAM_STR);
-      $req->bindValue(4, $this->getLevel(), PDO::PARAM_INT);
-      $req->bindValue(5, $this->getIsActif(), PDO::PARAM_BOOL);
-      $req->bindValue(6, $this->getToken(), PDO::PARAM_STR);
-      $req->bindValue(7, $this->getId(), PDO::PARAM_INT);
+      $req = maBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
+      $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+      $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
+      $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+      $req->bindValue(':lvl', $this->getLevel(), PDO::PARAM_INT);
+      $req->bindValue(':isActif', $this->getIsActif(), PDO::PARAM_BOOL);
+      $req->bindValue(':token', $this->getToken(), PDO::PARAM_STR);
+      $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
       $req->execute();
    }
@@ -384,18 +384,18 @@ class utilisateurObject {
     */
    public function supprimer() {
       // Les images possédées
-      $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = ?");
-      $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+      $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = :pkMembres");
+      $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
       $req->execute();
 
       // Historique des logins
-      $req = maBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = ?");
-      $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+      $req = maBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = :pkMembres");
+      $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
       $req->execute();
 
       // Paramètres du compte
-      $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = ?");
-      $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+      $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = :id");
+      $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
       $req->execute();
    }
 
@@ -409,9 +409,9 @@ class utilisateurObject {
       }
 
       // Les images possédées
-      $req = maBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (?, ?)");
-      $req->bindValue(1, $imageObject->getId(), PDO::PARAM_INT);
-      $req->bindValue(2, $this->getId(), PDO::PARAM_INT);
+      $req = maBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (:imageId, :pkMembres)");
+      $req->bindValue(':imageId', $imageObject->getId(), PDO::PARAM_INT);
+      $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
       $req->execute();
    }
 

@@ -211,19 +211,19 @@ class outils {
              * Utilisateur anonyme
              * Recherche sur MD5, @IP (sauf images possédées) sur les 15 derniers jours !
              */
-            $req = maBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = ? AND ip_envoi = ? AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id NOT IN (SELECT image_id from possede) ORDER BY date_envoi DESC");
+            $req = maBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5 AND ip_envoi = :ipEnvoi AND date_envoi > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id NOT IN (SELECT image_id from possede) ORDER BY date_envoi DESC");
             /* @var $req PDOStatement */
-            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-            $req->bindValue(2, $uneIp, PDO::PARAM_STR);
+            $req->bindValue(':md5', $unMD5, PDO::PARAM_STR);
+            $req->bindValue(':ipEnvoi', $uneIp, PDO::PARAM_STR);
          } else {
             /**
              * Utilisateur authentifié
              * Recherche sur MD5, possede (sur ses images)
              */
-            $req = maBDD::getInstance()->prepare("SELECT new_name FROM images, possede, membres WHERE md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = ? ORDER BY date_envoi DESC");
+            $req = maBDD::getInstance()->prepare("SELECT new_name FROM images, possede, membres WHERE md5 = :md5 AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = :id ORDER BY date_envoi DESC");
             /* @var $req PDOStatement */
-            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-            $req->bindValue(2, $maSession->getId(), PDO::PARAM_INT);
+            $req->bindValue(':md5', $unMD5, PDO::PARAM_STR);
+            $req->bindValue(':id', $maSession->getId(), PDO::PARAM_INT);
          }
       }
       /**
@@ -234,19 +234,19 @@ class outils {
              * Utilisateur anonyme
              * Recherche sur MD5, @IP (sauf images possédées)
              */
-            $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images WHERE thumbnails.md5 = ? AND images.ip_envoi = ? AND thumbnails.date_creation > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id_image NOT IN (SELECT image_id from possede) AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
+            $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images WHERE thumbnails.md5 = :md5 AND images.ip_envoi = :ipEnvoi AND thumbnails.date_creation > DATE_SUB(NOW(), INTERVAL 15 DAY) AND id_image NOT IN (SELECT image_id from possede) AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
             /* @var $req PDOStatement */
-            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-            $req->bindValue(2, $uneIp, PDO::PARAM_STR);
+            $req->bindValue(':md5', $unMD5, PDO::PARAM_STR);
+            $req->bindValue(':ipEnvoi', $uneIp, PDO::PARAM_STR);
          } else {
             /**
              * Utilisateur authentifié
              * Recherche sur MD5, possede (sur ses images)
              */
-            $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images, possede, membres WHERE thumbnails.md5 = ? AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = ? AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
+            $req = maBDD::getInstance()->prepare("SELECT thumbnails.new_name FROM thumbnails, images, possede, membres WHERE thumbnails.md5 = :md5 AND images.id = possede.image_id AND possede.pk_membres = membres.id AND membres.id = :id AND thumbnails.id_image = images.id ORDER BY date_envoi DESC");
             /* @var $req PDOStatement */
-            $req->bindValue(1, $unMD5, PDO::PARAM_STR);
-            $req->bindValue(2, $maSession->getId(), PDO::PARAM_INT);
+            $req->bindValue(':md5', $unMD5, PDO::PARAM_STR);
+            $req->bindValue(':id', $maSession->getId(), PDO::PARAM_INT);
          }
       }
 

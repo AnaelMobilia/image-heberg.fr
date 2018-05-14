@@ -233,9 +233,9 @@ abstract class ressourceObject {
       $monRetour = FALSE;
 
       // Je vais chercher les infos en BDD
-      $req = maBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = ?");
+      $req = maBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+      $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
       $req->execute();
 
       // Je récupère les potentielles valeurs

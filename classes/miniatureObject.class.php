@@ -48,9 +48,9 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
       $monRetour = FALSE;
 
       // Je vais chercher les infos en BDD
-      $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = ?");
+      $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $newName, PDO::PARAM_INT);
+      $req->bindValue(':newName', $newName, PDO::PARAM_INT);
       $req->execute();
 
       // J'éclate les informations
@@ -86,19 +86,19 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     */
    public function sauver() {
       // J'enregistre les infos en BDD
-      $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = ?, date_creation = ?, new_name = ?, size = ?, height = ?, width = ?, last_view = ?, nb_view_v4 = ?, nb_view_v6 = ?, md5 = ? WHERE id = ?");
+      $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
 
-      $req->bindValue(1, $this->getIdImage(), PDO::PARAM_INT);
-      $req->bindValue(2, $this->getDateEnvoiBrute());
-      $req->bindValue(3, $this->getNomNouveau(), PDO::PARAM_STMT);
-      $req->bindValue(4, $this->getPoids(), PDO::PARAM_INT);
-      $req->bindValue(5, $this->getHauteur(), PDO::PARAM_INT);
-      $req->bindValue(6, $this->getLargeur(), PDO::PARAM_INT);
-      $req->bindValue(7, $this->getLastView());
-      $req->bindValue(8, $this->getNbViewIPv4(), PDO::PARAM_INT);
-      $req->bindValue(9, $this->getNbViewIPv6(), PDO::PARAM_INT);
-      $req->bindValue(10, $this->getMd5(), PDO::PARAM_STR);
-      $req->bindValue(11, $this->getId(), PDO::PARAM_INT);
+      $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
+      $req->bindValue(':dateCreation', $this->getDateEnvoiBrute());
+      $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STMT);
+      $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
+      $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
+      $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
+      $req->bindValue(':lastView', $this->getLastView());
+      $req->bindValue(':nbViewV4', $this->getNbViewIPv4(), PDO::PARAM_INT);
+      $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
+      $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+      $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
       $req->execute();
    }
@@ -111,9 +111,9 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
       /**
        * Suppression de l'image en BDD
        */
-      $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = ?");
+      $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
       /* @var $req PDOStatement */
-      $req->bindValue(1, $this->getId(), PDO::PARAM_INT);
+      $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
       $monRetour = $req->execute();
 
       /**
@@ -121,9 +121,9 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
        */
       if ($monRetour) {
          // Existe-t-il d'autres occurences de cette image ?
-         $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = ?");
+         $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
          /* @var $req PDOStatement */
-         $req->bindValue(1, $this->getMd5(), PDO::PARAM_STR);
+         $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
          $req->execute();
          $values = $req->fetch();
 
@@ -181,14 +181,14 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
          /**
           * Création en BDD
           */
-         $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (?, NOW(), ?, ?, ?, ?, ?)");
-         $req->bindValue(1, $this->getIdImage(), PDO::PARAM_INT);
+         $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (:idImage, NOW(), :newName, :size, :height, :width, :md5)");
+         $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
          // Date : NOW()
-         $req->bindValue(2, $this->getNomNouveau(), PDO::PARAM_STR);
-         $req->bindValue(3, $this->getPoids(), PDO::PARAM_INT);
-         $req->bindValue(4, $this->getHauteur(), PDO::PARAM_INT);
-         $req->bindValue(5, $this->getLargeur(), PDO::PARAM_INT);
-         $req->bindValue(6, $this->getMd5(), PDO::PARAM_STR);
+         $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STR);
+         $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
+         $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
+         $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
+         $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
 
          if (!$req->execute()) {
             // Gestion de l'erreur d'insertion en BDD
