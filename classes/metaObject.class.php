@@ -31,8 +31,9 @@ class metaObject {
     */
    public static function getNeverUsedOneYear() {
       // Toutes les images jamais affichées & envoyées il y a plus d'un an
-      $dateUnAn = date('Y-m-d', strtotime('-1year'));
-      $req = "SELECT new_name FROM images where last_view = '0000-00-00' and date_envoi < '" . $dateUnAn . "' AND id NOT IN (SELECT image_id FROM possede)";
+      $req = "SELECT new_name FROM images where last_view = '0000-00-00'
+               AND date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
+               AND id NOT IN (SELECT image_id FROM possede)";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);
@@ -53,9 +54,10 @@ class metaObject {
     * @return \ArrayObject
     */
    public static function getUnusedThreeYear() {
-      // Toutes les images jnon affichées depuis 3 ans
-      $dateTroisAns = date('Y-m-d', strtotime('-3year'));
-      $req = "SELECT new_name FROM images where last_view < '" . $dateTroisAns . "' AND date_envoi < '" . $dateTroisAns . "' AND id NOT IN (SELECT image_id FROM possede)";
+      // Toutes les images non affichées depuis 3 ans
+      $req = "SELECT new_name FROM images where last_view < DATE_SUB(CURRENT_DATE(), INTERVAL 3 YEAR)
+               AND date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL 3 YEAR)
+               AND id NOT IN (SELECT image_id FROM possede)";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);
