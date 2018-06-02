@@ -59,18 +59,6 @@ if ($monObjet->isBloque()) {
 }
 
 /**
- * Envoi du bon entête HTTP
- */
-if (!_TRAVIS_) {
-   header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
-}
-
-/**
- * Envoi du fichier
- */
-readfile($monObjet->getPathMd5());
-
-/**
  * Mise à jour des stats d'affichage
  */
 if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
@@ -81,4 +69,20 @@ if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
    $monObjet->setNbViewIpv6PlusUn();
 }
 $monObjet->sauver();
-?>
+
+/**
+ * Fermeture du lien sur la BDD
+ */
+maBDD::close();
+
+/**
+ * Envoi du bon entête HTTP
+ */
+if (!_TRAVIS_) {
+   header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
+}
+
+/**
+ * Envoi du fichier
+ */
+readfile($monObjet->getPathMd5());

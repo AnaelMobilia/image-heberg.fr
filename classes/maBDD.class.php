@@ -76,4 +76,11 @@ class maBDD {
       return $this->maBDD->lastInsertId();
    }
 
+   /**
+    * Fermeture du PDO
+    */
+   public static function close() {
+      self::$monInstance = null;
+   }
+
 }
