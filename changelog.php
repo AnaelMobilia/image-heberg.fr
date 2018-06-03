@@ -30,7 +30,7 @@ require _TPL_TOP_;
             </a>
         </h2>
     </div>
-    <div id="v20" class="panel-collapse">
+    <div id="v21" class="panel-collapse">
         <div class="panel-body">
             <ul>
                 <li>Migration jQuery 2 => 3</li>
@@ -53,13 +53,30 @@ require _TPL_TOP_;
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#v201">
+                v2.0.1 - Juin 2018
+                &nbsp;<span class="caret"></span>
+            </a>
+        </h2>
+    </div>
+    <div id="v201" class="panel-collapse">
+        <div class="panel-body">
+            <ul>
+                <li>Ajout d'une liste des referer</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#v20">
                 v2.0 - Novembre 2016
                 &nbsp;<span class="caret"></span>
             </a>
         </h2>
     </div>
-    <div id="v20" class="panel-collapse">
+    <div id="v20" class="panel-collapse collapse">
         <div class="panel-body">
             <ul>
                 <li>Réactivation de l'ensemble des fonctionnalités du site (miniatures, retournement, ...)</li>
