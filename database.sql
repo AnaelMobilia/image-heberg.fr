@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 
 CREATE TABLE IF NOT EXISTS `referer` (
   `id` int(11) NOT NULL,
-  `urlExt` varchar(255) NOT NULL,
+  `urlExt` varchar(255) NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `urlInt` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
