@@ -22,6 +22,13 @@ require _TPL_TOP_;
 
 // Anti-flood
 $_SESSION['_upload'] = TRUE;
+
+// Statistiques d'usage
+$req = maBDD::getInstance()->prepare("INSERT INTO referer (urlExt, urlInt) VALUES (:urlExt, :urlInt)");
+
+$req->bindValue(':urlExt', $_SERVER['HTTP_REFERER'], PDO::PARAM_INT);
+$req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
+$req->execute();
 ?>
 <h1><small>Envoyer une image</small></h1>
 <div class="alert alert-info">

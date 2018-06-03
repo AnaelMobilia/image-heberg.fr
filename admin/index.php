@@ -56,6 +56,13 @@ require _TPL_TOP_;
             &nbsp;
             Vérifier la cohérence disque / BDD
         </a>
+        <div class="clearfix"></div>
+        <br />
+        <a href="<?= _URL_ADMIN_ ?>referer.php" class="btn btn-default">
+            <span class="glyphicon glyphicon-check"></span>
+            &nbsp;
+            Afficher les referer
+        </a>
     </div>
 </div>
 <?php require _TPL_BOTTOM_ ?>
