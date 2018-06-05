@@ -217,7 +217,8 @@ class metaObject {
    public static function getReferers() {
       // Toutes les images
       $req = "SELECT urlExt, count(*) AS nb FROM referer
-               GROUP BY urlExt";
+               GROUP BY urlExt
+               ORDER BY 2 DESC";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);
