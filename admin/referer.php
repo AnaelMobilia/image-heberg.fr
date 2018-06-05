@@ -34,24 +34,24 @@ $listeReferer = metaObject::getReferers();
         </h2>
     </div>
     <div class="panel-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <td>URL</td>
-                    <td>#</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($listeReferer as $key => $value): ?>
-                   <tr>
-                       <td><?= $key ?></td>                       
-                       <td><?= $value ?></td>
-                   </tr>
-                <?php endforeach; ?>               
-            </tbody>
-
-        </table>
-
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>URL</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($listeReferer as $key => $value): ?>
+                       <tr>
+                           <td><?= $value ?></td>
+                           <td><?= $key ?></td>                       
+                       </tr>
+                    <?php endforeach; ?>               
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <?php
