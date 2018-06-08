@@ -36,6 +36,11 @@ $req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
 $req->execute();
 ?>
 <h1><small>Envoyer une image</small></h1>
+<div class="alert alert-danger">
+    <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
+    <br>
+    Si vous souhaitez soutenir le projet, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
+</div>
 <div class="alert alert-info">
     <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
     <ul>
@@ -51,7 +56,7 @@ $req->execute();
             <div class="form-group form-group-lg">
                 <label for="fichier" class="col-md-3">Fichier à envoyer</label>
                 <div class="col-md-9">
-                    <input type="file" accept="image/*" name="fichier" id="fichier">
+                    <input type="file" accept="image/*" name="fichier" id="fichier" disabled="disabled">
                     <span class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</span>
                 </div>
             </div>
