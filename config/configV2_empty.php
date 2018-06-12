@@ -53,7 +53,9 @@ if (!_TRAVIS_) {
       $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
       $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
       $message .= "\r\nURL : " . $_SERVER['REQUEST_URI'];
-      $message .= "\r\nHTTP REFERER : " . $_SERVER['HTTP_REFERER'];
+      if (isset($_SERVER['HTTP_REFERER'])) {
+         $message .= "\r\nHTTP REFERER : " . $_SERVER['HTTP_REFERER'];
+      }
       $message .= "\r\nHTTP USER AGENT : " . $_SERVER['HTTP_USER_AGENT'];
       $message .= "\r\nREMOTE ADDR : " . $_SERVER['REMOTE_ADDR'];
 
