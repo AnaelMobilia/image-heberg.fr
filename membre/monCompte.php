@@ -26,7 +26,7 @@ require _TPL_TOP_;
 // Je récupère la session de mon utilisateur
 $maSession = new sessionObject();
 // Et je reprend ses données
-$monUtilisateur = new utilisateurObject();
+$monUtilisateur = new utilisateurObject($maSession->getId());
 
 if (isset($_POST['modifierPwd'])) {
    // Je vérifie qu'on me donne le bon mot de passe
