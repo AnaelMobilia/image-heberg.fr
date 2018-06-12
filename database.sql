@@ -105,7 +105,8 @@ CREATE TABLE IF NOT EXISTS `referer` (
   `urlExt` varchar(255) NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `urlInt` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `urlExt` (`urlExt`);
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
