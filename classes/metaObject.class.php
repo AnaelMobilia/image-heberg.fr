@@ -36,9 +36,10 @@ class metaObject {
                WHERE im.last_view = '0000-00-00'
                AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
                /* Préservation des fichiers des membres */
-               AND im.id NOT IN (
-                  SELECT image_id
-                  FROM possede
+               AND 0 = (
+                  SELECT COUNT(*)
+                  FROM possede po
+                  WHERE po.image_id = im.id
                )
                /* Préservation si miniature affichée */
                AND 0 = (
@@ -74,9 +75,10 @@ class metaObject {
                /* Non prise en compte des images jamais affichées */
                AND im.last_view != '0000-00-00'
                /* Préservation des images membres */
-               AND im.id NOT IN (
-                  SELECT image_id
-                  FROM possede
+               AND 0 = (
+                  SELECT COUNT(*)
+                  FROM possede po
+                  WHERE po.image_id = im.id
                )
                /* Préservation si miniature affichée */
                AND 0 = (

@@ -74,7 +74,8 @@ CREATE TABLE IF NOT EXISTS `membres` (
 CREATE TABLE IF NOT EXISTS `possede` (
   `image_id` int(11) NOT NULL,
   `pk_membres` int(11) NOT NULL,
-  PRIMARY KEY (`image_id`,`pk_membres`)
+  PRIMARY KEY (`image_id`,`pk_membres`),
+  KEY `image_id` (`image_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -93,7 +94,8 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
   `nb_view_v4` int(11) NOT NULL DEFAULT '0',
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   `md5` tinytext NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id_image` (`id_image`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
