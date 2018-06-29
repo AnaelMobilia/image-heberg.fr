@@ -41,7 +41,7 @@ require _TPL_TOP_;
         <br />
         Graphismes et images : <a href="http://getbootstrap.com/">Bootstrap</a>
         <br />
-        Logo "Fork me on GitHub : <a href="https://github.com/tholman/github-corners">Tim Holman</a>
+        Logo "Fork me on GitHub" inspiré de <a href="https://github.com/tholman/github-corners">Tim Holman</a>
         <br />
         Technologies : PHP, MySQL, HTML5, CSS, jQuery
     </div>
