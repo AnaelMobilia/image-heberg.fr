@@ -30,9 +30,10 @@ RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
 RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 # HTTP
+RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
 RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
-RewriteRule (.*) http://www.image-heberg.fr/$1 [R=301,L,NE]
+RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
 # Protection des répertoires classes, config, __tests, includes
 RewriteCond %{REQUEST_URI} ^/classes/ [OR]
@@ -47,5 +48,5 @@ RewriteRule .* displayPics.php [L]
 
 # HTTPS obligatoire pour le site (hors affichage image)
 RewriteCond %{HTTPS} off
-RewriteCond !%{REQUEST_URI} ^/files/
+RewriteCond %{REQUEST_URI} !^/files/
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
