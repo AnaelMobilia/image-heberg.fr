@@ -26,18 +26,31 @@
 class metaObject {
 
    /**
-    * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis une année
+    * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
     * @return \ArrayObject
     */
-   public static function getNeverUsedOneYear() {
-      // Toutes les images jamais affichées & envoyées il y a plus d'un an
-      $req = "SELECT new_name FROM images where last_view = '0000-00-00'
-               AND date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
-               AND id NOT IN (SELECT image_id FROM possede)";
+   public static function getNeverUsedFiles() {
+      // Toutes les images jamais affichées & envoyées il y a plus de xx jours
+      $req = "SELECT im.new_name
+               FROM images im
+               WHERE im.last_view = '0000-00-00'
+               AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
+               /* Préservation des fichiers des membres */
+               AND im.id NOT IN (
+                  SELECT image_id
+                  FROM possede
+               )
+               /* Préservation si miniature affichée */
+               AND 0 = (
+                  SELECT COUNT(*)
+                  FROM thumbnails th
+                  WHERE th.id_image = im.id
+                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
+               )
+";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);
-
 
       $retour = new ArrayObject();
       // Pour chaque résultat retourné
@@ -50,14 +63,28 @@ class metaObject {
    }
 
    /**
-    * Liste des images n'ayant pas été affichées les trois dernières années
+    * Liste des images plus utilisées depuis au moins xx jours
     * @return \ArrayObject
     */
-   public static function getUnusedThreeYear() {
-      // Toutes les images non affichées depuis 3 ans
-      $req = "SELECT new_name FROM images where last_view < DATE_SUB(CURRENT_DATE(), INTERVAL 3 YEAR)
-               AND date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL 3 YEAR)
-               AND id NOT IN (SELECT image_id FROM possede)";
+   public static function getUnusedFiles() {
+      // Toutes les images non affichées depuis xx jours
+      $req = "SELECT im.new_name
+               FROM images im
+               WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
+               /* Non prise en compte des images jamais affichées */
+               AND im.last_view != '0000-00-00'
+               /* Préservation des images membres */
+               AND im.id NOT IN (
+                  SELECT image_id
+                  FROM possede
+               )
+               /* Préservation si miniature affichée */
+               AND 0 = (
+                  SELECT COUNT(*)
+                  FROM thumbnails th
+                  WHERE th.id_image = im.id
+                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
+               )";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);
@@ -218,7 +245,8 @@ class metaObject {
       // Toutes les images
       $req = "SELECT urlExt, count(*) AS nb FROM referer
                GROUP BY urlExt
-               ORDER BY 2 DESC";
+               ORDER BY 2 DESC
+               LIMIT 0, 250";
 
       // Exécution de la requête
       $resultat = maBDD::getInstance()->query($req);

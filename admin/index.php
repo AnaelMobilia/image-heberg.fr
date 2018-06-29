@@ -37,17 +37,17 @@ require _TPL_TOP_;
         </a>
         <div class="clearfix"></div>
         <br />
-        <a href="<?= _URL_ADMIN_ ?>cleanNeverUsedOneYear.php" class="btn btn-danger">
+        <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-danger">
             <span class="glyphicon glyphicon-trash"></span>
             &nbsp;
-            Fichiers non affichés et envoi > 1 an
+            Fichiers jamais utilisés
         </a>
         <div class="clearfix"></div>
         <br />
-        <a href="<?= _URL_ADMIN_ ?>cleanUnusedThreeYears.php" class="btn btn-danger">
+        <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-danger">
             <span class="glyphicon glyphicon-flash"></span>
             &nbsp;
-            Fichiers dernier affichage > 3 ans
+            Fichiers inactifs
         </a>
         <div class="clearfix"></div>
         <br />

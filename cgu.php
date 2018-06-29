@@ -50,8 +50,8 @@ require _TPL_TOP_;
             <li>Traffic illimit&eacute; <em>(hors abus)</em>.</li>
             <li><b>Conservation :</b>
                 <ul>
-                    <li>Trois (3) ans à compter de la dernière utilisation du fichier.</li>
-                    <li>A défaut, Un (1) an après l'envoi <em>(si aucun affichage)</em>.</li>
+                    <li><?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour(s) à compter de la dernière utilisation du fichier.</li>
+                    <li>A défaut, <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) après l'envoi <em>(si aucun affichage)</em>.</li>
                 </ul>
             </li>
             <li>Nombre d'images par compte : illimit&eacute;.</li>
@@ -61,7 +61,7 @@ require _TPL_TOP_;
             <li>Rappel : l'administrateur peut-avoir acc&egrave;s &agrave; toutes les donn&eacute;es du service.</li>
         </ul>
         <div class="panel-footer">
-            <em>Mise &agrave; jour le 24 janvier 2014 : éclaircissement sur les durées de conservation</em>
+            <em>Mise &agrave; jour le 29 juin 2018 : réduction des durées de conservation des images inactives</em>
         </div>
     </div>
 </div>

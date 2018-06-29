@@ -22,12 +22,12 @@ require '../config/configV2.php';
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
-<h1><small>Nettoyage des fichiers jamais utilisés depuis 1 année</small></h1>
+<h1><small>Nettoyage des fichiers dormants</small></h1>
 <?php
 $message = '';
 
-// Je récupère la liste des images non affichées depuis un an
-$listeImages = metaObject::getNeverUsedOneYear();
+// Je récupère la liste des images non affichées depuis xx jours
+$listeImages = metaObject::getUnusedFiles();
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
@@ -40,14 +40,14 @@ if (isset($_POST['effacer'])) :
    }
    $message .= '<br />Effacement terminé !';
    ?>
-   <div class = "alert alert-success">
+   <div class="alert alert-success">
        <?= $message ?>
    </div>
 <?php else: ?>
    <div class="panel panel-primary">
        <div class="panel-heading">
            <h2 class="panel-title">
-               <?= $listeImages->count() ?> image(s) envoyée(s) il y a au moins un an n'ont jamais été affichée(s)
+               <?= $listeImages->count() ?> image(s) non affichée(s) depuis au moins <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour(s).
            </h2>
        </div>
        <div class="panel-body">
