@@ -53,3 +53,16 @@ body {
     padding-bottom : 10px !important;
     padding-top: 0px !important;
 }
+
+/* Fork me on Github */
+.forkMeOnGitHub {
+    /* Couleur de fond */
+    fill: #5cb85c;
+    /* Couleur de l'image */
+    color: #fff;
+    /* Positionnement */
+    position: absolute;
+    top: 0;
+    border: 0;
+    right: 0;
+}
