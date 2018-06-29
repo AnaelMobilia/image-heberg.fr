@@ -43,7 +43,7 @@ require _TPL_TOP_;
                 <li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
                 <li>Membres : Permettre le changement de mot de passe</li>
                 <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
-                <li>Membres : Afficher les lines de partage dans l'espace membre</li>
+                <li>Membres : Afficher les liens de partage dans l'espace membre</li>
                 <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
                 <li>Meilleure gestion des statistiques d'affichage (trop d'appels à la base de données)</li>
             </ul>
@@ -63,6 +63,7 @@ require _TPL_TOP_;
         <div class="panel-body">
             <ul>
                 <li>Ajout d'une liste des referer</li>
+                <li>Gestion dynamique des délais avant suppression des fichiers inactifs</li>
             </ul>
         </div>
     </div>
