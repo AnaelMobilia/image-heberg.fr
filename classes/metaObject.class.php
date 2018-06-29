@@ -238,7 +238,7 @@ class metaObject {
 
       return $retour;
    }
-   
+
    /**
     * Page de provenance des visiteurs
     * @return \ArrayObject
@@ -259,6 +259,29 @@ class metaObject {
          // J'ajoute le nom de l'image
          $retour->offsetSet($value->urlExt, $value->nb);
       }
+
+      return $retour;
+   }
+
+   /**
+    * Volume des images
+    * @return int
+    */
+   public static function getHDDUsage() {
+      // Poids de l'ensemble des images
+      $req = "SELECT SUM(im.size) AS images, (
+                  SELECT SUM(th.size)
+                  FROM thumbnails th
+               ) AS miniatures
+               FROM images im";
+
+      // Exécution de la requête
+      $resultat = maBDD::getInstance()->query($req);
+
+      // Récupération de la valeur
+      $value = $resultat->fetch();
+
+      $retour = round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
 
       return $retour;
    }
