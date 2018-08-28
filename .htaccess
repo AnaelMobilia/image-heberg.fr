@@ -44,7 +44,7 @@ RewriteRule .* - [F]
 
 # Images : redirection pour affichage
 RewriteCond %{REQUEST_URI} ^/files/
-RewriteRule .* displayPics.php [L]
+RewriteRule .* displayPics.php [END]
 
 # HTTPS obligatoire pour le site (hors affichage image)
 RewriteCond %{HTTPS} off
