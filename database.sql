@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `referer` (
   `urlInt` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `urlExt` (`urlExt`),
-  KEY `urlInt` (`urlInt`);
+  KEY `urlInt` (`urlInt`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
