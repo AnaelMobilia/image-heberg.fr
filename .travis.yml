@@ -34,7 +34,7 @@ before_script:
   # Création de la BDD
   - mysql -e "CREATE DATABASE imageheberg;"
   # Injection des tables de base
-  - mysql imageheberg < database.sql
+  - mysql -u root --password="" imageheberg < database.sql
   # Copie du fichier de configuration
   - sh -c "mv __tests/config/configV2.php config/"
   # Insertion d'un jeu de données de test
