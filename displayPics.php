@@ -74,16 +74,18 @@ $monObjet->sauver();
  * Suivi des referer
  */
 // Statistiques d'usage
-$req = maBDD::getInstance()->prepare("INSERT INTO referer (urlExt, urlInt) VALUES (:urlExt, :urlInt)");
+if (!defined('_TRAVIS_')) {
+   $req = maBDD::getInstance()->prepare("INSERT INTO referer (urlExt, urlInt) VALUES (:urlExt, :urlInt)");
 
-if(isset($_SERVER['HTTP_REFERER'])) {
-   $referer = $_SERVER['HTTP_REFERER'];
-} else {
-   $referer = null;
+   if (isset($_SERVER['HTTP_REFERER'])) {
+      $referer = $_SERVER['HTTP_REFERER'];
+   } else {
+      $referer = null;
+   }
+   $req->bindValue(':urlExt', $referer, PDO::PARAM_INT);
+   $req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
+   $req->execute();
 }
-$req->bindValue(':urlExt', $referer, PDO::PARAM_INT);
-$req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
-$req->execute();
 
 /**
  * Fermeture du lien sur la BDD
