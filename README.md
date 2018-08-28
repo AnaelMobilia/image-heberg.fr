@@ -4,7 +4,7 @@
 Service d'hébergement d'images en ligne
 
 # Configuration requise
-  - PHP 5.6 ou plus récent
+  - PHP 5.6, 7.0 ou 7.1
   - MySQL
   - Serveur web comprenant les fichiers .htaccess
 
