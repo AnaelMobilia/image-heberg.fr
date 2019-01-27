@@ -240,30 +240,6 @@ class metaObject {
    }
 
    /**
-    * Page de provenance des visiteurs
-    * @return \ArrayObject
-    */
-   public static function getReferers() {
-      // Toutes les images
-      $req = "SELECT urlExt, count(*) AS nb FROM referer
-               GROUP BY urlExt
-               ORDER BY 2 DESC
-               LIMIT 0, 250";
-
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
-
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($resultat->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->offsetSet($value->urlExt, $value->nb);
-      }
-
-      return $retour;
-   }
-
-   /**
     * Volume des images
     * @return int
     */

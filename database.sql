@@ -99,20 +99,6 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Structure de la table `referer`
---
-
-CREATE TABLE IF NOT EXISTS `referer` (
-  `id` int(11) NOT NULL,
-  `urlExt` varchar(255) NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `urlInt` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `urlExt` (`urlExt`),
-  KEY `urlInt` (`urlInt`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
 -- Création du compte administrateur
 --
 INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`) VALUES

@@ -71,23 +71,6 @@ if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
 $monObjet->sauver();
 
 /**
- * Suivi des referer
- */
-// Statistiques d'usage
-if (!defined('_TRAVIS_')) {
-   $req = maBDD::getInstance()->prepare("INSERT INTO referer (urlExt, urlInt) VALUES (:urlExt, :urlInt)");
-
-   if (isset($_SERVER['HTTP_REFERER'])) {
-      $referer = $_SERVER['HTTP_REFERER'];
-   } else {
-      $referer = null;
-   }
-   $req->bindValue(':urlExt', $referer, PDO::PARAM_INT);
-   $req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
-   $req->execute();
-}
-
-/**
  * Fermeture du lien sur la BDD
  */
 maBDD::close();
