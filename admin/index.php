@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright 2008-2018 Anael Mobilia
+ * Copyright 2008-2019 Anael Mobilia
  *
  * This file is part of image-heberg.fr.
  *
