@@ -23,17 +23,6 @@ require _TPL_TOP_;
 // Anti-flood
 $_SESSION['_upload'] = TRUE;
 
-// Statistiques d'usage
-$req = maBDD::getInstance()->prepare("INSERT INTO referer (urlExt, urlInt) VALUES (:urlExt, :urlInt)");
-
-if (isset($_SERVER['HTTP_REFERER'])) {
-   $referer = $_SERVER['HTTP_REFERER'];
-} else {
-   $referer = null;
-}
-$req->bindValue(':urlExt', $referer, PDO::PARAM_INT);
-$req->bindValue(':urlInt', $_SERVER['REQUEST_URI']);
-$req->execute();
 ?>
 <h1><small>Envoyer une image</small></h1>
 <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
