@@ -38,7 +38,6 @@ require _TPL_TOP_;
                 <li>Envoi de plusieurs images simultanément</li>
                 <li>Glisser - déposer pour le choix des fichiers</li>
                 <li>Membres : Albums photos (création, affichage, partage)</li>
-                <li>Membres : Permettre le changement de mot de passe</li>
                 <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
                 <li>Membres : Afficher les liens de partage dans l'espace membre</li>
                 <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
