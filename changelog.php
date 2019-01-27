@@ -33,19 +33,34 @@ require _TPL_TOP_;
     <div id="v21" class="panel-collapse">
         <div class="panel-body">
             <ul>
-                <li>Migration jQuery 2 => 3</li>
                 <li>Migration bootstrap 3 => 4</li>
                 <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur</li>
                 <li>Envoi de plusieurs images simultanément</li>
                 <li>Glisser - déposer pour le choix des fichiers</li>
-                <li>API permettant l'intégration à un site tiers</li>
                 <li>Membres : Albums photos (création, affichage, partage)</li>
-                <li>Membres : Permettre la connexion longue durée sur un ordinateur</li>
                 <li>Membres : Permettre le changement de mot de passe</li>
                 <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
                 <li>Membres : Afficher les liens de partage dans l'espace membre</li>
                 <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
-                <li>Meilleure gestion des statistiques d'affichage (trop d'appels à la base de données)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#v202">
+                v2.0.2 - Janvier 2019
+                &nbsp;<span class="caret"></span>
+            </a>
+        </h2>
+    </div>
+    <div id="v202" class="panel-collapse">
+        <div class="panel-body">
+            <ul>
+                <li>Correction d'une erreur où les images dont seulement les miniatures étaient affichées pouvaient être supprimées.</li>
+                <li>Migration jQuery 2 => 3</li>
+                <li>Suppression de la liste des referer <em>(optimisation des affichages d'images)</em>.</li>
             </ul>
         </div>
     </div>
@@ -59,7 +74,7 @@ require _TPL_TOP_;
             </a>
         </h2>
     </div>
-    <div id="v201" class="panel-collapse">
+    <div id="v201" class="panel-collapse collapse">
         <div class="panel-body">
             <ul>
                 <li>Ajout d'une liste des referer</li>
