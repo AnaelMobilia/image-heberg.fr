@@ -46,7 +46,7 @@ class metaObject {
                   SELECT COUNT(*)
                   FROM thumbnails th
                   WHERE th.id_image = im.id
-                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
+                  AND th.last_view != '0000-00-00'
                )
 ";
 
