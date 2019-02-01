@@ -141,3 +141,6 @@ define('_IMAGE_POIDS_MAX_', 5242880);
 // Délais de conservation des images **en jours**
 define('_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_', 7);
 define('_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_', 365);
+
+// Quota maximal du site pour l'hébergement d'images **en Go**
+define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
