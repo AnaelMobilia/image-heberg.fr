@@ -256,9 +256,6 @@ class outils {
          // Données éventuelles
          $monRetour = $values->new_name;
       }
-      if (_TRAVIS_) {
-         var_dump($monRetour);
-      }
       return $monRetour;
    }
 
