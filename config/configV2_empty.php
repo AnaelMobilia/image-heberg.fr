@@ -129,11 +129,11 @@ define('_BDD_NAME_', 'xxx');
 
 // Administrateur du site
 define('_ADMINISTRATEUR_NOM_', 'Anael MOBILIA');
-define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
+define('_ADMINISTRATEUR_SITE_', '//www.anael.eu/');
 
 // Hébergeur du site
 define('_HEBERGEUR_NOM_', 'OVH');
-define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
+define('_HEBERGEUR_SITE_', '//www.ovh.com');
 
 // Spécifications mémoire
 define('_FUDGE_FACTOR_', 1.8);

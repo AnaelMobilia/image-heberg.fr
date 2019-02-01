@@ -35,13 +35,13 @@ require _TPL_TOP_;
         <h2 class="panel-title">Licences</h2>
     </div>
     <div class="panel-body">
-        Auteur de l'outil : <a href="http://www.anael.eu">Anael MOBILIA</a>
+        Auteur de l'outil : <a href="//www.anael.eu">Anael MOBILIA</a>
         <br />
-        Le <a href="https://github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
+        Le <a href="//github.com/AnaelMobilia/image-heberg.fr">code source est disponible</a> sous licence GNU GPL V3.
         <br />
-        Graphismes et images : <a href="http://getbootstrap.com/">Bootstrap</a>
+        Graphismes et images : <a href="//getbootstrap.com/">Bootstrap</a>
         <br />
-        Logo "Fork me on GitHub" inspiré de <a href="https://github.com/tholman/github-corners">Tim Holman</a>
+        Logo "Fork me on GitHub" inspiré de <a href="//github.com/tholman/github-corners">Tim Holman</a>
         <br />
         Technologies : PHP, MySQL, HTML5, CSS, jQuery
     </div>
