@@ -199,9 +199,6 @@ class outils {
       $monRetour = NULL;
       // Info de l'utilisateur
       $maSession = new sessionObject();
-      if (_TRAVIS_) {
-         var_dump($maSession);
-      }
       /**
        * IMAGE
        */
