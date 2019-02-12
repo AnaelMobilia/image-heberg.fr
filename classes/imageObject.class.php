@@ -68,7 +68,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
          $this->setNbViewIPv4($resultat->nb_view_v4);
          $this->setNbViewIPv6($resultat->nb_view_v6);
          $this->setMd5($resultat->md5);
-         $this->setBloque($resultat->bloque);
+         $this->setBloque($resultat->isBloquee);
 
          // Gestion du retour
          $monRetour = TRUE;
@@ -82,7 +82,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
     */
    public function sauver() {
       // J'enregistre les infos en BDD
-      $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, bloque = :bloque WHERE id = :id");
+      $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee WHERE id = :id");
       $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
       $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
       $req->bindValue(':oldName', $this->getNomOriginal(), PDO::PARAM_STR);
@@ -94,7 +94,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
       $req->bindValue(':nbViewV4', $this->getNbViewIPv4(), PDO::PARAM_INT);
       $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
       $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
-      $req->bindValue(':bloque', $this->isBloque(), PDO::PARAM_INT);
+      $req->bindValue(':isBloquee', $this->isBloque(), PDO::PARAM_INT);
       $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
       $req->execute();

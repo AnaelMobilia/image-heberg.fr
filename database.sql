@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   `nb_view_v4` int(11) NOT NULL DEFAULT '0',
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   `md5` tinytext NOT NULL,
-  `bloque` tinyint(1) NOT NULL DEFAULT '0',
+  `isBloquee` tinyint(1) NOT NULL DEFAULT '0',
+  `isSignalee` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
@@ -107,9 +108,9 @@ INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `
 --
 -- Images 404 & bannie
 --
-INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `bloque`) VALUES
-(1, '127.0.0.1', '2008-01-01 00:00:00', '_image_404.png', '_image_404.png', 30703, 150, 640, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 0),
-(2, '127.0.0.1', '2008-01-01 00:00:00', '_image_banned.png', '_image_banned.png', 28713, 150, 640, '0000-00-00', 0, 0, '12c357976276091e7cd42e98debb7fb1', 0);
+INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
+(1, '127.0.0.1', '2008-01-01 00:00:00', '_image_404.png', '_image_404.png', 30703, 150, 640, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 0, 0),
+(2, '127.0.0.1', '2008-01-01 00:00:00', '_image_banned.png', '_image_banned.png', 28713, 150, 640, '0000-00-00', 0, 0, '12c357976276091e7cd42e98debb7fb1', 0, 0);
 
 --
 -- Assignation à l'administrateur
