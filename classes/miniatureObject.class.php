@@ -71,7 +71,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
          // Reprise des informations de l'image maitresse
          $imageMaitre = new imageObject();
          $imageMaitre->charger($newName);
-         $this->setBloque($imageMaitre->isBloque());
+         $this->setBloquee($imageMaitre->isBloquee());
          $this->setNomOriginal($imageMaitre->getNomOriginal());
          $this->setIpEnvoi($imageMaitre->getIpEnvoi());
 

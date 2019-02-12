@@ -68,7 +68,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
          $this->setNbViewIPv4($resultat->nb_view_v4);
          $this->setNbViewIPv6($resultat->nb_view_v6);
          $this->setMd5($resultat->md5);
-         $this->setBloque($resultat->isBloquee);
+         $this->setBloquee($resultat->isBloquee);
 
          // Gestion du retour
          $monRetour = TRUE;
@@ -94,7 +94,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
       $req->bindValue(':nbViewV4', $this->getNbViewIPv4(), PDO::PARAM_INT);
       $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
       $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
-      $req->bindValue(':isBloquee', $this->isBloque(), PDO::PARAM_INT);
+      $req->bindValue(':isBloquee', $this->isBloquee(), PDO::PARAM_INT);
       $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
       $req->execute();

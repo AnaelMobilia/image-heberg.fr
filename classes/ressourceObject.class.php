@@ -37,7 +37,7 @@ abstract class ressourceObject {
    private $dateEnvoi;
    private $md5;
    private $ipEnvoi;
-   private $bloque;
+   private $isBloquee;
    private $pathTemp;
    private $type;
    private $nomTemp;
@@ -407,8 +407,8 @@ abstract class ressourceObject {
     * Fichier bloqué ?
     * @return boolean
     */
-   public function isBloque() {
-      return $this->bloque;
+   public function isBloquee() {
+      return $this->isBloquee;
    }
 
    /**
@@ -461,10 +461,10 @@ abstract class ressourceObject {
 
    /**
     * Fichier bloqué ?
-    * @param boolean $bloque
+    * @param boolean $bloquee
     */
-   public function setBloque($bloque) {
-      $this->bloque = $bloque;
+   public function setBloquee($bloquee) {
+      $this->isBloquee = $bloquee;
    }
 
    /**
