@@ -53,7 +53,7 @@ if (!$monObjet->charger($fileName)) {
 /**
  * Le fichier est-il bloqué ?
  */
-if ($monObjet->isBloquee()) {
+if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
    $monObjet = new imageObject();
    $monObjet->charger(_IMAGE_BAN_);
 }
