@@ -418,7 +418,7 @@ abstract class ressourceObject {
      * Image signalée ?
      * @return boolean
      */
-    function IsSignalee() {
+    function isSignalee() {
         return $this->isSignalee;
     }
 

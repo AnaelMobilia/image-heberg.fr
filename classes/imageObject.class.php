@@ -96,7 +96,7 @@ class imageObject extends ressourceObject implements ressourceInterface {
       $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
       $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
       $req->bindValue(':isBloquee', $this->isBloquee(), PDO::PARAM_INT);
-      $req->bindValue(':isSignalee', $this->IsSignalee(), PDO::PARAM_INT);
+      $req->bindValue(':isSignalee', $this->isSignalee(), PDO::PARAM_INT);
       $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
       $req->execute();

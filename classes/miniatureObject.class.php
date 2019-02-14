@@ -72,7 +72,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
          $imageMaitre = new imageObject();
          $imageMaitre->charger($newName);
          $this->setBloquee($imageMaitre->isBloquee());
-         $this->setSignalee($imageMaitre->IsSignalee());
+         $this->setSignalee($imageMaitre->isSignalee());
          $this->setNomOriginal($imageMaitre->getNomOriginal());
          $this->setIpEnvoi($imageMaitre->getIpEnvoi());
 
