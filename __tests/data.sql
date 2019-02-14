@@ -20,7 +20,7 @@
 -- Image bloquée
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
-(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0),;
+(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0);
 
 --
 -- Images à supprimer
@@ -35,7 +35,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 -- Image signalée
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
-(15, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, '0000-00-00', 0, 1, 'd456d1b6582a15f0f458006898b40e29', 0, 0);
+(15, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, '0000-00-00', 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1);
 
 --
 -- Miniatures à supprimer
