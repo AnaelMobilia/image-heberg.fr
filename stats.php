@@ -48,6 +48,8 @@ $valPossede = $reqPossede->fetch();
 $bp_v4 = $valImage->bpv4 + $valMiniature->bpv4;
 $bp_v6 = $valImage->bpv6 + $valMiniature->bpv6;
 $bp_all = $bp_v4 + $bp_v6;
+// Fix pour l'affichage des stats sans utilisation du service
+$bp_all = ($bp_all) ? $bp_all : 1;
 // Nombre d'affichages
 $nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
 // Taille totale
