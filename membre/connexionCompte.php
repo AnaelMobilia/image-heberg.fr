@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-   require __DIR__ . '/../config/configV2.php';
+   require __DIR__ . '/../config/config.php';
 }
 
 // Un utilisateur...

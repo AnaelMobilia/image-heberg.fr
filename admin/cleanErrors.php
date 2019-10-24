@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
-require '../config/configV2.php';
+require '../config/config.php';
 // Vérification des droits d'accès
 metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;

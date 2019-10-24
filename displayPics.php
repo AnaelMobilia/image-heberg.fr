@@ -20,7 +20,7 @@
 /**
  * Affichage d'une image & mise à jour des stats
  */
-require 'config/configV2.php';
+require 'config/config.php';
 
 // URL demandée
 $url = $_SERVER['REQUEST_URI'];

@@ -102,7 +102,7 @@ class imageUploadAndDeleteTest extends TestCase {
     * Test de l'envoi simple : présence BDD et HDD
     */
    public function testEnvoi() {
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       unset($_FILES);
       unset($_GET);
@@ -128,7 +128,7 @@ class imageUploadAndDeleteTest extends TestCase {
     * @depends testEnvoi
     */
    public function testEnvoiMiniature() {
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       unset($_FILES);
       unset($_GET);
@@ -158,7 +158,7 @@ class imageUploadAndDeleteTest extends TestCase {
     * @depends testEnvoiMiniature
     */
    public function testEnvoiMiniatureRotation() {
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       unset($_FILES);
       unset($_GET);
@@ -189,7 +189,7 @@ class imageUploadAndDeleteTest extends TestCase {
     * @depends testEnvoiMiniatureRotation
     */
    public function testRenvoiImageDemandeMiniature() {
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       unset($_FILES);
       unset($_GET);
@@ -218,7 +218,7 @@ class imageUploadAndDeleteTest extends TestCase {
     * @depends testRenvoiImageDemandeMiniature
     */
    public function testRenvoiImageDemandeNouvelleMiniature() {
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       unset($_FILES);
       unset($_GET);

@@ -28,7 +28,7 @@ class imageObjectTest extends TestCase {
      * @runInSeparateProcess
      */
     public function testRotationImages() {
-        require 'config/configV2.php';
+        require 'config/config.php';
 
         $monImage = new imageObject();
         // JPG
@@ -106,7 +106,7 @@ class imageObjectTest extends TestCase {
      * @runInSeparateProcess
      */
     public function testRedimensionnementImages() {
-        require 'config/configV2.php';
+        require 'config/config.php';
 
         $monImage = new imageObject();
 

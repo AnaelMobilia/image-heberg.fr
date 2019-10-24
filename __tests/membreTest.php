@@ -41,7 +41,7 @@ class membreTest extends TestCase {
 
    public function testConnexionMembreExistant() {
       // Chargement de la configuration
-      require_once 'config/configV2.php';
+      require_once 'config/config.php';
       unset($_POST);
       /**
        *  Injection des valeurs du formulaire

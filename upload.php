@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-   require 'config/configV2.php';
+   require 'config/config.php';
 }
 require _TPL_TOP_;
 
