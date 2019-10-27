@@ -22,32 +22,32 @@ require _TPL_TOP_;
 
 // En cas de validation du formulaire
 if (isset($_POST['envoyer'])) {
-   // Vérification du bon format de l'adresse mail
-   if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
-      // Je complète le message avec l'IP de mon émeteur
-      $message = $_POST['userMessage'];
-      $message .= "\r\n\r\n ---------------------------------------------";
-      $message .= "\r\n\r\n IP : " . $_SERVER['REMOTE_ADDR'];
-      $message .= "\r\n\r\n BROWSER : " . $_SERVER['HTTP_USER_AGENT'];
+    // Vérification du bon format de l'adresse mail
+    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+        // Je complète le message avec l'IP de mon émeteur
+        $message = $_POST['userMessage'];
+        $message .= "\r\n\r\n ---------------------------------------------";
+        $message .= "\r\n\r\n IP : " . $_SERVER['REMOTE_ADDR'];
+        $message .= "\r\n\r\n BROWSER : " . $_SERVER['HTTP_USER_AGENT'];
 
-      // Tout va bien, on envoit un mail
-      mail(_MAIL_ADMIN_, "[Image-Heberg.fr] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
+        // Tout va bien, on envoit un mail
+        mail(_MAIL_ADMIN_, "[" . _SITE_NAME_ . "] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
 
-      // Retour utilisateur
-      ?>
-      <div class="alert alert-success">Votre message a été envoyé !</div>
-      <?php
-   }
-   // Adresse mail invalide
-   else {
-      ?>
-      <div class = "alert alert-danger">
-          Votre adresse mail n'est pas valide !
-          <br />
-          <pre><?= $_POST['userMail'] ?></pre>
-      </div>
-      <?php
-   }
+        // Retour utilisateur
+        ?>
+        <div class="alert alert-success">Votre message a été envoyé !</div>
+        <?php
+    }
+    // Adresse mail invalide
+    else {
+        ?>
+        <div class = "alert alert-danger">
+            Votre adresse mail n'est pas valide !
+            <br />
+            <pre><?= $_POST['userMail'] ?></pre>
+        </div>
+        <?php
+    }
 }
 ?>
 <h1><small>Contact</small></h1>
