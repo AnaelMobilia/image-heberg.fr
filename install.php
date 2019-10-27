@@ -30,7 +30,9 @@ if (!$conf) {
 }
 
 /* 2 - Requête sur la base de données */
-require 'config/config.php';
+if (!defined('_TRAVIS_')) {
+    require 'config/config.php';
+}
 $res = maBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
 if (!$res) {
     die("Erreur de communication avec la base de données, vérifiez les identifiants dans le fichier config/config.php !");
