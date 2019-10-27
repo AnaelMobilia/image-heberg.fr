@@ -117,7 +117,7 @@ require _TPL_TOP_;
                 <li>Modèle orienté objet pour une meilleure évolutivité sur le long terme</li>
                 <li>Nouveau thème graphique</li>
                 <li>Admin : Refonte de l'administration</li>
-                <li>Admin : création de fonctions pour nettoyer les images oboslètes</li>
+                <li>Admin : création de fonctions pour nettoyer les images obsolètes</li>
                 <li>Reprise du schéma de la BDD</li>
                 <li>Mise en place de tests automatisés sur l'ensemble des fonctionnalités du site</li>
             </ul>
