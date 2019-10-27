@@ -48,13 +48,32 @@ require _TPL_TOP_;
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#v203">
+                v2.0.3 - Octobre 2019
+                &nbsp;<span class="caret"></span>
+            </a>
+        </h2>
+    </div>
+    <div id="v203" class="panel-collapse">
+        <div class="panel-body">
+            <ul>
+                <li>Améliorations techniques pour MySQL 5.7.</li>
+                <li>Améliorations techniques pour PHP7.</li>
+                <li>Ajout d'un outil de validation de l'installation.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#v202">
                 v2.0.2 - Janvier 2019
                 &nbsp;<span class="caret"></span>
             </a>
         </h2>
     </div>
-    <div id="v202" class="panel-collapse">
+    <div id="v202" class="panel-collapse collapse">
         <div class="panel-body">
             <ul>
                 <li>Correction d'une erreur où les images dont seulement les miniatures étaient affichées pouvaient être supprimées.</li>
