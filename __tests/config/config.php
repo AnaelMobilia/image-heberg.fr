@@ -70,10 +70,10 @@ if (!_TRAVIS_) {
 }
 
 // Nom du service
-define('_SITE_NAME_', 'Image-Heberg');
+define('_SITE_NAME_', 'MonSite');
 
 // mail admin
-define('_MAIL_ADMIN_', 'contrib@anael.eu');
+define('_MAIL_ADMIN_', 'john.doe@example.com');
 
 // Répertoires
 define('_REPERTOIRE_IMAGE_', 'files/');
@@ -82,7 +82,7 @@ define('_REPERTOIRE_ADMIN_', 'admin/');
 define('_REPERTOIRE_MEMBRE_', 'membre/');
 
 // URL
-define('_BASE_URL_', 'www.image-heberg.fr/');
+define('_BASE_URL_', 'www.example.com/');
 define('_URL_', 'http://' . _BASE_URL_);
 define('_URL_HTTPS_', 'https://' . _BASE_URL_);
 define('_URL_SANS_SCHEME_', '//' . _BASE_URL_);
@@ -116,11 +116,13 @@ spl_autoload_register(function ($class) {
    }
 });
 
+
 // Images spécifiques
 define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
 
 // Salt pour les mots de passe
+// Legacy - n'est plus requis !!
 define('_GRAIN_DE_SEL_', '');
 
 // BDD
@@ -130,12 +132,12 @@ define('_BDD_PASS_', '');
 define('_BDD_NAME_', 'imageheberg');
 
 // Administrateur du site
-define('_ADMINISTRATEUR_NOM_', 'Anael MOBILIA');
-define('_ADMINISTRATEUR_SITE_', 'http://www.anael.eu/');
+define('_ADMINISTRATEUR_NOM_', 'John DOE');
+define('_ADMINISTRATEUR_SITE_', '//www.example.com/');
 
 // Hébergeur du site
 define('_HEBERGEUR_NOM_', 'OVH');
-define('_HEBERGEUR_SITE_', 'http://www.ovh.com');
+define('_HEBERGEUR_SITE_', '//www.ovh.com');
 
 // Spécifications mémoire
 define('_FUDGE_FACTOR_', 1.8);
