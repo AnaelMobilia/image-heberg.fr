@@ -49,7 +49,38 @@ before_script:
   # Insertion d'un jeu de données de test
   - mysql imageheberg < __tests/data.sql
 
+jobs:
+    include:
+        - php: 5.6
+          script:
+              - phpunit --version
+              - phpunit --colors --debug __tests/
 
-script: 
-  - phpunit --version
-  - phpunit --colors --debug __tests/
+        - php: 7.0
+          script:
+              - wget https://phar.phpunit.de/phpunit-6.phar
+              - chmod +x phpunit-6.phar
+              - ./phpunit-6.phar --version
+              - ./phpunit-6.phar --colors --debug __tests/
+
+        - php: 7.1
+          script:
+              - wget https://phar.phpunit.de/phpunit-7.phar
+              - chmod +x phpunit-7.phar
+              - ./phpunit-7.phar --version
+              - ./phpunit-7.phar --colors --debug __tests/
+
+        - php: 7.2
+          script:
+              - phpunit --version
+              - phpunit --colors --debug __tests/
+
+        - php: 7.3
+          script:
+              - phpunit --version
+              - phpunit --colors --debug __tests/
+
+        - php: nightly
+          script:
+              - phpunit --version
+              - phpunit --colors --debug __tests/
