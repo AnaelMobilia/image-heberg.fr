@@ -21,6 +21,7 @@ require '../../config/config.php';
 $visiteur = new sessionObject();
 // Utilisateur non connecté : Menu mon-compte caché + bouton pour l'afficher
 if ($visiteur->getLevel() === utilisateurObject::levelGuest) :
+    header('Content-Type: application/javascript');
     ?>
     // Cache les champs liés à l'espace membre
     $("#monCompte").hide();
