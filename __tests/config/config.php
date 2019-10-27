@@ -52,12 +52,16 @@ if (!_TRAVIS_) {
       // Adresse de retour
       $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
       // Agent mail
-      $headers .= 'X-Mailer: Anael Mobilia script at ' . _URL_ . "\n";
-      // Ip
-      $headers .= 'User-IP: ' . $_SERVER['REMOTE_ADDR'] . "\n";
+      $headers .= 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_ . "\n";
       // Date
       $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
       $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
+      $message .= "\r\nURL : " . $_SERVER['REQUEST_URI'];
+      if (isset($_SERVER['HTTP_REFERER'])) {
+         $message .= "\r\nHTTP REFERER : " . $_SERVER['HTTP_REFERER'];
+      }
+      $message .= "\r\nHTTP USER AGENT : " . $_SERVER['HTTP_USER_AGENT'];
+      $message .= "\r\nREMOTE ADDR : " . $_SERVER['REMOTE_ADDR'];
 
       mail(_MAIL_ADMIN_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
    }
