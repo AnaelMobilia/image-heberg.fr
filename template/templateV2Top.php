@@ -34,7 +34,7 @@ $timeStart = microtime(TRUE);
         <title><?= _SITE_NAME_ ?> - Hébergeur d'images gratuit</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="template/css/bootstrap-3.3.7.min.css" rel="stylesheet">
+        <link href="template/css/bootstrap-3.4.1.min.css" rel="stylesheet">
         <link href="template/css/template.min.css" rel="stylesheet">
     </head>
 
