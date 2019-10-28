@@ -65,7 +65,7 @@ if (isset($_POST['valider'])) {
    $monUtilisateur->setEmail($_POST['userMail']);
 
    // Si tout est bon
-   if ($flagCreation === TRUE) {
+   if ($flagCreation) {
       // Création de l'utilisateur
       $monUtilisateur->enregistrer();
       // Connexion de l'utilisateur
