@@ -36,11 +36,6 @@ body {
     margin: 0 auto -30px;
 }
 
-/* Couleur de fond image-heberg v1 like pour la barre de navigation & footer */
-.navbar, footer {
-    background-color: #ebf578;
-}
-
 /* Couleur du lien actif dans la barre de navigation */
 .navbar-nav > .active > a {
     background-color: #bfd83e !important;
@@ -52,17 +47,4 @@ body {
 .jumbotron {
     padding-bottom : 10px !important;
     padding-top: 0px !important;
-}
-
-/* Fork me on Github */
-.forkMeOnGitHub {
-    /* Couleur de fond */
-    fill: #5cb85c;
-    /* Couleur de l'image */
-    color: #fff;
-    /* Positionnement */
-    position: absolute;
-    top: 0;
-    border: 0;
-    right: 0;
 }
