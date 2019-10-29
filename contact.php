@@ -31,7 +31,7 @@ if (isset($_POST['envoyer'])) {
         $message .= "\r\n\r\n BROWSER : " . $_SERVER['HTTP_USER_AGENT'];
 
         // Tout va bien, on envoit un mail
-        mail(_MAIL_ADMIN_, "[" . _SITE_NAME_ . "] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
+        mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
 
         // Retour utilisateur
         ?>

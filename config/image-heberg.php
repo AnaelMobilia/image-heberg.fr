@@ -42,9 +42,9 @@ if (!_TRAVIS_) {
          * Envoi d'un mail avec le détail de l'erreur à l'administrateur
          */
         // Adresse expediteur
-        $headers = 'From: ' . _MAIL_ADMIN_ . "\n";
+        $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_ . "\n";
         // Adresse de retour
-        $headers .= 'Reply-To: ' . _MAIL_ADMIN_ . "\n";
+        $headers .= 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_ . "\n";
         // Agent mail
         $headers .= 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_ . "\n";
         // Date
@@ -57,7 +57,7 @@ if (!_TRAVIS_) {
         $message .= "\r\nHTTP USER AGENT : " . $_SERVER['HTTP_USER_AGENT'];
         $message .= "\r\nREMOTE ADDR : " . $_SERVER['REMOTE_ADDR'];
 
-        mail(_MAIL_ADMIN_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
+        mail(_ADMINISTRATEUR_EMAIL_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
     }
 
     set_exception_handler('exception_handler');

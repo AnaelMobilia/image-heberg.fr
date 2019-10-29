@@ -47,7 +47,7 @@ define('_ADMINISTRATEUR_NOM_', 'John DOE');
 // Site web de l'administrateur
 define('_ADMINISTRATEUR_SITE_', '//www.example.com/');
 // Mail de l'administrateur (non affiché)
-define('_MAIL_ADMIN_', 'john.doe@example.com');
+define('_ADMINISTRATEUR_EMAIL_', 'john.doe@example.com');
 
 
 /* Informations légales */
