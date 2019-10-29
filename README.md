@@ -12,6 +12,7 @@ Service d'hébergement d'images en ligne
   - Créer une base de données à partir du fichier database.sql
   - Copier les fichiers dans le répertoire du serveur web
   - Renommer le fichier config_empty.php en config.php et compléter les différents champs
+  - Ajouter votre favicon dans template/images/monSite.ico
   - Configurer l'URL du site dans le fichier .htaccess
   - Valider l'installation de base en appelant le fichier install.php (example.com/install.php).
   - Se connecter avec le compte admin / password. Ce compte est le compte de l'administrateur du site. (pensez à mettre à jour l'adresse mail associée !)
