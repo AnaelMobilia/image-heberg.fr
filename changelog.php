@@ -48,13 +48,30 @@ require _TPL_TOP_;
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#v204">
+                v2.0.4 - Octobre 2019
+                &nbsp;<span class="caret"></span>
+            </a>
+        </h2>
+    </div>
+    <div id="v204" class="panel-collapse">
+        <div class="panel-body">
+            <ul>
+                <li>Améliorations techniques de l'outil pour les maintenances futures</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#v203">
                 v2.0.3 - Octobre 2019
                 &nbsp;<span class="caret"></span>
             </a>
         </h2>
     </div>
-    <div id="v203" class="panel-collapse">
+    <div id="v203" class="panel-collapse collapse">
         <div class="panel-body">
             <ul>
                 <li>Améliorations techniques pour MySQL 5.7.</li>
