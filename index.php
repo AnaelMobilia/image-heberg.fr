@@ -27,7 +27,7 @@ $_SESSION['_upload'] = TRUE;
 <h1><small>Envoyer une image</small></h1>
 <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
    <div class="alert alert-danger">
-       <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout <a href="https://www.ovh.com/fr/hebergement-web/hebergement-perso.xml">l'espace disque acheté</a> est utilisé !
+       <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
        <br>
        Si vous souhaitez soutenir le projet, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
    </div>
