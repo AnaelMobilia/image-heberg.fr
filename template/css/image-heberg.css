@@ -48,3 +48,13 @@ body {
     padding-bottom : 10px !important;
     padding-top: 0px !important;
 }
+
+/* Pas de pub pour github */
+.forkMeOnGitHub {
+    display: none;
+}
+
+/* couleur par défaut */
+.navbar, footer {
+    background-color: #7FFFD4;
+}

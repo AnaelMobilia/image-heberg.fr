@@ -29,7 +29,7 @@ $timeStart = microtime(TRUE);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Hebergement d'images gratuit et illimité">
         <meta name="author" content="Anael Mobilia">
-        <link rel="shortcut icon" href="template/images/favicon.ico">
+        <link rel="shortcut icon" href="template/images/monSite.ico">
 
         <title><?= _SITE_NAME_ ?> - Hébergeur d'images gratuit</title>
 
