@@ -43,7 +43,7 @@
             -
             <?= $ip ?>
             -
-            Un service développé par <a href="//www.anael.eu">Anael MOBILIA</a> et proposé par <a href="<?= _ADMINISTRATEUR_SITE_ ?>"><?= _ADMINISTRATEUR_NOM_ ?></a>
+            Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
         </p>
     </div>
 </footer>
