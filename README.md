@@ -17,6 +17,12 @@ Service d'hébergement d'images en ligne
   - Valider l'installation de base en appelant le fichier install.php (example.com/install.php).
   - Se connecter avec le compte admin / password. Ce compte est le compte de l'administrateur du site. (pensez à mettre à jour l'adresse mail associée !)
 
+# Changer de thème
+  - Choisir un thème sur [bootswatch](https://bootswatch.com/3/)
+  - Télécharger le fichier bootstrap.min.css
+  - Remplacer le contenu du fichier templates/css/boostrap-x.y.z.min.css par le fichier téléchargé
+  - Si souhaité, ajouter du code CSS spécifique dans le fichier templates/css/monSite.css
+
 # Stockage des images
   - Les images sont stockées dans le répertoire /files ou /files/thumbs en fonction de leur type.
   - Chaque image est stockée sous forme de md5 (correspondance en BDD)
