@@ -20,21 +20,3 @@
 /*
  * Stocker ici le css spécifique à votre site
  */
-
-/* Couleur de fond image-heberg v1 like pour la barre de navigation & footer */
-.navbar, footer {
-    background-color: #ebf578;
-}
-
-/* Fork me on Github */
-.forkMeOnGitHub {
-    /* Couleur de fond */
-    fill: #5cb85c;
-    /* Couleur de l'image */
-    color: #fff;
-    /* Positionnement */
-    position: absolute;
-    top: 0;
-    border: 0;
-    right: 0;
-}
