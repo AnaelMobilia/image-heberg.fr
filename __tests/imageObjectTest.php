@@ -35,21 +35,21 @@ class imageObjectTest extends TestCase {
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         }
         $angle = 180;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         }
         $angle = 270;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.jpg-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         }
@@ -81,21 +81,21 @@ class imageObjectTest extends TestCase {
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         }
         $angle = 180;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         }
         $angle = 270;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned.gif-' . $angle . '-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         }
@@ -128,7 +128,7 @@ class imageObjectTest extends TestCase {
         // Doit être 200x267
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png', 200, 400);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png', "Redimensionnement portrait 200x400");
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png', "Redimensionnement portrait 200x400");
         }
@@ -136,7 +136,7 @@ class imageObjectTest extends TestCase {
         // Doit être 150x200
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png', 400, 200);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png', "Redimensionnement portrait 400x200");
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png', "Redimensionnement portrait 400x200");
         }
@@ -147,7 +147,7 @@ class imageObjectTest extends TestCase {
         // Doit être 267x200
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png', 400, 200);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png', "Redimensionnement paysage 400x200");
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png', "Redimensionnement paysage 400x200");
         }
@@ -155,7 +155,7 @@ class imageObjectTest extends TestCase {
         // Doit être 200x150
         $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_paysage_800x600.png', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', 200, 400);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png-a-partir-php-7.2', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', "Redimensionnement paysage 200x400");
         } else {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', "Redimensionnement paysage 200x400");
         }
