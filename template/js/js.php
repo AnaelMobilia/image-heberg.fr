@@ -19,9 +19,11 @@
  */
 require '../../config/config.php';
 $visiteur = new sessionObject();
+// Définition du type MIME
+header('Content-Type: application/javascript');
+
 // Utilisateur non connecté : Menu mon-compte caché + bouton pour l'afficher
 if ($visiteur->getLevel() === utilisateurObject::levelGuest) :
-    header('Content-Type: application/javascript');
     ?>
     // Cache les champs liés à l'espace membre
     $("#monCompte").hide();
