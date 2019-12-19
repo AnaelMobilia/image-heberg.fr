@@ -23,38 +23,48 @@ metaObject::checkUserAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
 <h1><small>Panneau d'administration</small></h1>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            Outils
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        Gestion du site
     </div>
-    <div class="panel-body">
+    <div class="card-body">
+        <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
+            <span class="fas fa-list-alt"></span>
+            &nbsp;
+            Vérifier l'installation
+        </a>
+        <div class="clearfix"></div>
+        <br />
+        <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-warning">
+            <span class="fas fa-trash"></span>
+            &nbsp;
+            Supprimer les images jamais affichées et envoyées depuis plus de <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jours
+        </a>
+        <div class="clearfix"></div>
+        <br />
+        <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-warning">
+            <span class="fas fa-trash-alt"></span>
+            &nbsp;
+            Supprimer les images non utilisées depuis plus de <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jours
+        </a>
+    </div>
+</div>
+<div class="card card-primary">
+    <div class="card-header">
+        Gestion technique
+    </div>
+    <div class="card-body">
         <a href="<?= _URL_ADMIN_ ?>listeFichiers.php" class="btn btn-default">
-            <span class="glyphicon glyphicon-list-alt"></span>
+            <span class="fas fa-list-alt"></span>
             &nbsp;
             Lister les fichiers présents sur le disque
         </a>
         <div class="clearfix"></div>
         <br />
-        <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span>
+        <a href="<?= _URL_ADMIN_ ?>cleanErrors.php" class="btn btn-default">
+            <span class="fas fa-check"></span>
             &nbsp;
-            Fichiers jamais utilisés
-        </a>
-        <div class="clearfix"></div>
-        <br />
-        <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-danger">
-            <span class="glyphicon glyphicon-flash"></span>
-            &nbsp;
-            Fichiers inactifs
-        </a>
-        <div class="clearfix"></div>
-        <br />
-        <a href="<?= _URL_ADMIN_ ?>cleanErrors.php" class="btn btn-warning">
-            <span class="glyphicon glyphicon-check"></span>
-            &nbsp;
-            Vérifier la cohérence disque / BDD
+            Vérifier la cohérence disque et BDD
         </a>
     </div>
 </div>

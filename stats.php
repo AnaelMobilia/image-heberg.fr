@@ -57,8 +57,8 @@ $size_all = $valImage->totSize + $valMiniature->totSize;
 ?>
 <h1><small>Statistiques</small></h1>
 
-<div class="panel panel-primary">
-    <div class="panel-body">
+<div class="card card-primary">
+    <div class="card-body">
         <ul>
             <li><?= number_format($valImage->nb, 0, ',', ' ') ?> images et <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
             <li><?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers stockés</li>

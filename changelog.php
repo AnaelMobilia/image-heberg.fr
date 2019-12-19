@@ -21,19 +21,16 @@ require 'config/config.php';
 require _TPL_TOP_;
 ?>
 <h1><small>Historique des versions</small></h1>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v21">
-                v2.1 - en cours
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v21">
+            v2.1 - en cours
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v21" class="panel-collapse">
-        <div class="panel-body">
+    <div id="v21" class="card-collapse">
+        <div class="card-body">
             <ul>
-                <li>Migration bootstrap 3 => 4</li>
                 <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur</li>
                 <li>Envoi de plusieurs images simultanément</li>
                 <li>Glisser - déposer pour le choix des fichiers</li>
@@ -45,34 +42,45 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v204">
-                v2.0.4 - Octobre 2019
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v205">
+            v2.0.5 - En cours
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v204" class="panel-collapse">
-        <div class="panel-body">
+    <div id="v205" class="card-collapse">
+        <div class="card-body">
+            <ul>
+                <li>Migration bootstrap 3 -> 4</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v204">
+                v2.0.4 - Octobre 2019
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
+    </div>
+    <div id="v204" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Améliorations techniques de l'outil pour les maintenances futures</li>
             </ul>
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v203">
-                v2.0.3 - Octobre 2019
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v203">
+            v2.0.3 - Octobre 2019
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v203" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v203" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Améliorations techniques pour MySQL 5.7.</li>
                 <li>Améliorations techniques pour PHP7.</li>
@@ -81,17 +89,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v202">
-                v2.0.2 - Janvier 2019
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v202">
+            v2.0.2 - Janvier 2019
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v202" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v202" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Correction d'une erreur où les images dont seulement les miniatures étaient affichées pouvaient être supprimées.</li>
                 <li>Migration jQuery 2 => 3</li>
@@ -100,17 +106,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v201">
-                v2.0.1 - Juin 2018
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v201">
+            v2.0.1 - Juin 2018
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v201" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v201" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Ajout d'une liste des referer</li>
                 <li>Gestion dynamique des délais avant suppression des fichiers inactifs</li>
@@ -118,17 +122,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v20">
-                v2.0 - Novembre 2016
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v20">
+            v2.0 - Novembre 2016
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v20" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v20" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Réactivation de l'ensemble des fonctionnalités du site (miniatures, retournement, ...)</li>
                 <li>Modèle orienté objet pour une meilleure évolutivité sur le long terme</li>
@@ -141,17 +143,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v19">
-                v1.9 - Janvier 2014
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v19">
+            v1.9 - Janvier 2014
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v19" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v19" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Passage à la programation objet</li>
                 <li>Reprise, factorisation et optimisation globale du site</li>
@@ -159,17 +159,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v127">
-                v1.2.7 - 26 avril 2012
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v127">
+            v1.2.7 - 26 avril 2012
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v127" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v127" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Remise en place des options miniatures, rotation et redimensionnement</li>
                 <li>Corrections de charset sur des messages d'erreur</li>
@@ -178,17 +176,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v126">
-                v1.2.6 - 9 janvier 2012
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v126">
+            v1.2.6 - 9 janvier 2012
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v126" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v126" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Changement de serveur internet (la vitesse d'affichage est meilleure + connectivité IPv6 !)</li>
                 <li>Changement d'encodage par défaut pour les pages et le code HTML <em>(passage en UTF-8)</em></li>
@@ -202,17 +198,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v125">
-                v1.2.5 - 30 octobre 2011
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v125">
+            v1.2.5 - 30 octobre 2011
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v125" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v125" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Suppression de la limite des dimensions d'images pour les utilisateurs enregistrés</li>
                 <li>Ajout d'une fonction permettant le blocage d'images précises + affichage d'une image d'information sur le blocage</li>
@@ -220,34 +214,30 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v124">
-                v1.2.4 - 08 septembre 2011
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v124">
+            v1.2.4 - 08 septembre 2011
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v124" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v124" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Meilleure gestion des images inexistantes (erreurs 404)</li>
             </ul>
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v123e">
-                v1.2.3.e - 14 août 2011
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v123e">
+            v1.2.3.e - 14 août 2011
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v123e" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v123e" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Administration : suivi des requêtes SQL amélioré</li>
                 <li>Finalisation de l'encodage des caractères spéciaux conformément à la norme HTML.</li>
@@ -257,17 +247,15 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#v123d">
-                v1.2.3.d - 10 août 2011
-                &nbsp;<span class="caret"></span>
-            </a>
-        </h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#v123d">
+            v1.2.3.d - 10 août 2011
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
     </div>
-    <div id="v123d" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="v123d" class="card-collapse collapse">
+        <div class="card-body">
             <ul>
                 <li>Création du changelog.</li>
                 <li>Encodage conforme à la norme HTML des caractères spéciaux.</li>

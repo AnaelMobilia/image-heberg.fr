@@ -182,7 +182,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
 <h1><small>Envoi d'une image</small></h1>
 <?php if (!empty($msgErreur)): ?>
    <div class="alert alert-danger">
-       <span class="glyphicon glyphicon-remove"></span>
+       <span class="fas fa-remove"></span>
        &nbsp;
        <b>Une erreur a été rencontrée !</b>
        <br />
@@ -191,7 +191,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
 <?php else: ?>
    <?php if (!empty($msgWarning)): ?>
       <div class="alert alert-warning">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="fas fa-remove"></span>
           &nbsp;
           <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
           <br />
@@ -199,12 +199,12 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
       </div>
    <?php endif; ?>
    <div class="alert alert-success">
-       <span class="glyphicon glyphicon-ok"></span>
+       <span class="fas fa-ok"></span>
        &nbsp;
        <b>Image enregistrée avec succès !</b>
    </div>
-   <div class="panel panel-primary">
-       <div class="panel-body">
+   <div class="card card-primary">
+       <div class="card-body">
            <h2>Afficher l'image</h2>
            <div class="form-horizontal">
                <div class="form-group">
@@ -271,12 +271,12 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
            <div class="clearfix"></div>
            <br />
            <a href="<?= _URL_ ?>" class="btn btn-success">
-               <span class="glyphicon glyphicon-cloud-upload"></span>
+               <span class="fas fa-cloud-upload"></span>
                &nbsp;
                Envoyer une autre image
            </a>
            <a href="<?= _URL_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>" class="btn btn-danger">
-               <span class="glyphicon glyphicon-trash"></span>
+               <span class="fas fa-trash"></span>
                &nbsp;
                Effacer cette image
            </a>

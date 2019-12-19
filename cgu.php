@@ -20,17 +20,15 @@
 require 'config/config.php';
 require _TPL_TOP_;
 ?>
-<h1><small>Conditions Générales d'Utilisation</small></h1>
+<h1><small>Conditions Générales d'Utilisation de <?= _SITE_NAME_ ?></small></h1>
 
 <div class="alert alert-success">Ces CGU sont modifiables, sans pr&eacute;avis, et &agrave; tout moment.</div>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Contenus autorisés
-        </h3>
+<div class="card card-primary">
+    <div class="card-header">
+        Contenus autorisés
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <ul>
             <li>Toutes images de type JPG, PNG, GIF.</li>
             <li>Contenu conforme &agrave; la l&eacute;gislation fran&ccedil;aise.</li>
@@ -38,13 +36,11 @@ require _TPL_TOP_;
         </ul>
     </div>
 </div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Propri&eacute;t&eacute;s de l'h&eacute;bergement
-        </h3>
+<div class="card card-primary">
+    <div class="card-header">
+        Propri&eacute;t&eacute;s de l'h&eacute;bergement
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <ul>
             <li>Gratuit.</li>
             <li>Traffic illimit&eacute; <em>(hors abus)</em>.</li>
@@ -58,9 +54,9 @@ require _TPL_TOP_;
             <li>Les fichiers restent votre propri&eacute;t&eacute;.</li>
             <li>Aucune suppression sur demande d'un utilisateur. <em>(utilisez la fonction de suppression à l'envoi ou utilisez l'espace membre)</em></li>
             <li>Toutes les donn&eacute;es poss&eacute;d&eacute;es seront fournies en cas de demande judiciaire.</li>
-            <li>Rappel : l'administrateur peut-avoir acc&egrave;s &agrave; toutes les donn&eacute;es du service.</li>
+            <li>Rappel : l'administrateur (<?= _ADMINISTRATEUR_NOM_ ?>) peut-avoir acc&egrave;s &agrave; toutes les donn&eacute;es du service.</li>
         </ul>
-        <div class="panel-footer">
+        <div class="card-footer">
             <em>Mise &agrave; jour le 29 juin 2018 : réduction des durées de conservation des images inactives</em>
         </div>
     </div>

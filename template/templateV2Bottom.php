@@ -19,36 +19,35 @@
  */
 ?>
 </div> <!-- /jumbotron -->
-</div> <!-- /container -->
-</div><!-- /wrap -->
-<footer>
+</main>
+<footer class="footer">
     <div class="container">
-        <p class="text-muted">
+        <span class="text-muted">
             <?php
             if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== FALSE) {
-                $ip = 'IPv4';
+                $ip = '4';
             } else {
-                $ip = 'IPv6';
+                $ip = '6';
             }
             ?>
             <?= _SITE_NAME_ ?>
             -
-            <a href="<?= _URL_ ?>changelog.php">v2.0.4 (2019) <span class="glyphicon glyphicon-flash"></span></a>
+            <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2019) <span class="fas fa-award"></span></a>
             -
-            <a href="<?= _URL_ ?>stats.php">Statistiques <span class="glyphicon glyphicon-stats"></span></a>
+            <a href="<?= _URL_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
             -
-            <a href="<?= _URL_ ?>cgu.php">CGU <span class="glyphicon glyphicon-briefcase"></span></a>
+            <a href="<?= _URL_ ?>cgu.php">CGU <span class="fas fa-briefcase"></span></a>
             -
             Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s
             -
-            <?= $ip ?>
+            IPv<?= $ip ?>
             -
             Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
-        </p>
+        </span>
     </div>
 </footer>
 <script src="template/js/jquery-3.4.1.slim.min.js"></script>
-<script src="template/js/bootstrap-3.4.1.min.js"></script>
+<script src="template/js/bootstrap-4.4.1.min.js"></script>
 <script src="template/js/js.php"></script>
 </body>
 </html>

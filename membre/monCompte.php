@@ -18,7 +18,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 if (!defined('_TRAVIS_')) {
-   require '../config/config.php';
+    require '../config/config.php';
 }
 metaObject::checkUserAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
@@ -29,90 +29,88 @@ $maSession = new sessionObject();
 $monUtilisateur = new utilisateurObject($maSession->getId());
 
 if (isset($_POST['modifierPwd'])) {
-   // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['oldUserPassword'])) {
-      // Je met à jour en BDD
-      $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
-      $monUtilisateur->modifier();
+    // Je vérifie qu'on me donne le bon mot de passe
+    if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['oldUserPassword'])) {
+        // Je met à jour en BDD
+        $monUtilisateur->setPasswordToCrypt($_POST['newUserPassword']);
+        $monUtilisateur->modifier();
 
-      // Retour utilisateur
-      ?>
-      <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
-      <?php
-   } else {
-      // Retour utilisateur
-      ?>
-      <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-      <?php
-   }
+        // Retour utilisateur
+        ?>
+        <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
+        <?php
+    } else {
+        // Retour utilisateur
+        ?>
+        <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+        <?php
+    }
 } else if (isset($_POST['modifierMail'])) {
-   // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordMail'])) {
-      // Vérification du bon format de l'adresse mail
-      if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
-         // Je met à jour en BDD
-         $monUtilisateur->setEmail($_POST['userMail']);
-         $monUtilisateur->modifier();
+    // Je vérifie qu'on me donne le bon mot de passe
+    if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordMail'])) {
+        // Vérification du bon format de l'adresse mail
+        if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+            // Je met à jour en BDD
+            $monUtilisateur->setEmail($_POST['userMail']);
+            $monUtilisateur->modifier();
 
-         // Retour utilisateur
-         ?>
-         <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
-         <?php
-      } else {
-         // Retour utilisateur
-         ?>
-         <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
-         <?php
-      }
-   } else {
-      // Retour utilisateur
-      ?>
-      <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-      <?php
-   }
+            // Retour utilisateur
+            ?>
+            <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
+            <?php
+        } else {
+            // Retour utilisateur
+            ?>
+            <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
+            <?php
+        }
+    } else {
+        // Retour utilisateur
+        ?>
+        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+        <?php
+    }
 } else if (isset($_POST['supprimerCompte'])) {
-   // Je vérifie qu'on me donne le bon mot de passe
-   if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordDelete'])) {
-      if (isset($_POST['confirmeDelete'])) {
-         // Je met à jour en BDD
-         $monUtilisateur->supprimer();
-         // Retour utilisateur
-         ?>
-         <div class="alert alert-success">
-             Votre compte a été supprimé !
-             <br />
-             Les images qui étaient rattachées à votre compte n'ont pas été supprimées et ne seront plus supprimables avant leur expiration.
-             <br />
-             Cette action est irrévocable !
-             <br />
-             Merci d'avoir utilisé <?= _SITE_NAME_ ?>.
-         </div>
-         <?php
-         // Déconnexion de la session
-         $maSession->deconnexion();
-      } else {
-         // Retour utilisateur
-         ?>
-         <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
-         <?php
-      }
-   } else {
-      // Retour utilisateur
-      ?>
-      <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-      <?php
-   }
+    // Je vérifie qu'on me donne le bon mot de passe
+    if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordDelete'])) {
+        if (isset($_POST['confirmeDelete'])) {
+            // Je met à jour en BDD
+            $monUtilisateur->supprimer();
+            // Retour utilisateur
+            ?>
+            <div class="alert alert-success">
+                Votre compte a été supprimé !
+                <br />
+                Les images qui étaient rattachées à votre compte n'ont pas été supprimées et ne seront plus supprimables avant leur expiration.
+                <br />
+                Cette action est irrévocable !
+                <br />
+                Merci d'avoir utilisé <?= _SITE_NAME_ ?>.
+            </div>
+            <?php
+            // Déconnexion de la session
+            $maSession->deconnexion();
+        } else {
+            // Retour utilisateur
+            ?>
+            <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
+            <?php
+        }
+    } else {
+        // Retour utilisateur
+        ?>
+        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
+        <?php
+    }
 }
 ?>
 <h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <?= $monUtilisateur->getUserName() ?>
-        </h3>
+<div class="card card-primary">
+    <div class="card-header">
+        <?= $monUtilisateur->getUserName() ?>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         Membre depuis le : <?= $monUtilisateur->getDateInscriptionFormate() ?>
         <br />
         Adresse courriel : <?= $monUtilisateur->getEmail() ?>
@@ -122,14 +120,12 @@ if (isset($_POST['modifierPwd'])) {
 </div>
 
 <!-- Modification du mot de passe -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapsePwd">Changer de mot de passe <span class="caret"></span></a>
-        </h2>
+<div class="card card-default">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#collapsePwd">Changer de mot de passe <span class="fas fa-caret-down"></span></a>
     </div>
-    <div id="collapsePwd" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="collapsePwd" class="card-collapse collapse">
+        <div class="card-body">
             <form method="post">
                 <div class="form-group">
                     <label for="oldUserPassword">Mot de passe actuel</label>
@@ -146,14 +142,12 @@ if (isset($_POST['modifierPwd'])) {
 </div>
 
 <!-- Changer l'adresse mail -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseMail">Changer d'adresse courriel <span class="caret"></span></a>
-        </h2>
+<div class="card card-default">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#collapseMail">Changer d'adresse courriel <span class="fas fa-caret-down"></span></a>
     </div>
-    <div id="collapseMail" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="collapseMail" class="card-collapse collapse">
+        <div class="card-body">
             <form method="post">
                 <div class="form-group">
                     <label for="userMail">Nouvelle adresse courriel</label>
@@ -171,18 +165,16 @@ if (isset($_POST['modifierPwd'])) {
 </div>
 
 <!-- Supprimer le compte -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseDelete">Supprimer mon compte <span class="caret"></span></a>
-        </h2>
+<div class="card card-default">
+    <div class="card-header">
+        <a data-toggle="collapse" href="#collapseDelete">Supprimer mon compte <span class="fas fa-caret-down"></span></a>
     </div>
-    <div id="collapseDelete" class="panel-collapse collapse">
-        <div class="panel-body">
+    <div id="collapseDelete" class="card-collapse collapse">
+        <div class="card-body">
             <form method="post">
                 <label class="text-danger">
                     <input type="checkbox" value="" name="confirmeDelete">
-                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    <span class="fas fa-warning-sign"></span>
                     Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
                     <br />
                     <b>Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration !</b>

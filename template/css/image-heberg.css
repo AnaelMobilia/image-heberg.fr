@@ -16,37 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+/* Sticky footer */
 html {
-    /* Sticky footer */
-    height: 100%;
-}
-
-body {
-    /* Sticky footer */
-    height: 100%;
-    /* Hauteur de la navbar */
-    padding-top: 50px;
-}
-
-#wrap {
-    /* Sticky footer */
+    position: relative;
     min-height: 100%;
-    height: auto;
-    padding: 0 0 30px;
-    margin: 0 auto -30px;
 }
-
-/* Couleur du lien actif dans la barre de navigation */
-.navbar-nav > .active > a {
-    background-color: #bfd83e !important;
-    color: white !important;
-    font-weight: bold !important;
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
-
-/* Réduction des marges du jumbotron */
-.jumbotron {
-    padding-bottom : 10px !important;
-    padding-top: 0px !important;
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
 }
 
 /* Pas de pub pour github */
@@ -55,6 +42,14 @@ body {
 }
 
 /* couleur par défaut */
-.navbar, footer {
+.navbar, .footer {
     background-color: #7FFFD4;
+}
+
+/* affichage du jumbotron */
+.jumbotron {
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
 }
