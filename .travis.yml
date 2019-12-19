@@ -29,7 +29,6 @@ matrix:
     - php: 7.4
     - php: nightly
   allow_failures:
-    - php: 7.4
     - php: nightly
 
 # Autres prérequis
