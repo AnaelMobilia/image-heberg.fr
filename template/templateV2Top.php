@@ -85,14 +85,8 @@ $timeStart = microtime(TRUE);
                                 </button>
                             </form>
                         </div>
-                        <div id="monCompte">
-                            <form action="<?= _URL_MEMBRE_ ?>creerCompte.php" class="form-inline my-2 my-lg-0">
-                                <button type="submit" class="btn btn-success">
-                                    <span class="fas fa-save"></span>&nbsp;
-                                    S'enregistrer
-                                </button>
-                            </form>
-                            <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="form-inline my-2 my-lg-0">
+                        <div id="monCompte" class="my-2 my-lg-0">
+                            <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="form-inline">
                                 <div class="form-group">
                                     <input type="text" name="userName" placeholder="Identifiant" class="form-control" required="required">
                                 </div>
@@ -103,6 +97,10 @@ $timeStart = microtime(TRUE);
                                     <span class="fas fa-sign-in-alt"></span>&nbsp;
                                     Se connecter
                                 </button>
+                                <a href="<?= _URL_MEMBRE_ ?>creerCompte.php"  class="btn btn-success">
+                                    <span class="fas fa-save"></span>&nbsp;
+                                    S'enregistrer
+                                </a>
                             </form>
                         </div>
                     <?php else : ?>
