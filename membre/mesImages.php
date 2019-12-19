@@ -28,7 +28,7 @@ require _TPL_TOP_;
 <h1><small>Mes images</small></h1>
 <table class="table table-hover">
     <thead>
-        <tr>
+        <tr class="text-center">
             <th>Nom de l'image</th>
             <th>Date d'envoi</th>
             <th>Dernier affichage</th>
@@ -47,17 +47,17 @@ require _TPL_TOP_;
            ?>
            <tr>
                <td><?= $uneImage->getNomOriginalFormate() ?></td>
-               <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
-               <td><?= $uneImage->getLastViewFormate() ?></td>
-               <td><?= $uneImage->getNbViewTotal() ?></td>
-               <td>
+               <td class="text-center"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+               <td class="text-center"><?= $uneImage->getLastViewFormate() ?></td>
+               <td class="text-center"><?= $uneImage->getNbViewTotal() ?></td>
+               <td class="text-center">
                    <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
-                       <span class="glyphicon glyphicon-share"></span>
+                       <span class="fas fa-share-square"></span>
                    </a>
                </td>
-               <td>
+               <td class="text-center">
                    <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
-                       <span class="glyphicon glyphicon-trash"></span>
+                       <span class="fas fa-trash"></span>
                    </a>
                </td>
            </tr>

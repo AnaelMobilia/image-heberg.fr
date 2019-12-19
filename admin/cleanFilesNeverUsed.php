@@ -31,41 +31,39 @@ $listeImages = metaObject::getNeverUsedFiles();
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-   foreach ((array) $listeImages as $value) {
-      $message .= '<br />Suppression de l\'image ' . $value;
+    foreach ((array) $listeImages as $value) {
+        $message .= '<br />Suppression de l\'image ' . $value;
 
-      // Je crée mon objet et lance la suppression
-      $monImage = new imageObject($value);
-      $monImage->supprimer();
-   }
-   $message .= '<br />Effacement terminé !';
-   ?>
-   <div class = "alert alert-success">
-       <?= $message ?>
-   </div>
+        // Je crée mon objet et lance la suppression
+        $monImage = new imageObject($value);
+        $monImage->supprimer();
+    }
+    $message .= '<br />Effacement terminé !';
+    ?>
+    <div class = "alert alert-success">
+        <?= $message ?>
+    </div>
 <?php else: ?>
-   <div class="panel panel-primary">
-       <div class="panel-heading">
-           <h2 class="panel-title">
-               <?= $listeImages->count() ?> image(s) envoyée(s) il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)
-           </h2>
-       </div>
-       <div class="panel-body">
-           <ul>
-               <?php foreach ((array) $listeImages as $value): ?>
-                  <li><?= $value ?></li>
-               <?php endforeach; ?>
-           </ul>
+    <div class="card card-primary">
+        <div class="card-header">
+            <?= $listeImages->count() ?> image(s) envoyée(s) il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)
+        </div>
+        <div class="card-body">
+            <ul>
+                <?php foreach ((array) $listeImages as $value): ?>
+                    <li><?= $value ?></li>
+                <?php endforeach; ?>
+            </ul>
 
-       </div>
-       <form method="post">
-           <button class="btn btn-danger" type="submit" name="effacer">
-               <span class="glyphicon glyphicon-trash"></span>
-               &nbsp;
-               Effacer ces fichiers
-           </button>
-       </form>
-   </div>
+        </div>
+        <form method="post">
+            <button class="btn btn-danger" type="submit" name="effacer">
+                <span class="fas fa-trash"></span>
+                &nbsp;
+                Effacer ces fichiers
+            </button>
+        </form>
+    </div>
 <?php
 endif;
 require _TPL_BOTTOM_;

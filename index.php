@@ -41,8 +41,8 @@ $_SESSION['_upload'] = TRUE;
     </ul>
 </div>
 
-<div class="panel panel-primary">
-    <div class="panel-body">
+<div class="card card-primary">
+    <div class="card-body">
         <form enctype="multipart/form-data" action="<?= _URL_HTTPS_ ?>upload.php" method="post" class="form-group">
             <div class="form-group form-group-lg">
                 <label for="fichier" class="col-md-3">Fichier à envoyer</label>
