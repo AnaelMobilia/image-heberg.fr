@@ -41,7 +41,7 @@ $timeStart = microtime(TRUE);
     </head>
 
     <body>
-        <header>
+        <header class="header">
             <!-- Fixed navbar -->
             <nav class="navbar navbar-expand-md navbar-light fixed-top">
                 <a class="navbar-brand" href="#"><span class="fas fa-cloud-upload-alt"></span>
