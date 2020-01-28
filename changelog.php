@@ -31,13 +31,13 @@ require _TPL_TOP_;
     <div id="v21" class="card-collapse">
         <div class="card-body">
             <ul>
-                <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur</li>
-                <li>Envoi de plusieurs images simultanément</li>
-                <li>Glisser - déposer pour le choix des fichiers</li>
-                <li>Membres : Albums photos (création, affichage, partage)</li>
-                <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi</li>
-                <li>Membres : Afficher les liens de partage dans l'espace membre</li>
-                <li>Expliquer les avantages pour les personnes inscrites sur le site</li>
+                <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur.</li>
+                <li>Envoi de plusieurs images simultanément.</li>
+                <li>Glisser - déposer pour le choix des fichiers.</li>
+                <li>Membres : Albums photos (création, affichage, partage).</li>
+                <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi.</li>
+                <li>Membres : Afficher les liens de partage dans l'espace membre.</li>
+                <li>Expliquer les avantages pour les personnes inscrites sur le site.</li>
             </ul>
         </div>
     </div>
