@@ -36,7 +36,8 @@ $timeStart = microtime(TRUE);
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-4.4.1.min.css" rel="stylesheet" type="text/css">
         <link href="template/css/image-heberg.min.css" rel="stylesheet">
-        <link href="template/css/fontawesome-5.11.2.all.min.css" rel="stylesheet">
+        <link href="template/css/fontawesome-solid-5.12.min.css" rel="stylesheet">
+        <link href="template/css/fontawesome-5.12.min.css" rel="stylesheet">
         <link href="template/css/monSite.css" rel="stylesheet">
     </head>
 
