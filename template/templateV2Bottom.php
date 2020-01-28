@@ -32,7 +32,7 @@
             ?>
             <?= _SITE_NAME_ ?>
             -
-            <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2019) <span class="fas fa-award"></span></a>
+            <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2020) <span class="fas fa-award"></span></a>
             -
             <a href="<?= _URL_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
             -

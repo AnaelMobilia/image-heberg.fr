@@ -52,7 +52,8 @@ require _TPL_TOP_;
     <div id="v205" class="card-collapse">
         <div class="card-body">
             <ul>
-                <li>Migration bootstrap 3 -> 4</li>
+                <li>Migration bootstrap 3 -> 4.</li>
+                <li>Utilisation de FontAwesome.</li>
             </ul>
         </div>
     </div>
@@ -67,7 +68,7 @@ require _TPL_TOP_;
     <div id="v204" class="card-collapse collapse">
         <div class="card-body">
             <ul>
-                <li>Améliorations techniques de l'outil pour les maintenances futures</li>
+                <li>Améliorations techniques de l'outil pour les maintenances futures.</li>
             </ul>
         </div>
     </div>
