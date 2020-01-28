@@ -35,11 +35,10 @@ RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
 RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
-# Protection des répertoires classes, config, __tests, includes
+# Protection des répertoires classes, config, __tests
 RewriteCond %{REQUEST_URI} ^/classes/ [OR]
 RewriteCond %{REQUEST_URI} ^/config/ [OR]
-RewriteCond %{REQUEST_URI} ^/__tests/ [OR]
-RewriteCond %{REQUEST_URI} ^/includes/
+RewriteCond %{REQUEST_URI} ^/__tests/
 RewriteRule .* - [F]
 
 # Images : redirection pour affichage
