@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2019 Anael Mobilia
  *
@@ -24,63 +25,73 @@
  * @author anael
  */
 class maBDD {
-   // PDO
-   private $maBDD = null;
-   // Instance de la classe
-   private static $monInstance = null;
 
-   /**
-    * Constructeur
-    */
-   private function __construct() {
-      $this->maBDD = new PDO('mysql:host=' . _BDD_HOST_ . ';dbname=' . _BDD_NAME_, _BDD_USER_, _BDD_PASS_);
-      $this->maBDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->maBDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-   }
+    // PDO
+    private $maBDD = null;
+    // Instance de la classe
+    private static $monInstance = null;
 
-   /**
-    * Crée & renvoi l'objet d'instance
-    * @return PDO
-    */
-   public static function getInstance() {
-      // Si pas de connexion active, en crée une
-      if (is_null(self::$monInstance)) {
-         self::$monInstance = new maBDD();
-      }
-      return self::$monInstance;
-   }
+    /**
+     * Constructeur
+     */
+    private function __construct() {
+        $this->maBDD = new PDO('mysql:host=' . _BDD_HOST_ . ';dbname=' . _BDD_NAME_, _BDD_USER_, _BDD_PASS_);
+        $this->maBDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->maBDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+    }
 
-   /**
-    * PDO::query
-    * @param type $query
-    * @return type
-    */
-   public function query($query) {
-      return $this->maBDD->query($query);
-   }
+    /**
+     * Crée & renvoi l'objet d'instance
+     * @return PDO
+     */
+    public static function getInstance() {
+        // Si pas de connexion active, en crée une
+        if (is_null(self::$monInstance)) {
+            self::$monInstance = new maBDD();
+        }
+        return self::$monInstance;
+    }
 
-   /**
-    * PDO::prepare
-    * @param type $query
-    * @return type
-    */
-   public function prepare($query) {
-      return $this->maBDD->prepare($query);
-   }
+    /**
+     * PDO::query
+     * @param string $query
+     * @return type
+     */
+    public function query($query) {
+        return $this->maBDD->query($query);
+    }
 
-   /**
-    * PDO::lastInsertId
-    * @return type
-    */
-   public function lastInsertId() {
-      return $this->maBDD->lastInsertId();
-   }
+    /**
+     * PDO::prepare
+     * @param string $query
+     * @return type
+     */
+    public function prepare($query) {
+        return $this->maBDD->prepare($query);
+    }
 
-   /**
-    * Fermeture du PDO
-    */
-   public static function close() {
-      self::$monInstance = null;
-   }
+    /**
+     * PDO::lastInsertId
+     * @return type
+     */
+    public function lastInsertId() {
+        return $this->maBDD->lastInsertId();
+    }
+
+    /**
+     * Fermeture du PDO
+     */
+    public static function close() {
+        self::$monInstance = null;
+    }
+
+    /**
+     * PDO::getAttribute
+     * @param int $attribute
+     * @return type
+     */
+    public function getAttribute($attribute) {
+        return $this->maBDD->getAttribute($attribute);
+    }
 
 }

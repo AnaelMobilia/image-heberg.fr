@@ -25,13 +25,13 @@
  */
 class metaObject {
 
-   /**
-    * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
-    * @return \ArrayObject
-    */
-   public static function getNeverUsedFiles() {
-      // Toutes les images jamais affichées & envoyées il y a plus de xx jours
-      $req = "SELECT im.new_name
+    /**
+     * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
+     * @return \ArrayObject
+     */
+    public static function getNeverUsedFiles() {
+        // Toutes les images jamais affichées & envoyées il y a plus de xx jours
+        $req = "SELECT im.new_name
                FROM images im
                WHERE im.last_view IS NULL
                AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
@@ -50,26 +50,26 @@ class metaObject {
                )
 ";
 
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
+        // Exécution de la requête
+        $resultat = maBDD::getInstance()->query($req);
 
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($resultat->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->append($value->new_name);
-      }
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->new_name);
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Liste des images plus utilisées depuis au moins xx jours
-    * @return \ArrayObject
-    */
-   public static function getUnusedFiles() {
-      // Toutes les images non affichées depuis xx jours
-      $req = "SELECT im.new_name
+    /**
+     * Liste des images plus utilisées depuis au moins xx jours
+     * @return \ArrayObject
+     */
+    public static function getUnusedFiles() {
+        // Toutes les images non affichées depuis xx jours
+        $req = "SELECT im.new_name
                FROM images im
                WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
                /* Non prise en compte des images jamais affichées */
@@ -88,178 +88,249 @@ class metaObject {
                   AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
                )";
 
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
+        // Exécution de la requête
+        $resultat = maBDD::getInstance()->query($req);
 
 
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($resultat->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->append($value->new_name);
-      }
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->new_name);
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Liste de l'ensemble des images en BDD
-    * @return \ArrayObject
-    */
-   public static function getAllImagesNameBDD() {
-      // Toutes les images (sauf 404 & banned)
-      $req = "SELECT md5 FROM images WHERE id > 2";
+    /**
+     * Liste de l'ensemble des images en BDD
+     * @return \ArrayObject
+     */
+    public static function getAllImagesNameBDD() {
+        // Toutes les images (sauf 404 & banned)
+        $req = "SELECT md5 FROM images WHERE id > 2";
 
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
+        // Exécution de la requête
+        $resultat = maBDD::getInstance()->query($req);
 
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($resultat->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->append($value->md5);
-      }
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->md5);
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Liste de l'ensemble des images en HDD
-    * @param type $path path à analyser
-    * @return \ArrayObject
-    */
-   public static function getAllImagesNameHDD($path) {
-      $monRetour = new ArrayObject();
+    /**
+     * Liste de l'ensemble des images en HDD
+     * @param type $path path à analyser
+     * @return \ArrayObject
+     */
+    public static function getAllImagesNameHDD($path) {
+        $monRetour = new ArrayObject();
 
-      // Scanne le répertoire des images
-      $scan_rep = scandir($path);
-      // Pour chaque item
-      foreach ($scan_rep as $item) {
-         if ($item !== '.' && $item !== '..' && $item !== '_dummy') {
-            if (is_dir($path . $item)) {
-               // Appel récursif
-               if ($path . $item . '/' !== _PATH_MINIATURES_) {
-                  $monRetourTmp = self::getAllImagesNameHDD($path . $item . '/');
-                  // Parsage et récupération des sous fichiers...
-                  foreach ($monRetourTmp as $fichier) {
-                     $monRetour->append($fichier);
-                  }
-               }
-            } elseif ($item !== _IMAGE_404_ && $item !== _IMAGE_BAN_) {
-               $monRetour->append($item);
+        // Scanne le répertoire des images
+        $scan_rep = scandir($path);
+        // Pour chaque item
+        foreach ($scan_rep as $item) {
+            if ($item !== '.' && $item !== '..' && $item !== '_dummy') {
+                if (is_dir($path . $item)) {
+                    // Appel récursif
+                    if ($path . $item . '/' !== _PATH_MINIATURES_) {
+                        $monRetourTmp = self::getAllImagesNameHDD($path . $item . '/');
+                        // Parsage et récupération des sous fichiers...
+                        foreach ($monRetourTmp as $fichier) {
+                            $monRetour->append($fichier);
+                        }
+                    }
+                } elseif ($item !== _IMAGE_404_ && $item !== _IMAGE_BAN_) {
+                    $monRetour->append($item);
+                }
             }
-         }
-      }
+        }
 
-      return $monRetour;
-   }
+        return $monRetour;
+    }
 
-   /**
-    * Liste de l'ensemble des miniatures en BDD
-    */
-   public static function getAllMiniaturesNameBDD() {
-      // Toutes les images
-      $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
+    /**
+     * Liste de l'ensemble des miniatures en BDD
+     */
+    public static function getAllMiniaturesNameBDD() {
+        // Toutes les images
+        $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
 
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
+        // Exécution de la requête
+        $resultat = maBDD::getInstance()->query($req);
 
 
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($resultat->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->append($value->md5);
-      }
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->md5);
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Toutes les images appartenant à un utilisateur
-    * @param type $userId ID de l'user en question
-    * @return \ArrayObject new_name image
-    */
-   public static function getAllPicsOffOneUser($userId) {
-      // Toutes les images
-      $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
-      /* @var $req PDOStatement */
-      $req->bindValue(':pkMembres', $userId, PDO::PARAM_INT);
+    /**
+     * Toutes les images appartenant à un utilisateur
+     * @param type $userId ID de l'user en question
+     * @return \ArrayObject new_name image
+     */
+    public static function getAllPicsOffOneUser($userId) {
+        // Toutes les images
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
+        /* @var $req PDOStatement */
+        $req->bindValue(':pkMembres', $userId, PDO::PARAM_INT);
 
-      // Exécution de la requête
-      $req->execute();
+        // Exécution de la requête
+        $req->execute();
 
-      $retour = new ArrayObject();
-      // Pour chaque résultat retourné
-      foreach ($req->fetchAll() as $value) {
-         // J'ajoute le nom de l'image
-         $retour->append($value->new_name);
-      }
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($req->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->new_name);
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
-    * @param type $levelRequis
-    */
-   public static function checkUserAccess($levelRequis) {
-      $monUser = new sessionObject();
-      if ($monUser->verifierDroits($levelRequis) === FALSE) {
-         require _TPL_TOP_;
-         ?>
-         <h1>Accès refusé</h1>
-         <p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>
-         <?php
-         require _TPL_BOTTOM_;
-         die();
-      }
-   }
+    /**
+     * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
+     * @param type $levelRequis
+     */
+    public static function checkUserAccess($levelRequis) {
+        $monUser = new sessionObject();
+        if ($monUser->verifierDroits($levelRequis) === FALSE) {
+            header("HTTP/1.1 403 Forbidden");
+            require _TPL_TOP_;
+            ?>
+            <h1>Accès refusé</h1>
+            <p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>
+            <?php
+            require _TPL_BOTTOM_;
+            die();
+        }
+    }
 
-   /**
-    * Vérifier si un login est disponible pour enregistrement
-    * @param type $login
-    * @return boolean
-    */
-   public static function verifierLoginDisponible($login) {
-      $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
-      /* @var $req PDOStatement */
-      $req->bindValue(':login', $login, PDO::PARAM_STR);
-      $req->execute();
+    /**
+     * Vérifier si un login est disponible pour enregistrement
+     * @param type $login
+     * @return boolean
+     */
+    public static function verifierLoginDisponible($login) {
+        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        /* @var $req PDOStatement */
+        $req->bindValue(':login', $login, PDO::PARAM_STR);
+        $req->execute();
 
-      // Par défaut le login est disponible
-      $retour = TRUE;
+        // Par défaut le login est disponible
+        $retour = TRUE;
 
-      // Si j'ai un résultat...
-      if ($req->fetch()) {
-         // Le retour est négatif
-         $retour = FALSE;
-      }
+        // Si j'ai un résultat...
+        if ($req->fetch()) {
+            // Le retour est négatif
+            $retour = FALSE;
+        }
 
-      return $retour;
-   }
+        return $retour;
+    }
 
-   /**
-    * Volume des images
-    * @return int
-    */
-   public static function getHDDUsage() {
-      // Poids de l'ensemble des images
-      $req = "SELECT SUM(im.size) AS images, (
+    /**
+     * Volume des images
+     * @return int
+     */
+    public static function getHDDUsage() {
+        // Poids de l'ensemble des images
+        $req = "SELECT SUM(im.size) AS images, (
                   SELECT SUM(th.size)
                   FROM thumbnails th
                ) AS miniatures
                FROM images im";
 
-      // Exécution de la requête
-      $resultat = maBDD::getInstance()->query($req);
+        // Exécution de la requête
+        $resultat = maBDD::getInstance()->query($req);
 
-      // Récupération de la valeur
-      $value = $resultat->fetch();
+        // Récupération de la valeur
+        $value = $resultat->fetch();
 
-      $retour = round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
+        $retour = round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
 
-      return $retour;
-   }
+        return $retour;
+    }
+
+    /**
+     * Version de PHP
+     * @return string
+     */
+    public static function getPhpVersion() {
+        $retour = PHP_VERSION . " - " . PHP_OS;
+
+        return $retour;
+    }
+
+    /**
+     * Version de MySQL
+     * @return string
+     */
+    public static function getMysqlVersion() {
+        // Exécution de la requête
+        $retour = maBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
+
+        return $retour;
+    }
+
+    /**
+     * Headers HTTP status code
+     * @param string $url URL à tester
+     * @return string retour HTTP
+     */
+    public static function getStatusHTTP($url) {
+        $retour = get_headers($url);
+
+        return $retour[0];
+    }
+
+    /**
+     * Vérifie de manière récursive l'écriture dans un dossier
+     * @param string $folder Path du dossier parent
+     * @return \ArrayObject
+     */
+    public static function isRecursivelyWritable($folder) {
+        // On évite le // dans le path... (estéthique)
+        if(substr($folder, -1) === "/") {
+            $folder = substr($folder, 0, -1);
+        }
+        $monRetour = new ArrayObject();
+
+        if (is_writable($folder)) {
+            $monRetour->append("OK - $folder");
+        } else {
+            $monRetour->append("KO - $folder");
+        }
+
+        // Enfants...
+        $objects = scandir($folder);
+        foreach ($objects as $object) {
+            // Perfs : élimination de tous les noms contenant un . (fichier.ext)
+            if (strpos($object, ".") === FALSE) {
+                $pathObject = $folder . "/" . $object;
+                // . & .. n'arrivent pas ici...
+                if (is_dir($pathObject)) {
+                    $sousRetour = self::isRecursivelyWritable($pathObject);
+                    // Gestion de l'itération...
+                    foreach ($sousRetour as $unRetour) {
+                        $monRetour->append($unRetour);
+                    }
+                }
+            }
+        }
+
+        return $monRetour;
+    }
 
 }

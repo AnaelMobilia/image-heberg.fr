@@ -68,6 +68,7 @@ define('_REPERTOIRE_IMAGE_', 'files/');
 define('_REPERTOIRE_MINIATURE_', _REPERTOIRE_IMAGE_ . 'thumbs/');
 define('_REPERTOIRE_ADMIN_', 'admin/');
 define('_REPERTOIRE_MEMBRE_', 'membre/');
+define('_REPERTOIRE_CONFIG_', 'config/');
 
 // URL
 define('_URL_', 'http://' . _BASE_URL_);
@@ -77,6 +78,7 @@ define('_URL_ADMIN_', _URL_HTTPS_ . _REPERTOIRE_ADMIN_);
 define('_URL_MEMBRE_', _URL_HTTPS_ . _REPERTOIRE_MEMBRE_);
 define('_URL_IMAGES_', _URL_ . _REPERTOIRE_IMAGE_);
 define('_URL_MINIATURES_', _URL_ . _REPERTOIRE_MINIATURE_);
+define('_URL_CONFIG_', _URL_ . _REPERTOIRE_CONFIG_);
 
 // Système de fichiers
 define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);

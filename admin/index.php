@@ -31,7 +31,7 @@ require _TPL_TOP_;
         <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
             <span class="fas fa-list-alt"></span>
             &nbsp;
-            Vérifier l'installation
+            Vérifier la configuration
         </a>
         <div class="clearfix"></div>
         <br />
