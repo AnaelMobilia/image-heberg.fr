@@ -22,15 +22,14 @@ require _TPL_TOP_;
 
 // Anti-flood
 $_SESSION['_upload'] = TRUE;
-
 ?>
 <h1><small>Envoyer une image</small></h1>
 <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
-   <div class="alert alert-danger">
-       <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
-       <br>
-       Si vous souhaitez soutenir le projet, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
-   </div>
+    <div class="alert alert-danger">
+        <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
+        <br>
+        Si vous souhaitez soutenir le projet, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
+    </div>
 <?php endif; ?>
 <div class="alert alert-info">
     <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
@@ -49,11 +48,11 @@ $_SESSION['_upload'] = TRUE;
                 <div class="col-md-9">
                     <input type="file" accept="image/*" name="fichier" id="fichier"
                     <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
-                              disabled="disabled"
-                    <?php endif; ?>
+                               disabled="disabled"
+                           <?php endif; ?>
                            >
-                    <span class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</span>
                 </div>
+                <div class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</div>
             </div>
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
