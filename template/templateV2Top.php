@@ -147,5 +147,5 @@ $timeStart = microtime(TRUE);
             </nav>
         </header>
         <!-- Wrap all page content here -->
-        <main role="main" class="container">
+        <main class="container">
             <div class="jumbotron">
