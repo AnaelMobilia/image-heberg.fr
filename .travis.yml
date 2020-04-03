@@ -42,42 +42,50 @@ jobs:
       script:
         - wget https://phar.phpunit.de/phpunit-5.phar
         - chmod +x phpunit-5.phar
-        - ./phpunit-5.phar --version
-        - ./phpunit-5.phar --colors --debug __tests/
+        - php phpunit-5.phar --version
+        - php phpunit-5.phar --colors --debug __tests/
 
     - php: 7.0
       script:
         - wget https://phar.phpunit.de/phpunit-6.phar
         - chmod +x phpunit-6.phar
-        - ./phpunit-6.phar --version
-        - ./phpunit-6.phar --colors --debug __tests/
+        - php phpunit-6.phar --version
+        - php phpunit-6.phar --colors --debug __tests/
 
     - php: 7.1
       script:
         - wget https://phar.phpunit.de/phpunit-7.phar
         - chmod +x phpunit-7.phar
-        - ./phpunit-7.phar --version
-        - ./phpunit-7.phar --colors --debug __tests/
+        - php phpunit-7.phar --version
+        - php phpunit-7.phar --colors --debug __tests/
 
     - php: 7.2
       script:
-        - phpunit --version
-        - phpunit --colors --debug __tests/
+        - wget https://phar.phpunit.de/phpunit-8.phar
+        - chmod +x phpunit-8.phar
+        - php phpunit-8.phar --version
+        - php phpunit-8.phar --colors --debug __tests/
 
     - php: 7.3
       script:
-        - phpunit --version
-        - phpunit --colors --debug __tests/
+        - wget https://phar.phpunit.de/phpunit-9.phar
+        - chmod +x phpunit-9.phar
+        - php phpunit-9.phar --version
+        - php phpunit-9.phar --colors --debug __tests/
 
     - php: 7.4
       script:
-        - phpunit --version
-        - phpunit --colors --debug __tests/
+        - wget https://phar.phpunit.de/phpunit-9.phar
+        - chmod +x phpunit-9.phar
+        - php phpunit-9.phar --version
+        - php phpunit-9.phar --colors --debug __tests/
 
     - php: nightly
       script:
-        - phpunit --version
-        - phpunit --colors --debug __tests/
+        - wget https://phar.phpunit.de/phpunit-9.phar
+        - chmod +x phpunit-9.phar
+        - php phpunit-9.phar --version
+        - php phpunit-9.phar --colors --debug __tests/
 
   allow_failures:
     - php: nightly
