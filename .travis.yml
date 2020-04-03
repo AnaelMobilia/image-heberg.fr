@@ -40,8 +40,10 @@ jobs:
   include:
     - php: 5.6
       script:
-        - phpunit --version
-        - phpunit --colors --debug __tests/
+        - wget https://phar.phpunit.de/phpunit-5.phar
+        - chmod +x phpunit-5.phar
+        - ./phpunit-5.phar --version
+        - ./phpunit-5.phar --colors --debug __tests/
 
     - php: 7.0
       script:
