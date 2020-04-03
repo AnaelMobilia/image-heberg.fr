@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 class installationTest extends TestCase {
 
-    public function testVaidationInstallation() {
+    public function testValidationInstallation() {
         /**
          * Valeur attendue
          */
