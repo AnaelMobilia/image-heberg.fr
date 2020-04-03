@@ -73,7 +73,8 @@ if (headers_sent()) {
     if (!_TRAVIS_) {
         die($msg);
     } else {
-        echo $msg;
+        // Ne rien faire, nous sommes dans l'environnement de tests qui a déjà affiché des données (phpunit...)
+        //echo $msg;
     }
 }
 
