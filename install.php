@@ -26,7 +26,12 @@
 /* 1 - Existence du fichier de config */
 $conf = file_exists(__DIR__ . "/config/config.php");
 if (!$conf) {
-    die("Le fichier de configuration n'existe pas dans config/config.php !");
+    $msg = "Le fichier de configuration n'existe pas dans config/config.php !";
+    if (!_TRAVIS_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
 }
 
 /* 2 - Requête sur la base de données */
@@ -35,21 +40,41 @@ if (!defined('_TRAVIS_')) {
 }
 $res = maBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
 if (!$res) {
-    die("Erreur de communication avec la base de données, vérifiez les identifiants dans le fichier config/config.php !");
+    $msg = "Erreur de communication avec la base de données, vérifiez les identifiants dans le fichier config/config.php !";
+    if (!_TRAVIS_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
 }
 $resultat = $res->fetch()->nbImages;
 if ($resultat < 2) { // 404 & banned par défaut
-    die("La base de données n'a pas été initialisée correctement avec le fichier database.sql !");
+    $msg = "La base de données n'a pas été initialisée correctement avec le fichier database.sql !";
+    if (!_TRAVIS_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
 }
 
 /* 3 - droits sur répertoire des images */
 if (!is_writable(_PATH_IMAGES_ . '_image_404.png')) {
-    die("PHP doit pouvoir écrire dans les réeprtoires " . _REPERTOIRE_IMAGE_ . "* !");
+    $msg = "PHP doit pouvoir écrire dans les répertoires " . _REPERTOIRE_IMAGE_ . "* !";
+    if (!_TRAVIS_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
 }
 
 /* 4 - gestion des sessions */
 if (headers_sent()) {
-    die("Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !");
+    $msg = "Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !";
+    if (!_TRAVIS_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
 }
 
 echo "L'installation est OK !";
