@@ -72,6 +72,17 @@ define('_DEBUG_', TRUE);
 /**
  * FIN DES CHAMPS A CONFIGURER
  */
+
+/**
+ * CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVIEZ INSTALLE UNE VERSION ANTERIEURE A v2.0.4
+ */
+// Salt pour les mots de passe
+// Legacy - n'est plus requis !!
+define('_GRAIN_DE_SEL_', 'xxx');
+/**
+ * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
+ */
+
 // Activation des tests Tests TRAVIS-CI
 define('_TRAVIS_', TRUE);
 
