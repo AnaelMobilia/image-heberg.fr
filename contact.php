@@ -57,22 +57,19 @@ if (isset($_POST['envoyer'])) {
         Administrateur - <?= _ADMINISTRATEUR_NOM_ ?>
     </div>
     <div class="card-body">
-        Un avis, une remarque, une difficulté, ... ?
-        <br />
-        N'hésitez pas à envoyer un message par le formulaire ci-dessous !
+        <form method="post">
+            <div class="form-group">
+                <label for="userMail">Votre adresse courriel</label>
+                <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required">
+                <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
+            </div>
+            <div class="form-group">
+                <label for="userMessage">Votre message</label>
+                <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+            </div>
+            <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
+        </form>
     </div>
 </div>
 
-<form method="post">
-    <div class="form-group">
-        <label for="userMail">Votre adresse courriel</label>
-        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Votre adresse courriel" required="required">
-        <span class="help-block">Sera utilisée uniquement pour vous apporter une réponse.</span>
-    </div>
-    <div class="form-group">
-        <label for="userMessage">Votre message</label>
-        <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
-    </div>
-    <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
-</form>
 <?php require _TPL_BOTTOM_ ?>
