@@ -28,7 +28,7 @@ $_SESSION['_upload'] = TRUE;
     <div class="alert alert-danger">
         <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
         <br>
-        Si vous souhaitez soutenir le projet, merci d'utiliser <a href="/contact.php">le formulaire de contact</a>.
+        Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
 <div class="alert alert-info">
@@ -52,7 +52,7 @@ $_SESSION['_upload'] = TRUE;
                            <?php endif; ?>
                            >
                 </div>
-                <div class="help-block">Tout envoi de fichier implique l'acceptation des <a href="/cgu.php">Conditions Générales d'Utilisation</a> du service.</div>
+                <div class="help-block">Tout envoi de fichier implique l'acceptation des <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.</div>
             </div>
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
