@@ -20,7 +20,7 @@
 if (!defined('_TRAVIS_')) {
     require '../config/config.php';
 }
-metaObject::checkUserAccess(utilisateurObject::levelUser);
+utilisateurObject::checkAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 
 // Je récupère la session de mon utilisateur
@@ -115,7 +115,7 @@ if (isset($_POST['modifierPwd'])) {
         <br />
         Adresse courriel : <?= $monUtilisateur->getEmail() ?>
         <br />
-        Images possédées : <?= count(metaObject::getAllPicsOfOneUser($monUtilisateur->getId())) ?>
+        Images possédées : <?= count(utilisateurObject::getAllPics($monUtilisateur->getId())) ?>
     </div>
 </div>
 

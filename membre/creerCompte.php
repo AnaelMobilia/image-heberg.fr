@@ -49,7 +49,7 @@ if (isset($_POST['valider'])) {
       $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
    }
    // Disponibilité du login
-   if (metaObject::verifierLoginDisponible($_POST['userName']) !== TRUE) {
+   if (utilisateurObject::verifierLoginDisponible($_POST['userName']) !== TRUE) {
       $flagCreation = FALSE;
       $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
    }

@@ -22,7 +22,7 @@
 
 require __DIR__ . '/../config/config.php';
 // Vérification des droits d'accès
-metaObject::checkUserAccess(utilisateurObject::levelUser);
+utilisateurObject::checkAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
 ?>
 <h1><small>Mes images</small></h1>
@@ -41,7 +41,7 @@ require _TPL_TOP_;
         <?php
         // Je récupère la liste des images
         $maSession = new sessionObject();
-        $mesImages = metaObject::getAllPicsOfOneUser($maSession->getId());
+        $mesImages = utilisateurObject::getAllPics($maSession->getId());
         foreach ((array) $mesImages as $newName):
            $uneImage = new imageObject($newName);
            ?>

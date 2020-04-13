@@ -19,7 +19,7 @@
  */
 require '../config/config.php';
 // Vérification des droits d'accès
-metaObject::checkUserAccess(utilisateurObject::levelAdmin);
+utilisateurObject::checkAccess(utilisateurObject::levelAdmin);
 require _TPL_TOP_;
 ?>
 <h1><small>Panneau d'administration</small></h1>

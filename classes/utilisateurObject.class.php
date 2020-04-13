@@ -22,6 +22,7 @@
  * Gestion (BDD) des utilisateurs
  */
 class utilisateurObject {
+
     private $userName;
     private $password;
     private $email;
@@ -415,6 +416,71 @@ class utilisateurObject {
         $req->bindValue(':imageId', $imageObject->getId(), PDO::PARAM_INT);
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
         $req->execute();
+    }
+
+    /**
+     * Vérifier si un login est disponible pour enregistrement
+     * @param type $login
+     * @return boolean
+     */
+    public static function verifierLoginDisponible($login) {
+        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        /* @var $req PDOStatement */
+        $req->bindValue(':login', $login, PDO::PARAM_STR);
+        $req->execute();
+
+        // Par défaut le login est disponible
+        $retour = TRUE;
+
+        // Si j'ai un résultat...
+        if ($req->fetch()) {
+            // Le retour est négatif
+            $retour = FALSE;
+        }
+
+        return $retour;
+    }
+
+    /**
+     * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
+     * @param type $levelRequis
+     */
+    public static function checkAccess($levelRequis) {
+        $monUser = new sessionObject();
+        if ($monUser->verifierDroits($levelRequis) === FALSE) {
+            header("HTTP/1.1 403 Forbidden");
+            require _TPL_TOP_;
+            ?>
+            <h1>Accès refusé</h1>
+            <p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>
+            <?php
+            require _TPL_BOTTOM_;
+            die();
+        }
+    }
+
+    /**
+     * Toutes les images appartenant à un utilisateur
+     * @param type $userId ID de l'user en question
+     * @return \ArrayObject new_name image
+     */
+    public static function getAllPicsOfOneUser($userId) {
+        // Toutes les images
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
+        /* @var $req PDOStatement */
+        $req->bindValue(':pkMembres', $userId, PDO::PARAM_INT);
+
+        // Exécution de la requête
+        $req->execute();
+
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($req->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->new_name);
+        }
+
+        return $retour;
     }
 
 }
