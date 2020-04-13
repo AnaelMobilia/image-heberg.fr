@@ -59,26 +59,28 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
     }
 }
 ?>
-<h1><small>Contact</small></h1>
+<?php if ($maSession->checkFlag()): ?>
+    <h1><small>Contact</small></h1>
 
-<div class="card card-primary">
-    <div class="card-header">
-        Administrateur - <?= _ADMINISTRATEUR_NOM_ ?>
+    <div class="card card-primary">
+        <div class="card-header">
+            Administrateur - <?= _ADMINISTRATEUR_NOM_ ?>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="userMail">Votre adresse courriel</label>
+                    <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required" value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
+                    <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
+                </div>
+                <div class="form-group">
+                    <label for="userMessage">Votre message</label>
+                    <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?></textarea>
+                </div>
+                <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
+            </form>
+        </div>
     </div>
-    <div class="card-body">
-        <form method="post">
-            <div class="form-group">
-                <label for="userMail">Votre adresse courriel</label>
-                <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required" value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
-                <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
-            </div>
-            <div class="form-group">
-                <label for="userMessage">Votre message</label>
-                <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?></textarea>
-            </div>
-            <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
-        </form>
-    </div>
-</div>
+<?php endif; ?>
 
 <?php require _TPL_BOTTOM_ ?>
