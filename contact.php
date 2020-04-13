@@ -20,8 +20,11 @@
 require 'config/config.php';
 require _TPL_TOP_;
 
+// Anti flood
+$maSession = new sessionObject();
+
 // En cas de validation du formulaire
-if (isset($_POST['envoyer'])) {
+if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
     // Vérification du bon format de l'adresse mail
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
         // Je complète le message avec l'IP de mon émeteur
@@ -32,14 +35,14 @@ if (isset($_POST['envoyer'])) {
 
         // Tout va bien, on envoit un mail
         mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
+        $maSession->removeFlag();
 
         // Retour utilisateur
         ?>
         <div class="alert alert-success">Votre message a été envoyé !</div>
         <?php
-    }
-    // Adresse mail invalide
-    else {
+    } else {
+        // Adresse mail invalide
         ?>
         <div class = "alert alert-danger">
             Votre adresse mail n'est pas valide !
@@ -47,6 +50,12 @@ if (isset($_POST['envoyer'])) {
             <pre><?= $_POST['userMail'] ?></pre>
         </div>
         <?php
+    }
+} else {
+    // Premier affichage de la page
+    if (!isset($_POST['envoyer'])) {
+        // Activation de la protection robot
+        $maSession->setFlag();
     }
 }
 ?>
@@ -60,12 +69,12 @@ if (isset($_POST['envoyer'])) {
         <form method="post">
             <div class="form-group">
                 <label for="userMail">Votre adresse courriel</label>
-                <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required">
+                <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required" value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
                 <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
             </div>
             <div class="form-group">
                 <label for="userMessage">Votre message</label>
-                <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+                <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?></textarea>
             </div>
             <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
         </form>
