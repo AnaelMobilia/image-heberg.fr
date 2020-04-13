@@ -115,7 +115,7 @@ if (isset($_POST['modifierPwd'])) {
         <br />
         Adresse courriel : <?= $monUtilisateur->getEmail() ?>
         <br />
-        Images possédées : <?= count(metaObject::getAllPicsOffOneUser($monUtilisateur->getId())) ?>
+        Images possédées : <?= count(metaObject::getAllPicsOfOneUser($monUtilisateur->getId())) ?>
     </div>
 </div>
 

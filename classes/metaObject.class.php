@@ -180,7 +180,7 @@ class metaObject {
      * @param type $userId ID de l'user en question
      * @return \ArrayObject new_name image
      */
-    public static function getAllPicsOffOneUser($userId) {
+    public static function getAllPicsOfOneUser($userId) {
         // Toutes les images
         $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
         /* @var $req PDOStatement */
