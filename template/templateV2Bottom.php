@@ -38,7 +38,7 @@
             -
             <a href="<?= _URL_ ?>cgu.php">CGU <span class="fas fa-briefcase"></span></a>
             -
-            <a href="<?= _URL_ ?>contact.php">Signaler une image <span class="fas fa-radiation"></span></a>
+            <a href="<?= _URL_ ?>abuse.php">Signaler une image <span class="fas fa-radiation"></span></a>
             <span class="d-none d-lg-inline">
                 <span class="d-none d-xl-inline">
                     -

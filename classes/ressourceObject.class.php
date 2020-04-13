@@ -476,6 +476,7 @@ abstract class ressourceObject {
      */
     public function setBloquee($bloquee) {
         $this->isBloquee = $bloquee;
+        $this->sauver();
     }
 
     /**
@@ -484,6 +485,7 @@ abstract class ressourceObject {
      */
     function setSignalee($isSignalee) {
         $this->isSignalee = $isSignalee;
+        $this->sauver();
     }
 
     /**
