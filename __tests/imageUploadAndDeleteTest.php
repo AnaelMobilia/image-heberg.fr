@@ -108,7 +108,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_banned.gif';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -116,7 +116,7 @@ class imageUploadAndDeleteTest extends TestCase {
       ob_start();
       require 'upload.php';
       ob_end_clean();
-      $this->assertEquals(empty($msgErreur), TRUE, "Envoi image ne doit pas être bloqué dans upload.php - $msgErreur");
+      $this->assertEquals(empty($msgErreur), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
       $this->assertEquals(empty($msgWarning), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
       self::setNbPlus(self::fichierImage);
       $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer d'image en BDD");
@@ -134,7 +134,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_pour_miniature.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -164,7 +164,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_pour_miniature2.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -195,7 +195,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_banned2.gif';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -224,7 +224,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_banned3.gif';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -271,7 +271,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
 
       ob_start();
       require 'upload.php';
@@ -291,7 +291,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['name'] = 'nomFichier';
       $_FILES['fichier']['size'] = _IMAGE_POIDS_MAX_ + 1;
 
@@ -313,7 +313,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'fichier_doc.doc';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -336,7 +336,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'fichier_doc.jpg';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -359,7 +359,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_jpg.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -383,7 +383,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_tres_large.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -407,7 +407,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -431,7 +431,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_10000x10000.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -454,7 +454,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -493,7 +493,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -517,7 +517,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_tres_haute.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -556,7 +556,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -581,7 +581,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -618,7 +618,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_authentifie.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
@@ -838,7 +838,7 @@ class imageUploadAndDeleteTest extends TestCase {
       unset($_GET);
       $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
       $_POST['Submit'] = 1;
-      $_SESSION['_upload'] = 1;
+      $_SESSION['flag'] = true;
       $_FILES['fichier']['size'] = 104857;
       $_FILES['fichier']['name'] = 'image_paysage_800x600.png';
       $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
