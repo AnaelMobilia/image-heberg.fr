@@ -464,11 +464,11 @@ class utilisateurObject {
      * @param type $userId ID de l'user en question
      * @return \ArrayObject new_name image
      */
-    public static function getAllPicsOfOneUser($userId) {
+    public function getImages() {
         // Toutes les images
         $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
         /* @var $req PDOStatement */
-        $req->bindValue(':pkMembres', $userId, PDO::PARAM_INT);
+        $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
 
         // Exécution de la requête
         $req->execute();

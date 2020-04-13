@@ -24,6 +24,10 @@ require __DIR__ . '/../config/config.php';
 // Vérification des droits d'accès
 utilisateurObject::checkAccess(utilisateurObject::levelUser);
 require _TPL_TOP_;
+// Je récupère la session de mon utilisateur
+$maSession = new sessionObject();
+// Et je reprend ses données
+$monUtilisateur = new utilisateurObject($maSession->getId());
 ?>
 <h1><small>Mes images</small></h1>
 <table class="table table-hover">
@@ -39,9 +43,7 @@ require _TPL_TOP_;
     </thead>
     <tbody>
         <?php
-        // Je récupère la liste des images
-        $maSession = new sessionObject();
-        $mesImages = utilisateurObject::getAllPics($maSession->getId());
+        $mesImages = $monUtilisateur->getImages();
         foreach ((array) $mesImages as $newName):
            $uneImage = new imageObject($newName);
            ?>
