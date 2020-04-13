@@ -33,6 +33,7 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
             // On flaggue l'image en signalee en BDD
             $monImage = new imageObject($idImage[1]);
             $monImage->setSignalee(true);
+            $monImage->sauver();
         }
 
         // Je complète le message avec l'IP de mon émeteur
