@@ -25,12 +25,14 @@ require _TPL_TOP_;
 $msgErreur = '';
 $msgWarning = '';
 
+// Gestion de la session
+$maSession = new sessionObject();
 /**
  * Vérification de l'utilisation normale
  */
-if (isset($_POST['Submit']) && isset($_SESSION['_upload'])) {
+if (isset($_POST['Submit']) && $maSession->checkFlag()) {
    // Suppression du marqueur d'affichage du formulaire d'envoi
-   unset($_SESSION['_upload']);
+   $maSession->removeFlag();
 } else {
    $msgErreur .= 'La page n\'a pas été appelée correctement.<br />';
 }

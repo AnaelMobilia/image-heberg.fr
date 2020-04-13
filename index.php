@@ -21,7 +21,8 @@ require 'config/config.php';
 require _TPL_TOP_;
 
 // Anti-flood
-$_SESSION['_upload'] = TRUE;
+$maSession = new sessionObject();
+$maSession->setFlag();
 ?>
 <h1><small>Envoyer une image</small></h1>
 <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
