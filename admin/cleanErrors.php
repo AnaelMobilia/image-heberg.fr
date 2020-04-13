@@ -137,7 +137,7 @@ if (isset($_POST['effacer'])) :
         <div class="card-body">
             <ul>
                 <?php foreach ((array) $listeErreursMiniaturesHDD as $value): ?>
-                    <li><?= $value ?> (<strong>A effacer manuellement</strong>)</li>
+                    <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
