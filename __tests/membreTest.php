@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -22,294 +23,296 @@ use PHPUnit\Framework\TestCase;
 
 class membreTest extends TestCase {
 
-   /**
-    * Fonction requise par l'extension Database
-    * @return type
-    */
-   public function getConnection() {
-      $pdo = new PDO('sqlite::memory:');
-      return $this->createDefaultDBConnection($pdo, ':memory:');
-   }
+    /**
+     * Fonction requise par l'extension Database
+     * @return type
+     */
+    public function getConnection() {
+        $pdo = new PDO('sqlite::memory:');
+        return $this->createDefaultDBConnection($pdo, ':memory:');
+    }
 
-   /**
-    * Fonction requise par l'extension Database
-    * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
-    */
-   public function getDataSet() {
-      return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
-   }
+    /**
+     * Fonction requise par l'extension Database
+     * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
+     */
+    public function getDataSet() {
+        return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
+    }
 
-   public function testConnexionMembreExistant() {
-      // Chargement de la configuration
-      require_once 'config/config.php';
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['valider'] = 1;
-      $_POST['userName'] = 'admin';
-      $_POST['userPassword'] = 'password';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    public function testConnexionMembreExistant() {
+        // Chargement de la configuration
+        require_once 'config/config.php';
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['valider'] = 1;
+        $_POST['userName'] = 'admin';
+        $_POST['userPassword'] = 'password';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/connexionCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/connexionCompte.php';
+        ob_end_clean();
 
-      /**
-       * Vérification des valeurs
-       */
-      $maSession = new sessionObject();
-      $this->assertEquals(utilisateurObject::levelAdmin, $maSession->getLevel(), "connexion : doit être OK");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $maSession = new sessionObject();
+        $this->assertEquals(utilisateurObject::levelAdmin, $maSession->getLevel(), "connexion : doit être OK");
+    }
 
-   /**
-    * Création d'un compte membre avec un nom déjà existant
-    * @depends testConnexionMembreExistant
-    */
-   public function testMembreCreerCompteDoublon() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['valider'] = 1;
-      $_POST['userName'] = 'admin';
-      $_POST['userPassword'] = 'monPassword';
-      $_POST['userMail'] = 'myMail@example.com';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Création d'un compte membre avec un nom déjà existant
+     * @depends testConnexionMembreExistant
+     */
+    public function testMembreCreerCompteDoublon() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['valider'] = 1;
+        $_POST['userName'] = 'admin';
+        $_POST['userPassword'] = 'monPassword';
+        $_POST['userMail'] = 'myMail@example.com';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SESSION['flag'] = true;
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/creerCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/creerCompte.php';
+        ob_end_clean();
 
-      /**
-       * Vérification des valeurs
-       */
-      $monMembre = new utilisateurObject();
-      $this->assertEquals(FALSE, $monMembre->connexion($_POST['userName'], $_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $monMembre = new utilisateurObject();
+        $this->assertEquals(FALSE, $monMembre->connexion($_POST['userName'], $_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
+    }
 
-   /**
-    * Création d'un compte membre.
-    * @depends testMembreCreerCompteDoublon
-    */
-   public function testMembreCreerCompte() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['valider'] = 1;
-      $_POST['userName'] = 'username';
-      $_POST['userPassword'] = 'password';
-      $_POST['userMail'] = 'myMail@example.com';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Création d'un compte membre.
+     * @depends testMembreCreerCompteDoublon
+     */
+    public function testMembreCreerCompte() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['valider'] = 1;
+        $_POST['userName'] = 'username';
+        $_POST['userPassword'] = 'password';
+        $_POST['userMail'] = 'myMail@example.com';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SESSION['flag'] = true;
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/creerCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/creerCompte.php';
+        ob_end_clean();
 
-      /**
-       * Récupération d'un objet
-       */
-      $monMembre = new utilisateurObject(3);
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject(3);
 
-      /**
-       * Vérification des valeurs
-       */
-      // Email
-      $this->assertEquals('myMail@example.com', $monMembre->getEmail(), "Vérification email");
-      // ID
-      $this->assertEquals(3, $monMembre->getId());
-      // @ IP d'inscription
-      $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
-      // Niveau de droits
-      $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
-      // Nom
-      $this->assertEquals('username', $monMembre->getUserName());
-      $this->assertEquals(TRUE, $monMembre->connexion($_POST['userName'], $_POST['userPassword']));
-   }
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals('myMail@example.com', $monMembre->getEmail(), "Vérification email");
+        // ID
+        $this->assertEquals(3, $monMembre->getId());
+        // @ IP d'inscription
+        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        // Niveau de droits
+        $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
+        // Nom
+        $this->assertEquals('username', $monMembre->getUserName());
+        $this->assertEquals(TRUE, $monMembre->connexion($_POST['userName'], $_POST['userPassword']));
+    }
 
-   /**
-    * Modification du mail
-    * @depends testMembreCreerCompte
-    */
-   public function testMembreModifierMail() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['modifierMail'] = 1;
-      $_POST['userPasswordMail'] = 'password';
-      $_POST['userMail'] = 'john.doe@example.com';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Modification du mail
+     * @depends testMembreCreerCompte
+     */
+    public function testMembreModifierMail() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['modifierMail'] = 1;
+        $_POST['userPasswordMail'] = 'password';
+        $_POST['userMail'] = 'john.doe@example.com';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-      /**
-       * Simulation d'une connexion
-       */
-      $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
+        /**
+         * Simulation d'une connexion
+         */
+        $unMembre = new utilisateurObject();
+        $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/monCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/monCompte.php';
+        ob_end_clean();
 
-      /**
-       * Récupération de l'utilisateur
-       */
-      $monMembre = new utilisateurObject(3);
+        /**
+         * Récupération de l'utilisateur
+         */
+        $monMembre = new utilisateurObject(3);
 
-      /**
-       * Vérification des valeurs
-       */
-      // Email
-      $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
-      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion après");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        // Email
+        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), "getEmail");
+        $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordMail']), "connexion après");
+    }
 
-   /**
-    * Modification du mot de passe
-    * @depends testMembreModifierMail
-    */
-   public function testMembreModifierPassword() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['modifierPwd'] = 1;
-      $_POST['oldUserPassword'] = 'password';
-      $_POST['newUserPassword'] = 'monPassword';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Modification du mot de passe
+     * @depends testMembreModifierMail
+     */
+    public function testMembreModifierPassword() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['modifierPwd'] = 1;
+        $_POST['oldUserPassword'] = 'password';
+        $_POST['newUserPassword'] = 'monPassword';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-      /**
-       * Simulation d'une connexion
-       */
-      $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['oldUserPassword']), "connexion avant");
+        /**
+         * Simulation d'une connexion
+         */
+        $unMembre = new utilisateurObject();
+        $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['oldUserPassword']), "connexion avant");
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/monCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/monCompte.php';
+        ob_end_clean();
 
-      /**
-       * Récupération d'un objet
-       */
-      $monMembre = new utilisateurObject();
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject();
 
-      /**
-       * Vérification des valeurs
-       */
-      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['newUserPassword']), "connexion");
-      $this->assertEquals(false, $monMembre->connexion('username', $_POST['oldUserPassword']), "connexion");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['newUserPassword']), "connexion");
+        $this->assertEquals(false, $monMembre->connexion('username', $_POST['oldUserPassword']), "connexion");
+    }
 
-   /**
-    * Suppression du compte sans cochage de la checkbox
-    * @depends testMembreModifierPassword
-    */
-   public function testMembreSupprimerCompteRequiertCheckbox() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['supprimerCompte'] = 1;
-      $_POST['userPasswordDelete'] = 'monPassword';
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Suppression du compte sans cochage de la checkbox
+     * @depends testMembreModifierPassword
+     */
+    public function testMembreSupprimerCompteRequiertCheckbox() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['supprimerCompte'] = 1;
+        $_POST['userPasswordDelete'] = 'monPassword';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-      /**
-       * Simulation d'une connexion
-       */
-      $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
+        /**
+         * Simulation d'une connexion
+         */
+        $unMembre = new utilisateurObject();
+        $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/monCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/monCompte.php';
+        ob_end_clean();
 
-      /**
-       * Récupération d'un objet
-       */
-      $monMembre = new utilisateurObject();
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject();
 
-      /**
-       * Vérification des valeurs
-       */
-      $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion devrait être possible");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $this->assertEquals(TRUE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion devrait être possible");
+    }
 
-   /**
-    * Suppression du compte
-    * @depends testMembreSupprimerCompteRequiertCheckbox
-    */
-   public function testMembreSupprimerCompte() {
-      unset($_POST);
-      /**
-       *  Injection des valeurs du formulaire
-       */
-      $_POST['supprimerCompte'] = 1;
-      $_POST['userPasswordDelete'] = 'monPassword';
-      $_POST['confirmeDelete'] = 1;
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+    /**
+     * Suppression du compte
+     * @depends testMembreSupprimerCompteRequiertCheckbox
+     */
+    public function testMembreSupprimerCompte() {
+        unset($_POST);
+        /**
+         *  Injection des valeurs du formulaire
+         */
+        $_POST['supprimerCompte'] = 1;
+        $_POST['userPasswordDelete'] = 'monPassword';
+        $_POST['confirmeDelete'] = 1;
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-      /**
-       * Simulation d'une connexion
-       */
-      $unMembre = new utilisateurObject();
-      $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
+        /**
+         * Simulation d'une connexion
+         */
+        $unMembre = new utilisateurObject();
+        $this->assertEquals(TRUE, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
-      /**
-       *  Appel de la page
-       */
-      ob_start();
-      require 'membre/monCompte.php';
-      ob_end_clean();
+        /**
+         *  Appel de la page
+         */
+        ob_start();
+        require 'membre/monCompte.php';
+        ob_end_clean();
 
-      /**
-       * Récupération d'un objet
-       */
-      $monMembre = new utilisateurObject();
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject();
 
-      /**
-       * Vérification des valeurs
-       */
-      $this->assertEquals(FALSE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $this->assertEquals(FALSE, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
+    }
 
-   /**
-    * Connexion au compte créé lors de la création de la BDD
-    * @depends testMembreSupprimerCompte
-    */
-   public function testConnexionCompteHistorique() {
-      unset($_POST);
-      /**
-       * Injection des valeurs du formulaire
-       */
-      $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-      /**
-       * Récupération d'un objet
-       */
-      $monMembre = new utilisateurObject();
+    /**
+     * Connexion au compte créé lors de la création de la BDD
+     * @depends testMembreSupprimerCompte
+     */
+    public function testConnexionCompteHistorique() {
+        unset($_POST);
+        /**
+         * Injection des valeurs du formulaire
+         */
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        /**
+         * Récupération d'un objet
+         */
+        $monMembre = new utilisateurObject();
 
-      /**
-       * Vérification des valeurs
-       */
-      $this->assertEquals(TRUE, $monMembre->connexion('admin', 'password'), "connexion au compte créé à l'import de la BDD devrait être possible");
-   }
+        /**
+         * Vérification des valeurs
+         */
+        $this->assertEquals(TRUE, $monMembre->connexion('admin', 'password'), "connexion au compte créé à l'import de la BDD devrait être possible");
+    }
 
 }
