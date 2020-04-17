@@ -107,6 +107,12 @@ class imageUploadAndDeleteTest extends TestCase {
         if ($chargerConfig) {
             require_once 'config/config.php';
         }
+        /**
+         * Désauthentification
+         */
+        $maSession = new sessionObject();
+        $maSession->deconnexion();
+
         unset($_POST);
         unset($_FILES);
         unset($_GET);
@@ -114,12 +120,6 @@ class imageUploadAndDeleteTest extends TestCase {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
-
-        /**
-         * Désauthentification
-         */
-        $maSession = new sessionObject();
-        $maSession->deconnexion();
     }
 
     /**
