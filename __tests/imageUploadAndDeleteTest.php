@@ -262,7 +262,7 @@ class imageUploadAndDeleteTest extends TestCase {
    }
 
    /**
-    * Envoi sans fichierU
+    * Envoi sans fichier
     * @depends testEnvoiBrut
     */
    public function testEnvoiSansFichier() {
