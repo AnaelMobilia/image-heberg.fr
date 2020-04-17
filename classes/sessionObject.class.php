@@ -70,7 +70,7 @@ class sessionObject {
 
     /**
      * Nom d'utilisateur
-     * @return type
+     * @return string
      */
     public function getUserName() {
         return $this->getUserObject()->getUserName();
@@ -78,7 +78,7 @@ class sessionObject {
 
     /**
      * @ IP
-     * @return type
+     * @return string
      */
     public function getIP() {
         return $this->IP;
@@ -94,15 +94,15 @@ class sessionObject {
 
     /**
      * ID en BDD
-     * @return type
+     * @return int
      */
     public function getId() {
-        return $this->getUserObject()->getId();
+        return (int) $this->getUserObject()->getId();
     }
 
     /**
      * IP
-     * @param type $IP
+     * @param string $IP
      */
     public function setIP($IP) {
         $this->IP = $IP;

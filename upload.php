@@ -128,7 +128,7 @@ if (empty($msgErreur) && !$monImage->creer()) {
 /**
  * Gestion du propriétaire
  */
-if (empty($msgErreur) && is_int($maSession->getId()) && $maSession->getId() !== 0) {
+if (empty($msgErreur) && $maSession->getId() !== 0) {
     // Assignation à l'utilisateur
     $monUtilisateur = new utilisateurObject($maSession->getId());
     $monUtilisateur->assignerImage($monImage);
