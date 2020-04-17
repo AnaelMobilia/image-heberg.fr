@@ -88,7 +88,7 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
                 <div class="form-group">
                     <label for="raison">Raison du signalement</label>
                     <select name="raison" id="raison" class="form-control" required="required">
-                        <option value="" selected>-- Ne pas effectuer --</option>
+                        <option value="" selected>-- Sélectionner une raison --</option>
                         <option value="porno">Pornographie et érotisme</option>
                         <option value="legislation">Non respect de la législation française (à indiquer)</option>
                         <option value="autre">Autre (à indiquer)</option>
