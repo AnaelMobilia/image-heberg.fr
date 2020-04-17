@@ -73,9 +73,7 @@ class imageUploadAndDeleteTest extends TestCase {
      * @param int $valeur
      */
     private static function setNb($nomFichier, $valeur) {
-        $f = fopen(_PATH_TESTS_IMAGES_ . $nomFichier, 'w');
-        fwrite($f, $valeur);
-        fclose($f);
+        file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
     }
 
     /**
