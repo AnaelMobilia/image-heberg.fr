@@ -624,7 +624,7 @@ class imageUploadAndDeleteTest extends TestCase {
         
         $this->assertEquals($uneImageDoublon->getNbDoublons(), 2, "L'image est présente en id 11 & 12");
         $this->assertEquals($uneAutreImage->getNbDoublons(), 1, "L'image est présente en id 13");
-        $this->assertEquals($uneImageInexistante->getNbDoublons(), -1, "L'image n'existe pas...");
+        $this->assertEquals($uneImageInexistante->getNbDoublons(), 0, "L'image n'existe pas...");
     }
 
     /**
