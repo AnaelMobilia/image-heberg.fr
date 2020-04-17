@@ -250,7 +250,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
             <div class="clearfix"></div>
             <br />
             <a href="<?= _URL_ ?>" class="btn btn-success">
-                <span class="fas fa-cloud-upload"></span>
+                <span class="fas fa-cloud-upload-alt"></span>
                 &nbsp;
                 Envoyer une autre image
             </a>
