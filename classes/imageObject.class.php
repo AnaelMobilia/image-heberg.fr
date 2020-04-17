@@ -149,8 +149,8 @@ class imageObject extends ressourceObject implements ressourceInterface {
          * Suppression du HDD
          */
         if ($monRetour) {
-            // Il n'y a plus d'autres images identiques...
-            if ($this->getNbDoublons() == 1) {
+            // Plus aucune image n'utilise le fichier (BDD déjà mise à jour !)
+            if ($this->getNbDoublons() == 0) {
                 // Je supprime l'image sur le HDD
                 $monRetour = unlink($this->getPathMd5());
             }
