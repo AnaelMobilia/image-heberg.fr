@@ -78,7 +78,7 @@ define('_DEBUG_', TRUE);
  */
 // Salt pour les mots de passe
 // Legacy - n'est plus requis !!
-define('_GRAIN_DE_SEL_', 'xxx');
+define('_GRAIN_DE_SEL_', '');
 /**
  * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
  */
