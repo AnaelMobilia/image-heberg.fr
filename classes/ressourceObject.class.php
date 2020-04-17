@@ -70,7 +70,7 @@ abstract class ressourceObject {
      */
     public function getMd5() {
         // Création d'une image => Utilisation du fichier temporaire
-        if (is_null($this->md5) && isset($this->getPathTemp())) {
+        if (is_null($this->md5) && $this->getPathTemp()) {
             // Fichier temporaire...
             $this->md5 = md5_file($this->getPathTemp());
         }
