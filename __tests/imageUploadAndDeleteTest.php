@@ -64,11 +64,7 @@ class imageUploadAndDeleteTest extends TestCase {
      * @return int nb éléments
      */
     private static function getNb($nomFichier) {
-        $f = fopen(_PATH_TESTS_IMAGES_ . $nomFichier, 'r');
-        $val = fread($f, 10);
-        fclose($f);
-
-        return $val;
+        return file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
     }
 
     /**
