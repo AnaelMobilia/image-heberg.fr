@@ -107,12 +107,6 @@ class imageUploadAndDeleteTest extends TestCase {
         if ($chargerConfig) {
             require_once 'config/config.php';
         }
-        /**
-         * Désauthentification
-         */
-        $maSession = new sessionObject();
-        $maSession->deconnexion();
-
         unset($_POST);
         unset($_FILES);
         unset($_GET);
