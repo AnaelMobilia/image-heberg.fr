@@ -109,6 +109,32 @@ abstract class ressourceObject {
     }
 
     /**
+     * Nombre d'images ayant le même MD5 (Normalement 1 à minima, l'image courante...)
+     * @return int nombre d'images ayant ce MD5 (-1 en cas d'erreur)
+     */
+    public function getNbDoublons() {
+        // Retour - -1 par défaut pour marquer l'erreur
+        $monRetour = -1;
+
+        // Existe-t-il d'autres occurences de cette image ?
+        if ($this->getType() === self::typeImage) {
+            // Image
+            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5");
+        } else {
+            // Miniature
+            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
+        }
+        /* @var $req PDOStatement */
+        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->execute();
+        $values = $req->fetch();
+        if ($values !== FALSE) {
+            $monRetour = (int) $values->nb;
+        }
+        return $monRetour;
+    }
+
+    /**
      * URL de la ressource
      * @return string
      */
