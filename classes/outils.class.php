@@ -56,6 +56,8 @@ class outils {
                 break;
             case IMAGETYPE_JPEG:
                 $monImage = imagecreatefromjpeg($path);
+                // Activation de l'entrelacement (image progressive)
+                imageinterlace($monImage, true);
                 break;
             case IMAGETYPE_PNG:
                 $monImage = imagecreatefrompng($path);
@@ -84,9 +86,14 @@ class outils {
                 $monRetour = imagegif($uneImage, $path);
                 break;
             case IMAGETYPE_JPEG:
+                // Activation de l'entrelacement (image progressive)
+                imageinterlace($uneImage, true);
                 $monRetour = imagejpeg($uneImage, $path, 100);
                 break;
             case IMAGETYPE_PNG:
+                // Gestion de la transparence
+                imagealphablending($uneImage, true);
+                imagesavealpha($uneImage, true);
                 $monRetour = imagepng($uneImage, $path, 9);
                 break;
         }
