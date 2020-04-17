@@ -198,7 +198,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testRenvoiImageDemandeMiniature() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned2.gif';
+        $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
@@ -227,7 +227,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testRenvoiImageDemandeNouvelleMiniature() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned3.gif';
+        $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '40x40';
 
