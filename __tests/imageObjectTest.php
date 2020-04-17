@@ -77,28 +77,16 @@ class imageObjectTest extends TestCase {
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
         }
 
-        // GIF
+        // GIF - Pas de changement en fonction des versions de PHP
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        } else {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        }
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         $angle = 180;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        } else {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        }
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
         $angle = 270;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        } else {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
-        }
+        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
     }
 
     /**
