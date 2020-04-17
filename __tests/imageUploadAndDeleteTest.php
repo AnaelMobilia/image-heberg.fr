@@ -74,7 +74,7 @@ class imageUploadAndDeleteTest extends TestCase {
      */
     private static function setNb($nomFichier, $valeur) {
         file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
-        echo "$nomFichier -> $valeur";
+        echo "\r\n$nomFichier -> $valeur";
     }
 
     /**
@@ -407,6 +407,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image authentifié ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
@@ -457,6 +458,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
@@ -507,6 +509,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
@@ -536,6 +539,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 2, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image ne doit pas être bloquée dans upload.php");
         self::setNbPlus(self::fichierImage);
@@ -600,6 +604,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'delete.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 2, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), FALSE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée par autrui doit être bloqué dans delete.php");
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée par autrui doit être bloqué en BDD");
@@ -629,6 +634,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'delete.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 2, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image possédée ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
@@ -745,6 +751,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'delete.php';
         ob_end_clean();
 
+        $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
         self::setNbMoins(self::fichierImage);
