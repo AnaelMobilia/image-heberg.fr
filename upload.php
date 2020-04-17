@@ -87,9 +87,6 @@ if (empty($msgErreur)) {
     $monImage = new imageObject();
     $monImage->setPathTemp($pathTmp);
     $monImage->setNomTemp($_FILES['fichier']['name']);
-    if (!$monImage->creer()) {
-        $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image ' . $_FILES['fichier']['name'] . ' .<br />';
-    }
 }
 
 /**
@@ -119,6 +116,13 @@ if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['an
     if (!$result) {
         $msgWarning .= 'Impossible d\'effectuer la rotation de ' . $_FILES['fichier']['name'] . ' .<br />';
     }
+}
+
+/**
+ * Enregistrement de l'image une fois les traitements effectués
+ */
+if (!$monImage->creer()) {
+    $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image ' . $_FILES['fichier']['name'] . ' .<br />';
 }
 
 /**
