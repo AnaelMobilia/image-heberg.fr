@@ -121,7 +121,7 @@ if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['an
 /**
  * Enregistrement de l'image une fois les traitements effectués
  */
-if (!$monImage->creer()) {
+if (empty($msgErreur) && !$monImage->creer()) {
     $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de l\'image ' . $_FILES['fichier']['name'] . ' .<br />';
 }
 
