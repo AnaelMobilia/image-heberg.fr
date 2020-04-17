@@ -127,7 +127,12 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer d'image en BDD");
-        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '6/6a9dd81ae12c79d953031bc54c07f900'), "Envoi image doit créer d'image sur HDD");
+        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
+            // PHP7.2+
+            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '9/9f8c72222fd744d4c8abe0e72759d09f'), "Envoi image doit créer d'image sur HDD");
+        } else {
+            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '9/9f8c72222fd744d4c8abe0e72759d09f'), "Envoi image doit créer d'image sur HDD");
+        }
     }
 
     /**
