@@ -418,6 +418,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image authentifié ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Envoi image authentifié ne doit pas être bloquée en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -438,6 +439,7 @@ class imageUploadAndDeleteTest extends TestCase {
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas modifier la BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -466,6 +468,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas modifier la BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -486,6 +489,7 @@ class imageUploadAndDeleteTest extends TestCase {
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image doit être bloquée en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -514,6 +518,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas être bloquée en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -542,6 +547,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas être bloquée en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
