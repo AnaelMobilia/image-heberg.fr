@@ -612,13 +612,29 @@ class imageUploadAndDeleteTest extends TestCase {
     }
 
     /**
-     * Suppression d'une image - Propriétaire en étant Authentifié
+     * Vérification du bon fonctionnement du mécanisme de détection des doublons en BDD
      * @depends testSuppressionImageProprietaireAuthentifie2
+     */
+    public function testVerificationCalculsDoublonsBDD() {
+        self::prepareTest();
+
+        $uneImageDoublon = new imageObject("100000019001334055750.png");
+        $uneAutreImage = new imageObject("146734019451334055750.png");
+        $uneImageInexistante = new imageObject();
+        
+        $this->assertEquals($uneImageDoublon->getNbDoublons(), 2, "L'image est présente en id 11 & 12");
+        $this->assertEquals($uneAutreImage->getNbDoublons(), 1, "L'image est présente en id 13");
+        $this->assertEquals($uneImageInexistante->getNbDoublons(), -1, "L'image n'existe pas...");
+    }
+
+    /**
+     * Suppression d'une image - Propriétaire en étant Authentifié
+     * @depends testVerificationCalculsDoublonsBDD
      */
     public function testSuppressionImageProprietaireAuthentifie() {
         self::prepareTest();
         // Copie du fichier
-        rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
+        copy(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
         $_GET['id'] = '100000019001334055750.png';
