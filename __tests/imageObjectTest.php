@@ -73,7 +73,7 @@ class imageObjectTest extends TestCase {
         } else {
             //$this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
             //$this->assertEquals(imagecreatefromjpeg(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg'), imagecreatefromjpeg(_PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle), "Rotation JPG " . $angle);
-            outils::setImage(imagecreatefromjpeg(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg'), IMAGETYPE_JPEG, _PATH_TESTS_OUTPUT_ . 'ATTENDU_image_banned.jpg-' . $angle);
+            $monImage->rotation(0, _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg', _PATH_TESTS_OUTPUT_ . 'ATTENDU_image_banned.jpg-' . $angle);
         }
         $this->assertFileEquals(_PATH_TESTS_OUTPUT_ . 'ATTENDU_image_banned.jpg-' . $angle, _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
         $angle = 180;
