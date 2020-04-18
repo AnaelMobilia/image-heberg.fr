@@ -25,5 +25,5 @@ Service d'hébergement d'images en ligne
 
 # Stockage des images
   - Les images sont stockées dans le répertoire /files ou /files/thumbs en fonction de leur type.
-  - Chaque image est stockée sous forme de md5 (correspondance en BDD)
+  - Chaque image est stockée sous le nom du md5 de son fichier d'origine (correspondance en BDD)
   - Pour limiter le nombre de fichiers par répertoire, chaque image est stockée dans un sous répertoire qui est la première lettre de son md5
