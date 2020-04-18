@@ -152,7 +152,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
         echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "\r\nMD5 miniature : " . $maMiniature->getMd5() . "\r\n";
+        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), TRUE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
@@ -185,7 +185,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
         echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "\r\nMD5 miniature : " . $maMiniature->getMd5() . "\r\n";
+        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), TRUE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image + miniature (rotation) ne doit pas être bloqué dans upload.php");
@@ -217,7 +217,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
         echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "\r\nMD5 miniature : " . $maMiniature->getMd5() . "\r\n";
+        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image - dde miniature - ne doit pas être bloquée dans upload.php");
@@ -245,7 +245,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'upload.php';
         ob_end_clean();
         echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "\r\nMD5 miniature : " . $maMiniature->getMd5() . "\r\n";
+        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), TRUE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée dans upload.php");
