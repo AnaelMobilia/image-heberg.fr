@@ -35,11 +35,9 @@ class imageObjectTest extends TestCase {
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            //$this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
-            $this->assertEquals(imagecreatefrompng(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png'), imagecreatefrompng(_PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle), "Rotation PNG " . $angle);
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
         } else {
-            //$this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
-            $this->assertEquals(imagecreatefrompng(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png'), imagecreatefrompng(_PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle), "Rotation PNG " . $angle);
+            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
         }
         $angle = 180;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
@@ -69,9 +67,11 @@ class imageObjectTest extends TestCase {
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
+            //$this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
+            $this->assertEquals(imagecreatefromjpeg(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.jpg'), imagecreatefromjpeg(_PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle), "Rotation JPG " . $angle);
         } else {
-            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
+            //$this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
+            $this->assertEquals(imagecreatefromjpeg(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg'), imagecreatefromjpeg(_PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle), "Rotation JPG " . $angle);
         }
         $angle = 180;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);
