@@ -47,7 +47,7 @@ $maSession->setFlag();
             <div class="form-group form-group-lg">
                 <label for="fichier" class="col-md-3">Fichier à envoyer</label>
                 <div class="col-md-9">
-                    <input type="file" accept="image/*" name="fichier" id="fichier"
+                    <input type="file" accept="image/*" name="fichier" id="fichier" required="required"
                     <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
                                disabled="disabled"
                            <?php endif; ?>
