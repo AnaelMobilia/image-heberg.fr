@@ -137,6 +137,9 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * {@inheritdoc}
      */
     public function creer() {
+        // Retour
+        $monRetour = TRUE;
+
         /**
          * Détermination du nom &&
          * Vérification de sa disponibilité
