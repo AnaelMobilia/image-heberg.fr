@@ -126,9 +126,10 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(empty($msgErreur), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
-        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer d'image en BDD");
+        $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer image en BDD");
         // GIF : pas de changement en fonction des versions de PHP
-        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '9/9f8c72222fd744d4c8abe0e72759d09f'), "Envoi image doit créer d'image sur HDD");
+        echo $monImage->getMd5();
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '9/9f8c72222fd744d4c8abe0e72759d09f'), "Envoi image doit créer image sur HDD");
     }
 
     /**
