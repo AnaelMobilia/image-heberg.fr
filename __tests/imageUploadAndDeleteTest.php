@@ -22,6 +22,9 @@
 use PHPUnit\Framework\TestCase;
 
 class imageUploadAndDeleteTest extends TestCase {
+    /**
+     * Les MD5 indiqués sont ceux de travis...
+     */
 
     // Fichiers pour le nombre d'images / possessions attendues
     const fichierImage = '../_nbImages';
@@ -130,7 +133,7 @@ class imageUploadAndDeleteTest extends TestCase {
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image doit créer image en BDD");
         // GIF : pas de changement en fonction des versions de PHP
-        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '9/9f8c72222fd744d4c8abe0e72759d09f'), "Envoi image doit créer image sur HDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '3/3487a240d00aa62f2abcfe43ba84a85c'), "Envoi image doit créer image sur HDD");
     }
 
     /**
