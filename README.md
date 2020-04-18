@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/AnaelMobilia/image-heberg.fr.svg?branch=master)](https://travis-ci.org/AnaelMobilia/image-heberg.fr)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d61a46162db94e0b8a053f4bb5dbc62f)](https://www.codacy.com/app/AnaelMobilia/image-heberg-fr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AnaelMobilia/image-heberg.fr&amp;utm_campaign=Badge_Grade)
 # image-heberg.fr
 Service d'hébergement d'images en ligne
 
