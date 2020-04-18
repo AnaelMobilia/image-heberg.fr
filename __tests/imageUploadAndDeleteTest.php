@@ -22,10 +22,11 @@
 use PHPUnit\Framework\TestCase;
 
 class imageUploadAndDeleteTest extends TestCase {
-    /**
-     * Les MD5 indiqués sont ceux de travis...
-     */
 
+    /**
+     * Le MD5 est calculé sur le fichier original
+     * Les miniatures travaillent sur le fichier uploadé => faire une copie du fichier original
+     */
     // Fichiers pour le nombre d'images / possessions attendues
     const fichierImage = '../_nbImages';
     const fichierMiniature = '../_nbThumbnails';
@@ -77,7 +78,7 @@ class imageUploadAndDeleteTest extends TestCase {
      */
     private static function setNb($nomFichier, $valeur) {
         file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
-        echo "\r\n$nomFichier -> $valeur";
+        echo "\r\n$nomFichier -> $valeur\r\n";
     }
 
     /**
@@ -143,7 +144,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testEnvoiMiniature() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_pour_miniature.png';
+        $_FILES['fichier']['name'] = 'image_pour_miniature2.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
@@ -159,12 +160,11 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature doit créer image en BDD");
         self::setNbPlus(self::fichierMiniature);
         $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::fichierMiniature), "Envoi image + miniature doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
             // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
             $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '3/3ab7ee8245aa2a58dd42ee3fee5e2d83'), "Envoi image + miniature doit créer miniature sur HDD");
         } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
             $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . 'd/da4abc98e046001225da25adbe877669'), "Envoi image + miniature doit créer miniature sur HDD");
         }
     }
@@ -176,7 +176,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testEnvoiMiniatureRotation() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_pour_miniature.png';
+        $_FILES['fichier']['name'] = 'image_pour_miniature3.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
         $_POST['angleRotation'] = 90;
@@ -193,12 +193,11 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image + miniature (rotation) doit créer image en BDD");
         self::setNbPlus(self::fichierMiniature);
         $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::fichierMiniature), "Envoi image + miniature (rotation) doit créer miniature en BDD");
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
             // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'c/c602252985480b868a0852e1a141620e'), "Envoi image + miniature (rotation) doit créer image sur HDD");
             $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '5/58aa6fc8aa83292b1cef879c66288aa7'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
         } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . 'd/df6565cd5edc64d855c47bdedf3fae2a'), "Envoi image + miniature (rotation) doit créer image sur HDD");
             $this->assertEquals(TRUE, file_exists(_PATH_MINIATURES_ . '2/2cdc6af129f1eaaca2b1fbc51d2b3694'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
         }
     }
@@ -210,7 +209,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testRenvoiImageDemandeMiniature() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['name'] = 'image_banned2.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
@@ -238,7 +237,7 @@ class imageUploadAndDeleteTest extends TestCase {
     public function testRenvoiImageDemandeNouvelleMiniature() {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['name'] = 'image_banned3.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '40x40';
 
@@ -456,12 +455,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image authentifié ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Envoi image authentifié ne doit pas être bloquée en BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -484,12 +478,7 @@ class imageUploadAndDeleteTest extends TestCase {
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas modifier la BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -520,12 +509,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas modifier la BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538'), "Renvoi image ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -548,12 +532,7 @@ class imageUploadAndDeleteTest extends TestCase {
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image doit être bloquée en BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -584,12 +563,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas être bloquée en BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -620,12 +594,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Renvoi image ne doit pas être bloquée en BDD");
         self::setNbPlus(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Renvoi image ne doit pas être bloquée en BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        } else {
-            $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
-        }
+        $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60'), "Envoi image authentifié ne doit pas être bloquée sur HDD");
     }
 
     /**
@@ -738,12 +707,7 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Suppression image possédée ne doit pas être bloqué en BDD");
         self::setNbMoins(self::fichierPossede);
         $this->assertEquals(self::countImagesPossedeesEnBdd(), self::getNb(self::fichierPossede), "Suppression image possédée ne doit pas être bloqué en BDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(file_exists(_PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29'), TRUE, "Suppression image possédée ne doit pas être effacée du HDD car encore en usage");
-        } else {
-            $this->assertEquals(file_exists(_PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29'), TRUE, "Suppression image possédée ne doit pas être effacée du HDD car encore en usage");
-        }
+        $this->assertEquals(file_exists(_PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29'), TRUE, "Suppression image possédée ne doit pas être effacée du HDD car encore en usage");
     }
 
     /**
@@ -829,13 +793,12 @@ class imageUploadAndDeleteTest extends TestCase {
         $this->assertEquals(empty($msgWarning), TRUE, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
         self::setNbPlus(self::fichierImage);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::fichierImage), "Envoi image avec redim doit créer d'image en BDD");
+        $this->assertEquals(FALSE, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image avec redim ne doit pas créer d'image originale sur HDD");
         if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
             // PHP7.2+
             $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '0/02c7908b07fbbe94a7363bf76fc36e7f'), "Envoi image avec redim doit créer image redim sur HDD");
-            $this->assertEquals(FALSE, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image avec redim ne doit pas créer d'image originale sur HDD");
         } else {
             $this->assertEquals(TRUE, file_exists(_PATH_IMAGES_ . '4/4ab29350fa47c1009fe56683aeef8a5c'), "Envoi image avec redim doit créer image redim sur HDD");
-            $this->assertEquals(FALSE, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image avec redim ne doit pas créer d'image originale sur HDD");
         }
     }
 
@@ -864,7 +827,7 @@ class imageUploadAndDeleteTest extends TestCase {
         require 'delete.php';
         ob_end_clean();
         echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        
+
         $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
         $this->assertEquals(empty($msgWarning), TRUE, "Suppression image ne doit pas être bloqué dans delete.php");
