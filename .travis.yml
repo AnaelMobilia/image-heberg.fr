@@ -86,7 +86,7 @@ jobs:
         - wget https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
         - chmod +x phpcs.phar
         - chmod +x phpcbf.phar
-        - php phpcs.phar --ignore=*/__tests/* --standard=PSR12 ./ -p
+        - php phpcs.phar --ignore=*/__tests/*,*.css,*.js --standard=PSR12 ./ -p
 
     - php: nightly
       script:
