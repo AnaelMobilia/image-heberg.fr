@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -32,30 +33,30 @@ $fileName = basename($url);
  */
 $monObjet;
 if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
-   // Miniature
-   $monObjet = new miniatureObject();
+    // Miniature
+    $monObjet = new miniatureObject();
 } else {
-   // Image (ou erreur)
-   $monObjet = new imageObject();
+    // Image (ou erreur)
+    $monObjet = new imageObject();
 }
 
 /**
  * Est-ce que le fichier existe ?
  */
 if (!$monObjet->charger($fileName)) {
-   // Fichier non trouvé...
-   $monObjet = new imageObject();
-   $monObjet->charger(_IMAGE_404_);
-   // Envoi d'un header en 404
-   header("HTTP/1.0 404 Not Found");
+    // Fichier non trouvé...
+    $monObjet = new imageObject();
+    $monObjet->charger(_IMAGE_404_);
+    // Envoi d'un header en 404
+    header("HTTP/1.0 404 Not Found");
 }
 
 /**
  * Le fichier est-il bloqué ?
  */
 if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
-   $monObjet = new imageObject();
-   $monObjet->charger(_IMAGE_BAN_);
+    $monObjet = new imageObject();
+    $monObjet->charger(_IMAGE_BAN_);
 }
 
 /**
@@ -63,10 +64,10 @@ if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
  */
 if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
 // IPv4
-   $monObjet->setNbViewIpv4PlusUn();
+    $monObjet->setNbViewIpv4PlusUn();
 } else {
 // IPv6
-   $monObjet->setNbViewIpv6PlusUn();
+    $monObjet->setNbViewIpv6PlusUn();
 }
 $monObjet->sauver();
 
@@ -79,7 +80,7 @@ maBDD::close();
  * Envoi du bon entête HTTP
  */
 if (!_TRAVIS_) {
-   header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
+    header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
 }
 
 /**

@@ -32,22 +32,22 @@ require _TPL_TOP_;
      * @return string
      */
     function getScandirRecursif($path) {
-       $monRetour = '<ul>';
+        $monRetour = '<ul>';
 
-       // Scanne le répertoire fourni
-       $scan_rep = scandir($path);
-       // Pour chaque item
-       foreach ($scan_rep as $item) {
-          if ($item !== '.' && $item !== '..') {
-             $monRetour .= '<li>' . $path . $item . '</li>';
-             if (is_dir($path . $item)) {
-                // Appel récursif
-                $monRetour .= getScandirRecursif($path . $item . '/');
-             }
-          }
-       }
-       $monRetour .= '</ul>';
-       return $monRetour;
+        // Scanne le répertoire fourni
+        $scan_rep = scandir($path);
+        // Pour chaque item
+        foreach ($scan_rep as $item) {
+            if ($item !== '.' && $item !== '..') {
+                $monRetour .= '<li>' . $path . $item . '</li>';
+                if (is_dir($path . $item)) {
+                    // Appel récursif
+                    $monRetour .= getScandirRecursif($path . $item . '/');
+                }
+            }
+        }
+        $monRetour .= '</ul>';
+        return $monRetour;
     }
 
     echo getScandirRecursif(_PATH_IMAGES_);
