@@ -19,13 +19,19 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-namespace ImageHeberg;
-
+use ImageHeberg\ImageObject;
+use ImageHeberg\MaBDD;
+use ImageHeberg\MetaObject;
+use ImageHeberg\MiniatureObject;
+use ImageHeberg\Outils;
+use ImageHeberg\RessourceInterface;
+use ImageHeberg\RessourceObject;
+use ImageHeberg\SessionObject;
+use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
 
 class ImageUploadAndDeleteTest extends TestCase
 {
-
     /**
      * Le MD5 est calculé sur le fichier original
      * Les miniatures travaillent sur le fichier uploadé => faire une copie du fichier original
