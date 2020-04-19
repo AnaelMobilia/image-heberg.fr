@@ -23,7 +23,7 @@ $visiteur = new SessionObject();
 header('Content-Type: application/javascript');
 
 // Utilisateur non connecté : Menu mon-compte caché + bouton pour l'afficher
-if ($visiteur->getLevel() === UtilisateurObject::levelGuest) :
+if ($visiteur->getLevel() === UtilisateurObject::LEVEL_GUEST) :
     ?>
     // Cache les champs liés à l'espace membre
     $("#monCompte").hide();
