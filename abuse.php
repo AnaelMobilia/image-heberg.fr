@@ -30,25 +30,37 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
         // On essaie de matcher l'image
         $result = preg_match("#^.*\/([\d]*.[pngjpif]{3})$#", trim($_POST['urlImage']), $idImage);
         if ($result) {
-            // On flaggue l'image en signalee en BDD
+            // On flaggue l'image en signalée en BDD
             $monImage = new imageObject($idImage[1]);
             $monImage->setSignalee(true);
             $monImage->sauver();
+
+            // On cherche les autres images avec le même MD5
+            $images = metaObject::getImageByMd5($monImage->getMd5());
+            foreach ($images as $uneImage) {
+                // On flaggue en signalée...
+                $monImage = new imageObject($uneImage);
+                $monImage->setSignalee(true);
+                $monImage->sauver();
+            }
+            // Les miniatures reprennent automatiquement les informations de l'image parent
         }
 
-        // Je complète le message avec l'IP de mon émeteur
-        $message = "URL : " . $_POST['urlImage'];
-        $message .= "\r\n\r\nBlocage automatique : " . ($result ? 'OK' : 'KO');
-        $message .= "\r\n\r\nRaison : " . $_POST['raison'];
-        $message .= "\r\n\r\nMessage : " . $_POST['userMessage'];
-        $message .= "\r\n\r\n---------------------------------------------";
-        $message .= "\r\n\r\nIP : " . $_SERVER['REMOTE_ADDR'];
-        $message .= "\r\n\r\nBROWSER : " . $_SERVER['HTTP_USER_AGENT'];
+        // Gestion travis
+        if (!_TRAVIS_) {
+            // Je complète le message avec l'IP de mon émeteur
+            $message = "URL : " . $_POST['urlImage'];
+            $message .= "\r\n\r\nBlocage automatique : " . ($result ? 'OK' : 'KO');
+            $message .= "\r\n\r\nRaison : " . $_POST['raison'];
+            $message .= "\r\n\r\nMessage : " . $_POST['userMessage'];
+            $message .= "\r\n\r\n---------------------------------------------";
+            $message .= "\r\n\r\nIP : " . $_SERVER['REMOTE_ADDR'];
+            $message .= "\r\n\r\nBROWSER : " . $_SERVER['HTTP_USER_AGENT'];
 
-        // Tout va bien, on envoit un mail
-        mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Signalement d'image", $message, "From: " . $_POST['userMail']);
-        $maSession->removeFlag();
-
+            // Tout va bien, on envoit un mail
+            mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Signalement d'image", $message, "From: " . $_POST['userMail']);
+            $maSession->removeFlag();
+        }
         // Retour utilisateur
         ?>
         <div class="alert alert-success">Votre signalement a été envoyé !</div>

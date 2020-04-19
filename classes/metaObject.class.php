@@ -269,4 +269,24 @@ class metaObject {
         return $monRetour;
     }
 
+    /**
+     * Toutes les images avec un même MD5
+     * @param string $unMd5
+     * @return \ArrayObject
+     */
+    public static function getImageByMd5($unMd5) {
+        // Images avec le même MD5
+        $req = maBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");
+        $req->bindValue(':md5', $unMd5, PDO::PARAM_STR);
+        $req->execute();
+
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($req->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $retour->append($value->new_name);
+        }
+
+        return $retour;
+    }
 }
