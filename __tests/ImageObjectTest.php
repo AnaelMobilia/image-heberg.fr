@@ -32,11 +32,10 @@ use PHPUnit\Framework\TestCase;
 
 class ImageObjectTest extends TestCase
 {
-    /*
-     * Rotation des images PNG
-     * @runInSeparateProcess
-     */
 
+    /**
+     * Rotation des images PNG
+     */
     public function testRotationImagesPNG()
     {
         require 'config/config.php';
@@ -66,12 +65,12 @@ class ImageObjectTest extends TestCase
         }
     }
 
-//    /*
-//     * Rotation des images JPG
-//     * @runInSeparateProcess
-//     */
-//    public function testRotationImagesJPG() {
-//        require 'config/config.php';
+    /**
+     * Rotation des images JPG
+     * @depends testRotationImagesPNG
+     */
+    public function testRotationImagesJPG()
+    {
 //
 //        $monImage = new ImageObject();
 //
@@ -101,17 +100,16 @@ class ImageObjectTest extends TestCase
 //        } else {
 //            $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle, "Rotation JPG " . $angle);
 //        }
-//    }
+        $this->assertTrue(true);
+    }
 
-    /*
+    /**
      * Rotation des images GIF
      * Pas de changement en fonction des versions de PHP
-     * @runInSeparateProcess
+     * @depends testRotationImagesJPG
      */
     public function testRotationImagesGIF()
     {
-        require 'config/config.php';
-
         $monImage = new ImageObject();
 
         $angle = 90;
@@ -124,15 +122,13 @@ class ImageObjectTest extends TestCase
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
         $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
     }
-    /*
-     * Redimensionnement des images
-     * @runInSeparateProcess
-     */
 
+    /**
+     * Redimensionnement des images
+     * @depends testRotationImagesGIF
+     */
     public function testRedimensionnementImages()
     {
-        require 'config/config.php';
-
         $monImage = new ImageObject();
 
         /*
