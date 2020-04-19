@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
-$timeStart = microtime(TRUE);
+$timeStart = microtime(true);
 ?>
 <!DOCTYPE html>
 <html lang="fr">

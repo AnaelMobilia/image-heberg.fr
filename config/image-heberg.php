@@ -93,11 +93,11 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
     // Code pour TRAVIS
-    $charger = TRUE;
+    $charger = true;
 
     // Code spécifique Travis : pas de chargement des classes de PHPUnit
-    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== FALSE || strpos($class, "Composer") !== FALSE)) {
-        $charger = FALSE;
+    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== false || strpos($class, "Composer") !== false)) {
+        $charger = false;
     }
 
     if ($charger) {

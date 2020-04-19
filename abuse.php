@@ -28,7 +28,7 @@ $maSession = new sessionObject();
 // En cas de validation du formulaire
 if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
     // Vérification du bon format de l'adresse mail
-    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // On essaie de matcher l'image
         $result = preg_match("#^.*\/([\d]*.[pngjpif]{3})$#", trim($_POST['urlImage']), $idImage);
         if ($result) {

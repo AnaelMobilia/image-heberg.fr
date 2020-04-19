@@ -264,7 +264,7 @@ class metaObject
         $objects = scandir($folder);
         foreach ($objects as $object) {
             // Perfs : élimination de tous les noms contenant un . (fichier.ext)
-            if (strpos($object, ".") === FALSE) {
+            if (strpos($object, ".") === false) {
                 $pathObject = $folder . "/" . $object;
                 // . & .. n'arrivent pas ici...
                 if (is_dir($pathObject)) {

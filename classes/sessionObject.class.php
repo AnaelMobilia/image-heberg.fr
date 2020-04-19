@@ -127,9 +127,9 @@ class sessionObject
     public function verifierDroits($levelRequis)
     {
         if ($this->getLevel() >= $levelRequis) {
-            return TRUE;
+            return true;
         } else {
-            return FALSE;
+            return false;
         }
     }
 
@@ -152,7 +152,7 @@ class sessionObject
      */
     public function setFlag()
     {
-        $_SESSION['flag'] = TRUE;
+        $_SESSION['flag'] = true;
     }
 
     /**

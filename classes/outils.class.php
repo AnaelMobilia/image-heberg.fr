@@ -51,7 +51,7 @@ class outils
      */
     public static function getImage($path)
     {
-        $monImage = NULL;
+        $monImage = null;
 
         // Je charge l'image en mémoire en fonction de son type
         switch (self::getType($path)) {
@@ -83,7 +83,7 @@ class outils
      */
     public static function setImage($uneImage, $imageType, $path)
     {
-        $monRetour = FALSE;
+        $monRetour = false;
 
         // Je charge l'image en mémoire en fonction de son type
         switch ($imageType) {
@@ -113,7 +113,7 @@ class outils
      */
     public static function getExtension($path)
     {
-        $ext = image_type_to_extension(self::getType($path), FALSE);
+        $ext = image_type_to_extension(self::getType($path), false);
         if ($ext === 'jpeg') {
             // Préférence pour .jpg [filenmae.ext]
             $ext = 'jpg';
@@ -155,7 +155,7 @@ class outils
      */
     public static function isModifiableEnMemoire($path)
     {
-        $monRetour = FALSE;
+        $monRetour = false;
         // Nombre de canaux d'information de l'image
         $nbCanaux = 4;
 
@@ -180,7 +180,7 @@ class outils
 
         // Est-ce possible ?
         if ($memReq < self::getMemoireAllouee()) {
-            $monRetour = TRUE;
+            $monRetour = true;
         }
 
         return $monRetour;

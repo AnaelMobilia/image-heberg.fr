@@ -26,7 +26,7 @@ $maSession = new sessionObject();
 // En cas de validation du formulaire
 if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
     // Vérification du bon format de l'adresse mail
-    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // Je complète le message avec l'IP de mon émeteur
         $message = $_POST['userMessage'];
         $message .= "\r\n\r\n ---------------------------------------------";

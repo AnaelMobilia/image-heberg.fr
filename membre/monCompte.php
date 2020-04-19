@@ -49,7 +49,7 @@ if (isset($_POST['modifierPwd'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordMail'])) {
         // Vérification du bon format de l'adresse mail
-        if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== FALSE) {
+        if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
             // Je met à jour en BDD
             $monUtilisateur->setEmail($_POST['userMail']);
             $monUtilisateur->modifier();

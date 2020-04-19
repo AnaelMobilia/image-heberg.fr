@@ -24,7 +24,7 @@
     <div class="container">
         <span class="text-muted">
             <?php
-            if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== FALSE) {
+            if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
                 $ip = '4';
             } else {
                 $ip = '6';
@@ -42,7 +42,7 @@
             <span class="d-none d-lg-inline">
                 <span class="d-none d-xl-inline">
                     -
-                    Exécution en <?= round(microtime(TRUE) - $timeStart, 5); ?>s
+                    Exécution en <?= round(microtime(true) - $timeStart, 5); ?>s
                     -
                     IPv<?= $ip ?>
                 </span>

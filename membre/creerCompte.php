@@ -31,29 +31,29 @@ $monUtilisateur = new utilisateurObject();
 // En cas de validation du formulaire
 if (isset($_POST['valider']) && $maSession->checkFlag()) {
     // Flag pour la création de l'utilisateur
-    $flagCreation = TRUE;
+    $flagCreation = true;
     $messageErreur = '';
 
     if (empty($_POST['userName'])) {
-        $flagCreation = FALSE;
+        $flagCreation = false;
         $messageErreur .= "<br />Merci de saisir un identifiant.";
     }
     if (empty($_POST['userPassword'])) {
-        $flagCreation = FALSE;
+        $flagCreation = false;
         $messageErreur .= "<br />Merci de saisir un mot de passe.";
     }
     if (empty($_POST['userMail'])) {
-        $flagCreation = FALSE;
+        $flagCreation = false;
         $messageErreur .= "<br />Merci de saisir une adresse courriel.";
     }
     // Vérification du bon format de l'adresse mail
-    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) === FALSE) {
-        $flagCreation = FALSE;
+    if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) === false) {
+        $flagCreation = false;
         $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
     }
     // Disponibilité du login
-    if (utilisateurObject::verifierLoginDisponible($_POST['userName']) !== TRUE) {
-        $flagCreation = FALSE;
+    if (utilisateurObject::verifierLoginDisponible($_POST['userName']) !== true) {
+        $flagCreation = false;
         $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
     }
 

@@ -36,7 +36,7 @@ if (isset($_POST['valider'])) {
     }
     // Si tout est bon
     if (empty($messageErreur)) {
-        if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === TRUE) {
+        if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === true) {
             if (!_TRAVIS_) {
                 // Succès -> redirige sur la page d'accueil
                 header('Location: ' . _URL_);

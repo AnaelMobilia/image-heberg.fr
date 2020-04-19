@@ -67,7 +67,7 @@ define('_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_', 365);
 // Volume maximal de stockage d'images (en Go)
 define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
-define('_DEBUG_', TRUE);
+define('_DEBUG_', true);
 
 /**
  * FIN DES CHAMPS A CONFIGURER
@@ -82,6 +82,6 @@ define('_GRAIN_DE_SEL_', '');
  * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
  */
 // Activation des tests Tests TRAVIS-CI
-define('_TRAVIS_', TRUE);
+define('_TRAVIS_', true);
 
 require _PATH_ . 'config/image-heberg.php';

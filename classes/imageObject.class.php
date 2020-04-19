@@ -29,7 +29,7 @@ class imageObject extends ressourceObject implements ressourceInterface
      * Constructeur
      * @param string $newName nom de l'image
      */
-    function __construct($newName = FALSE)
+    function __construct($newName = false)
     {
         // Définition du type pour le ressourceObject
         $this->setType(ressourceObject::typeImage);
@@ -49,7 +49,7 @@ class imageObject extends ressourceObject implements ressourceInterface
     public function charger($newName)
     {
         // Retour
-        $monRetour = FALSE;
+        $monRetour = false;
 
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = :newName");
@@ -58,7 +58,7 @@ class imageObject extends ressourceObject implements ressourceInterface
 
         // J'éclate les informations
         $resultat = $req->fetch();
-        if ($resultat !== FALSE) {
+        if ($resultat !== false) {
             $this->setId($resultat->id);
             $this->setIpEnvoi($resultat->ip_envoi);
             $this->setDateEnvoi($resultat->date_envoi);
@@ -76,7 +76,7 @@ class imageObject extends ressourceObject implements ressourceInterface
             $this->setSignalee($resultat->isSignalee);
 
             // Gestion du retour
-            $monRetour = TRUE;
+            $monRetour = true;
         }
 
         return $monRetour;
@@ -112,7 +112,7 @@ class imageObject extends ressourceObject implements ressourceInterface
      */
     public function supprimer()
     {
-        $monRetour = TRUE;
+        $monRetour = true;
 
         /**
          * Suppression de la ou les miniatures
@@ -170,7 +170,7 @@ class imageObject extends ressourceObject implements ressourceInterface
     public function creer()
     {
         // Retour
-        $monRetour = TRUE;
+        $monRetour = true;
 
         /**
          * Détermination du nom &&
@@ -183,7 +183,7 @@ class imageObject extends ressourceObject implements ressourceInterface
             $new_name = $this->genererNom($nb);
             // Incrémentation compteur entropie sur le nom
             $nb++;
-        } while ($tmpImage->charger($new_name) !== FALSE);
+        } while ($tmpImage->charger($new_name) !== false);
         // Effacement de l'objet temporaire
         unset($tmpImage);
 
@@ -230,7 +230,7 @@ class imageObject extends ressourceObject implements ressourceInterface
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD
-                $monRetour = FALSE;
+                $monRetour = false;
             } else {
                 /**
                  * Récupération de l'ID de l'image

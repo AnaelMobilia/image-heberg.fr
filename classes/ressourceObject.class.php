@@ -133,7 +133,7 @@ abstract class ressourceObject
         $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
         $req->execute();
         $values = $req->fetch();
-        if ($values !== FALSE) {
+        if ($values !== false) {
             $monRetour = (int) $values->nb;
         }
         return $monRetour;
@@ -171,16 +171,16 @@ abstract class ressourceObject
         // Je charge l'image en mémoire
         $resImg = outils::getImage($pathSrc);
         // Je vérifie que tout va bien
-        if ($resImg === FALSE) {
-            return FALSE;
+        if ($resImg === false) {
+            return false;
         }
 
         // J'effectue la rotation
         $imgRotate = imagerotate($resImg, $angle, 0);
 
         // Je vérifie que tout va bien
-        if ($imgRotate === FALSE) {
-            return FALSE;
+        if ($imgRotate === false) {
+            return false;
         }
 
         // Nettoyage mémoire (image d'origine)
@@ -190,8 +190,8 @@ abstract class ressourceObject
         $retour = outils::setImage($imgRotate, outils::getType($pathSrc), $pathDst);
 
         // La création du fichier s'est bien passé ?
-        if ($retour === FALSE) {
-            return FALSE;
+        if ($retour === false) {
+            return false;
         }
 
         // Mise à jour des propriétés de l'image
@@ -268,7 +268,7 @@ abstract class ressourceObject
      */
     public function isProprietaire()
     {
-        $monRetour = FALSE;
+        $monRetour = false;
 
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
@@ -280,14 +280,14 @@ abstract class ressourceObject
         $values = $req->fetch();
 
         // Si l'image à un propriétaire...
-        if ($values !== FALSE) {
+        if ($values !== false) {
             // Le propriétaire est-il connecté ?
             $uneSession = new sessionObject();
 
             // Est-ce le propriétaire de l'image ?
             if ((int) $values->pk_membres === $uneSession->getId()) {
                 // Si oui... on confirme !
-                $monRetour = TRUE;
+                $monRetour = true;
             }
         }
 

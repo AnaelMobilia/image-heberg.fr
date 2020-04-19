@@ -31,7 +31,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
      * Constructeur
      * @param string $newName newName de l'image maître
      */
-    function __construct($newName = FALSE)
+    function __construct($newName = false)
     {
         // Définition du type pour le ressourceObject
         $this->setType(ressourceObject::typeMiniature);
@@ -50,7 +50,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
      */
     public function charger($newName)
     {
-        $monRetour = FALSE;
+        $monRetour = false;
 
         // Je vais chercher les infos en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
@@ -60,7 +60,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
 
         // J'éclate les informations
         $resultat = $req->fetch();
-        if ($resultat !== FALSE) {
+        if ($resultat !== false) {
             $this->setPoids($resultat->size);
             $this->setHauteur($resultat->height);
             $this->setLargeur($resultat->width);
@@ -82,7 +82,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
             $this->setIpEnvoi($imageMaitre->getIpEnvoi());
 
             // Notification du chargement réussi
-            $monRetour = TRUE;
+            $monRetour = true;
         }
         return $monRetour;
     }
@@ -115,7 +115,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
      */
     public function supprimer()
     {
-        $monRetour = TRUE;
+        $monRetour = true;
         /**
          * Suppression de l'image en BDD
          */
@@ -144,7 +144,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
     public function creer()
     {
         // Retour
-        $monRetour = TRUE;
+        $monRetour = true;
 
         /**
          * Détermination du nom &&
@@ -157,7 +157,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
             $new_name = $this->genererNom($nb);
             // Incrémentation compteur entropie sur le nom
             $nb++;
-        } while ($tmpMiniature->charger($new_name) !== FALSE);
+        } while ($tmpMiniature->charger($new_name) !== false);
         // Effacement de l'objet temporaire
         unset($tmpMiniature);
 
@@ -198,7 +198,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD
-                $monRetour = FALSE;
+                $monRetour = false;
             } else {
                 /**
                  * Récupération de l'ID de l'image

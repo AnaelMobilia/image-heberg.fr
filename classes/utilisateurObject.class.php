@@ -39,7 +39,7 @@ class utilisateurObject
     const levelUser = 1;
     const levelAdmin = 2;
 
-    public function __construct($userID = FALSE)
+    public function __construct($userID = false)
     {
         // Utilisateur à charger
         if ($userID) {
@@ -344,7 +344,7 @@ class utilisateurObject
      */
     private function charger($userID)
     {
-        $monRetour = FALSE;
+        $monRetour = false;
 
         // Je récupère les données en BDD
         $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
@@ -356,7 +356,7 @@ class utilisateurObject
         $values = $req->fetch();
 
         // Si l'utilisateur n'existe pas... on retourne un utilisateurObject vide
-        if ($values !== FALSE) {
+        if ($values !== false) {
             // Je charge les informations de l'utilisateur (sauf password)
             $this->setId($userID);
             $this->setEmail($values->email);
@@ -369,7 +369,7 @@ class utilisateurObject
             $this->setToken($values->token);
 
             // Gestion du retour
-            $monRetour = TRUE;
+            $monRetour = true;
         }
 
         return $monRetour;
@@ -461,12 +461,12 @@ class utilisateurObject
         $req->execute();
 
         // Par défaut le login est disponible
-        $retour = TRUE;
+        $retour = true;
 
         // Si j'ai un résultat...
         if ($req->fetch()) {
             // Le retour est négatif
-            $retour = FALSE;
+            $retour = false;
         }
 
         return $retour;
@@ -479,7 +479,7 @@ class utilisateurObject
     public static function checkAccess($levelRequis)
     {
         $monUser = new sessionObject();
-        if ($monUser->verifierDroits($levelRequis) === FALSE) {
+        if ($monUser->verifierDroits($levelRequis) === false) {
             header("HTTP/1.1 403 Forbidden");
             require _TPL_TOP_;
             ?>

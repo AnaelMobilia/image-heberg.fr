@@ -22,14 +22,14 @@ if (!defined('_TRAVIS_')) {
 }
 require _TPL_TOP_;
 
-$erreur = FALSE;
+$erreur = false;
 $msgErreur = '';
 
 /**
  * Vérification du paramètre
  */
 if (!isset($_GET['id']) || !isset($_GET['type'])) {
-    $erreur = TRUE;
+    $erreur = true;
     $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
 }
 
@@ -47,7 +47,7 @@ if (!$erreur) {
 
     // Gestion du retour
     if (!$retour) {
-        $erreur = TRUE;
+        $erreur = true;
         $msgErreur .= 'Cette image n\'existe pas !<br />';
     }
 }
@@ -62,7 +62,7 @@ if (!$erreur) {
         // Effacement...
         $monImage->supprimer();
     } else {
-        $erreur = TRUE;
+        $erreur = true;
         $msgErreur = 'Vous n\'avez pas le droit de supprimer cette image !<br />';
     }
 }
