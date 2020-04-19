@@ -28,6 +28,7 @@ class abuseTest extends TestCase {
      * @runInSeparateProcess
      */
     public function testAbuse() {
+        require 'config/config.php';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_POST['userMail'] = "john.doe@example.com";
