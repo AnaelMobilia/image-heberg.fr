@@ -199,8 +199,10 @@ class ImageObject extends RessourceObject implements RessourceInterface
          */
         // Vérification de la non existence du fichier
         if ($this->getNbDoublons() == 0) {
-            // Image inconnue : chargement & enregistrement (optimisation de la taille)
-            $monRetour = Outils::setImage(Outils::getImage($this->getPathTemp()), Outils::getType($this->getPathTemp()), $this->getPathMd5());
+            // Image inconnue : optimisation de sa taille
+            $monRetour = Outils::setImage(Outils::getImage($this->getPathTemp()), Outils::getType($this->getPathTemp()), $this->getPathTemp());
+            // Copie du fichier vers l'emplacement de stockage
+            copy($this->getPathTemp(), $this->getPathMd5());
         }
 
         // Ssi copie du fichier réussie
