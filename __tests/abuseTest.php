@@ -31,6 +31,7 @@ class abuseTest extends TestCase
     public function testAbuse()
     {
         require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_POST['userMail'] = "john.doe@example.com";
