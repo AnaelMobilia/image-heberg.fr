@@ -24,7 +24,8 @@
  *
  * @author anael
  */
-class maBDD {
+class maBDD
+{
 
     // PDO
     private $maBDD = null;
@@ -34,7 +35,8 @@ class maBDD {
     /**
      * Constructeur
      */
-    private function __construct() {
+    private function __construct()
+    {
         $this->maBDD = new PDO('mysql:host=' . _BDD_HOST_ . ';dbname=' . _BDD_NAME_, _BDD_USER_, _BDD_PASS_);
         $this->maBDD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->maBDD->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
@@ -44,7 +46,8 @@ class maBDD {
      * Crée & renvoi l'objet d'instance
      * @return PDO
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         // Si pas de connexion active, en crée une
         if (is_null(self::$monInstance)) {
             self::$monInstance = new maBDD();
@@ -57,7 +60,8 @@ class maBDD {
      * @param string $query
      * @return type
      */
-    public function query($query) {
+    public function query($query)
+    {
         return $this->maBDD->query($query);
     }
 
@@ -66,7 +70,8 @@ class maBDD {
      * @param string $query
      * @return type
      */
-    public function prepare($query) {
+    public function prepare($query)
+    {
         return $this->maBDD->prepare($query);
     }
 
@@ -74,14 +79,16 @@ class maBDD {
      * PDO::lastInsertId
      * @return type
      */
-    public function lastInsertId() {
+    public function lastInsertId()
+    {
         return $this->maBDD->lastInsertId();
     }
 
     /**
      * Fermeture du PDO
      */
-    public static function close() {
+    public static function close()
+    {
         self::$monInstance = null;
     }
 
@@ -90,7 +97,8 @@ class maBDD {
      * @param int $attribute
      * @return type
      */
-    public function getAttribute($attribute) {
+    public function getAttribute($attribute)
+    {
         return $this->maBDD->getAttribute($attribute);
     }
 

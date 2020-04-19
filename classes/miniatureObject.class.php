@@ -22,7 +22,8 @@
 /**
  * Les miniatures
  */
-class miniatureObject extends ressourceObject implements ressourceInterface {
+class miniatureObject extends ressourceObject implements ressourceInterface
+{
 
     private $idImage;
 
@@ -30,7 +31,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * Constructeur
      * @param string $newName newName de l'image maître
      */
-    function __construct($newName = FALSE) {
+    function __construct($newName = FALSE)
+    {
         // Définition du type pour le ressourceObject
         $this->setType(ressourceObject::typeMiniature);
 
@@ -46,7 +48,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function charger($newName) {
+    public function charger($newName)
+    {
         $monRetour = FALSE;
 
         // Je vais chercher les infos en BDD
@@ -87,7 +90,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function sauver() {
+    public function sauver()
+    {
         // J'enregistre les infos en BDD
         $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
 
@@ -109,7 +113,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function supprimer() {
+    public function supprimer()
+    {
         $monRetour = TRUE;
         /**
          * Suppression de l'image en BDD
@@ -136,7 +141,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function creer() {
+    public function creer()
+    {
         // Retour
         $monRetour = TRUE;
 
@@ -213,7 +219,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * ID image parente
      * @return int
      */
-    public function getIdImage() {
+    public function getIdImage()
+    {
         return $this->idImage;
     }
 
@@ -221,7 +228,8 @@ class miniatureObject extends ressourceObject implements ressourceInterface {
      * ID image parente
      * @param int $idImage
      */
-    public function setIdImage($idImage) {
+    public function setIdImage($idImage)
+    {
         $this->idImage = $idImage;
     }
 

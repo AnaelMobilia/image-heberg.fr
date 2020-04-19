@@ -31,7 +31,8 @@ require _TPL_TOP_;
      * @param string $path
      * @return string
      */
-    function getScandirRecursif($path) {
+    function getScandirRecursif($path)
+    {
         $monRetour = '<ul>';
 
         // Scanne le répertoire fourni

@@ -21,13 +21,15 @@
 
 use PHPUnit\Framework\TestCase;
 
-class membreTest extends TestCase {
+class membreTest extends TestCase
+{
 
     /**
      * Fonction requise par l'extension Database
      * @return type
      */
-    public function getConnection() {
+    public function getConnection()
+    {
         $pdo = new PDO('sqlite::memory:');
         return $this->createDefaultDBConnection($pdo, ':memory:');
     }
@@ -36,11 +38,13 @@ class membreTest extends TestCase {
      * Fonction requise par l'extension Database
      * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
      */
-    public function getDataSet() {
+    public function getDataSet()
+    {
         return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
     }
 
-    public function testConnexionMembreExistant() {
+    public function testConnexionMembreExistant()
+    {
         // Chargement de la configuration
         require_once 'config/config.php';
         unset($_POST);
@@ -70,7 +74,8 @@ class membreTest extends TestCase {
      * Création d'un compte membre avec un nom déjà existant
      * @depends testConnexionMembreExistant
      */
-    public function testMembreCreerCompteDoublon() {
+    public function testMembreCreerCompteDoublon()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -100,7 +105,8 @@ class membreTest extends TestCase {
      * Création d'un compte membre.
      * @depends testMembreCreerCompteDoublon
      */
-    public function testMembreCreerCompte() {
+    public function testMembreCreerCompte()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -144,7 +150,8 @@ class membreTest extends TestCase {
      * Modification du mail
      * @depends testMembreCreerCompte
      */
-    public function testMembreModifierMail() {
+    public function testMembreModifierMail()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -184,7 +191,8 @@ class membreTest extends TestCase {
      * Modification du mot de passe
      * @depends testMembreModifierMail
      */
-    public function testMembreModifierPassword() {
+    public function testMembreModifierPassword()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -223,7 +231,8 @@ class membreTest extends TestCase {
      * Suppression du compte sans cochage de la checkbox
      * @depends testMembreModifierPassword
      */
-    public function testMembreSupprimerCompteRequiertCheckbox() {
+    public function testMembreSupprimerCompteRequiertCheckbox()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -260,7 +269,8 @@ class membreTest extends TestCase {
      * Suppression du compte
      * @depends testMembreSupprimerCompteRequiertCheckbox
      */
-    public function testMembreSupprimerCompte() {
+    public function testMembreSupprimerCompte()
+    {
         unset($_POST);
         /**
          *  Injection des valeurs du formulaire
@@ -298,7 +308,8 @@ class membreTest extends TestCase {
      * Connexion au compte créé lors de la création de la BDD
      * @depends testMembreSupprimerCompte
      */
-    public function testConnexionCompteHistorique() {
+    public function testConnexionCompteHistorique()
+    {
         unset($_POST);
         /**
          * Injection des valeurs du formulaire

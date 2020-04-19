@@ -21,7 +21,8 @@
 /**
  * Gestion (BDD) des utilisateurs
  */
-class utilisateurObject {
+class utilisateurObject
+{
 
     private $userName;
     private $password;
@@ -38,7 +39,8 @@ class utilisateurObject {
     const levelUser = 1;
     const levelAdmin = 2;
 
-    public function __construct($userID = FALSE) {
+    public function __construct($userID = FALSE)
+    {
         // Utilisateur à charger
         if ($userID) {
             if (!$this->charger($userID)) {
@@ -52,7 +54,8 @@ class utilisateurObject {
      * Nom d'utilisateur avec htmlentities
      * @return string
      */
-    public function getUserName() {
+    public function getUserName()
+    {
         return htmlentities($this->userName);
     }
 
@@ -60,7 +63,8 @@ class utilisateurObject {
      * BDD - Nom d'utilisateur non htmlentities
      * @return string
      */
-    private function getUserNameBDD() {
+    private function getUserNameBDD()
+    {
         return $this->userName;
     }
 
@@ -68,7 +72,8 @@ class utilisateurObject {
      * Mot de passe
      * @return string
      */
-    private function getPassword() {
+    private function getPassword()
+    {
         return $this->password;
     }
 
@@ -76,7 +81,8 @@ class utilisateurObject {
      * Email
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -84,7 +90,8 @@ class utilisateurObject {
      * Date d'inscription
      * @return type
      */
-    private function getDateInscription() {
+    private function getDateInscription()
+    {
         return $this->dateInscription;
     }
 
@@ -92,7 +99,8 @@ class utilisateurObject {
      * Date d'inscription formatée
      * @return type
      */
-    public function getDateInscriptionFormate() {
+    public function getDateInscriptionFormate()
+    {
         $phpdate = strtotime($this->getDateInscription());
         return date("d/m/Y", $phpdate);
     }
@@ -101,7 +109,8 @@ class utilisateurObject {
      * @ IP d'inscription
      * @return string
      */
-    public function getIpInscription() {
+    public function getIpInscription()
+    {
         return $this->ipInscription;
     }
 
@@ -109,7 +118,8 @@ class utilisateurObject {
      * Niveau de droits
      * @return int
      */
-    public function getLevel() {
+    public function getLevel()
+    {
         return (int) $this->level;
     }
 
@@ -117,7 +127,8 @@ class utilisateurObject {
      * ID en BDD
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return (int) $this->id;
     }
 
@@ -125,7 +136,8 @@ class utilisateurObject {
      * Utilisateur est actif ?
      * @return boolean
      */
-    public function getIsActif() {
+    public function getIsActif()
+    {
         return $this->isActif;
     }
 
@@ -133,7 +145,8 @@ class utilisateurObject {
      * Token associé au compte utilisateur
      * @return string|null
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->token;
     }
 
@@ -141,7 +154,8 @@ class utilisateurObject {
      * Utilisateur est actif ?
      * @param boolean $isActif
      */
-    public function setIsActif($isActif) {
+    public function setIsActif($isActif)
+    {
         $this->isActif = $isActif;
     }
 
@@ -149,7 +163,8 @@ class utilisateurObject {
      * Token lié à l'utilisateur
      * @param string|null $token
      */
-    public function setToken($token) {
+    public function setToken($token)
+    {
         $this->token = $token;
     }
 
@@ -157,7 +172,8 @@ class utilisateurObject {
      * Nom d'utilisateur
      * @param string $userName
      */
-    public function setUserName($userName) {
+    public function setUserName($userName)
+    {
         $this->userName = $userName;
     }
 
@@ -165,7 +181,8 @@ class utilisateurObject {
      * Mot de passe
      * @param string $password
      */
-    private function setPassword($password) {
+    private function setPassword($password)
+    {
         $this->password = $password;
     }
 
@@ -173,7 +190,8 @@ class utilisateurObject {
      * Mot de passe à crypter
      * @param string $password
      */
-    public function setPasswordToCrypt($password) {
+    public function setPasswordToCrypt($password)
+    {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
@@ -181,7 +199,8 @@ class utilisateurObject {
      * Email
      * @param string $email
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
@@ -189,7 +208,8 @@ class utilisateurObject {
      * Date d'inscription
      * @param type $dateInscription
      */
-    private function setDateInscription($dateInscription) {
+    private function setDateInscription($dateInscription)
+    {
         $this->dateInscription = $dateInscription;
     }
 
@@ -197,7 +217,8 @@ class utilisateurObject {
      * @ IP d'inscription
      * @param string $ipInscription
      */
-    private function setIpInscription($ipInscription) {
+    private function setIpInscription($ipInscription)
+    {
         $this->ipInscription = $ipInscription;
     }
 
@@ -205,7 +226,8 @@ class utilisateurObject {
      * Niveau de droits
      * @param int $level
      */
-    public function setLevel($level) {
+    public function setLevel($level)
+    {
         $this->level = $level;
     }
 
@@ -213,7 +235,8 @@ class utilisateurObject {
      * ID en BDD
      * @param int $id
      */
-    private function setId($id) {
+    private function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -223,7 +246,8 @@ class utilisateurObject {
      * @param string $pwd Mot de passe associé
      * @return int ID de l'utilisateur (0 si identifiants invalides)
      */
-    private function verifierIdentifiants($user, $pwd) {
+    private function verifierIdentifiants($user, $pwd)
+    {
         // Identifiants KO par défaut
         $monRetour = 0;
 
@@ -280,7 +304,8 @@ class utilisateurObject {
      * @param string $pwd Mot de passe
      * @return boolean
      */
-    public function connexion($user, $pwd) {
+    public function connexion($user, $pwd)
+    {
         // Protection contre une attaque : on délaie un peu l'action
         usleep(500000);
         // Ma session
@@ -317,7 +342,8 @@ class utilisateurObject {
      * @param int $userID ID en BDD
      * @return boolean Utilisateur existant ?
      */
-    private function charger($userID) {
+    private function charger($userID)
+    {
         $monRetour = FALSE;
 
         // Je récupère les données en BDD
@@ -352,7 +378,8 @@ class utilisateurObject {
     /**
      * Enregistrement (BDD) d'un utilisateur
      */
-    public function enregistrer() {
+    public function enregistrer()
+    {
         $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
         $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
@@ -369,7 +396,8 @@ class utilisateurObject {
     /**
      * Modifier (BDD) un utilisateur déjà existant
      */
-    public function modifier() {
+    public function modifier()
+    {
         $req = maBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
         $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
@@ -385,7 +413,8 @@ class utilisateurObject {
     /**
      * Suppression (BDD) d'un utilisateur
      */
-    public function supprimer() {
+    public function supprimer()
+    {
         // Les images possédées
         $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = :pkMembres");
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
@@ -406,7 +435,8 @@ class utilisateurObject {
      * Assigne une image à un utilisateur en BDD
      * @param imageObject $imageObject
      */
-    public function assignerImage($imageObject) {
+    public function assignerImage($imageObject)
+    {
         if ($this->getId() === 0) {
             throw new Exception("Aucun utilisateur n'est défini !");
         }
@@ -423,7 +453,8 @@ class utilisateurObject {
      * @param type $login
      * @return boolean
      */
-    public static function verifierLoginDisponible($login) {
+    public static function verifierLoginDisponible($login)
+    {
         $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
         /* @var $req PDOStatement */
         $req->bindValue(':login', $login, PDO::PARAM_STR);
@@ -445,7 +476,8 @@ class utilisateurObject {
      * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
      * @param type $levelRequis
      */
-    public static function checkAccess($levelRequis) {
+    public static function checkAccess($levelRequis)
+    {
         $monUser = new sessionObject();
         if ($monUser->verifierDroits($levelRequis) === FALSE) {
             header("HTTP/1.1 403 Forbidden");
@@ -464,7 +496,8 @@ class utilisateurObject {
      * @param type $userId ID de l'user en question
      * @return \ArrayObject new_name image
      */
-    public function getImages() {
+    public function getImages()
+    {
         // Toutes les images
         $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
         /* @var $req PDOStatement */

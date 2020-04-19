@@ -26,7 +26,8 @@ if (_DEBUG_) {
 if (!_TRAVIS_) {
 
     // Gestion des exceptions de l'application
-    function exception_handler($exception) {
+    function exception_handler($exception)
+    {
         /* @var $exception Exception */
         if (_DEBUG_) {
             echo '<pre>';

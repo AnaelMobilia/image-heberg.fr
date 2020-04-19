@@ -22,7 +22,8 @@
 /**
  * Fonctions devant êtres implémentées spécifiquement par les images et miniatures
  */
-interface ressourceInterface {
+interface ressourceInterface
+{
 
     /**
      * Crée sur le HDD et dans la BDD la ressource

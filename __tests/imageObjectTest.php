@@ -21,13 +21,15 @@
 
 use PHPUnit\Framework\TestCase;
 
-class imageObjectTest extends TestCase {
+class imageObjectTest extends TestCase
+{
 
     /**
      * Rotation des images PNG
      * @runInSeparateProcess
      */
-    public function testRotationImagesPNG() {
+    public function testRotationImagesPNG()
+    {
         require 'config/config.php';
 
         $monImage = new imageObject();
@@ -97,7 +99,8 @@ class imageObjectTest extends TestCase {
      * Pas de changement en fonction des versions de PHP
      * @runInSeparateProcess
      */
-    public function testRotationImagesGIF() {
+    public function testRotationImagesGIF()
+    {
         require 'config/config.php';
 
         $monImage = new imageObject();
@@ -117,7 +120,8 @@ class imageObjectTest extends TestCase {
      * Redimensionnement des images
      * @runInSeparateProcess
      */
-    public function testRedimensionnementImages() {
+    public function testRedimensionnementImages()
+    {
         require 'config/config.php';
 
         $monImage = new imageObject();

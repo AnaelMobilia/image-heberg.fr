@@ -45,24 +45,24 @@ $monUtilisateur = new utilisateurObject($maSession->getId());
         <?php
         $mesImages = $monUtilisateur->getImages();
         foreach ((array) $mesImages as $newName):
-           $uneImage = new imageObject($newName);
-           ?>
-           <tr>
-               <td><?= $uneImage->getNomOriginalFormate() ?></td>
-               <td class="text-center"><?= $uneImage->getDateEnvoiFormatee() ?></td>
-               <td class="text-center"><?= $uneImage->getLastViewFormate() ?></td>
-               <td class="text-center"><?= $uneImage->getNbViewTotal() ?></td>
-               <td class="text-center">
-                   <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
-                       <span class="fas fa-share-square"></span>
-                   </a>
-               </td>
-               <td class="text-center">
-                   <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
-                       <span class="fas fa-trash"></span>
-                   </a>
-               </td>
-           </tr>
+            $uneImage = new imageObject($newName);
+            ?>
+            <tr>
+                <td><?= $uneImage->getNomOriginalFormate() ?></td>
+                <td class="text-center"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                <td class="text-center"><?= $uneImage->getLastViewFormate() ?></td>
+                <td class="text-center"><?= $uneImage->getNbViewTotal() ?></td>
+                <td class="text-center">
+                    <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' target="_blank">
+                        <span class="fas fa-share-square"></span>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
+                        <span class="fas fa-trash"></span>
+                    </a>
+                </td>
+            </tr>
         <?php endforeach; ?>
     </tbody>
 </table>

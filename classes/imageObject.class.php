@@ -22,13 +22,15 @@
 /**
  * Les images
  */
-class imageObject extends ressourceObject implements ressourceInterface {
+class imageObject extends ressourceObject implements ressourceInterface
+{
 
     /**
      * Constructeur
      * @param string $newName nom de l'image
      */
-    function __construct($newName = FALSE) {
+    function __construct($newName = FALSE)
+    {
         // Définition du type pour le ressourceObject
         $this->setType(ressourceObject::typeImage);
 
@@ -44,7 +46,8 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function charger($newName) {
+    public function charger($newName)
+    {
         // Retour
         $monRetour = FALSE;
 
@@ -82,7 +85,8 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function sauver() {
+    public function sauver()
+    {
         // J'enregistre les infos en BDD
         $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
@@ -106,7 +110,8 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function supprimer() {
+    public function supprimer()
+    {
         $monRetour = TRUE;
 
         /**
@@ -162,7 +167,8 @@ class imageObject extends ressourceObject implements ressourceInterface {
     /**
      * {@inheritdoc}
      */
-    public function creer() {
+    public function creer()
+    {
         // Retour
         $monRetour = TRUE;
 

@@ -21,7 +21,8 @@
 
 use PHPUnit\Framework\TestCase;
 
-class imageUploadAndDeleteTest extends TestCase {
+class imageUploadAndDeleteTest extends TestCase
+{
 
     /**
      * Le MD5 est calculé sur le fichier original
@@ -36,7 +37,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Nombre d'images en BDD
      * @return int
      */
-    private static function countImagesEnBdd() {
+    private static function countImagesEnBdd()
+    {
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
         return $result->nb;
@@ -46,7 +48,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Nombre de miniatures en BDD
      * @return int
      */
-    private static function countMiniaturesEnBdd() {
+    private static function countMiniaturesEnBdd()
+    {
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM thumbnails");
         $result = $maReq->fetch();
         return $result->nb;
@@ -56,7 +59,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Nombre d'images POSSEDEES en BDD
      * @return int
      */
-    private static function countImagesPossedeesEnBdd() {
+    private static function countImagesPossedeesEnBdd()
+    {
         $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
         $result = $maReq->fetch();
         return $result->nb;
@@ -67,7 +71,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * @param string $nomFichier nom du fichier
      * @return int nb éléments
      */
-    private static function getNb($nomFichier) {
+    private static function getNb($nomFichier)
+    {
         return file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
     }
 
@@ -76,7 +81,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * @param string $nomFichier
      * @param int $valeur
      */
-    private static function setNb($nomFichier, $valeur) {
+    private static function setNb($nomFichier, $valeur)
+    {
         file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
         echo "\r\n$nomFichier -> $valeur\r\n";
     }
@@ -85,7 +91,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * $val--
      * @param string $nomFichier
      */
-    private static function setNbMoins($nomFichier) {
+    private static function setNbMoins($nomFichier)
+    {
         $val = self::getNb($nomFichier);
         self::setNb($nomFichier, --$val);
     }
@@ -94,7 +101,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * $val++
      * @param string $nomFichier
      */
-    private static function setNbPlus($nomFichier) {
+    private static function setNbPlus($nomFichier)
+    {
         $val = self::getNb($nomFichier);
         self::setNb($nomFichier, ++$val);
     }
@@ -102,7 +110,8 @@ class imageUploadAndDeleteTest extends TestCase {
     /**
      * Prépare l'environnement pour le test
      */
-    private static function prepareTest($chargerConfig = false) {
+    private static function prepareTest($chargerConfig = false)
+    {
         if ($chargerConfig) {
             require_once 'config/config.php';
         }
@@ -118,7 +127,8 @@ class imageUploadAndDeleteTest extends TestCase {
     /**
      * Test de l'envoi simple : présence BDD et HDD
      */
-    public function testEnvoi() {
+    public function testEnvoi()
+    {
         self::prepareTest(true);
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned.gif';
@@ -141,7 +151,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test de l'envoi avec miniature : présence BDD et HDD
      * @depends testEnvoi
      */
-    public function testEnvoiMiniature() {
+    public function testEnvoiMiniature()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_pour_miniature2.png';
@@ -173,7 +184,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test de l'envoi avec miniature ET rotation : présence BDD et HDD
      * @depends testEnvoiMiniature
      */
-    public function testEnvoiMiniatureRotation() {
+    public function testEnvoiMiniatureRotation()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_pour_miniature3.png';
@@ -206,7 +218,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test du renvoi d'une image mais avec demande de création d'une miniature
      * @depends testEnvoiMiniatureRotation
      */
-    public function testRenvoiImageDemandeMiniature() {
+    public function testRenvoiImageDemandeMiniature()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned2.gif';
@@ -234,7 +247,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test du renvoi d'une image avec miniature mais demande demande de création d'une autre miniature
      * @depends testRenvoiImageDemandeMiniature
      */
-    public function testRenvoiImageDemandeNouvelleMiniature() {
+    public function testRenvoiImageDemandeNouvelleMiniature()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned3.gif';
@@ -262,7 +276,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Envoi sans affichage page index.php
      * @depends testRenvoiImageDemandeNouvelleMiniature
      */
-    public function testEnvoiBrut() {
+    public function testEnvoiBrut()
+    {
         self::prepareTest();
         // Suppression du flag de session
         unset($_SESSION);
@@ -280,7 +295,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Envoi sans fichier
      * @depends testEnvoiBrut
      */
-    public function testEnvoiSansFichier() {
+    public function testEnvoiSansFichier()
+    {
         self::prepareTest();
 
         ob_start();
@@ -296,7 +312,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Fichier trop lourd
      * @depends testEnvoiSansFichier
      */
-    public function testEnvoiGrosFichier() {
+    public function testEnvoiGrosFichier()
+    {
         self::prepareTest();
         $_FILES['fichier']['name'] = 'nomFichier';
         $_FILES['fichier']['size'] = _IMAGE_POIDS_MAX_ + 1;
@@ -314,7 +331,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Type Mime : envoi d'un fichier doc
      * @depends testEnvoiGrosFichier
      */
-    public function testTypeMimePasUneImage() {
+    public function testTypeMimePasUneImage()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'fichier_doc.doc';
@@ -333,7 +351,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Type Mime : mauvais type de fichier (DOC).jpg
      * @depends testTypeMimePasUneImage
      */
-    public function testTypeMimeMauvaisTypeFichier() {
+    public function testTypeMimeMauvaisTypeFichier()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'fichier_doc.jpg';
@@ -352,7 +371,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Type Mime : mauvaise extension (JPG).png
      * @depends testTypeMimeMauvaisTypeFichier
      */
-    public function testTypeMimeMauvaiseExtension() {
+    public function testTypeMimeMauvaiseExtension()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_jpg.png';
@@ -372,7 +392,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Dimensions de l'image - Très large
      * @depends testTypeMimeMauvaiseExtension
      */
-    public function testTresLarge() {
+    public function testTresLarge()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_tres_large.png';
@@ -392,7 +413,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Dimensions de l'image - Très haute
      * @depends testTresLarge
      */
-    public function testTresHaute() {
+    public function testTresHaute()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_tres_haute.png';
@@ -412,7 +434,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Dimensions de l'image - Trop grande
      * @depends testTresHaute
      */
-    public function testTropGrande() {
+    public function testTropGrande()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_10000x10000.png';
@@ -431,7 +454,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Envoi d'une image authentifié
      * @depends testTropGrande
      */
-    public function testEnvoiImageAuthentifie() {
+    public function testEnvoiImageAuthentifie()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_authentifie.png';
@@ -462,7 +486,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Renvoi d'une image - Anonyme / Anonyme
      * @depends testEnvoiImageAuthentifie
      */
-    public function testRenvoiImageAnonymeAnonyme() {
+    public function testRenvoiImageAnonymeAnonyme()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_tres_haute.png';
@@ -485,7 +510,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Renvoi d'une image - Anonyme / Authentifié
      * @depends testRenvoiImageAnonymeAnonyme
      */
-    public function testRenvoiImageAnonymeAuthentifie() {
+    public function testRenvoiImageAnonymeAuthentifie()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_tres_haute.png';
@@ -516,7 +542,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Renvoi d'une image - Authentifié / Anonyme
      * @depends testRenvoiImageAnonymeAuthentifie
      */
-    public function testRenvoiImageAuthentifieAnonyme() {
+    public function testRenvoiImageAuthentifieAnonyme()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_authentifie.png';
@@ -539,7 +566,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Renvoi d'une image - Authentifié / Authentifié
      * @depends testRenvoiImageAuthentifieAnonyme
      */
-    public function testRenvoiImageAuthentifieAuthentifie() {
+    public function testRenvoiImageAuthentifieAuthentifie()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_authentifie.png';
@@ -570,7 +598,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Renvoi d'une image - Authentifié / Authentifié Autrement
      * @depends testRenvoiImageAuthentifieAuthentifie
      */
-    public function testRenvoiImageAuthentifieAuthentifie2() {
+    public function testRenvoiImageAuthentifieAuthentifie2()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_authentifie.png';
@@ -601,7 +630,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image inexistante
      * @depends testRenvoiImageAuthentifieAuthentifie2
      */
-    public function testSuppressionImageInexistante() {
+    public function testSuppressionImageInexistante()
+    {
         self::prepareTest();
         $_GET['id'] = 'fichierInexistant';
         $_GET['type'] = ressourceObject::typeImage;
@@ -620,7 +650,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Propriétaire en étant Anonyme
      * @depends testSuppressionImageInexistante
      */
-    public function testSuppressionImageProprietaireAnonyme() {
+    public function testSuppressionImageProprietaireAnonyme()
+    {
         self::prepareTest();
         $_GET['id'] = '_image_404.png';
         $_GET['type'] = ressourceObject::typeImage;
@@ -639,7 +670,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Propriétaire en étant Authentifié mais Autre
      * @depends testSuppressionImageProprietaireAnonyme
      */
-    public function testSuppressionImageProprietaireAuthentifie2() {
+    public function testSuppressionImageProprietaireAuthentifie2()
+    {
         self::prepareTest();
         $_GET['id'] = '_image_404.png';
         $_GET['type'] = ressourceObject::typeImage;
@@ -665,7 +697,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Vérification du bon fonctionnement du mécanisme de détection des doublons en BDD
      * @depends testSuppressionImageProprietaireAuthentifie2
      */
-    public function testVerificationCalculsDoublonsBDD() {
+    public function testVerificationCalculsDoublonsBDD()
+    {
         self::prepareTest();
 
         $uneImageDoublon = new imageObject("100000019001334055750.png");
@@ -681,7 +714,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Propriétaire en étant Authentifié
      * @depends testVerificationCalculsDoublonsBDD
      */
-    public function testSuppressionImageProprietaireAuthentifie() {
+    public function testSuppressionImageProprietaireAuthentifie()
+    {
         self::prepareTest();
         // Copie du fichier
         copy(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
@@ -714,7 +748,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Anonyme en étant hors délai
      * @depends testSuppressionImageProprietaireAuthentifie
      */
-    public function testSuppressionImageAnonymeHorsDelai() {
+    public function testSuppressionImageAnonymeHorsDelai()
+    {
         self::prepareTest();
         $_GET['id'] = '146734019451334055750.png';
         $_GET['type'] = ressourceObject::typeImage;
@@ -733,7 +768,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Anonyme en étant dans délai mais pas la bonne IP
      * @depends testSuppressionImageProprietaireAuthentifie
      */
-    public function testSuppressionImageAnonymeDansDelaiMauvaiseIP() {
+    public function testSuppressionImageAnonymeDansDelaiMauvaiseIP()
+    {
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
@@ -754,7 +790,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Suppression d'une image - Anonyme en étant dans le délai
      * @depends testSuppressionImageAnonymeDansDelaiMauvaiseIP
      */
-    public function testSuppressionImageAnonymeDansDelai() {
+    public function testSuppressionImageAnonymeDansDelai()
+    {
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
@@ -777,7 +814,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test de l'envoi simple avec redimensionnement : présence BDD et HDD
      * @depends testSuppressionImageAnonymeDansDelai
      */
-    public function testEnvoiRedim() {
+    public function testEnvoiRedim()
+    {
         self::prepareTest();
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_paysage_800x600.png';
@@ -806,7 +844,8 @@ class imageUploadAndDeleteTest extends TestCase {
      * Test de la suppression d'une image avec plusieurs miniatures
      * @depends testEnvoiRedim
      */
-    public function testSuppressionImagePlusieursMiniatures() {
+    public function testSuppressionImagePlusieursMiniatures()
+    {
         self::prepareTest();
         // Copie des fichiers
         rename(_PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple.png', _PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b');

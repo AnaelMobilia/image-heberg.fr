@@ -21,9 +21,11 @@
 
 use PHPUnit\Framework\TestCase;
 
-class installationTest extends TestCase {
+class installationTest extends TestCase
+{
 
-    public function testValidationInstallation() {
+    public function testValidationInstallation()
+    {
         /**
          * Valeur attendue
          */

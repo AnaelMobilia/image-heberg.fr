@@ -22,14 +22,16 @@
 /**
  * Bibliothèque d'outils pour la gestion des images
  */
-class outils {
+class outils
+{
 
     /**
      * Type de l'image
      * @param string $path chemin sur le filesystem
      * @return string
      */
-    public static function getType($path) {
+    public static function getType($path)
+    {
         return exif_imagetype($path);
     }
 
@@ -38,7 +40,8 @@ class outils {
      * @param string $path chemin sur le filesystem
      * @return string
      */
-    public static function getMimeType($path) {
+    public static function getMimeType($path)
+    {
         return image_type_to_mime_type(self::getType($path));
     }
 
@@ -46,7 +49,8 @@ class outils {
      * Chargement ressource PHP image
      * @return resource
      */
-    public static function getImage($path) {
+    public static function getImage($path)
+    {
         $monImage = NULL;
 
         // Je charge l'image en mémoire en fonction de son type
@@ -77,7 +81,8 @@ class outils {
      * @param string $path chemin du fichier
      * @return boolean Succès ?
      */
-    public static function setImage($uneImage, $imageType, $path) {
+    public static function setImage($uneImage, $imageType, $path)
+    {
         $monRetour = FALSE;
 
         // Je charge l'image en mémoire en fonction de son type
@@ -106,7 +111,8 @@ class outils {
      * @param string $path chemin sur le filesystem
      * @return string
      */
-    public static function getExtension($path) {
+    public static function getExtension($path)
+    {
         $ext = image_type_to_extension(self::getType($path), FALSE);
         if ($ext === 'jpeg') {
             // Préférence pour .jpg [filenmae.ext]
@@ -121,7 +127,8 @@ class outils {
      * @see http://php.net/manual/fr/function.ini-get.php
      * @return int
      */
-    public static function getMemoireAllouee() {
+    public static function getMemoireAllouee()
+    {
         // Récupération de la valeur du php.ini
         $valBrute = trim(ini_get('memory_limit'));
 
@@ -146,7 +153,8 @@ class outils {
      * @return boolean Possible ?
      * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
      */
-    public static function isModifiableEnMemoire($path) {
+    public static function isModifiableEnMemoire($path)
+    {
         $monRetour = FALSE;
         // Nombre de canaux d'information de l'image
         $nbCanaux = 4;
@@ -185,7 +193,8 @@ class outils {
      * @return int
      * @see isModifiableEnMemoire
      */
-    public static function getMaxDimension() {
+    public static function getMaxDimension()
+    {
         $memDispo = self::getMemoireAllouee();
 
         /**

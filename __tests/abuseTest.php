@@ -21,13 +21,15 @@
 
 use PHPUnit\Framework\TestCase;
 
-class abuseTest extends TestCase {
+class abuseTest extends TestCase
+{
 
     /**
      * Signalement d'une image
      * @runInSeparateProcess
      */
-    public function testAbuse() {
+    public function testAbuse()
+    {
         require 'config/config.php';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
@@ -37,7 +39,7 @@ class abuseTest extends TestCase {
         ob_start();
         require 'abuse.php';
         ob_end_clean();
-        
+
         $imageBloquee = new imageObject("imageQuiSeraBloquee.png");
         $imageMemeMd5 = new imageObject("imageAvecMemeMd5QuiDoitEtreBloquee.png");
         $this->assertEquals(true, $imageBloquee->isSignalee(), "Image signalée doit l'être");

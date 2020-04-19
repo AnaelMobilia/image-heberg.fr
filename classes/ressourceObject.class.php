@@ -22,7 +22,8 @@
 /**
  * Fonctions génériques aux images et miniatures
  */
-abstract class ressourceObject {
+abstract class ressourceObject
+{
 
     const typeImage = 1;
     const typeMiniature = 2;
@@ -50,7 +51,8 @@ abstract class ressourceObject {
      * @param int $nb nombre de chiffres à rajouter à la fin du nom
      * @return string nom de l'image
      */
-    protected function genererNom($nb = 0) {
+    protected function genererNom($nb = 0)
+    {
         // Random pour unicité + cassage lien nom <-> @IP
         $random = rand(100, 999);
         // @IP expéditeur
@@ -68,7 +70,8 @@ abstract class ressourceObject {
      * MD5 de la ressource
      * @return string
      */
-    public function getMd5() {
+    public function getMd5()
+    {
         // Création d'une image => Utilisation du fichier temporaire
         if (is_null($this->md5) && $this->getPathTemp()) {
             // Fichier temporaire...
@@ -82,7 +85,8 @@ abstract class ressourceObject {
      * Path sur le HDD
      * @return string
      */
-    public function getPathMd5() {
+    public function getPathMd5()
+    {
         // Path final
         $pathFinal = '';
 
@@ -112,7 +116,8 @@ abstract class ressourceObject {
      * Nombre d'images ayant le même MD5 (Normalement 1 à minima, l'image courante...)
      * @return int nombre d'images ayant ce MD5 (-1 en cas d'erreur)
      */
-    public function getNbDoublons() {
+    public function getNbDoublons()
+    {
         // Retour - -1 par défaut pour marquer l'erreur
         $monRetour = -1;
 
@@ -138,7 +143,8 @@ abstract class ressourceObject {
      * URL de la ressource
      * @return string
      */
-    public function getURL() {
+    public function getURL()
+    {
         // Path du type d'image
         $urlDuType = '';
         if ($this->getType() === self::typeImage) {
@@ -160,7 +166,8 @@ abstract class ressourceObject {
      * @param string $pathDst chemin de la ressource de destination
      * @return boolean succès ?
      */
-    function rotation($angle, $pathSrc, $pathDst) {
+    function rotation($angle, $pathSrc, $pathDst)
+    {
         // Je charge l'image en mémoire
         $resImg = outils::getImage($pathSrc);
         // Je vérifie que tout va bien
@@ -206,7 +213,8 @@ abstract class ressourceObject {
      * @param int $hauteurDemandee hauteur souhaitée
      * @return boolean réussi ?
      */
-    public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee) {
+    public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee)
+    {
         // Chargement de l'image
         $monImage = outils::getImage($pathSrc);
 
@@ -258,7 +266,8 @@ abstract class ressourceObject {
      * Cet utilisateur est-il propriétaire de l'image ?
      * @return boolean
      */
-    public function isProprietaire() {
+    public function isProprietaire()
+    {
         $monRetour = FALSE;
 
         // Je vais chercher les infos en BDD
@@ -289,7 +298,8 @@ abstract class ressourceObject {
      * Date d'envoi formatée
      * @return string
      */
-    public function getDateEnvoiFormatee() {
+    public function getDateEnvoiFormatee()
+    {
         $phpdate = strtotime($this->getDateEnvoiBrute());
         return date("d/m/Y H:i:s", $phpdate);
     }
@@ -298,7 +308,8 @@ abstract class ressourceObject {
      * Date de dernier affichage formaté
      * @return string
      */
-    public function getLastViewFormate() {
+    public function getLastViewFormate()
+    {
         $phpdate = strtotime($this->getLastView());
 
         // Gestion du cas de non affichage
@@ -312,7 +323,8 @@ abstract class ressourceObject {
      * Nombre d'appels IPv4 & IPv6
      * @return int
      */
-    public function getNbViewTotal() {
+    public function getNbViewTotal()
+    {
         return (int) $this->getNbViewIPv4() + $this->getNbViewIPv6();
     }
 
@@ -320,14 +332,16 @@ abstract class ressourceObject {
      * Nom original de la ressource
      * @return string
      */
-    public function getNomOriginalFormate() {
+    public function getNomOriginalFormate()
+    {
         return htmlentities($this->nomOriginal);
     }
 
     /**
      * Incrémente le nombre d'affichage IPv4
      */
-    public function setNbViewIpv4PlusUn() {
+    public function setNbViewIpv4PlusUn()
+    {
         $this->nbViewIPv4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
     }
@@ -335,7 +349,8 @@ abstract class ressourceObject {
     /**
      * Incrémente le nombre d'affichage IPv6
      */
-    public function setNbViewIpv6PlusUn() {
+    public function setNbViewIpv6PlusUn()
+    {
         $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
     }
@@ -348,7 +363,8 @@ abstract class ressourceObject {
      * ID de la ressource
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return (int) $this->id;
     }
 
@@ -356,7 +372,8 @@ abstract class ressourceObject {
      * Nom original de la ressource
      * @return string
      */
-    protected function getNomOriginal() {
+    protected function getNomOriginal()
+    {
         return $this->nomOriginal;
     }
 
@@ -364,7 +381,8 @@ abstract class ressourceObject {
      * Nom image-heberg
      * @return string
      */
-    public function getNomNouveau() {
+    public function getNomNouveau()
+    {
         return $this->nomNouveau;
     }
 
@@ -372,7 +390,8 @@ abstract class ressourceObject {
      * Largeur en px
      * @return int
      */
-    public function getLargeur() {
+    public function getLargeur()
+    {
         return (int) $this->largeur;
     }
 
@@ -380,7 +399,8 @@ abstract class ressourceObject {
      * Hauteur en px
      * @return int
      */
-    public function getHauteur() {
+    public function getHauteur()
+    {
         return (int) $this->hauteur;
     }
 
@@ -388,7 +408,8 @@ abstract class ressourceObject {
      * Poids de la ressource
      * @return int
      */
-    public function getPoids() {
+    public function getPoids()
+    {
         return (int) $this->poids;
     }
 
@@ -396,7 +417,8 @@ abstract class ressourceObject {
      * Date de dernier affichage
      * @return type
      */
-    protected function getLastView() {
+    protected function getLastView()
+    {
         return $this->lastView;
     }
 
@@ -404,7 +426,8 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv4
      * @return int
      */
-    protected function getNbViewIPv4() {
+    protected function getNbViewIPv4()
+    {
         return (int) $this->nbViewIPv4;
     }
 
@@ -412,7 +435,8 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv6
      * @return int
      */
-    protected function getNbViewIPv6() {
+    protected function getNbViewIPv6()
+    {
         return (int) $this->nbViewIPv6;
     }
 
@@ -420,7 +444,8 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @return type
      */
-    public function getDateEnvoiBrute() {
+    public function getDateEnvoiBrute()
+    {
         return $this->dateEnvoi;
     }
 
@@ -428,7 +453,8 @@ abstract class ressourceObject {
      * @ IP d'envoi
      * @return string
      */
-    public function getIpEnvoi() {
+    public function getIpEnvoi()
+    {
         return $this->ipEnvoi;
     }
 
@@ -436,7 +462,8 @@ abstract class ressourceObject {
      * Image bloquée ?
      * @return boolean
      */
-    public function isBloquee() {
+    public function isBloquee()
+    {
         return $this->isBloquee;
     }
 
@@ -444,7 +471,8 @@ abstract class ressourceObject {
      * Image signalée ?
      * @return boolean
      */
-    function isSignalee() {
+    function isSignalee()
+    {
         return $this->isSignalee;
     }
 
@@ -452,7 +480,8 @@ abstract class ressourceObject {
      * Path temporaire (upload d'image)
      * @return string
      */
-    public function getPathTemp() {
+    public function getPathTemp()
+    {
         return $this->pathTemp;
     }
 
@@ -460,7 +489,8 @@ abstract class ressourceObject {
      * Type d'image
      * @return int ressoruceObject const
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -468,7 +498,8 @@ abstract class ressourceObject {
      * Nom temporaire (PC utilisateur - upload d'image)
      * @return string
      */
-    public function getNomTemp() {
+    public function getNomTemp()
+    {
         return $this->nomTemp;
     }
 
@@ -476,7 +507,8 @@ abstract class ressourceObject {
      * Nom temporaire (PC utilisateur - upload d'image)
      * @param string $nomTemp
      */
-    public function setNomTemp($nomTemp) {
+    public function setNomTemp($nomTemp)
+    {
         $this->nomTemp = $nomTemp;
     }
 
@@ -484,7 +516,8 @@ abstract class ressourceObject {
      * Type d'image
      * @param int $type ressourceObject const
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
     }
 
@@ -492,7 +525,8 @@ abstract class ressourceObject {
      * Path temporaire (upload d'image)
      * @param string $pathTemp
      */
-    public function setPathTemp($pathTemp) {
+    public function setPathTemp($pathTemp)
+    {
         $this->pathTemp = $pathTemp;
     }
 
@@ -500,7 +534,8 @@ abstract class ressourceObject {
      * Image bloquée ?
      * @param boolean $bloquee
      */
-    public function setBloquee($bloquee) {
+    public function setBloquee($bloquee)
+    {
         $this->isBloquee = $bloquee;
     }
 
@@ -508,7 +543,8 @@ abstract class ressourceObject {
      * Image signalée ?
      * @param boolean $isSignalee
      */
-    function setSignalee($isSignalee) {
+    function setSignalee($isSignalee)
+    {
         $this->isSignalee = $isSignalee;
     }
 
@@ -516,7 +552,8 @@ abstract class ressourceObject {
      * ID de l'image
      * @param int $id
      */
-    protected function setId($id) {
+    protected function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -524,7 +561,8 @@ abstract class ressourceObject {
      * Nom original de la ressource
      * @param string $nomOriginal
      */
-    protected function setNomOriginal($nomOriginal) {
+    protected function setNomOriginal($nomOriginal)
+    {
         $this->nomOriginal = $nomOriginal;
     }
 
@@ -532,7 +570,8 @@ abstract class ressourceObject {
      * Nom image-heberg
      * @param string $nomNouveau
      */
-    protected function setNomNouveau($nomNouveau) {
+    protected function setNomNouveau($nomNouveau)
+    {
         $this->nomNouveau = $nomNouveau;
     }
 
@@ -540,7 +579,8 @@ abstract class ressourceObject {
      * Largeur en px
      * @param int $largeur
      */
-    protected function setLargeur($largeur) {
+    protected function setLargeur($largeur)
+    {
         $this->largeur = $largeur;
     }
 
@@ -548,7 +588,8 @@ abstract class ressourceObject {
      * Hauteur en px
      * @param int $hauteur
      */
-    protected function setHauteur($hauteur) {
+    protected function setHauteur($hauteur)
+    {
         $this->hauteur = $hauteur;
     }
 
@@ -556,7 +597,8 @@ abstract class ressourceObject {
      * Poids de la ressource
      * @param int $poids
      */
-    protected function setPoids($poids) {
+    protected function setPoids($poids)
+    {
         $this->poids = $poids;
     }
 
@@ -564,7 +606,8 @@ abstract class ressourceObject {
      * Date de dernier affichage
      * @param type $lastView
      */
-    protected function setLastView($lastView) {
+    protected function setLastView($lastView)
+    {
         $this->lastView = $lastView;
     }
 
@@ -572,7 +615,8 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv4
      * @param int $nbViewIPv4
      */
-    protected function setNbViewIPv4($nbViewIPv4) {
+    protected function setNbViewIPv4($nbViewIPv4)
+    {
         $this->nbViewIPv4 = $nbViewIPv4;
     }
 
@@ -580,7 +624,8 @@ abstract class ressourceObject {
      * Nb d'affichage en IPv6
      * @param int $nbViewIPv6
      */
-    protected function setNbViewIPv6($nbViewIPv6) {
+    protected function setNbViewIPv6($nbViewIPv6)
+    {
         $this->nbViewIPv6 = $nbViewIPv6;
     }
 
@@ -588,7 +633,8 @@ abstract class ressourceObject {
      * Date d'envoi du fichier
      * @param type $dateEnvoi
      */
-    protected function setDateEnvoi($dateEnvoi) {
+    protected function setDateEnvoi($dateEnvoi)
+    {
         $this->dateEnvoi = $dateEnvoi;
     }
 
@@ -596,7 +642,8 @@ abstract class ressourceObject {
      * MD5 de la ressource
      * @param string $md5
      */
-    protected function setMd5($md5) {
+    protected function setMd5($md5)
+    {
         $this->md5 = $md5;
     }
 
@@ -604,7 +651,8 @@ abstract class ressourceObject {
      * @ IP d'envoi
      * @param string $ipEnvoi
      */
-    protected function setIpEnvoi($ipEnvoi) {
+    protected function setIpEnvoi($ipEnvoi)
+    {
         $this->ipEnvoi = $ipEnvoi;
     }
 

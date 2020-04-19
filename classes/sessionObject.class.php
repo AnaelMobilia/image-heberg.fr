@@ -22,14 +22,16 @@
 /**
  * Gestion des sessions
  */
-class sessionObject {
+class sessionObject
+{
 
     // @ IP de l'utilisateur
     private $IP;
     // Objet utilisateur
     private $userObject;
 
-    public function __construct() {
+    public function __construct()
+    {
         // Je vérifie qu'une session n'est pas déjà lancée & que pas tests travis (session_start déjà effectué)
         if (session_status() === PHP_SESSION_NONE && !_TRAVIS_) {
             // Je lance la session côté PHP
@@ -51,7 +53,8 @@ class sessionObject {
      * Mon utilisateur
      * @return utilisateurObject
      */
-    private function getUserObject() {
+    private function getUserObject()
+    {
         if (isset($this->userObject)) {
             return $this->userObject;
         } else {
@@ -63,7 +66,8 @@ class sessionObject {
      * Mon utilisateur
      * @param utilisateurObject $userObject Objet utilisateur
      */
-    public function setUserObject($userObject) {
+    public function setUserObject($userObject)
+    {
         $this->userObject = $userObject;
         $_SESSION['userObject'] = $userObject;
     }
@@ -72,7 +76,8 @@ class sessionObject {
      * Nom d'utilisateur
      * @return string
      */
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->getUserObject()->getUserName();
     }
 
@@ -80,7 +85,8 @@ class sessionObject {
      * @ IP
      * @return string
      */
-    public function getIP() {
+    public function getIP()
+    {
         return $this->IP;
     }
 
@@ -88,7 +94,8 @@ class sessionObject {
      * Niveau de droits
      * @return type
      */
-    public function getLevel() {
+    public function getLevel()
+    {
         return $this->getUserObject()->getLevel();
     }
 
@@ -96,7 +103,8 @@ class sessionObject {
      * ID en BDD
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return (int) $this->getUserObject()->getId();
     }
 
@@ -104,7 +112,8 @@ class sessionObject {
      * IP
      * @param string $IP
      */
-    public function setIP($IP) {
+    public function setIP($IP)
+    {
         $this->IP = $IP;
         // On enregistre dans la session
         $_SESSION['IP'] = $this->getIP();
@@ -115,7 +124,8 @@ class sessionObject {
      * @param type $levelRequis
      * @return boolean
      */
-    public function verifierDroits($levelRequis) {
+    public function verifierDroits($levelRequis)
+    {
         if ($this->getLevel() >= $levelRequis) {
             return TRUE;
         } else {
@@ -126,7 +136,8 @@ class sessionObject {
     /**
      * Déconnexion d'un utilisateur
      */
-    public function deconnexion() {
+    public function deconnexion()
+    {
         // Destruction de l'objet utilisateur
         unset($_SESSION['userObject']);
 
@@ -139,14 +150,16 @@ class sessionObject {
     /**
      * Active le flag de suivi (vérification d'affichage de page avant envoi)
      */
-    public function setFlag() {
+    public function setFlag()
+    {
         $_SESSION['flag'] = TRUE;
     }
 
     /**
      * Supprime le flag de suivi
      */
-    public function removeFlag() {
+    public function removeFlag()
+    {
         unset($_SESSION['flag']);
     }
 
@@ -154,7 +167,8 @@ class sessionObject {
      * Vérifie le flag de suivi
      * @return boolean Suivi OK ?
      */
-    public function checkFlag() {
+    public function checkFlag()
+    {
         return isset($_SESSION['flag']);
     }
 

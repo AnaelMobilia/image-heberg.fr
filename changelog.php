@@ -61,7 +61,7 @@ require _TPL_TOP_;
 <div class="card card-primary">
     <div class="card-header">
         <a data-toggle="collapse" href="#v204">
-                v2.0.4 - Octobre 2019
+            v2.0.4 - Octobre 2019
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
