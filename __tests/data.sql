@@ -37,7 +37,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 -- Image signalée
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
-(15, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, NULL, 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1);
+(17, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, NULL, 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1);
 
 --
 -- Miniatures à supprimer
