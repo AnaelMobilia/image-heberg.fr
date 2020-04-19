@@ -37,9 +37,9 @@ class abuseTest extends TestCase
         $_POST['userMail'] = "john.doe@example.com";
         $_POST['urlImage'] = "http://www.example.com/files/15.png";
 
-        ob_start();
+        //ob_start();
         require 'abuse.php';
-        ob_end_clean();
+        //ob_end_clean();
 
         $imageBloquee = new imageObject("15.png");
         $imageMemeMd5 = new imageObject("16.png");
