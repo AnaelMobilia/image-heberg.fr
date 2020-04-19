@@ -24,7 +24,7 @@ require _TPL_TOP_;
 $maSession = new sessionObject();
 
 // En cas de validation du formulaire
-if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
+if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     // Vérification du bon format de l'adresse mail
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // Je complète le message avec l'IP de mon émeteur
@@ -53,7 +53,7 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
     }
 } else {
     // Premier affichage de la page
-    if (!isset($_POST['envoyer'])) {
+    if (!isset($_POST['Submit'])) {
         // Activation de la protection robot
         $maSession->setFlag();
     }
@@ -77,7 +77,7 @@ if (isset($_POST['envoyer']) && $maSession->checkFlag()) {
                     <label for="userMessage">Votre message</label>
                     <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Votre message" required="required"><?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?></textarea>
                 </div>
-                <button type="submit" name="envoyer" class="btn btn-success">Envoyer</button>
+                <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
             </form>
         </div>
     </div>
