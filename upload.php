@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 if (!defined('_TRAVIS_')) {
     require 'config/config.php';
 }
@@ -168,7 +172,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
         &nbsp;
         <b>Une erreur a été rencontrée !</b>
         <br />
-        <?= $msgErreur ?>
+    <?= $msgErreur ?>
     </div>
 <?php else : ?>
     <?php if (!empty($msgWarning)) : ?>
@@ -177,7 +181,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
             &nbsp;
             <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
             <br />
-            <?= $msgWarning ?>
+        <?= $msgWarning ?>
         </div>
     <?php endif; ?>
     <div class="alert alert-success">
@@ -195,14 +199,14 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                         <a href="<?= $monImage->getURL() ?>"><?= $monImage->getURL() ?></a>
                     </div>
                 </div>
-                <?php if (isset($maMiniature)) : ?>
+    <?php if (isset($maMiniature)) : ?>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Lien direct miniature</label>
                         <div class="col-sm-10">
                             <a href="<?= $maMiniature->getURL() ?>"><?= $maMiniature->getURL() ?></a>
                         </div>
                     </div>
-                <?php endif; ?>
+    <?php endif; ?>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
@@ -210,7 +214,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                                value="[img]<?= $monImage->getURL() ?>[/img]" />
                     </div>
                 </div>
-                <?php if (isset($maMiniature)) : ?>
+    <?php if (isset($maMiniature)) : ?>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
@@ -218,7 +222,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                                    value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
                         </div>
                     </div>
-                <?php endif; ?>
+    <?php endif; ?>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">HTML</label>
                     <div class="col-sm-10">
@@ -226,7 +230,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                                value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
                     </div>
                 </div>
-                <?php if (isset($maMiniature)) : ?>
+    <?php if (isset($maMiniature)) : ?>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">HTML avec miniature</label>
                         <div class="col-sm-10">
@@ -234,7 +238,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                                    value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
                         </div>
                     </div>
-                <?php endif; ?>
+    <?php endif; ?>
             </div>
             <div class="clearfix"></div>
             <br />

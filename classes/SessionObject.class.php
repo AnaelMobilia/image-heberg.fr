@@ -19,6 +19,8 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+namespace ImageHeberg;
+
 /**
  * Gestion des sessions
  */

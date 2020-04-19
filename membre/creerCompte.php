@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 if (!defined('_TRAVIS_')) {
     require '../config/config.php';
 }
@@ -84,12 +88,9 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
             die();
         }
     } else {
-        ?>
-        <div class="alert alert-danger">
-            <strong>La création de votre compte n'est pas possible :</strong>
-            <?= $messageErreur ?>
-        </div>
-        <?php
+        echo '<div class="alert alert-danger"><strong>La création de votre compte n\'est pas possible :</strong>';
+        echo $messageErreur;
+        echo '</div>';
     }
 }
 $maSession->setFlag();

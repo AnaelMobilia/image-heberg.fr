@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 if (!defined('_TRAVIS_')) {
     require '../config/config.php';
 }
@@ -36,14 +40,10 @@ if (isset($_POST['modifierPwd'])) {
         $monUtilisateur->modifier();
 
         // Retour utilisateur
-        ?>
-        <div class="alert alert-success">Le mot de passe à été mis à jour !</div>
-        <?php
+        echo '<div class="alert alert-success">Le mot de passe à été mis à jour !</div>';
     } else {
         // Retour utilisateur
-        ?>
-        <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
+        echo '<div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>';
     }
 } elseif (isset($_POST['modifierMail'])) {
     // Je vérifie qu'on me donne le bon mot de passe
@@ -55,20 +55,14 @@ if (isset($_POST['modifierPwd'])) {
             $monUtilisateur->modifier();
 
             // Retour utilisateur
-            ?>
-            <div class="alert alert-success">L'adresse courriel à été mise à jour !</div>
-            <?php
+            echo '<div class="alert alert-success">L\'adresse courriel à été mise à jour !</div>';
         } else {
             // Retour utilisateur
-            ?>
-            <div class = "alert alert-danger">L'adresse courriel saisie n'est pas correcte !</div>
-            <?php
+            echo '<div class="alert alert-danger">L\'adresse courriel saisie n\'est pas correcte !</div>';
         }
     } else {
         // Retour utilisateur
-        ?>
-        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
+        echo '<div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>';
     }
 } elseif (isset($_POST['supprimerCompte'])) {
     // Je vérifie qu'on me donne le bon mot de passe
@@ -88,21 +82,16 @@ if (isset($_POST['modifierPwd'])) {
                 Merci d'avoir utilisé <?= _SITE_NAME_ ?>.
             </div>
             <?php
+
             // Déconnexion de la session
             $maSession->deconnexion();
         } else {
             // Retour utilisateur
-            ?>
-            <div class = "alert alert-danger">
-                Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !
-            </div>
-            <?php
+            echo '<div class="alert alert-danger">Vous n\'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>';
         }
     } else {
         // Retour utilisateur
-        ?>
-        <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
-        <?php
+        echo '<div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>';
     }
 }
 ?>

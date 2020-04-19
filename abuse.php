@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 if (!defined('_TRAVIS_')) {
     require 'config/config.php';
 }
@@ -64,18 +68,10 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             $maSession->removeFlag();
         }
         // Retour utilisateur
-        ?>
-        <div class="alert alert-success">Votre signalement a été envoyé !</div>
-        <?php
+        echo '<div class="alert alert-success">Votre signalement a été envoyé !</div>';
     } else {
         // Adresse mail invalide
-        ?>
-        <div class = "alert alert-danger">
-            Votre adresse mail n'est pas valide !
-            <br />
-            <pre><?= $_POST['userMail'] ?></pre>
-        </div>
-        <?php
+        echo '<div class = "alert alert-danger">Votre adresse mail n\'est pas valide !<br /><pre>' . $_POST['userMail'] . '</pre></div>';
     }
 } else {
     // Premier affichage de la page

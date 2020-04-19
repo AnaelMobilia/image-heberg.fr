@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,8 +18,11 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
 // TODO : affichage des images dans la page en javascript ?
 // TODO : navigation entre les images
+
+namespace ImageHeberg;
 
 require __DIR__ . '/../config/config.php';
 // Vérification des droits d'accès
@@ -43,6 +47,7 @@ $monUtilisateur = new UtilisateurObject($maSession->getId());
     </thead>
     <tbody>
         <?php
+
         $mesImages = $monUtilisateur->getImages();
         foreach ((array) $mesImages as $newName) :
             $uneImage = new ImageObject($newName);

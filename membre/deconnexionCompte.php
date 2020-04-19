@@ -18,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 require __DIR__ . '/../config/config.php';
 
 // On se déconnecte

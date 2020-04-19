@@ -19,6 +19,10 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+namespace ImageHeberg;
+
+use Exception;
+
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
@@ -26,11 +30,11 @@ if (!_TRAVIS_) {
 
     /**
      * Gestion des exceptions de l'application
-     * @param Exception $exception
+     * @param \Exception $exception
      */
     function exception_handler($exception)
     {
-        /* @var $exception Exception */
+        /* @var $exception \Exception */
         if (_DEBUG_) {
             echo '<pre>';
             print_r($exception->getMessage());
@@ -62,7 +66,7 @@ if (!_TRAVIS_) {
 
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
     }
-    set_exception_handler('exception_handler');
+    set_exception_handler('ImageHeberg\exception_handler');
 }
 
 // Répertoires
@@ -93,6 +97,9 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
+    // Suppression du namespace
+    $class = str_replace('ImageHeberg\\', "", $class);
+
     // Code pour TRAVIS
     $charger = true;
 

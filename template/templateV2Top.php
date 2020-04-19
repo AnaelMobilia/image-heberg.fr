@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 $timeStart = microtime(true);
 ?>
 <!DOCTYPE html>
@@ -74,6 +78,7 @@ $timeStart = microtime(true);
                         </li>
                     </ul>
                     <?php
+
                     $visiteur = new SessionObject();
                     // Menu utilisateur non connecté
                     if ($visiteur->getLevel() === UtilisateurObject::LEVEL_GUEST) :

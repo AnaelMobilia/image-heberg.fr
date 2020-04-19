@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -17,6 +18,9 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
+
+namespace ImageHeberg;
+
 require '../config/config.php';
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
@@ -24,6 +28,7 @@ require _TPL_TOP_;
 ?>
 <h1><small>Nettoyage des fichiers jamais utilisés</small></h1>
 <?php
+
 $message = '';
 
 // Je récupère la liste des images jamais affichées

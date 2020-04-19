@@ -19,6 +19,11 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+namespace ImageHeberg;
+
+use PDO;
+use ArrayObject;
+
 /**
  * Les méthodes "génériques"
  *

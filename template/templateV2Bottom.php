@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -23,13 +24,6 @@
 <footer class="footer">
     <div class="container">
         <span class="text-muted">
-            <?php
-            if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
-                $ip = '4';
-            } else {
-                $ip = '6';
-            }
-            ?>
             <?= _SITE_NAME_ ?>
             -
             <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2020) <span class="fas fa-award"></span></a>
@@ -44,7 +38,7 @@
                     -
                     Exécution en <?= round(microtime(true) - $timeStart, 5); ?>s
                     -
-                    IPv<?= $ip ?>
+                    IPv<?= (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) ? '4' : '6' ?>
                 </span>
                 -
                 Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
