@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Copyright 2008-2020 Anael MOBILIA
  *
@@ -21,23 +22,22 @@
 /**
  * Gestion (BDD) des utilisateurs
  */
-class utilisateurObject
+class UtilisateurObject
 {
-
     private $userName;
     private $password;
     private $email;
     private $dateInscription;
     private $ipInscription;
-    private $level = self::levelGuest;
+    private $level = self::LEVEL_GUEST;
     private $id = 0;
     private $isActif = 1;
     private $token;
 
     // Niveaux de droits
-    const levelGuest = 0;
-    const levelUser = 1;
-    const levelAdmin = 2;
+    const LEVEL_GUEST = 0;
+    const LEVEL_USER = 1;
+    const LEVEL_ADMIN = 2;
 
     public function __construct($userID = false)
     {
@@ -252,7 +252,7 @@ class utilisateurObject
         $monRetour = 0;
 
         // Vérification de l'existance du login
-        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
         /* @var $req PDOStatement */
         $req->bindValue(':login', $user, PDO::PARAM_STR);
         $req->execute();
@@ -289,7 +289,7 @@ class utilisateurObject
 
             // Mise à jour du hash si requis
             if ($updateHash) {
-                $monUtilisateur = new utilisateurObject();
+                $monUtilisateur = new UtilisateurObject();
                 $monUtilisateur->charger($values->id);
                 $monUtilisateur->setPasswordToCrypt($pwd);
                 $monUtilisateur->modifier();
@@ -309,7 +309,7 @@ class utilisateurObject
         // Protection contre une attaque : on délaie un peu l'action
         usleep(500000);
         // Ma session
-        $maSession = new sessionObject();
+        $maSession = new SessionObject();
         // Mon retour
         $monRetour = false;
 
@@ -326,7 +326,7 @@ class utilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
-            $req = maBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (:ipLogin, NOW(), :pkMembres)");
+            $req = MaBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (:ipLogin, NOW(), :pkMembres)");
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
             $req->bindValue(':pkMembres', $userID, PDO::PARAM_INT);
 
@@ -347,7 +347,7 @@ class utilisateurObject
         $monRetour = false;
 
         // Je récupère les données en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
         /* @var $req PDOStatement */
         $req->bindValue(':id', $userID, PDO::PARAM_INT);
         $req->execute();
@@ -380,7 +380,7 @@ class utilisateurObject
      */
     public function enregistrer()
     {
-        $req = maBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
+        $req = MaBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
         $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
@@ -398,7 +398,7 @@ class utilisateurObject
      */
     public function modifier()
     {
-        $req = maBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
         $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
         $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
         $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
@@ -416,24 +416,24 @@ class utilisateurObject
     public function supprimer()
     {
         // Les images possédées
-        $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = :pkMembres");
+        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = :pkMembres");
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Historique des logins
-        $req = maBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = :pkMembres");
+        $req = MaBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = :pkMembres");
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Paramètres du compte
-        $req = maBDD::getInstance()->prepare("DELETE FROM membres WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("DELETE FROM membres WHERE id = :id");
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }
 
     /**
      * Assigne une image à un utilisateur en BDD
-     * @param imageObject $imageObject
+     * @param ImageObject $imageObject
      */
     public function assignerImage($imageObject)
     {
@@ -442,7 +442,7 @@ class utilisateurObject
         }
 
         // Les images possédées
-        $req = maBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (:imageId, :pkMembres)");
+        $req = MaBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (:imageId, :pkMembres)");
         $req->bindValue(':imageId', $imageObject->getId(), PDO::PARAM_INT);
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -455,7 +455,7 @@ class utilisateurObject
      */
     public static function verifierLoginDisponible($login)
     {
-        $req = maBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
         /* @var $req PDOStatement */
         $req->bindValue(':login', $login, PDO::PARAM_STR);
         $req->execute();
@@ -478,14 +478,12 @@ class utilisateurObject
      */
     public static function checkAccess($levelRequis)
     {
-        $monUser = new sessionObject();
+        $monUser = new SessionObject();
         if ($monUser->verifierDroits($levelRequis) === false) {
             header("HTTP/1.1 403 Forbidden");
             require _TPL_TOP_;
-            ?>
-            <h1>Accès refusé</h1>
-            <p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>
-            <?php
+            echo "<h1>Accès refusé</h1>";
+            echo "<p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>";
             require _TPL_BOTTOM_;
             die();
         }
@@ -499,7 +497,7 @@ class utilisateurObject
     public function getImages()
     {
         // Toutes les images
-        $req = maBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
+        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
         /* @var $req PDOStatement */
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
 
@@ -515,5 +513,4 @@ class utilisateurObject
 
         return $retour;
     }
-
 }

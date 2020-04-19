@@ -66,8 +66,8 @@ class membreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $maSession = new sessionObject();
-        $this->assertEquals(utilisateurObject::levelAdmin, $maSession->getLevel(), "connexion : doit être OK");
+        $maSession = new SessionObject();
+        $this->assertEquals(UtilisateurObject::LEVEL_ADMIN, $maSession->getLevel(), "connexion : doit être OK");
     }
 
     /**
@@ -97,8 +97,9 @@ class membreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $monMembre = new utilisateurObject();
-        $this->assertEquals(false, $monMembre->connexion($_POST['userName'], $_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
+        $monMembre = new UtilisateurObject();
+        $this->assertEquals(false, $monMembre->connexion($_POST['userName'], $_POST['userPassword']),
+                "connexion : le nom d'utilisateur doit être unique");
     }
 
     /**
@@ -128,7 +129,7 @@ class membreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject(3);
+        $monMembre = new UtilisateurObject(3);
 
         /**
          * Vérification des valeurs
@@ -140,7 +141,7 @@ class membreTest extends TestCase
         // @ IP d'inscription
         $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
         // Niveau de droits
-        $this->assertEquals(utilisateurObject::levelUser, $monMembre->getLevel());
+        $this->assertEquals(UtilisateurObject::LEVEL_USER, $monMembre->getLevel());
         // Nom
         $this->assertEquals('username', $monMembre->getUserName());
         $this->assertEquals(true, $monMembre->connexion($_POST['userName'], $_POST['userPassword']));
@@ -164,7 +165,7 @@ class membreTest extends TestCase
         /**
          * Simulation d'une connexion
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $this->assertEquals(true, $unMembre->connexion('username', $_POST['userPasswordMail']), "connexion avant");
 
         /**
@@ -177,7 +178,7 @@ class membreTest extends TestCase
         /**
          * Récupération de l'utilisateur
          */
-        $monMembre = new utilisateurObject(3);
+        $monMembre = new UtilisateurObject(3);
 
         /**
          * Vérification des valeurs
@@ -205,7 +206,7 @@ class membreTest extends TestCase
         /**
          * Simulation d'une connexion
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $this->assertEquals(true, $unMembre->connexion('username', $_POST['oldUserPassword']), "connexion avant");
 
         /**
@@ -218,7 +219,7 @@ class membreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject();
+        $monMembre = new UtilisateurObject();
 
         /**
          * Vérification des valeurs
@@ -244,7 +245,7 @@ class membreTest extends TestCase
         /**
          * Simulation d'une connexion
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $this->assertEquals(true, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
         /**
@@ -257,12 +258,13 @@ class membreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject();
+        $monMembre = new UtilisateurObject();
 
         /**
          * Vérification des valeurs
          */
-        $this->assertEquals(true, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion devrait être possible");
+        $this->assertEquals(true, $monMembre->connexion('username', $_POST['userPasswordDelete']),
+                "connexion devrait être possible");
     }
 
     /**
@@ -283,7 +285,7 @@ class membreTest extends TestCase
         /**
          * Simulation d'une connexion
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $this->assertEquals(true, $unMembre->connexion('username', $_POST['userPasswordDelete']), "connexion avant");
 
         /**
@@ -296,7 +298,7 @@ class membreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject();
+        $monMembre = new UtilisateurObject();
 
         /**
          * Vérification des valeurs
@@ -318,12 +320,11 @@ class membreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new utilisateurObject();
+        $monMembre = new UtilisateurObject();
 
         /**
          * Vérification des valeurs
          */
         $this->assertEquals(true, $monMembre->connexion('admin', 'password'), "connexion au compte créé à l'import de la BDD devrait être possible");
     }
-
 }

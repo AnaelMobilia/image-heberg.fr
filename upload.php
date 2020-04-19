@@ -26,7 +26,7 @@ $msgErreur = '';
 $msgWarning = '';
 
 // Gestion de la session
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 /**
  * Vérification de l'utilisation normale
  */
@@ -55,7 +55,8 @@ if (empty($msgErreur) && (!isset($_FILES['fichier']['name']) || empty($_FILES['f
 if (empty($msgErreur)) {
     $poids = $_FILES['fichier']['size'];
     if ($poids > _IMAGE_POIDS_MAX_) {
-        $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
+        $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1)
+                . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
@@ -66,7 +67,7 @@ if (empty($msgErreur)) {
     $pathTmp = $_FILES['fichier']['tmp_name'];
     // Type mime autorisés
     $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
-    if (!in_array(outils::getType($pathTmp), $mimeType)) {
+    if (!in_array(Outils::getType($pathTmp), $mimeType)) {
         $msgErreur .= 'Le fichier ' . $_FILES['fichier']['name'] . ' n\'est pas une image valide.<br />';
     }
 }
@@ -75,8 +76,9 @@ if (empty($msgErreur)) {
  * Vérification des dimensions
  */
 if (empty($msgErreur)) {
-    if (!outils::isModifiableEnMemoire($pathTmp)) {
-        $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
+    if (!Outils::isModifiableEnMemoire($pathTmp)) {
+        $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée '
+                . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
     }
 }
 
@@ -84,7 +86,7 @@ if (empty($msgErreur)) {
  * Création d'une image pour effectuer les traitements requis
  */
 if (empty($msgErreur)) {
-    $monImage = new imageObject();
+    $monImage = new ImageObject();
     $monImage->setPathTemp($pathTmp);
     $monImage->setNomTemp($_FILES['fichier']['name']);
 }
@@ -130,7 +132,7 @@ if (empty($msgErreur) && !$monImage->creer()) {
  */
 if (empty($msgErreur) && $maSession->getId() !== 0) {
     // Assignation à l'utilisateur
-    $monUtilisateur = new utilisateurObject($maSession->getId());
+    $monUtilisateur = new UtilisateurObject($maSession->getId());
     $monUtilisateur->assignerImage($monImage);
 }
 
@@ -143,7 +145,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
     $maHauteur = strstr($_POST['dimMiniature'], 'x', true);
 
     // Création d'un objet
-    $maMiniature = new miniatureObject();
+    $maMiniature = new MiniatureObject();
     $maMiniature->setPathTemp($pathTmp);
     // ID image parente
     $maMiniature->setIdImage($monImage->getId());
@@ -154,12 +156,13 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
     // Création de la miniature
     $maMiniature->setNomTemp($_FILES['fichier']['name']);
     if (!$maMiniature->creer()) {
-        $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name'] . ' .<br />';
+        $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name']
+                . ' .<br />';
     }
 }
 ?>
 <h1><small>Envoi d'une image</small></h1>
-<?php if (!empty($msgErreur)): ?>
+<?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="fas fa-remove"></span>
         &nbsp;
@@ -167,8 +170,8 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
         <br />
         <?= $msgErreur ?>
     </div>
-<?php else: ?>
-    <?php if (!empty($msgWarning)): ?>
+<?php else : ?>
+    <?php if (!empty($msgWarning)) : ?>
         <div class="alert alert-warning">
             <span class="fas fa-remove"></span>
             &nbsp;
@@ -203,28 +206,32 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" onFocus="this.select();" value="[img]<?= $monImage->getURL() ?>[/img]" />
+                        <input type="text" class="form-control" onFocus="this.select();"
+                               value="[img]<?= $monImage->getURL() ?>[/img]" />
                     </div>
                 </div>
                 <?php if (isset($maMiniature)) : ?>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" onFocus="this.select();" value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
+                            <input type="text" class="form-control" onFocus="this.select();"
+                                   value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
                         </div>
                     </div>
                 <?php endif; ?>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">HTML</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" onFocus="this.select();" value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
+                        <input type="text" class="form-control" onFocus="this.select();"
+                               value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
                     </div>
                 </div>
                 <?php if (isset($maMiniature)) : ?>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">HTML avec miniature</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" onFocus="this.select();" value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
+                            <input type="text" class="form-control" onFocus="this.select();"
+                                   value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
                         </div>
                     </div>
                 <?php endif; ?>
@@ -254,15 +261,13 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                 &nbsp;
                 Envoyer une autre image
             </a>
-            <a href="<?= _URL_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>" class="btn btn-danger">
+            <a href="<?= _URL_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>"
+               class="btn btn-danger">
                 <span class="fas fa-trash"></span>
                 &nbsp;
                 Effacer cette image
             </a>
         </div>
     </div>
-<?php
-endif;
-// endforeach...
-require _TPL_BOTTOM_;
-?>
+<?php endif; ?>
+<?php require _TPL_BOTTOM_; ?>

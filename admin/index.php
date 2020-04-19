@@ -19,7 +19,7 @@
  */
 require '../config/config.php';
 // Vérification des droits d'accès
-utilisateurObject::checkAccess(utilisateurObject::levelAdmin);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
 <h1><small>Panneau d'administration</small></h1>
@@ -38,7 +38,8 @@ require _TPL_TOP_;
         <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-warning">
             <span class="fas fa-trash"></span>
             &nbsp;
-            Supprimer les images jamais affichées et envoyées depuis plus de <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jours
+            Supprimer les images jamais affichées et envoyées depuis plus de
+            <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jours
         </a>
         <div class="clearfix"></div>
         <br />

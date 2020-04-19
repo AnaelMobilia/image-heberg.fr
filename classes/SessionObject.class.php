@@ -22,9 +22,8 @@
 /**
  * Gestion des sessions
  */
-class sessionObject
+class SessionObject
 {
-
     // @ IP de l'utilisateur
     private $IP;
     // Objet utilisateur
@@ -51,20 +50,20 @@ class sessionObject
 
     /**
      * Mon utilisateur
-     * @return utilisateurObject
+     * @return UtilisateurObject
      */
     private function getUserObject()
     {
         if (isset($this->userObject)) {
             return $this->userObject;
         } else {
-            return new utilisateurObject();
+            return new UtilisateurObject();
         }
     }
 
     /**
      * Mon utilisateur
-     * @param utilisateurObject $userObject Objet utilisateur
+     * @param UtilisateurObject $userObject Objet utilisateur
      */
     public function setUserObject($userObject)
     {
@@ -171,5 +170,4 @@ class sessionObject
     {
         return isset($_SESSION['flag']);
     }
-
 }

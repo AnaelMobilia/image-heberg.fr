@@ -36,5 +36,4 @@ class installationTest extends TestCase
          */
         require 'install.php';
     }
-
 }

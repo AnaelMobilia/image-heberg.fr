@@ -19,7 +19,7 @@
  */
 require '../config/config.php';
 // Vérification des droits d'accès
-utilisateurObject::checkAccess(utilisateurObject::levelAdmin);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
 <h1><small>Vérification de la configuration du serveur</small></h1>
@@ -28,7 +28,7 @@ require _TPL_TOP_;
         PHP
     </div>
     <div class="card-body">
-        <?= metaObject::getPhpVersion() ?>
+        <?= MetaObject::getPhpVersion() ?>
     </div>
 </div>
 <div class="card card-primary">
@@ -36,7 +36,7 @@ require _TPL_TOP_;
         MySQL
     </div>
     <div class="card-body">
-        <?= metaObject::getMysqlVersion() ?>
+        <?= MetaObject::getMysqlVersion() ?>
     </div>
 </div>
 <div class="card card-primary">
@@ -46,9 +46,9 @@ require _TPL_TOP_;
     <div class="card-body">
         Les valeurs doivent être de type "HTTP *.* 403 Forbidden".
         <ul>
-            <li>Répertoire config : <?= metaObject::getStatusHTTP(_URL_CONFIG_) ?></li>
-            <li>Répertoire admin : <?= metaObject::getStatusHTTP(_URL_ADMIN_) ?></li>
-            <li>Répertoire membre : <?= metaObject::getStatusHTTP(_URL_MEMBRE_) ?></li>
+            <li>Répertoire config : <?= MetaObject::getStatusHTTP(_URL_CONFIG_) ?></li>
+            <li>Répertoire admin : <?= MetaObject::getStatusHTTP(_URL_ADMIN_) ?></li>
+            <li>Répertoire membre : <?= MetaObject::getStatusHTTP(_URL_MEMBRE_) ?></li>
         </ul>
     </div>
 </div>
@@ -59,8 +59,8 @@ require _TPL_TOP_;
     <div class="card-body">
         <ul>
             <?php
-            $lesDroits = metaObject::isRecursivelyWritable(_PATH_IMAGES_);
-            foreach ((array) $lesDroits as $unItem):
+            $lesDroits = MetaObject::isRecursivelyWritable(_PATH_IMAGES_);
+            foreach ((array) $lesDroits as $unItem) :
                 ?>
                 <li><?= $unItem ?></li>
             <?php endforeach; ?>

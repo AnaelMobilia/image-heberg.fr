@@ -19,7 +19,7 @@
  */
 require '../config/config.php';
 // Vérification des droits d'accès
-utilisateurObject::checkAccess(utilisateurObject::levelAdmin);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
 <h1><small>Images présentes sur le disque</small></h1>
@@ -50,7 +50,6 @@ require _TPL_TOP_;
         $monRetour .= '</ul>';
         return $monRetour;
     }
-
     echo getScandirRecursif(_PATH_IMAGES_);
     ?>
 </ul>

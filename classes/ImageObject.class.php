@@ -22,17 +22,17 @@
 /**
  * Les images
  */
-class imageObject extends ressourceObject implements ressourceInterface
+class ImageObject extends RessourceObject implements RessourceInterface
 {
 
     /**
      * Constructeur
      * @param string $newName nom de l'image
      */
-    function __construct($newName = false)
+    public function __construct($newName = false)
     {
-        // Définition du type pour le ressourceObject
-        $this->setType(ressourceObject::typeImage);
+        // Définition du type pour le RessourceObject
+        $this->setType(RessourceObject::TYPE_IMAGE);
 
         // Si on me donne un ID d'image, je charge l'objet
         if ($newName) {
@@ -52,7 +52,7 @@ class imageObject extends ressourceObject implements ressourceInterface
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = :newName");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = :newName");
         $req->bindValue(':newName', $newName, PDO::PARAM_STR);
         $req->execute();
 
@@ -88,7 +88,7 @@ class imageObject extends ressourceObject implements ressourceInterface
     public function sauver()
     {
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal(), PDO::PARAM_STR);
@@ -118,14 +118,14 @@ class imageObject extends ressourceObject implements ressourceInterface
          * Suppression de la ou les miniatures
          */
         // Chargement des miniatures
-        $req = maBDD::getInstance()->prepare("SELECT new_name FROM thumbnails where id_image = :idImage");
+        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM thumbnails where id_image = :idImage");
         $req->bindValue(':idImage', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Je passe toutes les lignes de résultat
         foreach ($req->fetchAll() as $value) {
             // Chargement de la miniature
-            $maMiniature = new miniatureObject($value->new_name);
+            $maMiniature = new MiniatureObject($value->new_name);
             // Suppression
             $maMiniature->supprimer();
         }
@@ -134,7 +134,7 @@ class imageObject extends ressourceObject implements ressourceInterface
          * Suppression de l'affectation
          */
         if ($monRetour) {
-            $req = maBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
+            $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
             /* @var $req PDOStatement */
             $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
@@ -144,7 +144,7 @@ class imageObject extends ressourceObject implements ressourceInterface
          * Suppression de l'image en BDD
          */
         if ($monRetour) {
-            $req = maBDD::getInstance()->prepare("DELETE FROM images WHERE id = :id");
+            $req = MaBDD::getInstance()->prepare("DELETE FROM images WHERE id = :id");
             /* @var $req PDOStatement */
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
@@ -176,7 +176,7 @@ class imageObject extends ressourceObject implements ressourceInterface
          * Détermination du nom &&
          * Vérification de sa disponibilité
          */
-        $tmpImage = new imageObject();
+        $tmpImage = new ImageObject();
         $nb = 0;
         do {
             // Récupération d'un nouveau nom
@@ -196,7 +196,7 @@ class imageObject extends ressourceObject implements ressourceInterface
         // Vérification de la non existence du fichier
         if ($this->getNbDoublons() == 0) {
             // Image inconnue : chargement & enregistrement (optimisation de la taille)
-            $monRetour = outils::setImage(outils::getImage($this->getPathTemp()), outils::getType($this->getPathTemp()), $this->getPathMd5());
+            $monRetour = Outils::setImage(Outils::getImage($this->getPathTemp()), Outils::getType($this->getPathTemp()), $this->getPathMd5());
         }
 
         // Ssi copie du fichier réussie
@@ -218,7 +218,7 @@ class imageObject extends ressourceObject implements ressourceInterface
             /**
              * Création en BDD
              */
-            $req = maBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5)");
+            $req = MaBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5)");
             $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
             // Date : NOW()
             $req->bindValue(':oldName', $this->getNomOriginal(), PDO::PARAM_STR);
@@ -235,12 +235,11 @@ class imageObject extends ressourceObject implements ressourceInterface
                 /**
                  * Récupération de l'ID de l'image
                  */
-                $idEnregistrement = maBDD::getInstance()->lastInsertId();
+                $idEnregistrement = MaBDD::getInstance()->lastInsertId();
                 $this->setId($idEnregistrement);
             }
         }
 
         return $monRetour;
     }
-
 }

@@ -19,7 +19,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-/**
+/*
  * CHAMPS A CONFIGURER
  */
 /* Base de données */

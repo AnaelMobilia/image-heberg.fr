@@ -19,7 +19,7 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
-/**
+/*
  * Vérification des prérequis basiques
  * Ce fichier peut être supprimé après l'installation
  */
@@ -38,9 +38,9 @@ if (!$conf) {
 if (!defined('_TRAVIS_')) {
     require 'config/config.php';
 }
-$res = maBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
+$res = MaBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
 if (!$res) {
-    $msg = "Erreur de communication avec la base de données, vérifiez les identifiants dans le fichier config/config.php !";
+    $msg = "Erreur de connexion à la base de données, vérifiez les identifiants dans le fichier config/config.php !";
     if (!_TRAVIS_) {
         die($msg);
     } else {

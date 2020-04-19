@@ -19,7 +19,7 @@
  */
 require '../config/config.php';
 // Vérification des droits d'accès
-utilisateurObject::checkAccess(utilisateurObject::levelAdmin);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
 <h1><small>Nettoyage des fichiers jamais utilisés</small></h1>
@@ -27,7 +27,7 @@ require _TPL_TOP_;
 $message = '';
 
 // Je récupère la liste des images jamais affichées
-$listeImages = metaObject::getNeverUsedFiles();
+$listeImages = MetaObject::getNeverUsedFiles();
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
@@ -35,7 +35,7 @@ if (isset($_POST['effacer'])) :
         $message .= '<br />Suppression de l\'image ' . $value;
 
         // Je crée mon objet et lance la suppression
-        $monImage = new imageObject($value);
+        $monImage = new ImageObject($value);
         $monImage->supprimer();
     }
     $message .= '<br />Effacement terminé !';
@@ -43,14 +43,15 @@ if (isset($_POST['effacer'])) :
     <div class = "alert alert-success">
         <?= $message ?>
     </div>
-<?php else: ?>
+<?php else : ?>
     <div class="card card-primary">
         <div class="card-header">
-            <?= $listeImages->count() ?> image(s) envoyée(s) il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)
+            <?= $listeImages->count() ?> image(s) envoyée(s) il y a
+            au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeImages as $value): ?>
+                <?php foreach ((array) $listeImages as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -64,7 +65,5 @@ if (isset($_POST['effacer'])) :
             </button>
         </form>
     </div>
-<?php
-endif;
-require _TPL_BOTTOM_;
-?>
+<?php endif; ?>
+<?php require _TPL_BOTTOM_; ?>

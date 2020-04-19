@@ -21,10 +21,9 @@
 require __DIR__ . '/../config/config.php';
 
 // On se déconnecte
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 $maSession->deconnexion();
 
 // Redirection sur la page d'accueil
 header('Location: ' . _URL_HTTPS_);
 die();
-?>

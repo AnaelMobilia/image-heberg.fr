@@ -22,31 +22,31 @@
 /**
  * Fonctions devant êtres implémentées spécifiquement par les images et miniatures
  */
-interface ressourceInterface
+interface RessourceInterface
 {
 
     /**
      * Crée sur le HDD et dans la BDD la ressource
      * @return boolean Résultat ?
      */
-    function creer();
+    public function creer();
 
     /**
      * Charge unn objet ressource depuis la BDD
      * @param string $nom Identifiant image-heberg
      * @return boolean Résultat ?
      */
-    function charger($nom);
+    public function charger($nom);
 
     /**
      * Enregistre en BDD un objet ressource
      * @return boolean Résultat ?
      */
-    function sauver();
+    public function sauver();
 
     /**
      * Supprime sur le HDD et dans la BDD la ressource
      * @return boolean Résultat ?
      */
-    function supprimer();
+    public function supprimer();
 }

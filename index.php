@@ -21,13 +21,14 @@ require 'config/config.php';
 require _TPL_TOP_;
 
 // Anti-flood
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 $maSession->setFlag();
 ?>
 <h1><small>Envoyer une image</small></h1>
-<?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
+<?php if (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
     <div class="alert alert-danger">
-        <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées et tout l'espace disque acheté est utilisé !
+        <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées
+        et tout l'espace disque acheté est utilisé !
         <br>
         Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
@@ -35,9 +36,16 @@ $maSession->setFlag();
 <div class="alert alert-info">
     <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
     <ul>
-        <li>Image de type JPG, PNG, GIF</li>
-        <li>Taille maximale : <?= round(_IMAGE_POIDS_MAX_ / 1048576, 1) ?> Mo</li>
-        <li>Dimensions maximales : <?= _IMAGE_DIMENSION_MAX_ ?> x <?= _IMAGE_DIMENSION_MAX_ ?> pixels (hauteur x largeur)</li>
+        <li>
+            Image de type JPG, PNG, GIF
+        </li>
+        <li>
+            Taille maximale : <?= round(_IMAGE_POIDS_MAX_ / 1048576, 1) ?> Mo
+        </li>
+        <li>
+            Dimensions maximales : <?= _IMAGE_DIMENSION_MAX_ ?> x <?= _IMAGE_DIMENSION_MAX_ ?> pixels
+            (hauteur x largeur)
+        </li>
     </ul>
 </div>
 
@@ -48,12 +56,13 @@ $maSession->setFlag();
                 <label for="fichier" class="col-md-3">Fichier à envoyer</label>
                 <div class="col-md-9">
                     <input type="file" accept="image/*" name="fichier" id="fichier" required="required"
-                    <?php if (metaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_): ?>
-                               disabled="disabled"
-                           <?php endif; ?>
+                    <?= (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?>
                            >
                 </div>
-                <div class="help-block">Tout envoi de fichier implique l'acceptation des <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.</div>
+                <div class="help-block">
+                    Tout envoi de fichier implique l'acceptation des 
+                    <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.
+                </div>
             </div>
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>

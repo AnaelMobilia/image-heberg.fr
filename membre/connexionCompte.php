@@ -22,7 +22,7 @@ if (!defined('_TRAVIS_')) {
 }
 
 // Un utilisateur...
-$monUtilisateur = new utilisateurObject();
+$monUtilisateur = new UtilisateurObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['valider'])) {
@@ -62,11 +62,13 @@ if (isset($messageErreur)) :
 <form method="post">
     <div class="form-group">
         <label for="userName">Identifiant</label>
-        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
+        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant"
+               value="<?= $monUtilisateur->getUserName() ?>" required="required">
     </div>
     <div class="form-group">
         <label for="userPassword">Mot de passe</label>
-        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
+        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe"
+               required="required">
     </div>
     <button type="submit" name="valider" class="btn btn-success">Se connecter</button>
     <a class="btn btn-warning" href="#" role="button">Mot de passe oublié (à venir)</a>

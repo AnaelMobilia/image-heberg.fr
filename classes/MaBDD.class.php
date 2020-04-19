@@ -24,9 +24,8 @@
  *
  * @author anael
  */
-class maBDD
+class MaBDD
 {
-
     // PDO
     private $maBDD = null;
     // Instance de la classe
@@ -50,7 +49,7 @@ class maBDD
     {
         // Si pas de connexion active, en crée une
         if (is_null(self::$monInstance)) {
-            self::$monInstance = new maBDD();
+            self::$monInstance = new MaBDD();
         }
         return self::$monInstance;
     }
@@ -101,5 +100,4 @@ class maBDD
     {
         return $this->maBDD->getAttribute($attribute);
     }
-
 }

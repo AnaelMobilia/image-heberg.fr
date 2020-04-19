@@ -35,7 +35,7 @@ class displayPicsTest extends TestCase
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
-        /* @var $monObjet ressourceObject */
+        /* @var $monObjet RessourceObject */
         $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), "image_404 si inexistante");
     }
 
@@ -50,7 +50,7 @@ class displayPicsTest extends TestCase
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
-        /* @var $monObjet ressourceObject */
+        /* @var $monObjet RessourceObject */
         $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), "image_404 si inexistante");
     }
 
@@ -65,7 +65,7 @@ class displayPicsTest extends TestCase
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
-        /* @var $monObjet ressourceObject */
+        /* @var $monObjet RessourceObject */
         $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), "image_404 si mauvais sous répertoire");
     }
 
@@ -80,7 +80,7 @@ class displayPicsTest extends TestCase
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
-        /* @var $monObjet ressourceObject */
+        /* @var $monObjet RessourceObject */
         $this->assertEquals(_IMAGE_BAN_, $monObjet->getNomNouveau(), "image_ban si image bloquée");
     }
 
@@ -95,8 +95,7 @@ class displayPicsTest extends TestCase
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
-        /* @var $monObjet ressourceObject */
+        /* @var $monObjet RessourceObject */
         $this->assertEquals(_IMAGE_BAN_, $monObjet->getNomNouveau(), "image_ban si image signalée");
     }
-
 }

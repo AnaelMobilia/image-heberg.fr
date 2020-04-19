@@ -21,25 +21,25 @@ require 'config/config.php';
 require _TPL_TOP_;
 
 // Stats Images
-$reqImage = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM images");
+$reqImage = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM images");
 /* @var $reqImage PDOStatement */
 // Je récupère les valeurs
 $valImage = $reqImage->fetch();
 
 // Stats Miniatures
-$reqMiniature = maBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM thumbnails");
+$reqMiniature = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM thumbnails");
 /* @var $reqMiniature PDOStatement */
 // Je récupère les valeurs
 $valMiniature = $reqMiniature->fetch();
 
 // Stats membres
-$reqMembre = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM membres");
+$reqMembre = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM membres");
 /* @var $reqMembre PDOStatement */
 // Je récupère les valeurs
 $valMembre = $reqMembre->fetch();
 
 // Stats membres -> possède
-$reqPossede = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
+$reqPossede = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
 /* @var $reqPossede PDOStatement */
 // Je récupère les valeurs
 $valPossede = $reqPossede->fetch();
@@ -60,11 +60,26 @@ $size_all = $valImage->totSize + $valMiniature->totSize;
 <div class="card card-primary">
     <div class="card-body">
         <ul>
-            <li><?= number_format($valImage->nb, 0, ',', ' ') ?> images et <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement h&eacute;berg&eacute;es</li>
-            <li><?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers stockés</li>
-            <li><?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>% en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a></li>
-            <li><?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> images + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?> miniatures)</em></li>
-            <li><?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images</li>
+            <li>
+                <?= number_format($valImage->nb, 0, ',', ' ') ?> images et
+                <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement hébergées
+            </li>
+            <li>
+                <?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers stockés
+            </li>
+            <li>
+                <?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont
+                <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>%
+                en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a>
+            </li>
+            <li>
+                <?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images
+                <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> images
+                    + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?> miniatures)</em>
+            </li>
+            <li>
+                <?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images
+            </li>
         </ul>
     </div>
 </div>

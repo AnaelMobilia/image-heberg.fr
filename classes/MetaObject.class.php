@@ -24,7 +24,7 @@
  *
  * @author anael
  */
-class metaObject
+class MetaObject
 {
 
     /**
@@ -54,7 +54,7 @@ class metaObject
 ";
 
         // Exécution de la requête
-        $resultat = maBDD::getInstance()->query($req);
+        $resultat = MaBDD::getInstance()->query($req);
 
         $retour = new ArrayObject();
         // Pour chaque résultat retourné
@@ -93,7 +93,7 @@ class metaObject
                )";
 
         // Exécution de la requête
-        $resultat = maBDD::getInstance()->query($req);
+        $resultat = MaBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -116,7 +116,7 @@ class metaObject
         $req = "SELECT md5 FROM images WHERE id > 2";
 
         // Exécution de la requête
-        $resultat = maBDD::getInstance()->query($req);
+        $resultat = MaBDD::getInstance()->query($req);
 
         $retour = new ArrayObject();
         // Pour chaque résultat retourné
@@ -169,7 +169,7 @@ class metaObject
         $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
 
         // Exécution de la requête
-        $resultat = maBDD::getInstance()->query($req);
+        $resultat = MaBDD::getInstance()->query($req);
 
 
         $retour = new ArrayObject();
@@ -196,7 +196,7 @@ class metaObject
                FROM images im";
 
         // Exécution de la requête
-        $resultat = maBDD::getInstance()->query($req);
+        $resultat = MaBDD::getInstance()->query($req);
 
         // Récupération de la valeur
         $value = $resultat->fetch();
@@ -224,7 +224,7 @@ class metaObject
     public static function getMysqlVersion()
     {
         // Exécution de la requête
-        $retour = maBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
+        $retour = MaBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
 
         return $retour;
     }
@@ -288,7 +288,7 @@ class metaObject
     public static function getImageByMd5($unMd5)
     {
         // Images avec le même MD5
-        $req = maBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");
+        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");
         $req->bindValue(':md5', $unMd5, PDO::PARAM_STR);
         $req->execute();
 
@@ -301,5 +301,4 @@ class metaObject
 
         return $retour;
     }
-
 }

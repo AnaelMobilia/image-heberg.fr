@@ -39,7 +39,7 @@ class imageUploadAndDeleteTest extends TestCase
      */
     private static function countImagesEnBdd()
     {
-        $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
+        $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
         return $result->nb;
     }
@@ -50,7 +50,7 @@ class imageUploadAndDeleteTest extends TestCase
      */
     private static function countMiniaturesEnBdd()
     {
-        $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM thumbnails");
+        $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM thumbnails");
         $result = $maReq->fetch();
         return $result->nb;
     }
@@ -61,7 +61,7 @@ class imageUploadAndDeleteTest extends TestCase
      */
     private static function countImagesPossedeesEnBdd()
     {
-        $maReq = maBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
+        $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
         $result = $maReq->fetch();
         return $result->nb;
     }
@@ -464,7 +464,7 @@ class imageUploadAndDeleteTest extends TestCase
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
         ob_start();
@@ -520,7 +520,7 @@ class imageUploadAndDeleteTest extends TestCase
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
         ob_start();
@@ -576,7 +576,7 @@ class imageUploadAndDeleteTest extends TestCase
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
         ob_start();
@@ -608,7 +608,7 @@ class imageUploadAndDeleteTest extends TestCase
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
 
         ob_start();
@@ -634,7 +634,7 @@ class imageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
         $_GET['id'] = 'fichierInexistant';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         ob_start();
         require 'delete.php';
@@ -654,7 +654,7 @@ class imageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
         $_GET['id'] = '_image_404.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         ob_start();
         require 'delete.php';
@@ -674,12 +674,12 @@ class imageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
         $_GET['id'] = '_image_404.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
 
         ob_start();
@@ -701,9 +701,9 @@ class imageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
 
-        $uneImageDoublon = new imageObject("100000019001334055750.png");
-        $uneAutreImage = new imageObject("146734019451334055750.png");
-        $uneImageInexistante = new imageObject();
+        $uneImageDoublon = new ImageObject("100000019001334055750.png");
+        $uneAutreImage = new ImageObject("146734019451334055750.png");
+        $uneImageInexistante = new ImageObject();
 
         $this->assertEquals($uneImageDoublon->getNbDoublons(), 2, "L'image est présente en id 11 & 12");
         $this->assertEquals($uneAutreImage->getNbDoublons(), 1, "L'image est présente en id 13");
@@ -722,12 +722,12 @@ class imageUploadAndDeleteTest extends TestCase
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
         $_GET['id'] = '100000019001334055750.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
 
         ob_start();
@@ -752,7 +752,7 @@ class imageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
         $_GET['id'] = '146734019451334055750.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         ob_start();
         require 'delete.php';
@@ -774,7 +774,7 @@ class imageUploadAndDeleteTest extends TestCase
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
         $_GET['id'] = '147834019001334055750.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         ob_start();
         require 'delete.php';
@@ -796,7 +796,7 @@ class imageUploadAndDeleteTest extends TestCase
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
         $_GET['id'] = '147834019001334055750.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         ob_start();
         require 'delete.php';
@@ -854,12 +854,12 @@ class imageUploadAndDeleteTest extends TestCase
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_GET['id'] = '14777777.png';
-        $_GET['type'] = ressourceObject::typeImage;
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         /**
          * Authentification
          */
-        $unMembre = new utilisateurObject();
+        $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
         ob_start();
@@ -881,5 +881,4 @@ class imageUploadAndDeleteTest extends TestCase
         $this->assertEquals(file_exists(_PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63'), false, "Suppression image doit effacer toutes les miniatures du HDD");
         $this->assertEquals(file_exists(_PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f'), false, "Suppression image doit effacer toutes les miniatures du HDD");
     }
-
 }

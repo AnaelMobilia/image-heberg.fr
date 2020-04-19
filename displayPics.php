@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
-/**
+/*
  * Affichage d'une image & mise à jour des stats
  */
 require 'config/config.php';
@@ -34,10 +34,10 @@ $fileName = basename($url);
 $monObjet;
 if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
     // Miniature
-    $monObjet = new miniatureObject();
+    $monObjet = new MiniatureObject();
 } else {
     // Image (ou erreur)
-    $monObjet = new imageObject();
+    $monObjet = new ImageObject();
 }
 
 /**
@@ -45,7 +45,7 @@ if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
  */
 if (!$monObjet->charger($fileName)) {
     // Fichier non trouvé...
-    $monObjet = new imageObject();
+    $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_404_);
     // Envoi d'un header en 404
     header("HTTP/1.0 404 Not Found");
@@ -55,7 +55,7 @@ if (!$monObjet->charger($fileName)) {
  * Le fichier est-il bloqué ?
  */
 if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
-    $monObjet = new imageObject();
+    $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_BAN_);
 }
 
@@ -74,13 +74,13 @@ $monObjet->sauver();
 /**
  * Fermeture du lien sur la BDD
  */
-maBDD::close();
+MaBDD::close();
 
 /**
  * Envoi du bon entête HTTP
  */
 if (!_TRAVIS_) {
-    header("Content-type: " . outils::getMimeType($monObjet->getPathMd5()));
+    header("Content-type: " . Outils::getMimeType($monObjet->getPathMd5()));
 }
 
 /**

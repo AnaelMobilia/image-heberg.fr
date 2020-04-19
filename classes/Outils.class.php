@@ -22,7 +22,7 @@
 /**
  * Bibliothèque d'outils pour la gestion des images
  */
-class outils
+class Outils
 {
 
     /**
@@ -138,10 +138,13 @@ class outils
         switch ($unite) {
             case 'g':
                 $val *= 1024;
+            // no break
             case 'm':
                 $val *= 1024;
+            // no break
             case 'k':
                 $val *= 1024;
+            // no break
         }
 
         return $val;
@@ -207,5 +210,4 @@ class outils
 
         return (int) $dimMax;
     }
-
 }

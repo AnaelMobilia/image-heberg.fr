@@ -22,11 +22,10 @@
 /**
  * Fonctions génériques aux images et miniatures
  */
-abstract class ressourceObject
+abstract class RessourceObject
 {
-
-    const typeImage = 1;
-    const typeMiniature = 2;
+    const TYPE_IMAGE = 1;
+    const TYPE_MINIATURE = 2;
 
     private $id;
     private $nomOriginal;
@@ -61,7 +60,7 @@ abstract class ressourceObject
         $timestamp = $_SERVER['REQUEST_TIME'];
 
         // Calcul du nom de l'image
-        $new_name = $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . outils::getExtension($this->getPathTemp());
+        $new_name = $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . Outils::getExtension($this->getPathTemp());
 
         return $new_name;
     }
@@ -92,7 +91,7 @@ abstract class ressourceObject
 
         // Path du type d'image
         $pathDuType = '';
-        if ($this->getType() === self::typeImage) {
+        if ($this->getType() === self::TYPE_IMAGE) {
             // Image
             $pathDuType = _PATH_IMAGES_;
         } else {
@@ -100,7 +99,7 @@ abstract class ressourceObject
             $pathDuType = _PATH_MINIATURES_;
         }
 
-        if ($this->getType() === self::typeImage && ($this->getId() === 1 || $this->getId() === 2)) {
+        if ($this->getType() === self::TYPE_IMAGE && ($this->getId() === 1 || $this->getId() === 2)) {
             // Gestion des images spécificques 404 / ban
             $pathFinal = $pathDuType . $this->getNomNouveau();
         } else {
@@ -122,12 +121,12 @@ abstract class ressourceObject
         $monRetour = -1;
 
         // Existe-t-il d'autres occurences de cette image ?
-        if ($this->getType() === self::typeImage) {
+        if ($this->getType() === self::TYPE_IMAGE) {
             // Image
-            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5");
+            $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5");
         } else {
             // Miniature
-            $req = maBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
+            $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
         }
         /* @var $req PDOStatement */
         $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
@@ -147,7 +146,7 @@ abstract class ressourceObject
     {
         // Path du type d'image
         $urlDuType = '';
-        if ($this->getType() === self::typeImage) {
+        if ($this->getType() === self::TYPE_IMAGE) {
             // Image
             $urlDuType = _URL_IMAGES_;
         } else {
@@ -166,10 +165,10 @@ abstract class ressourceObject
      * @param string $pathDst chemin de la ressource de destination
      * @return boolean succès ?
      */
-    function rotation($angle, $pathSrc, $pathDst)
+    public function rotation($angle, $pathSrc, $pathDst)
     {
         // Je charge l'image en mémoire
-        $resImg = outils::getImage($pathSrc);
+        $resImg = Outils::getImage($pathSrc);
         // Je vérifie que tout va bien
         if ($resImg === false) {
             return false;
@@ -187,7 +186,7 @@ abstract class ressourceObject
         imagedestroy($resImg);
 
         // J'enregistre l'image
-        $retour = outils::setImage($imgRotate, outils::getType($pathSrc), $pathDst);
+        $retour = Outils::setImage($imgRotate, Outils::getType($pathSrc), $pathDst);
 
         // La création du fichier s'est bien passé ?
         if ($retour === false) {
@@ -216,7 +215,7 @@ abstract class ressourceObject
     public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee)
     {
         // Chargement de l'image
-        $monImage = outils::getImage($pathSrc);
+        $monImage = Outils::getImage($pathSrc);
 
         // Récupération de ses dimensions
         $largeurImage = imagesx($monImage);
@@ -257,7 +256,7 @@ abstract class ressourceObject
         $newImage = imagescale($monImage, $largeurFinale, $hauteurFinale);
 
         // Ecriture de l'image
-        $monRetour = outils::setImage($newImage, outils::getType($pathSrc), $pathDst);
+        $monRetour = Outils::setImage($newImage, Outils::getType($pathSrc), $pathDst);
 
         return $monRetour;
     }
@@ -271,7 +270,7 @@ abstract class ressourceObject
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
         /* @var $req PDOStatement */
         $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -354,7 +353,6 @@ abstract class ressourceObject
         $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
     }
-
     /**
      * GETTERS ET SETTERS
      */
@@ -471,7 +469,7 @@ abstract class ressourceObject
      * Image signalée ?
      * @return boolean
      */
-    function isSignalee()
+    public function isSignalee()
     {
         return $this->isSignalee;
     }
@@ -514,7 +512,7 @@ abstract class ressourceObject
 
     /**
      * Type d'image
-     * @param int $type ressourceObject const
+     * @param int $type RessourceObject const
      */
     public function setType($type)
     {
@@ -543,7 +541,7 @@ abstract class ressourceObject
      * Image signalée ?
      * @param boolean $isSignalee
      */
-    function setSignalee($isSignalee)
+    public function setSignalee($isSignalee)
     {
         $this->isSignalee = $isSignalee;
     }
@@ -655,5 +653,4 @@ abstract class ressourceObject
     {
         $this->ipEnvoi = $ipEnvoi;
     }
-
 }

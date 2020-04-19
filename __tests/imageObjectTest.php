@@ -32,7 +32,7 @@ class imageObjectTest extends TestCase
     {
         require 'config/config.php';
 
-        $monImage = new imageObject();
+        $monImage = new ImageObject();
 
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle);
@@ -56,7 +56,6 @@ class imageObjectTest extends TestCase
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png', _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle, "Rotation PNG " . $angle);
         }
     }
-
 //    /**
 //     * Rotation des images JPG
 //     * @runInSeparateProcess
@@ -103,7 +102,7 @@ class imageObjectTest extends TestCase
     {
         require 'config/config.php';
 
-        $monImage = new imageObject();
+        $monImage = new ImageObject();
 
         $angle = 90;
         $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
@@ -124,7 +123,7 @@ class imageObjectTest extends TestCase
     {
         require 'config/config.php';
 
-        $monImage = new imageObject();
+        $monImage = new ImageObject();
 
         /**
          * Cas null
@@ -176,5 +175,4 @@ class imageObjectTest extends TestCase
             $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png-jusqua-php-7.1', _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png', "Redimensionnement paysage 200x400");
         }
     }
-
 }

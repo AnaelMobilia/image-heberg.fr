@@ -100,7 +100,7 @@ require _TPL_TOP_;
     <div id="v202" class="card-collapse collapse">
         <div class="card-body">
             <ul>
-                <li>Correction d'une erreur où les images dont seulement les miniatures étaient affichées pouvaient être supprimées.</li>
+                <li>Correction d'une erreur à l'effacement des images.</li>
                 <li>Migration jQuery 2 => 3</li>
                 <li>Suppression de la liste des referer <em>(optimisation des affichages d'images)</em>.</li>
             </ul>
@@ -194,7 +194,7 @@ require _TPL_TOP_;
                 <li>Amélioration du code HTML</li>
                 <li>Refonte des CSS</li>
                 <li>Préparation d'un système de templates</li>
-                <li>Utilisation de jQuery : (box en haut de page, options cachées par défaut à l'envoi d'un fichier)</li>
+                <li>Utilisation de jQuery : box en haut de page, options cachées par défaut à l'envoi d'un fichier</li>
             </ul>
         </div>
     </div>
@@ -210,7 +210,7 @@ require _TPL_TOP_;
         <div class="card-body">
             <ul>
                 <li>Suppression de la limite des dimensions d'images pour les utilisateurs enregistrés</li>
-                <li>Ajout d'une fonction permettant le blocage d'images précises + affichage d'une image d'information sur le blocage</li>
+                <li>Ajout d'une fonction de blocage d'images + affichage d'une image d'information sur le blocage</li>
             </ul>
         </div>
     </div>

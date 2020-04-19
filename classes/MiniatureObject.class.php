@@ -22,19 +22,18 @@
 /**
  * Les miniatures
  */
-class miniatureObject extends ressourceObject implements ressourceInterface
+class MiniatureObject extends RessourceObject implements RessourceInterface
 {
-
     private $idImage;
 
     /**
      * Constructeur
      * @param string $newName newName de l'image maître
      */
-    function __construct($newName = false)
+    public function __construct($newName = false)
     {
-        // Définition du type pour le ressourceObject
-        $this->setType(ressourceObject::typeMiniature);
+        // Définition du type pour le RessourceObject
+        $this->setType(RessourceObject::TYPE_MINIATURE);
 
         // Si on me donne un newName d'image, je charge l'objet
         if ($newName) {
@@ -53,7 +52,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = maBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
         /* @var $req PDOStatement */
         $req->bindValue(':newName', $newName, PDO::PARAM_STR);
         $req->execute();
@@ -74,7 +73,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
             $this->setIdImage($resultat->id_image);
 
             // Reprise des informations de l'image maitresse
-            $imageMaitre = new imageObject();
+            $imageMaitre = new ImageObject();
             $imageMaitre->charger($newName);
             $this->setBloquee($imageMaitre->isBloquee());
             $this->setSignalee($imageMaitre->isSignalee());
@@ -93,7 +92,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
     public function sauver()
     {
         // J'enregistre les infos en BDD
-        $req = maBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
 
         $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(':dateCreation', $this->getDateEnvoiBrute());
@@ -119,7 +118,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
         /**
          * Suppression de l'image en BDD
          */
-        $req = maBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
         /* @var $req PDOStatement */
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
@@ -150,7 +149,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
          * Détermination du nom &&
          * Vérification de sa disponibilité
          */
-        $tmpMiniature = new miniatureObject();
+        $tmpMiniature = new MiniatureObject();
         $nb = 0;
         do {
             // Récupération d'un nouveau nom
@@ -187,7 +186,7 @@ class miniatureObject extends ressourceObject implements ressourceInterface
             /**
              * Création en BDD
              */
-            $req = maBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (:idImage, NOW(), :newName, :size, :height, :width, :md5)");
+            $req = MaBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (:idImage, NOW(), :newName, :size, :height, :width, :md5)");
             $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STR);
@@ -203,14 +202,13 @@ class miniatureObject extends ressourceObject implements ressourceInterface
                 /**
                  * Récupération de l'ID de l'image
                  */
-                $idEnregistrement = maBDD::getInstance()->lastInsertId();
+                $idEnregistrement = MaBDD::getInstance()->lastInsertId();
                 $this->setId($idEnregistrement);
             }
         }
 
         return $monRetour;
     }
-
     /**
      * GETTERS & SETTERS
      */
@@ -232,5 +230,4 @@ class miniatureObject extends ressourceObject implements ressourceInterface
     {
         $this->idImage = $idImage;
     }
-
 }

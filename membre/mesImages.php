@@ -22,12 +22,12 @@
 
 require __DIR__ . '/../config/config.php';
 // Vérification des droits d'accès
-utilisateurObject::checkAccess(utilisateurObject::levelUser);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_USER);
 require _TPL_TOP_;
 // Je récupère la session de mon utilisateur
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 // Et je reprend ses données
-$monUtilisateur = new utilisateurObject($maSession->getId());
+$monUtilisateur = new UtilisateurObject($maSession->getId());
 ?>
 <h1><small>Mes images</small></h1>
 <table class="table table-hover">
@@ -44,8 +44,8 @@ $monUtilisateur = new utilisateurObject($maSession->getId());
     <tbody>
         <?php
         $mesImages = $monUtilisateur->getImages();
-        foreach ((array) $mesImages as $newName):
-            $uneImage = new imageObject($newName);
+        foreach ((array) $mesImages as $newName) :
+            $uneImage = new ImageObject($newName);
             ?>
             <tr>
                 <td><?= $uneImage->getNomOriginalFormate() ?></td>
@@ -58,7 +58,8 @@ $monUtilisateur = new utilisateurObject($maSession->getId());
                     </a>
                 </td>
                 <td class="text-center">
-                    <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= ressourceObject::typeImage ?>' target="_blank">
+                    <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>'
+                       target="_blank">
                         <span class="fas fa-trash"></span>
                     </a>
                 </td>

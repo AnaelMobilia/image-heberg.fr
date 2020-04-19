@@ -41,10 +41,9 @@ class abuseTest extends TestCase
         require 'abuse.php';
         ob_end_clean();
 
-        $imageBloquee = new imageObject("15.png");
-        $imageMemeMd5 = new imageObject("16.png");
+        $imageBloquee = new ImageObject("15.png");
+        $imageMemeMd5 = new ImageObject("16.png");
         $this->assertEquals(true, $imageBloquee->isSignalee(), "Image signalée doit l'être");
         $this->assertEquals(true, $imageMemeMd5->isSignalee(), "Image avec même MD5 qu'une image signalée doit l'être également");
     }
-
 }

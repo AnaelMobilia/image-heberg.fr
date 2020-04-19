@@ -23,10 +23,10 @@ if (!defined('_TRAVIS_')) {
 require _TPL_TOP_;
 
 // Anti flood
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 
 // Un utilisateur...
-$monUtilisateur = new utilisateurObject();
+$monUtilisateur = new UtilisateurObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['valider']) && $maSession->checkFlag()) {
@@ -52,13 +52,13 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
         $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
     }
     // Disponibilité du login
-    if (utilisateurObject::verifierLoginDisponible($_POST['userName']) !== true) {
+    if (UtilisateurObject::verifierLoginDisponible($_POST['userName']) !== true) {
         $flagCreation = false;
         $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
     }
 
     // Données administratives : droits de l'utilisateur
-    $monUtilisateur->setLevel(utilisateurObject::levelUser);
+    $monUtilisateur->setLevel(UtilisateurObject::LEVEL_USER);
     // Données fournies par l'utilisateur
     // Nom d'utilisateur
     $monUtilisateur->setUserName($_POST['userName']);
@@ -99,15 +99,18 @@ $maSession->setFlag();
 <form method="post">
     <div class="form-group">
         <label for="userName">Identifiant</label>
-        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
+        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant"
+               value="<?= $monUtilisateur->getUserName() ?>" required="required">
     </div>
     <div class="form-group">
         <label for="userPassword">Mot de passe</label>
-        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
+        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe"
+               required="required">
     </div>
     <div class="form-group">
         <label for="userMail">Adresse courriel</label>
-        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Adresse courriel" value="<?= $monUtilisateur->getEmail() ?>" required="required">
+        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Adresse courriel"
+               value="<?= $monUtilisateur->getEmail() ?>" required="required">
         <span class="help-block">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</span>
     </div>
     <button type="submit" name="valider" class="btn btn-success">M'enregistrer</button>

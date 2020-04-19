@@ -22,10 +22,12 @@
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
-
 if (!_TRAVIS_) {
 
-    // Gestion des exceptions de l'application
+    /**
+     * Gestion des exceptions de l'application
+     * @param Exception $exception
+     */
     function exception_handler($exception)
     {
         /* @var $exception Exception */
@@ -60,7 +62,6 @@ if (!_TRAVIS_) {
 
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
     }
-
     set_exception_handler('exception_handler');
 }
 
@@ -107,7 +108,7 @@ spl_autoload_register(function ($class) {
 
 // Gestion de la mémoire
 define('_FUDGE_FACTOR_', 1.8);
-define('_IMAGE_DIMENSION_MAX_', outils::getMaxDimension());
+define('_IMAGE_DIMENSION_MAX_', Outils::getMaxDimension());
 
 // Images spécifiques
 define('_IMAGE_404_', '_image_404.png');

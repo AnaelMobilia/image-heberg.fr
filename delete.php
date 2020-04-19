@@ -37,10 +37,10 @@ if (!isset($_GET['id']) || !isset($_GET['type'])) {
  * Chargement de l'image depuis la BDD
  */
 if (!$erreur) {
-    if ((int) $_GET['type'] === ressourceObject::typeImage) {
-        $monImage = new imageObject();
+    if ((int) $_GET['type'] === RessourceObject::TYPE_IMAGE) {
+        $monImage = new ImageObject();
     } else {
-        $monImage = new miniatureObject();
+        $monImage = new MiniatureObject();
     }
 
     $retour = $monImage->charger($_GET['id']);
@@ -68,7 +68,7 @@ if (!$erreur) {
 }
 ?>
 <h1><small>Suppression du fichier</small></h1>
-<?php if (!empty($msgErreur)): ?>
+<?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove"></span>
         &nbsp;
@@ -76,7 +76,7 @@ if (!$erreur) {
         <br />
         <?= $msgErreur ?>
     </div>
-<?php else: ?>
+<?php else : ?>
     <div class="alert alert-success">
         <span class="glyphicon glyphicon-ok"></span>
         &nbsp;

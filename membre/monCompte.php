@@ -20,13 +20,13 @@
 if (!defined('_TRAVIS_')) {
     require '../config/config.php';
 }
-utilisateurObject::checkAccess(utilisateurObject::levelUser);
+UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_USER);
 require _TPL_TOP_;
 
 // Je récupère la session de mon utilisateur
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 // Et je reprend ses données
-$monUtilisateur = new utilisateurObject($maSession->getId());
+$monUtilisateur = new UtilisateurObject($maSession->getId());
 
 if (isset($_POST['modifierPwd'])) {
     // Je vérifie qu'on me donne le bon mot de passe
@@ -45,7 +45,7 @@ if (isset($_POST['modifierPwd'])) {
         <div class="alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
         <?php
     }
-} else if (isset($_POST['modifierMail'])) {
+} elseif (isset($_POST['modifierMail'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordMail'])) {
         // Vérification du bon format de l'adresse mail
@@ -70,7 +70,7 @@ if (isset($_POST['modifierPwd'])) {
         <div class = "alert alert-danger">Le mot de passe actuel ne correspond pas à celui saisi !</div>
         <?php
     }
-} else if (isset($_POST['supprimerCompte'])) {
+} elseif (isset($_POST['supprimerCompte'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['userPasswordDelete'])) {
         if (isset($_POST['confirmeDelete'])) {
@@ -81,7 +81,7 @@ if (isset($_POST['modifierPwd'])) {
             <div class="alert alert-success">
                 Votre compte a été supprimé !
                 <br />
-                Les images qui étaient rattachées à votre compte n'ont pas été supprimées et ne seront plus supprimables avant leur expiration.
+                Les images liées à votre compte n'ont pas été supprimées.
                 <br />
                 Cette action est irrévocable !
                 <br />
@@ -93,7 +93,9 @@ if (isset($_POST['modifierPwd'])) {
         } else {
             // Retour utilisateur
             ?>
-            <div class = "alert alert-danger">Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !</div>
+            <div class = "alert alert-danger">
+                Vous n'avez pas coché la case de confirmation de demande de suppression de votre compte !
+            </div>
             <?php
         }
     } else {
@@ -122,20 +124,24 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Modification du mot de passe -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapsePwd">Changer de mot de passe <span class="fas fa-caret-down"></span></a>
+        <a data-toggle="collapse" href="#collapsePwd">
+            Changer de mot de passe <span class="fas fa-caret-down"></span>
+        </a>
     </div>
     <div id="collapsePwd" class="card-collapse collapse">
         <div class="card-body">
             <form method="post">
                 <div class="form-group">
                     <label for="oldUserPassword">Mot de passe actuel</label>
-                    <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword" placeholder="Mot de passe actuel" required="required">
+                    <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword"
+                           placeholder="Mot de passe actuel" required="required">
                 </div>
                 <div class="form-group">
                     <label for="newUserPassword">Nouveau mot de passe</label>
-                    <input type="password" class="form-control" name="newUserPassword" id="newUserPassword" placeholder="Nouveau mot de passe" required="required">
+                    <input type="password" class="form-control" name="newUserPassword" id="newUserPassword"
+                           placeholder="Nouveau mot de passe" required="required">
                 </div>
-                <button type="submit" name="modifierPwd" class="btn btn-success">Mettre à jour le mot de passe</button>
+                <button type="submit" name="modifierPwd" class="btn btn-success">Modifier le mot de passe</button>
             </form>
         </div>
     </div>
@@ -144,21 +150,25 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Changer l'adresse mail -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapseMail">Changer d'adresse courriel <span class="fas fa-caret-down"></span></a>
+        <a data-toggle="collapse" href="#collapseMail">
+            Changer d'adresse courriel <span class="fas fa-caret-down"></span>
+        </a>
     </div>
     <div id="collapseMail" class="card-collapse collapse">
         <div class="card-body">
             <form method="post">
                 <div class="form-group">
                     <label for="userMail">Nouvelle adresse courriel</label>
-                    <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Nouvelle adresse courriel" required="required">
+                    <input type="email" class="form-control" name="userMail" id="userMail"
+                           placeholder="Nouvelle adresse courriel" required="required">
                 </div>
                 <div class="form-group">
                     <label for="userPasswordMail">Mot de passe</label>
-                    <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail" placeholder="Mot de passe" required="required">
+                    <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail"
+                           placeholder="Mot de passe" required="required">
                 </div>
 
-                <button type="submit" name="modifierMail" class="btn btn-success">Mettre à jour l'adresse courriel</button>
+                <button type="submit" name="modifierMail" class="btn btn-success">Modifier l'adresse courriel</button>
             </form>
         </div>
     </div>
@@ -167,7 +177,9 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Supprimer le compte -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapseDelete">Supprimer mon compte <span class="fas fa-caret-down"></span></a>
+        <a data-toggle="collapse" href="#collapseDelete">
+            Supprimer mon compte <span class="fas fa-caret-down"></span>
+        </a>
     </div>
     <div id="collapseDelete" class="card-collapse collapse">
         <div class="card-body">
@@ -177,14 +189,18 @@ if (isset($_POST['modifierPwd'])) {
                     <span class="fas fa-warning-sign"></span>
                     Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
                     <br />
-                    <b>Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration !</b>
+                    <b>
+                        Les images rattachées à mon compte ne seront pas supprimées
+                        et ne seront plus supprimables avant leur expiration !
+                    </b>
                     <br />
                     Cette action est irrévocable !
                 </label>
 
                 <div class="form-group">
                     <label for="userPasswordDelete">Mot de passe</label>
-                    <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete" placeholder="Mot de passe" required="required">
+                    <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete"
+                           placeholder="Mot de passe" required="required">
                 </div>
 
                 <button type="submit" name="supprimerCompte" class="btn btn-danger">Supprimer mon compte</button>

@@ -23,7 +23,7 @@ if (!defined('_TRAVIS_')) {
 require _TPL_TOP_;
 
 // Anti flood
-$maSession = new sessionObject();
+$maSession = new SessionObject();
 
 // En cas de validation du formulaire
 if (isset($_POST['Submit']) && $maSession->checkFlag()) {
@@ -33,15 +33,15 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         $result = preg_match("#^.*\/([\d]*.[pngjpif]{3})$#", trim($_POST['urlImage']), $idImage);
         if ($result) {
             // On flaggue l'image en signalée en BDD
-            $monImage = new imageObject($idImage[1]);
+            $monImage = new ImageObject($idImage[1]);
             $monImage->setSignalee(true);
             $monImage->sauver();
 
             // On cherche les autres images avec le même MD5
-            $images = metaObject::getImageByMd5($monImage->getMd5());
+            $images = MetaObject::getImageByMd5($monImage->getMd5());
             foreach ($images as $uneImage) {
                 // On flaggue en signalée...
-                $monImage = new imageObject($uneImage);
+                $monImage = new ImageObject($uneImage);
                 $monImage->setSignalee(true);
                 $monImage->sauver();
             }
@@ -85,7 +85,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     }
 }
 ?>
-<?php if ($maSession->checkFlag()): ?>
+<?php if ($maSession->checkFlag()) : ?>
     <h1><small>Signaler une image</small></h1>
 
     <div class="card card-primary">
@@ -96,8 +96,12 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             <form method="post">
                 <div class="form-group">
                     <label for="urlImage">URL de l'image</label>
-                    <input type="text" class="form-control" name="urlImage" id="urlImage" placeholder="<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>" required="required" value="<?= (isset($_POST['urlImage']) && $maSession->checkFlag()) ? $_POST['urlImage'] : '' ?>">
-                    <span class="form-text text-muted">Indiquer toute l'adresse de l'image (telle qu'affichée dans le navigateur).</span>
+                    <input type="text" class="form-control" name="urlImage" id="urlImage"
+                           placeholder="<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>" required="required"
+                           value="<?= (isset($_POST['urlImage']) && $maSession->checkFlag()) ? $_POST['urlImage'] : '' ?>">
+                    <span class="form-text text-muted">
+                        Indiquer toute l'adresse de l'image (telle qu'affichée dans le navigateur).
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="raison">Raison du signalement</label>
@@ -110,12 +114,18 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
                 </div>
                 <div class="form-group">
                     <label for="userMail">Votre adresse courriel</label>
-                    <input type="email" class="form-control" name="userMail" id="userMail" placeholder="john.doe@example.com" required="required" value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
+                    <input type="email" class="form-control" name="userMail" id="userMail"
+                           placeholder="john.doe@example.com" required="required"
+                           value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
                     <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
                 </div>
                 <div class="form-group">
                     <label for="userMessage">Votre message</label>
-                    <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Informations complémentaires sur la raison de votre demande" required="required"><?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?></textarea>
+                    <textarea class="form-control" rows="5" name="userMessage" id="userMessage"
+                              placeholder="Informations complémentaires sur la raison de votre demande"
+                              required="required">
+                                  <?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?>
+                    </textarea>
                 </div>
                 <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
             </form>
