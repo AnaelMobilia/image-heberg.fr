@@ -281,7 +281,7 @@ abstract class RessourceObject
         // Si l'image à un propriétaire...
         if ($values !== false) {
             // Le propriétaire est-il connecté ?
-            $uneSession = new sessionObject();
+            $uneSession = new SessionObject();
 
             // Est-ce le propriétaire de l'image ?
             if ((int) $values->pk_membres === $uneSession->getId()) {

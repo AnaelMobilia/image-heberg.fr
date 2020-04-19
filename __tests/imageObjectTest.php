@@ -63,7 +63,7 @@ class imageObjectTest extends TestCase
 //    public function testRotationImagesJPG() {
 //        require 'config/config.php';
 //
-//        $monImage = new imageObject();
+//        $monImage = new ImageObject();
 //
 //        $angle = 90;
 //        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.jpg', _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle);

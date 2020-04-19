@@ -355,7 +355,7 @@ class UtilisateurObject
         // Je récupère les potentielles valeurs
         $values = $req->fetch();
 
-        // Si l'utilisateur n'existe pas... on retourne un utilisateurObject vide
+        // Si l'utilisateur n'existe pas... on retourne un UtilisateurObject vide
         if ($values !== false) {
             // Je charge les informations de l'utilisateur (sauf password)
             $this->setId($userID);

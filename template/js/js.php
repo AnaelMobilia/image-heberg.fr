@@ -18,12 +18,12 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 require '../../config/config.php';
-$visiteur = new sessionObject();
+$visiteur = new SessionObject();
 // Définition du type MIME
 header('Content-Type: application/javascript');
 
 // Utilisateur non connecté : Menu mon-compte caché + bouton pour l'afficher
-if ($visiteur->getLevel() === utilisateurObject::levelGuest) :
+if ($visiteur->getLevel() === UtilisateurObject::levelGuest) :
     ?>
     // Cache les champs liés à l'espace membre
     $("#monCompte").hide();

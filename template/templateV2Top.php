@@ -74,9 +74,9 @@ $timeStart = microtime(true);
                         </li>
                     </ul>
                     <?php
-                    $visiteur = new sessionObject();
+                    $visiteur = new SessionObject();
                     // Menu utilisateur non connecté
-                    if ($visiteur->getLevel() === utilisateurObject::levelGuest) :
+                    if ($visiteur->getLevel() === UtilisateurObject::levelGuest) :
                         ?>
                         <div id="monCompteGestion">
                             <form class="form-inline my-2 my-lg-0">
@@ -120,7 +120,7 @@ $timeStart = microtime(true);
                                 </a>
                             </li>
                             <!-- Si c'est un admin : lien vers le panneau admin -->
-                            <?php if ($visiteur->getLevel() === utilisateurObject::levelAdmin) : ?>
+                            <?php if ($visiteur->getLevel() === UtilisateurObject::levelAdmin) : ?>
                                 <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === "/admin/index.php") ? " active" : "" ?>">
                                     <a class="nav-link" href="<?= _URL_ADMIN_ ?>">
                                         <span class="fas fa-wrench"></span>&nbsp;
