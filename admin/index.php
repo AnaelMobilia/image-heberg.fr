@@ -42,15 +42,18 @@ require _TPL_TOP_;
         <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-warning">
             <span class="fas fa-trash"></span>
             &nbsp;
-            Supprimer les images jamais affichées et envoyées depuis plus de
-            <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jours
+            Supprimer les images jamais affichées et envoyées depuis
+            plus de <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?>
+            jour<?= (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1 ) ? 's' : '' ?>
         </a>
         <div class="clearfix"></div>
         <br />
         <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-warning">
             <span class="fas fa-trash-alt"></span>
             &nbsp;
-            Supprimer les images non utilisées depuis plus de <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jours
+            Supprimer les images non affichées depuis
+            plus de <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?>
+            jour<?= (_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1 ) ? 's' : '' ?>
         </a>
     </div>
 </div>
