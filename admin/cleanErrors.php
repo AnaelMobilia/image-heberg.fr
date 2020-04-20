@@ -21,6 +21,8 @@
 
 namespace ImageHeberg;
 
+use ArrayObject;
+
 require '../config/config.php';
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
@@ -101,7 +103,10 @@ if (isset($_POST['effacer'])) :
 <?php else : ?>
     <div class="card card-primary">
         <div class="card-header">
-            <?= $listeErreursImagesBDD->count() ?> image(s) présente(s) uniquement en BDD
+            <?= $listeErreursImagesBDD->count() ?>
+            image<?= ($listeErreursImagesBDD->count() > 1) ? 's' : '' ?>
+            présente<?= ($listeErreursImagesBDD->count() > 1) ? 's' : '' ?>
+            uniquement en BDD
         </div>
         <div class="card-body">
             <ul>
@@ -113,7 +118,10 @@ if (isset($_POST['effacer'])) :
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <?= $listeErreursImagesHDD->count() ?> image(s) présente(s) uniquement sur HDD
+            <?= $listeErreursImagesHDD->count() ?>
+            image<?= ($listeErreursImagesHDD->count() > 1) ? 's' : '' ?>
+            présente<?= ($listeErreursImagesHDD->count() > 1) ? 's' : '' ?>
+            uniquement sur HDD
         </div>
         <div class="card-body">
             <ul>
@@ -125,7 +133,10 @@ if (isset($_POST['effacer'])) :
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <?= $listeErreursMiniaturesBDD->count() ?> miniature(s) présente(s) uniquement en BDD
+            <?= $listeErreursMiniaturesBDD->count() ?>
+            miniature<?= ($listeErreursMiniaturesBDD->count() > 1) ? 's' : '' ?>
+            présente<?= ($listeErreursMiniaturesBDD->count() > 1) ? 's' : '' ?>
+            uniquement en BDD
         </div>
         <div class="card-body">
             <ul>
@@ -137,7 +148,10 @@ if (isset($_POST['effacer'])) :
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <?= $listeErreursMiniaturesHDD->count() ?> miniature(s) présente(s) uniquement sur HDD
+            <?= $listeErreursMiniaturesHDD->count() ?>
+            miniature<?= ($listeErreursMiniaturesHDD->count() > 1) ? 's' : '' ?>
+            présente<?= ($listeErreursMiniaturesHDD->count() > 1) ? 's' : '' ?>
+            uniquement sur HDD
         </div>
         <div class="card-body">
             <ul>
@@ -151,7 +165,7 @@ if (isset($_POST['effacer'])) :
         <button class="btn btn-danger" type="submit" name="effacer">
             <span class="fas fa-trash"></span>
             &nbsp;
-            Effacer ces fichiers
+            Supprimer les incohérences
         </button>
     </form>
 <?php endif; ?>
