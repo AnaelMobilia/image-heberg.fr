@@ -28,13 +28,13 @@ define('_BDD_HOST_', 'localhost');
 // Utilisateur SQL
 define('_BDD_USER_', 'root');
 // Mot de passe SQL
-define('_BDD_PASS_', '');
+define('_BDD_PASS_', 'root');
 // Nom de la base de données
 define('_BDD_NAME_', 'imageheberg');
 
 /* Système de fichiers */
 // Emplacement de votre site sur le système de fichiers de votre hébergeur
-define('_PATH_', '/home/travis/build/AnaelMobilia/image-heberg.fr/');
+define('_PATH_', '/home/runner/work/image-heberg.fr/image-heberg.fr/');
 
 
 /* A propos de l'outil */
