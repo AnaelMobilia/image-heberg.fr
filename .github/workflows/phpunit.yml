@@ -1,4 +1,4 @@
-name: Testing Symfony with MySQL
+name: Tests de l'application
 on: [push, pull_request]
 
 jobs:
@@ -17,6 +17,9 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         tools: phpunit
+
+    - name: Lancement de MySQL
+      run: sudo /etc/init.d/mysql start
 
     - name: Mise en place de l'environnement
       run: |
