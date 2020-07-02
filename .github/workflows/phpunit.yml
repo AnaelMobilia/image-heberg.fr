@@ -1,0 +1,32 @@
+name: Testing Symfony with MySQL
+on: [push, pull_request]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:        
+        php-versions: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0']
+    name: PHP ${{ matrix.php-versions }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configuration PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        tools: phpunit
+
+    - name: Mise en place de l'environnement
+      run: |
+        mysql -V
+        mysql -e "CREATE DATABASE imageheberg;"
+        mysql imageheberg < database.sql
+        sh -c "mv __tests/config/config.php config/"
+        mysql imageheberg < __tests/data.sql
+
+    - name : Test de l'application
+      run: |
+        phpunit --version
+        phpunit --colors --debug __tests/
