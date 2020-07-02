@@ -21,15 +21,18 @@ jobs:
     - name: Lancement de MySQL
       run: sudo /etc/init.d/mysql start
 
+    - name: Informations sur l'environnement
+      run: |
+        php --version
+        mysql -V
+        phpunit --version
+        
     - name: Mise en place de l'environnement
       run: |
-        mysql -V
         mysql -u root -proot -e "CREATE DATABASE imageheberg;"
         mysql -u root -proot imageheberg < database.sql
         sh -c "mv __tests/config/config.php config/"
         mysql -u root -proot imageheberg < __tests/data.sql
 
     - name : Test de l'application
-      run: |
-        phpunit --version
-        phpunit --colors --debug __tests/
+      run: phpunit --colors --debug __tests/
