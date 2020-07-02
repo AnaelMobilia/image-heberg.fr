@@ -3,7 +3,7 @@
 Service d'hébergement d'images en ligne
 
 # Configuration requise
-  - PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4 [*(Préférez une version de PHP maintenue !)*](https://www.php.net/supported-versions.php)
+  - PHP 7.0, 7.1, 7.2, 7.3, 7.4 [*(Préférez une version de PHP maintenue !)*](https://www.php.net/supported-versions.php)
   - MySQL ou MariaDB
   - Serveur web gérant les fichiers .htaccess
 
