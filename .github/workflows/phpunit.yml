@@ -24,10 +24,10 @@ jobs:
     - name: Mise en place de l'environnement
       run: |
         mysql -V
-        mysql -e "CREATE DATABASE imageheberg;"
-        mysql imageheberg < database.sql
+        mysql -u root -e "CREATE DATABASE imageheberg;"
+        mysql -u root imageheberg < database.sql
         sh -c "mv __tests/config/config.php config/"
-        mysql imageheberg < __tests/data.sql
+        mysql -u root imageheberg < __tests/data.sql
 
     - name : Test de l'application
       run: |
