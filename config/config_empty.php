@@ -52,9 +52,9 @@ define('_ADMINISTRATEUR_EMAIL_', 'john.doe@example.com');
 
 /* Informations légales */
 // Hébergeur du site
-define('_HEBERGEUR_NOM_', 'OVH');
+define('_HEBERGEUR_NOM_', 'HOSTING');
 // Site web de l'hébergeur
-define('_HEBERGEUR_SITE_', '//www.ovh.com');
+define('_HEBERGEUR_SITE_', '//www.example.com');
 
 
 /* Configurations spécifiques de l'outil */
@@ -67,7 +67,7 @@ define('_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_', 365);
 // Volume maximal de stockage d'images (en Go)
 define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
-define('_DEBUG_', true);
+define('_DEBUG_', false);
 
 /**
  * FIN DES CHAMPS A CONFIGURER
