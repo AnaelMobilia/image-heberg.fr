@@ -266,7 +266,7 @@ class MetaObject
         }
 
         // Dossiers enfants
-        $objects = glob($folder."/*", GLOB_ONLYDIR);
+        $objects = glob($folder . "/*", GLOB_ONLYDIR);
         foreach ($objects as $object) {
             // Je vérifie si les dossiers enfants sont écrivables
             $sousRetour = self::isRecursivelyWritable($object);

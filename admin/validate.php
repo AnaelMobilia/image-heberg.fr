@@ -72,7 +72,4 @@ require _TPL_TOP_;
         </ul>
     </div>
 </div>
-<?php
-
-require _TPL_BOTTOM_;
-?>
+<?php require _TPL_BOTTOM_; ?>
