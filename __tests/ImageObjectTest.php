@@ -35,6 +35,8 @@ use PHPUnit\Framework\TestCase;
 class ImageObjectTest extends TestCase
 {
 
+    private const valeursAngles = ["90", "180", "270"];
+
     /**
      * Rotation des images PNG
      */
@@ -44,41 +46,18 @@ class ImageObjectTest extends TestCase
 
         $monImage = new ImageObject();
 
-        $angle = 90;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
-            "Rotation PNG " . $angle
-        );
-
-        $angle = 180;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
-            "Rotation PNG " . $angle
-        );
-
-        $angle = 270;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
-            "Rotation PNG " . $angle
-        );
+        foreach(self::valeursAngles as $angle) {
+            $monImage->rotation(
+                $angle,
+                _PATH_TESTS_IMAGES_ . 'image_banned.png',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
+            );
+            $this->assertFileEquals(
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
+                "Rotation PNG " . $angle
+            );
+        }
     }
 
     /**
@@ -89,46 +68,18 @@ class ImageObjectTest extends TestCase
     {
         $monImage = new ImageObject();
 
-        $angle = 90;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
-        );
-        $monImage->rotation(
-            0,
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.jpg',
-            _PATH_TESTS_OUTPUT_ . 'ATTENDU_image_banned.jpg-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_OUTPUT_ . 'ATTENDU_image_banned.jpg-' . $angle,
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
-            "Rotation JPG " . $angle
-        );
-
-        $angle = 180;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
-            "Rotation JPG " . $angle
-        );
-
-        $angle = 270;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
-            "Rotation JPG " . $angle
-        );
+        foreach(self::valeursAngles as $angle) {
+            $monImage->rotation(
+                $angle,
+                _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
+            );
+            $this->assertFileEquals(
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
+                "Rotation JPG " . $angle
+            );
+        }
     }
 
     /**
@@ -140,39 +91,18 @@ class ImageObjectTest extends TestCase
     {
         $monImage = new ImageObject();
 
-        $angle = 90;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
-            "Rotation GIF " . $angle
-        );
-        $angle = 180;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
-            "Rotation GIF " . $angle
-        );
-        $angle = 270;
-        $monImage->rotation(
-            $angle,
-            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
-        );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
-            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
-            "Rotation GIF " . $angle
-        );
+        foreach(self::valeursAngles as $angle) {
+            $monImage->rotation(
+                $angle,
+                _PATH_TESTS_IMAGES_ . 'image_banned.gif',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
+            );
+            $this->assertFileEquals(
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
+                _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
+                "Rotation GIF " . $angle
+            );
+        }
     }
 
     /**
