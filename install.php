@@ -37,7 +37,7 @@ if (!$conf) {
 }
 
 /* 2 - Requête sur la base de données */
-if (!defined('_TRAVIS_')) {
+if (!defined('_PHPUNIT_')) {
     require 'config/config.php';
 }
 $res = MaBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
