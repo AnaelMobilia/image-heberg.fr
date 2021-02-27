@@ -73,7 +73,7 @@ $maSession->setFlag();
                 <div class="col-md-9">
                     <select name="angleRotation" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
-                        <optgroup label="Rotation vers la gauche">
+                        <optgroup label="Rotation vers la droite (sens horaire)">
                             <option value="90">90&deg; (&frac14; tour)</option>
                             <option value="180">180&deg; (&frac12; tour)</option>
                             <option value="270">270&deg; (&frac34; tour)</option>

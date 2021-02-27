@@ -175,7 +175,7 @@ abstract class RessourceObject
         $resImg = Outils::getImage($pathSrc);
 
         // Rotation (Imagick est dans le sens horaire, imagerotate dans le sens anti-horaire)
-        $resImg->rotateImage("rgb(0,0,0)", (360-$angle));
+        $resImg->rotateImage("rgb(0,0,0)", $angle);
 
         // J'enregistre l'image
         $retour = Outils::setImage($resImg, Outils::getType($pathSrc), $pathDst);
