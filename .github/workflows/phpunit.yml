@@ -1,5 +1,5 @@
 name: PHPUnit - Tests de l'application
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   run:
