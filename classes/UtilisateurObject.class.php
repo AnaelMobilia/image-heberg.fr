@@ -258,7 +258,7 @@ class UtilisateurObject
 
         // Vérification de l'existance du login
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':login', $user, PDO::PARAM_STR);
         $req->execute();
 
@@ -353,7 +353,7 @@ class UtilisateurObject
 
         // Je récupère les données en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':id', $userID, PDO::PARAM_INT);
         $req->execute();
 
@@ -461,7 +461,7 @@ class UtilisateurObject
     public static function verifierLoginDisponible($login)
     {
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':login', $login, PDO::PARAM_STR);
         $req->execute();
 
@@ -503,7 +503,7 @@ class UtilisateurObject
     {
         // Toutes les images
         $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
 
         // Exécution de la requête

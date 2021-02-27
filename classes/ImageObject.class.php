@@ -139,7 +139,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
          */
         if ($monRetour) {
             $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
-            /* @var $req PDOStatement */
+            /* @var $req \PDOStatement */
             $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
         }
@@ -149,7 +149,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
          */
         if ($monRetour) {
             $req = MaBDD::getInstance()->prepare("DELETE FROM images WHERE id = :id");
-            /* @var $req PDOStatement */
+            /* @var $req \PDOStatement */
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
         }
@@ -202,6 +202,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             // Image inconnue : optimisation de sa taille
             $monRetour = Outils::setImage(Outils::getImage($this->getPathTemp()), Outils::getType($this->getPathTemp()), $this->getPathTemp());
             // Copie du fichier vers l'emplacement de stockage
+            // Ne peut pas être fait avant car le MD5 n'est pas encore connu
             copy($this->getPathTemp(), $this->getPathMd5());
         }
 

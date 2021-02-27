@@ -132,7 +132,7 @@ abstract class RessourceObject
             // Miniature
             $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
         }
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
         $req->execute();
         $values = $req->fetch();
@@ -275,7 +275,7 @@ abstract class RessourceObject
 
         // Je vais chercher les infos en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 

@@ -57,7 +57,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
 
         // Je vais chercher les infos en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':newName', $newName, PDO::PARAM_STR);
         $req->execute();
 
@@ -123,7 +123,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
          * Suppression de l'image en BDD
          */
         $req = MaBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
-        /* @var $req PDOStatement */
+        /* @var $req \PDOStatement */
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
 
