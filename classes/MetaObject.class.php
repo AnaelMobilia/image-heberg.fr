@@ -249,7 +249,7 @@ class MetaObject
     /**
      * Vérifie de manière récursive l'écriture dans un dossier
      * @param string $folder Path du dossier parent
-     * @return \ArrayObject
+     * @return ArrayObject
      */
     public static function isRecursivelyWritable($folder)
     {
@@ -265,20 +265,14 @@ class MetaObject
             $monRetour->append("KO - $folder");
         }
 
-        // Enfants...
-        $objects = scandir($folder);
+        // Dossiers enfants
+        $objects = glob($folder."/*", GLOB_ONLYDIR);
         foreach ($objects as $object) {
-            // Perfs : élimination de tous les noms contenant un . (fichier.ext)
-            if (strpos($object, ".") === false) {
-                $pathObject = $folder . "/" . $object;
-                // . & .. n'arrivent pas ici...
-                if (is_dir($pathObject)) {
-                    $sousRetour = self::isRecursivelyWritable($pathObject);
-                    // Gestion de l'itération...
-                    foreach ($sousRetour as $unRetour) {
-                        $monRetour->append($unRetour);
-                    }
-                }
+            // Je vérifie si les dossiers enfants sont écrivables
+            $sousRetour = self::isRecursivelyWritable($object);
+            // Gestion de l'itération...
+            foreach ($sousRetour as $unRetour) {
+                $monRetour->append($unRetour);
             }
         }
 
