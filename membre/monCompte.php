@@ -95,9 +95,9 @@ if (isset($_POST['modifierPwd'])) {
     }
 }
 ?>
-<h1><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
+<h1 class="mb-3"><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
 
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         <?= $monUtilisateur->getUserName() ?>
     </div>
@@ -113,20 +113,20 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Modification du mot de passe -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapsePwd">
+        <a data-bs-toggle="collapse" href="#collapsePwd">
             Changer de mot de passe <span class="fas fa-caret-down"></span>
         </a>
     </div>
     <div id="collapsePwd" class="card-collapse collapse">
         <div class="card-body">
             <form method="post">
-                <div class="form-group">
-                    <label for="oldUserPassword">Mot de passe actuel</label>
+                <div class="mb-3">
+                    <label for="oldUserPassword" class="form-label">Mot de passe actuel</label>
                     <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword"
                            placeholder="Mot de passe actuel" required="required">
                 </div>
-                <div class="form-group">
-                    <label for="newUserPassword">Nouveau mot de passe</label>
+                <div class="mb-3">
+                    <label for="newUserPassword" class="form-label">Nouveau mot de passe</label>
                     <input type="password" class="form-control" name="newUserPassword" id="newUserPassword"
                            placeholder="Nouveau mot de passe" required="required">
                 </div>
@@ -139,20 +139,20 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Changer l'adresse mail -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapseMail">
+        <a data-bs-toggle="collapse" href="#collapseMail">
             Changer d'adresse courriel <span class="fas fa-caret-down"></span>
         </a>
     </div>
     <div id="collapseMail" class="card-collapse collapse">
         <div class="card-body">
             <form method="post">
-                <div class="form-group">
-                    <label for="userMail">Nouvelle adresse courriel</label>
+                <div class="mb-3">
+                    <label for="userMail" class="form-label">Nouvelle adresse courriel</label>
                     <input type="email" class="form-control" name="userMail" id="userMail"
                            placeholder="Nouvelle adresse courriel" required="required">
                 </div>
-                <div class="form-group">
-                    <label for="userPasswordMail">Mot de passe</label>
+                <div class="mb-3">
+                    <label for="userPasswordMail" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail"
                            placeholder="Mot de passe" required="required">
                 </div>
@@ -166,14 +166,14 @@ if (isset($_POST['modifierPwd'])) {
 <!-- Supprimer le compte -->
 <div class="card card-default">
     <div class="card-header">
-        <a data-toggle="collapse" href="#collapseDelete">
+        <a data-bs-toggle="collapse" href="#collapseDelete">
             Supprimer mon compte <span class="fas fa-caret-down"></span>
         </a>
     </div>
     <div id="collapseDelete" class="card-collapse collapse">
         <div class="card-body">
             <form method="post">
-                <label class="text-danger">
+                <label class="text-danger form-label">
                     <input type="checkbox" value="" name="confirmeDelete">
                     <span class="fas fa-warning-sign"></span>
                     Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
@@ -186,8 +186,8 @@ if (isset($_POST['modifierPwd'])) {
                     Cette action est irrévocable !
                 </label>
 
-                <div class="form-group">
-                    <label for="userPasswordDelete">Mot de passe</label>
+                <div class="mb-3">
+                    <label for="userPasswordDelete" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete"
                            placeholder="Mot de passe" required="required">
                 </div>

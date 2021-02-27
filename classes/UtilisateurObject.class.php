@@ -487,7 +487,7 @@ class UtilisateurObject
         if ($monUser->verifierDroits($levelRequis) === false) {
             header("HTTP/1.1 403 Forbidden");
             require _TPL_TOP_;
-            echo "<h1>Accès refusé</h1>";
+            echo "<h1 class=\"mb-3\">Accès refusé</h1>";
             echo "<p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>";
             require _TPL_BOTTOM_;
             die();

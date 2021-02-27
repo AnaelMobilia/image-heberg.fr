@@ -26,7 +26,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1><small>Nettoyage des fichiers jamais utilisés</small></h1>
+<h1 class="mb-3"><small>Nettoyage des fichiers jamais utilisés</small></h1>
 <?php
 
 $message = '';
@@ -49,7 +49,7 @@ if (isset($_POST['effacer'])) :
         <?= $message ?>
     </div>
 <?php else : ?>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeImages->count() ?> image(s) envoyée(s) il y a
             au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)

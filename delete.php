@@ -71,7 +71,7 @@ if (!$erreur) {
     }
 }
 ?>
-<h1><small>Suppression du fichier</small></h1>
+<h1 class="mb-3"><small>Suppression du fichier</small></h1>
 <?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove"></span>

@@ -26,7 +26,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1><small>Nettoyage des fichiers dormants</small></h1>
+<h1 class="mb-3"><small>Nettoyage des fichiers dormants</small></h1>
 <?php
 
 $message = '';
@@ -49,7 +49,7 @@ if (isset($_POST['effacer'])) :
         <?= $message ?>
     </div>
 <?php else : ?>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeImages->count() ?> image(s) non affichée(s)
             depuis au moins <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour(s).

@@ -24,18 +24,17 @@ namespace ImageHeberg;
 require 'config/config.php';
 require _TPL_TOP_;
 ?>
-<h1><small>Historique des versions</small></h1>
-<div class="card card-primary">
+<h1 class="mb-3"><small>Historique des versions</small></h1>
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v21">
-            v2.1 - en cours
+        <a data-bs-toggle="collapse" href="#v22">
+            v2.2 - A venir
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
-    <div id="v21" class="card-collapse">
+    <div id="v22" class="card-collapse">
         <div class="card-body">
             <ul>
-                <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur.</li>
                 <li>Envoi de plusieurs images simultanément.</li>
                 <li>Glisser - déposer pour le choix des fichiers.</li>
                 <li>Membres : Albums photos (création, affichage, partage).</li>
@@ -46,14 +45,31 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v205">
-            v2.0.5 - En cours
+        <a data-bs-toggle="collapse" href="#v21">
+            v21 - Février 2021
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
-    <div id="v205" class="card-collapse">
+    <div id="v21" class="card-collapse">
+        <div class="card-body">
+            <ul>
+                <li>Migration bootstrap 4 -> 5.</li>
+                <li>Suppression de jQuery.</li>
+                <li>Sélection uniquement des images lors du choix du fichier sur l'ordinateur.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <a data-bs-toggle="collapse" href="#v205">
+            v2.0.5 - 2020
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
+    </div>
+    <div id="v205" class="card-collapse collapse">
         <div class="card-body">
             <ul>
                 <li>Migration bootstrap 3 -> 4.</li>
@@ -62,9 +78,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v204">
+        <a data-bs-toggle="collapse" href="#v204">
             v2.0.4 - Octobre 2019
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -77,9 +93,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v203">
+        <a data-bs-toggle="collapse" href="#v203">
             v2.0.3 - Octobre 2019
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -94,9 +110,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v202">
+        <a data-bs-toggle="collapse" href="#v202">
             v2.0.2 - Janvier 2019
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -111,9 +127,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v201">
+        <a data-bs-toggle="collapse" href="#v201">
             v2.0.1 - Juin 2018
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -127,9 +143,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v20">
+        <a data-bs-toggle="collapse" href="#v20">
             v2.0 - Novembre 2016
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -148,9 +164,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v19">
+        <a data-bs-toggle="collapse" href="#v19">
             v1.9 - Janvier 2014
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -164,9 +180,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v127">
+        <a data-bs-toggle="collapse" href="#v127">
             v1.2.7 - 26 avril 2012
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -181,9 +197,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v126">
+        <a data-bs-toggle="collapse" href="#v126">
             v1.2.6 - 9 janvier 2012
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -203,9 +219,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v125">
+        <a data-bs-toggle="collapse" href="#v125">
             v1.2.5 - 30 octobre 2011
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -219,9 +235,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v124">
+        <a data-bs-toggle="collapse" href="#v124">
             v1.2.4 - 08 septembre 2011
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -234,9 +250,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v123e">
+        <a data-bs-toggle="collapse" href="#v123e">
             v1.2.3.e - 14 août 2011
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
@@ -252,9 +268,9 @@ require _TPL_TOP_;
         </div>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
-        <a data-toggle="collapse" href="#v123d">
+        <a data-bs-toggle="collapse" href="#v123d">
             v1.2.3.d - 10 août 2011
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>

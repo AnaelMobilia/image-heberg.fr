@@ -26,8 +26,8 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1><small>Panneau d'administration</small></h1>
-<div class="card card-primary">
+<h1 class="mb-3"><small>Panneau d'administration</small></h1>
+<div class="card">
     <div class="card-header">
         Gestion du site
     </div>
@@ -57,7 +57,7 @@ require _TPL_TOP_;
         </a>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         Gestion technique
     </div>

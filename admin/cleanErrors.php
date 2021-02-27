@@ -28,7 +28,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1><small>Nettoyage des incohérences</small></h1>
+<h1 class="mb-3"><small>Nettoyage des incohérences</small></h1>
 <?php
 
 $message = '';
@@ -101,7 +101,7 @@ if (isset($_POST['effacer'])) :
         <?= $message ?>
     </div>
 <?php else : ?>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeErreursImagesBDD->count() ?>
             image<?= ($listeErreursImagesBDD->count() > 1) ? 's' : '' ?>
@@ -116,7 +116,7 @@ if (isset($_POST['effacer'])) :
             </ul>
         </div>
     </div>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeErreursImagesHDD->count() ?>
             image<?= ($listeErreursImagesHDD->count() > 1) ? 's' : '' ?>
@@ -131,7 +131,7 @@ if (isset($_POST['effacer'])) :
             </ul>
         </div>
     </div>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeErreursMiniaturesBDD->count() ?>
             miniature<?= ($listeErreursMiniaturesBDD->count() > 1) ? 's' : '' ?>
@@ -146,7 +146,7 @@ if (isset($_POST['effacer'])) :
             </ul>
         </div>
     </div>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
             <?= $listeErreursMiniaturesHDD->count() ?>
             miniature<?= ($listeErreursMiniaturesHDD->count() > 1) ? 's' : '' ?>

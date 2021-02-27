@@ -58,7 +58,7 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
     // Disponibilité du login
     if (UtilisateurObject::verifierLoginDisponible($_POST['userName']) !== true) {
         $flagCreation = false;
-        $messageErreur .= "<br />Ce nom d'utilisateur n'est pas disponible. Merci d'en choisir un autre.";
+        $messageErreur .= "<br />Ce nom d'utilisateur n'est pas possible. Merci d'en choisir un autre.";
     }
 
     // Données administratives : droits de l'utilisateur
@@ -95,25 +95,22 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
 }
 $maSession->setFlag();
 ?>
-<h1><small>Créer mon compte</small></h1>
+<h1 class="mb-3"><small>Créer mon compte</small></h1>
 
 <form method="post">
-    <div class="form-group">
+    <div class="mb-3 form-floating">
+        <input type="text" class="form-control" name="userName" id="userName" value="<?= $monUtilisateur->getUserName() ?>" required="required">
         <label for="userName">Identifiant</label>
-        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant"
-               value="<?= $monUtilisateur->getUserName() ?>" required="required">
     </div>
-    <div class="form-group">
+    <div class="mb-3 form-floating">
+        <input type="password" class="form-control" name="userPassword" id="userPassword"  required="required">
         <label for="userPassword">Mot de passe</label>
-        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe"
-               required="required">
     </div>
-    <div class="form-group">
+    <div class="mb-3 form-floating">
+        <input type="email" class="form-control" name="userMail" id="userMail" value="<?= $monUtilisateur->getEmail() ?>" required="required">
         <label for="userMail">Adresse courriel</label>
-        <input type="email" class="form-control" name="userMail" id="userMail" placeholder="Adresse courriel"
-               value="<?= $monUtilisateur->getEmail() ?>" required="required">
-        <span class="help-block">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</span>
+        <div class="form-text">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</div>
     </div>
-    <button type="submit" name="valider" class="btn btn-success">M'enregistrer</button>
+    <button type="submit" name="valider" class="btn btn-success">M'inscrire</button>
 </form>
 <?php require _TPL_BOTTOM_ ?>

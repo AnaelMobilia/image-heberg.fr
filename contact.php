@@ -56,32 +56,18 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
 }
 ?>
 <?php if ($maSession->checkFlag()) : ?>
-    <h1><small>Contact</small></h1>
-
-    <div class="card card-primary">
-        <div class="card-header">
-            Administrateur - <?= _ADMINISTRATEUR_NOM_ ?>
+    <h1 class="mb-3"><small>Contacter l'administrateur du service - <?= _ADMINISTRATEUR_NOM_ ?></small></h1>
+    <form method="post">
+        <div class="mb-3 form-floating">
+            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
+            <label for="userMail" >Votre adresse courriel</label>
+            <div class="form-text">Sera utilisée uniquement pour vous apporter une réponse.</div>
         </div>
-        <div class="card-body">
-            <form method="post">
-                <div class="form-group">
-                    <label for="userMail">Votre adresse courriel</label>
-                    <input type="email" class="form-control" name="userMail" id="userMail"
-                           placeholder="john.doe@example.com" required="required"
-                           value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
-                    <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
-                </div>
-                <div class="form-group">
-                    <label for="userMessage">Votre message</label>
-                    <textarea class="form-control" rows="5" name="userMessage" id="userMessage"
-                              placeholder="Votre message" required="required">
-                                  <?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?>
-                    </textarea>
-                </div>
-                <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
-            </form>
+        <div class="mb-3 form-floating">
+            <textarea class="form-control" name="userMessage" id="userMessage" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+            <label for="userMessage">Votre message</label>
         </div>
-    </div>
+        <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
+    </form>
 <?php endif; ?>
-
 <?php require _TPL_BOTTOM_ ?>

@@ -26,7 +26,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1><small>Images présentes sur le disque</small></h1>
+<h1 class="mb-3"><small>Images présentes sur le disque</small></h1>
 <ul>
     <?php
 

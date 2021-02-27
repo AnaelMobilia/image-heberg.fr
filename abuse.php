@@ -83,50 +83,35 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
 }
 ?>
 <?php if ($maSession->checkFlag()) : ?>
-    <h1><small>Signaler une image</small></h1>
+    <h1 class="mb-3"><small>Signaler une image</small></h1>
 
-    <div class="card card-primary">
-        <div class="card-header">
-            Signaler une image
+    <form method="post">
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control" name="urlImage" id="urlImage" required="required" value="<?= (isset($_POST['urlImage'])) ? $_POST['urlImage'] : '' ?>">
+            <label for="urlImage">Adresse de l'image</label>
+            <div class="form-text text-muted">
+                Indiquer toute l'URL de l'image, telle qu'affichée dans le navigateur (<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>).
+            </div>
         </div>
-        <div class="card-body">
-            <form method="post">
-                <div class="form-group">
-                    <label for="urlImage">URL de l'image</label>
-                    <input type="text" class="form-control" name="urlImage" id="urlImage"
-                           placeholder="<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>" required="required"
-                           value="<?= (isset($_POST['urlImage'])) ? $_POST['urlImage'] : '' ?>">
-                    <span class="form-text text-muted">
-                        Indiquer toute l'adresse de l'image (telle qu'affichée dans le navigateur).
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label for="raison">Raison du signalement</label>
-                    <select name="raison" id="raison" class="form-control" required="required">
-                        <option value="" selected>-- Sélectionner une raison --</option>
-                        <option value="porno">Pornographie et érotisme</option>
-                        <option value="legislation">Non respect de la législation française (à indiquer)</option>
-                        <option value="autre">Autre (à indiquer)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="userMail">Votre adresse courriel</label>
-                    <input type="email" class="form-control" name="userMail" id="userMail"
-                           placeholder="john.doe@example.com" required="required"
-                           value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
-                    <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
-                </div>
-                <div class="form-group">
-                    <label for="userMessage">Votre message</label>
-                    <textarea class="form-control" rows="5" name="userMessage" id="userMessage"
-                              placeholder="Informations complémentaires sur la raison de votre demande"
-                              required="required">
-                                  <?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?>
-                    </textarea>
-                </div>
-                <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
-            </form>
+        <div class="mb-3 form-floating">
+            <select name="raison" id="raison" class="form-select" required="required">
+                <option value="" selected>-- Sélectionner une raison --</option>
+                <option value="porno">Pornographie et érotisme</option>
+                <option value="legislation">Non respect de la législation française (à préciser)</option>
+                <option value="autre">Autre (à préciser)</option>
+            </select>
+            <label for="raison">Raison du signalement</label>
         </div>
-    </div>
+        <div class="mb-3 form-floating">
+            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
+            <label for="userMail">Votre adresse courriel</label>
+            <div class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</div>
+        </div>
+        <div class="mb-3 form-floating">
+            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Informations complémentaires sur la raison de votre demande" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+            <label for="userMessage">Votre message</label>
+        </div>
+        <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
+    </form>
 <?php endif; ?>
 <?php require _TPL_BOTTOM_ ?>

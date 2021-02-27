@@ -33,7 +33,7 @@ $maSession = new SessionObject();
 // Et je reprend ses données
 $monUtilisateur = new UtilisateurObject($maSession->getId());
 ?>
-<h1><small>Mes images</small></h1>
+<h1 class="mb-3"><small>Mes images</small></h1>
 <table class="table table-hover">
     <thead>
         <tr class="text-center">

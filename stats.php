@@ -59,9 +59,9 @@ $nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
 // Taille totale
 $size_all = $valImage->totSize + $valMiniature->totSize;
 ?>
-<h1><small>Statistiques</small></h1>
+<h1 class="mb-3"><small>Statistiques</small></h1>
 
-<div class="card card-primary">
+<div class="card">
     <div class="card-body">
         <ul>
             <li>

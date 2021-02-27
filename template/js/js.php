@@ -30,14 +30,15 @@ header('Content-Type: application/javascript');
 if ($visiteur->getLevel() === UtilisateurObject::LEVEL_GUEST) :
     ?>
     // Cache les champs liés à l'espace membre
-    $("#monCompte").hide();
+    document.getElementById('monCompte').style.display = 'none';
     // Au clic sur le bouton, affichage
-    $("#buttonMonCompteGestion").click(function() {
-        $("#monCompteGestion").hide();
-        $("#monCompte").show();
-    });
+    document.getElementById('monCompteGestion').onclick = function(e){
+        document.getElementById('monCompteGestion').style.display = 'none';
+        document.getElementById('monCompte').style.display = 'block';
+        e.preventDefault();
+    };
     // J'empêche l'envoi du pseudo formulaire...
-    $("#monCompteGestion").on("submit", function(e){
-      e.preventDefault();
-    });
+    document.getElementById('monCompteGestion').onSubmit = function(e){
+        e.preventDefault();
+    };
 <?php endif; ?>

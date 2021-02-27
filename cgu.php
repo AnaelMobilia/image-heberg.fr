@@ -24,11 +24,11 @@ namespace ImageHeberg;
 require 'config/config.php';
 require _TPL_TOP_;
 ?>
-<h1><small>Conditions Générales d'Utilisation de <?= _SITE_NAME_ ?></small></h1>
+<h1 class="mb-3"><small>Conditions Générales d'Utilisation de <?= _SITE_NAME_ ?></small></h1>
 
 <div class="alert alert-success">Ces CGU sont modifiables sans préavis et à tout moment.</div>
 
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         Contenus autorisés
     </div>
@@ -40,7 +40,7 @@ require _TPL_TOP_;
         </ul>
     </div>
 </div>
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         Propriétés de l'hébergement
     </div>

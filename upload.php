@@ -165,7 +165,7 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
     }
 }
 ?>
-<h1><small>Envoi d'une image</small></h1>
+<h1 class="mb-3"><small>Envoi d'une image</small></h1>
 <?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="fas fa-remove"></span>
@@ -189,50 +189,50 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
         &nbsp;
         <b>Image enregistrée avec succès !</b>
     </div>
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-body">
             <h2>Afficher l'image</h2>
             <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Lien direct</label>
+                <div class="mb-3">
+                    <label class="col-sm-2 form-label">Lien direct</label>
                     <div class="col-sm-10">
                         <a href="<?= $monImage->getURL() ?>"><?= $monImage->getURL() ?></a>
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Lien direct miniature</label>
+                    <div class="mb-3">
+                        <label class="col-sm-2 form-label">Lien direct miniature</label>
                         <div class="col-sm-10">
                             <a href="<?= $maMiniature->getURL() ?>"><?= $maMiniature->getURL() ?></a>
                         </div>
                     </div>
     <?php endif; ?>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Forum <em>(BBcode)</em></label>
+                <div class="mb-3">
+                    <label class="col-sm-2 form-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" onFocus="this.select();"
                                value="[img]<?= $monImage->getURL() ?>[/img]" />
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Forum <em>(BBcode)</em> avec miniature</label>
+                    <div class="mb-3">
+                        <label class="col-sm-2 form-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" onFocus="this.select();"
                                    value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
                         </div>
                     </div>
     <?php endif; ?>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">HTML</label>
+                <div class="mb-3">
+                    <label class="col-sm-2 form-label">HTML</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" onFocus="this.select();"
                                value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">HTML avec miniature</label>
+                    <div class="mb-3">
+                        <label class="col-sm-2 form-label">HTML avec miniature</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" onFocus="this.select();"
                                    value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
@@ -242,21 +242,23 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
             </div>
             <div class="clearfix"></div>
             <br />
-            <div>
-                <span class="col-sm-2">Nom de l'image</span>
-                <span class="col-sm-10"><?= $monImage->getNomOriginalFormate() ?> </span>
-            </div>
-            <div>
+            <div class="container">
+                <div class="row">
+                    <span class="col-sm-2">Nom de l'image</span>
+                    <span class="col-sm-10"><?= $monImage->getNomOriginalFormate() ?> </span>
+                 </div>
+                <div class="row">
                 <span class="col-sm-2">Poids</span>
-                <span class="col-sm-10"><?= $monImage->getPoids() ?>&nbsp;octets</span>
-            </div>
-            <div>
-                <span class="col-sm-2">Largeur</span>
-                <span class="col-sm-10"><?= $monImage->getLargeur() ?>&nbsp;px</span>
-            </div>
-            <div>
-                <span class="col-sm-2">Hauteur</span>
-                <span class="col-sm-10"><?= $monImage->getHauteur() ?>&nbsp;px</span>
+                <span class="col-sm-10"><?= $monImage->getPoidsMo() ?>&nbsp;Mo</span>
+                </div>
+                <div class="row">
+                    <span class="col-sm-2">Largeur</span>
+                    <span class="col-sm-10"><?= $monImage->getLargeur() ?>&nbsp;px</span>
+                </div>
+                <div class="row">
+                    <span class="col-sm-2">Hauteur</span>
+                    <span class="col-sm-10"><?= $monImage->getHauteur() ?>&nbsp;px</span>
+                </div>
             </div>
             <div class="clearfix"></div>
             <br />

@@ -28,7 +28,7 @@ require _TPL_TOP_;
 $maSession = new SessionObject();
 $maSession->setFlag();
 ?>
-<h1><small>Envoyer une image</small></h1>
+<h1 class="mb-3"><small>Envoyer une image</small></h1>
 <?php if (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
     <div class="alert alert-danger">
         <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées
@@ -53,15 +53,13 @@ $maSession->setFlag();
     </ul>
 </div>
 
-<div class="card card-primary">
+<div class="card">
     <div class="card-body">
-        <form enctype="multipart/form-data" action="<?= _URL_HTTPS_ ?>upload.php" method="post" class="form-group">
-            <div class="form-group form-group-lg">
-                <label for="fichier" class="col-md-3">Fichier à envoyer</label>
+        <form enctype="multipart/form-data" action="<?= _URL_HTTPS_ ?>upload.php" method="post" class="mb-3">
+            <div class="mb-3">
+                <label for="fichier" class="col-mb-3 form-label">Fichier à envoyer</label>
                 <div class="col-md-9">
-                    <input type="file" accept="image/*" name="fichier" id="fichier" required="required"
-                    <?= (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?>
-                           >
+                    <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?> class="form-control">
                 </div>
                 <div class="help-block">
                     Tout envoi de fichier implique l'acceptation des 
@@ -70,10 +68,10 @@ $maSession->setFlag();
             </div>
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
-            <div class="form-group">
-                <label class="col-md-3">Rotation de l'image</label>
+            <div class="mb-3">
+                <label class="col-mb-3 form-label">Rotation de l'image</label>
                 <div class="col-md-9">
-                    <select name="angleRotation" class="form-control">
+                    <select name="angleRotation" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <optgroup label="Rotation vers la gauche">
                             <option value="90">90&deg; (&frac14; tour)</option>
@@ -83,10 +81,10 @@ $maSession->setFlag();
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-3">Faire une miniature</label>
+            <div class="mb-3">
+                <label class="col-mb-3 form-label">Faire une miniature</label>
                 <div class="col-md-9">
-                    <select name="dimMiniature" class="form-control">
+                    <select name="dimMiniature" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="100x100">Avatar (100x100)</option>
                         <option value="320x240">Miniature (320x240)</option>
@@ -95,10 +93,10 @@ $maSession->setFlag();
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-3">Redimensionner l'image</label>
+            <div class="mb-3">
+                <label class="col-mb-3 form-label">Redimensionner l'image</label>
                 <div class="col-md-9">
-                    <select name="redimImage" class="form-control">
+                    <select name="redimImage" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="320x240">320x240</option>
                         <option value="640x480">640x480</option>
@@ -107,11 +105,8 @@ $maSession->setFlag();
                     </select>
                 </div>
             </div>
-            <button class="btn btn-info" name="Submit" type="submit">Envoyer</button>
+            <button class="btn btn-success" name="Submit" type="submit"><span class="fas fa-cloud-upload-alt"></span>&nbsp;Envoyer</button>
         </form>
     </div>
 </div>
-<?php
-
-require _TPL_BOTTOM_;
-?>
+<?php require _TPL_BOTTOM_; ?>

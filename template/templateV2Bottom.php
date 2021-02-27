@@ -19,14 +19,14 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 ?>
-    </div> <!-- /jumbotron -->
+    </div> <!-- "/jumbotron" -->
     </main>
-    <footer class="footer">
+    <footer class="footer mt-auto py-3">
         <div class="container">
             <span class="text-muted">
                 <?= _SITE_NAME_ ?>
                 -
-                <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2020) <span class="fas fa-award"></span></a>
+                <a href="<?= _URL_ ?>changelog.php">v2.1 (2021) <span class="fas fa-award"></span></a>
                 -
                 <a href="<?= _URL_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
                 -
@@ -47,8 +47,7 @@
             </span>
         </div>
     </footer>
-    <script src="template/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="template/js/bootstrap-4.4.1.min.js"></script>
+    <script src="template/js/bootstrap-5.0.0-beta2.min.js"></script>
     <script src="template/js/js.php"></script>
     </body>
 </html>
