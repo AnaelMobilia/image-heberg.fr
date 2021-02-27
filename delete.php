@@ -24,7 +24,6 @@ namespace ImageHeberg;
 if (!defined('_PHPUNIT_')) {
     require 'config/config.php';
 }
-require _TPL_TOP_;
 
 $erreur = false;
 $msgErreur = '';
@@ -70,9 +69,14 @@ if (!$erreur) {
         $msgErreur = 'Vous n\'avez pas le droit de supprimer cette image !<br />';
     }
 }
-?>
-<h1 class="mb-3"><small>Suppression du fichier</small></h1>
-<?php if (!empty($msgErreur)) : ?>
+
+// Pas d'erreur => Redirection sur la page d'accueil
+if(empty($erreur)) {
+    header('Location: ' . _URL_ . '?delete_success');
+} else  {
+    require _TPL_TOP_;
+    ?>
+    <h1 class="mb-3"><small>Suppression du fichier</small></h1>
     <div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove"></span>
         &nbsp;
@@ -80,12 +84,6 @@ if (!$erreur) {
         <br />
     <?= $msgErreur ?>
     </div>
-<?php else : ?>
-    <div class="alert alert-success">
-        <span class="glyphicon glyphicon-ok"></span>
-        &nbsp;
-        <b>L'image a été supprimée avec succès !</b>
-    </div>
-<?php endif; ?>
-
-<?php require _TPL_BOTTOM_; ?>
+    <?php
+     require _TPL_BOTTOM_;
+ }
