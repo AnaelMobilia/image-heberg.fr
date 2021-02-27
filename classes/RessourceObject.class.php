@@ -28,8 +28,8 @@ use PDO;
  */
 abstract class RessourceObject
 {
-    const TYPE_IMAGE = 1;
-    const TYPE_MINIATURE = 2;
+    public const TYPE_IMAGE = 1;
+    public const TYPE_MINIATURE = 2;
 
     private $id;
     private $nomOriginal;

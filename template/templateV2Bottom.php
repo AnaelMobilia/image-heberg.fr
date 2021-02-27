@@ -19,36 +19,36 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 ?>
-</div> <!-- /jumbotron -->
-</main>
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">
-            <?= _SITE_NAME_ ?>
-            -
-            <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2020) <span class="fas fa-award"></span></a>
-            -
-            <a href="<?= _URL_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
-            -
-            <a href="<?= _URL_ ?>cgu.php">CGU <span class="fas fa-briefcase"></span></a>
-            -
-            <a href="<?= _URL_ ?>abuse.php">Signaler une image <span class="fas fa-radiation"></span></a>
-            <span class="d-none d-lg-inline">
-                <span class="d-none d-xl-inline">
-                    -
-                    Exécution en <?= round(microtime(true) - $timeStart, 5); ?>s
-                    -
-                    IPv<?= (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) ? '4' : '6' ?>
-                </span>
+    </div> <!-- /jumbotron -->
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">
+                <?= _SITE_NAME_ ?>
                 -
-                Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
-                <a class="forkMeOnGitHub" href="https://github.com/AnaelMobilia/image-heberg.fr" title="Voir le code source sur GitHub"></a>
+                <a href="<?= _URL_ ?>changelog.php">v2.0.5 (2020) <span class="fas fa-award"></span></a>
+                -
+                <a href="<?= _URL_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
+                -
+                <a href="<?= _URL_ ?>cgu.php">CGU <span class="fas fa-briefcase"></span></a>
+                -
+                <a href="<?= _URL_ ?>abuse.php">Signaler une image <span class="fas fa-radiation"></span></a>
+                <span class="d-none d-lg-inline">
+                    <span class="d-none d-xl-inline">
+                        -
+                        Exécution en <?= round(microtime(true) - $timeStart, 5); ?>s
+                        -
+                        IPv<?= (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) ? '4' : '6' ?>
+                    </span>
+                    -
+                    Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
+                    <a class="forkMeOnGitHub" href="https://github.com/AnaelMobilia/image-heberg.fr" title="Voir le code source sur GitHub"></a>
+                </span>
             </span>
-        </span>
-    </div>
-</footer>
-<script src="template/js/jquery-3.4.1.slim.min.js"></script>
-<script src="template/js/bootstrap-4.4.1.min.js"></script>
-<script src="template/js/js.php"></script>
-</body>
+        </div>
+    </footer>
+    <script src="template/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="template/js/bootstrap-4.4.1.min.js"></script>
+    <script src="template/js/js.php"></script>
+    </body>
 </html>

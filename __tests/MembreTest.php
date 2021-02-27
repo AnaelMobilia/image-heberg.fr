@@ -109,7 +109,11 @@ class MembreTest extends TestCase
          * Vérification des valeurs
          */
         $monMembre = new UtilisateurObject();
-        $this->assertEquals(false, $monMembre->connexion($_POST['userName'], $_POST['userPassword']), "connexion : le nom d'utilisateur doit être unique");
+        $this->assertEquals(
+            false,
+            $monMembre->connexion($_POST['userName'], $_POST['userPassword']),
+            "connexion : le nom d'utilisateur doit être unique"
+        );
     }
 
     /**
@@ -273,7 +277,11 @@ class MembreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $this->assertEquals(true, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion devrait être possible");
+        $this->assertEquals(
+            true,
+            $monMembre->connexion('username', $_POST['userPasswordDelete']),
+            "connexion devrait être possible"
+        );
     }
 
     /**
@@ -312,7 +320,11 @@ class MembreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $this->assertEquals(false, $monMembre->connexion('username', $_POST['userPasswordDelete']), "connexion ne devrait plus être possible");
+        $this->assertEquals(
+            false,
+            $monMembre->connexion('username', $_POST['userPasswordDelete']),
+            "connexion ne devrait plus être possible"
+        );
     }
 
     /**
@@ -334,6 +346,10 @@ class MembreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $this->assertEquals(true, $monMembre->connexion('admin', 'password'), "connexion au compte créé à l'import de la BDD devrait être possible");
+        $this->assertEquals(
+            true,
+            $monMembre->connexion('admin', 'password'),
+            "connexion au compte créé à l'import de la BDD devrait être possible"
+        );
     }
 }

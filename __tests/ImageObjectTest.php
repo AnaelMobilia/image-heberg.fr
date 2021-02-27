@@ -237,7 +237,7 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-         $this->assertFileEquals(
+        $this->assertFileEquals(
             _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png-a-partir-php-7.2',
             _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png',
             "Redimensionnement portrait 200x400"

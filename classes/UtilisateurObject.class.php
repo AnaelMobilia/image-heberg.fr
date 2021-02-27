@@ -40,9 +40,9 @@ class UtilisateurObject
     private $token;
 
     // Niveaux de droits
-    const LEVEL_GUEST = 0;
-    const LEVEL_USER = 1;
-    const LEVEL_ADMIN = 2;
+    public const LEVEL_GUEST = 0;
+    public const LEVEL_USER = 1;
+    public const LEVEL_ADMIN = 2;
 
     public function __construct($userID = false)
     {

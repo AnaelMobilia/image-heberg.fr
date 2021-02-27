@@ -8,5 +8,7 @@
     <rule ref="PSR12">
         <!-- Exclure les CRLF (gérés par git => core.autocrlf=true ) -->
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+        <!-- Exclure la longueur des lignes -->
+        <exclude name="Generic.Files.LineLength.TooLong" />
     </rule>
 </ruleset>
