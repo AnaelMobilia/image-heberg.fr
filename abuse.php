@@ -95,7 +95,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
                     <label for="urlImage">URL de l'image</label>
                     <input type="text" class="form-control" name="urlImage" id="urlImage"
                            placeholder="<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>" required="required"
-                           value="<?= (isset($_POST['urlImage']) && $maSession->checkFlag()) ? $_POST['urlImage'] : '' ?>">
+                           value="<?= (isset($_POST['urlImage'])) ? $_POST['urlImage'] : '' ?>">
                     <span class="form-text text-muted">
                         Indiquer toute l'adresse de l'image (telle qu'affichée dans le navigateur).
                     </span>
@@ -113,7 +113,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
                     <label for="userMail">Votre adresse courriel</label>
                     <input type="email" class="form-control" name="userMail" id="userMail"
                            placeholder="john.doe@example.com" required="required"
-                           value="<?= (isset($_POST['userMail']) && $maSession->checkFlag()) ? $_POST['userMail'] : '' ?>">
+                           value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
                     <span class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</span>
                 </div>
                 <div class="form-group">
@@ -121,7 +121,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
                     <textarea class="form-control" rows="5" name="userMessage" id="userMessage"
                               placeholder="Informations complémentaires sur la raison de votre demande"
                               required="required">
-                                  <?= (isset($_POST['userMessage']) && $maSession->checkFlag()) ? $_POST['userMessage'] : '' ?>
+                                  <?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?>
                     </textarea>
                 </div>
                 <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
