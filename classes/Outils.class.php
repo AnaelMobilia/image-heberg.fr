@@ -21,6 +21,8 @@
 
 namespace ImageHeberg;
 
+use Imagick;
+
 /**
  * Bibliothèque d'outils pour la gestion des images
  */
@@ -49,61 +51,45 @@ class Outils
 
     /**
      * Chargement ressource PHP image
-     * @return resource
+     * @return Imagick
+     */
+    /**
+     * @param $path
+     * @return Imagick
+     * @throws \ImagickException
      */
     public static function getImage($path)
     {
-        $monImage = null;
-
-        // Je charge l'image en mémoire en fonction de son type
-        switch (self::getType($path)) {
-            case IMAGETYPE_GIF:
-                $monImage = imagecreatefromgif($path);
-                break;
-            case IMAGETYPE_JPEG:
-                $monImage = imagecreatefromjpeg($path);
-                // Activation de l'entrelacement (image progressive)
-                imageinterlace($monImage, true);
-                break;
-            case IMAGETYPE_PNG:
-                $monImage = imagecreatefrompng($path);
-                // Gestion de la transparence
-                imagealphablending($monImage, true);
-                imagesavealpha($monImage, true);
-                break;
-        }
+        $monImage = new \Imagick();
+        $monImage->readImage($path);
 
         return $monImage;
     }
 
     /**
      * Enregistrement d'une ressource PHP image
-     * @param ressource $uneImage Image a enregistrer
+     * @param Imagick $uneImage Image à enregistrer
      * @param int $imageType type PHP de l'image
      * @param string $path chemin du fichier
      * @return boolean Succès ?
      */
     public static function setImage($uneImage, $imageType, $path)
     {
-        $monRetour = false;
-
-        // Je charge l'image en mémoire en fonction de son type
         switch ($imageType) {
             case IMAGETYPE_GIF:
-                $monRetour = imagegif($uneImage, $path);
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_GIF);
                 break;
             case IMAGETYPE_JPEG:
-                // Activation de l'entrelacement (image progressive)
-                imageinterlace($uneImage, true);
-                $monRetour = imagejpeg($uneImage, $path, 100);
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_JPEG);
                 break;
             case IMAGETYPE_PNG:
-                // Gestion de la transparence
-                imagealphablending($uneImage, true);
-                imagesavealpha($uneImage, true);
-                $monRetour = imagepng($uneImage, $path, 9);
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
                 break;
         }
+
+        // Suppression des commentaires & co
+        $uneImage->stripImage();
+        $monRetour = $uneImage->writeImage($path);
 
         return $monRetour;
     }
@@ -117,7 +103,7 @@ class Outils
     {
         $ext = image_type_to_extension(self::getType($path), false);
         if ($ext === 'jpeg') {
-            // Préférence pour .jpg [filenmae.ext]
+            // Préférence pour .jpg [filename.ext]
             $ext = 'jpg';
         }
 

@@ -173,37 +173,12 @@ abstract class RessourceObject
     {
         // Je charge l'image en mémoire
         $resImg = Outils::getImage($pathSrc);
-        // Je vérifie que tout va bien
-        if ($resImg === false) {
-            return false;
-        }
 
-        // J'effectue la rotation
-        $imgRotate = imagerotate($resImg, $angle, 0);
-
-        // Je vérifie que tout va bien
-        if ($imgRotate === false) {
-            return false;
-        }
-
-        // Nettoyage mémoire (image d'origine)
-        imagedestroy($resImg);
+        // Rotation (Imagick est dans le sens horaire, imagerotate dans le sens anti-horaire)
+        $resImg->rotateImage("rgb(0,0,0)", (360-$angle));
 
         // J'enregistre l'image
-        $retour = Outils::setImage($imgRotate, Outils::getType($pathSrc), $pathDst);
-
-        // La création du fichier s'est bien passé ?
-        if ($retour === false) {
-            return false;
-        }
-
-        // Mise à jour des propriétés de l'image
-        // Dimensions
-        $this->setLargeur(imagesx($imgRotate));
-        $this->setHauteur(imagesy($imgRotate));
-
-        // Poids de l'image
-        $this->setPoids(filesize($pathDst));
+        $retour = Outils::setImage($resImg, Outils::getType($pathSrc), $pathDst);
 
         return $retour;
     }
@@ -221,46 +196,11 @@ abstract class RessourceObject
         // Chargement de l'image
         $monImage = Outils::getImage($pathSrc);
 
-        // Récupération de ses dimensions
-        $largeurImage = imagesx($monImage);
-        $hauteurImage = imagesy($monImage);
-
-        // Dimension nulle : on arrête
-        if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0 || $largeurImage <= $largeurDemandee || $hauteurImage <= $hauteurDemandee) {
-            return false;
-        }
-
-        /**
-         * @author Nicolas
-         */
-        if ($largeurImage > $hauteurImage) {
-            // Format paysage
-            $largeurMax = max(array($largeurDemandee, $hauteurDemandee));
-            $hauteurMax = min(array($largeurDemandee, $hauteurDemandee));
-        } else {
-            // Format portrait ou carré
-            $largeurMax = min(array($largeurDemandee, $hauteurDemandee));
-            $hauteurMax = max(array($largeurDemandee, $hauteurDemandee));
-        }
-        // Calcul du ratio
-        $monRatio = min(array($largeurMax / $largeurImage, $hauteurMax / $hauteurImage));
-
-        // Dimensions finales
-        $largeurFinale = round($largeurImage * $monRatio);
-        $hauteurFinale = round($hauteurImage * $monRatio);
-
-        // Debug
-        if (_PHPUNIT_) {
-            echo "Initial : " . $largeurImage . " x " . $hauteurImage . "\r\n";
-            echo "Demandé : " . $largeurDemandee . " x " . $hauteurDemandee . "\r\n";
-            echo "Fourni : " . $largeurFinale . " x " . $hauteurFinale . "\r\n";
-        }
-
-        // Redimensionnement (en mémoire)
-        $newImage = imagescale($monImage, $largeurFinale, $hauteurFinale);
+        // Redimensionnement par Imagick
+        $monImage->thumbnailImage($hauteurDemandee, $largeurDemandee, true);
 
         // Ecriture de l'image
-        $monRetour = Outils::setImage($newImage, Outils::getType($pathSrc), $pathDst);
+        $monRetour = Outils::setImage($monImage, Outils::getType($pathSrc), $pathDst);
 
         return $monRetour;
     }
