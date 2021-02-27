@@ -63,7 +63,7 @@ class ImageObjectTest extends TestCase
             _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png',
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
             _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
             "Rotation PNG " . $angle
         );
@@ -75,7 +75,7 @@ class ImageObjectTest extends TestCase
             _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.png',
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
             _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
             "Rotation PNG " . $angle
         );
@@ -113,7 +113,7 @@ class ImageObjectTest extends TestCase
             _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg',
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
             _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
             "Rotation JPG " . $angle
         );
@@ -125,7 +125,7 @@ class ImageObjectTest extends TestCase
             _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-jusqua-php-7.1.jpg',
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
             _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
             "Rotation JPG " . $angle
         );
