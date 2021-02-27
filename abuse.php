@@ -64,7 +64,8 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             $message .= "\r\n\r\nBROWSER : " . $_SERVER['HTTP_USER_AGENT'];
 
             // Tout va bien, on envoit un mail
-            mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Signalement d'image", $message, "From: " . $_POST['userMail']);
+            $subject = "[" . _SITE_NAME_ . "] - Signalement d'image";
+            mail(_ADMINISTRATEUR_EMAIL_, $subject, $message, "From: " . $_POST['userMail']);
             $maSession->removeFlag();
         }
         // Retour utilisateur

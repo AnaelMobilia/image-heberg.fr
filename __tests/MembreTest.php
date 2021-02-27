@@ -19,6 +19,8 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+namespace ImageHebergTests;
+
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
 use ImageHeberg\MetaObject;

@@ -19,6 +19,8 @@
  * along with image-heberg.fr. If not, see <http://www.gnu.org/licenses/>
  */
 
+namespace ImageHebergTests;
+
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
 use ImageHeberg\MetaObject;
@@ -139,14 +141,38 @@ class ImageObjectTest extends TestCase
         $monImage = new ImageObject();
 
         $angle = 90;
-        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
+        $monImage->rotation(
+            $angle,
+            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
+        );
+        $this->assertFileEquals(
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
+            "Rotation GIF " . $angle
+        );
         $angle = 180;
-        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
+        $monImage->rotation(
+            $angle,
+            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
+        );
+        $this->assertFileEquals(
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
+            "Rotation GIF " . $angle
+        );
         $angle = 270;
-        $monImage->rotation($angle, _PATH_TESTS_IMAGES_ . 'image_banned.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle);
-        $this->assertFileEquals(_PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif', _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle, "Rotation GIF " . $angle);
+        $monImage->rotation(
+            $angle,
+            _PATH_TESTS_IMAGES_ . 'image_banned.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
+        );
+        $this->assertFileEquals(
+            _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
+            _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
+            "Rotation GIF " . $angle
+        );
     }
 
     /**
@@ -160,14 +186,46 @@ class ImageObjectTest extends TestCase
         /*
          * Cas null
          */
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 800), "Pas d'agrandissement");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 601, 800), "Pas d'agrandissement");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 801), "Pas d'agrandissement");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 599, 800), "Pas d'agrandissement");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 799), "Pas d'agrandissement");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 799), "Image de taille zéro");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 0), "Image de taille zéro");
-        $this->assertEquals(null, $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 10, 0), "Image de taille zéro");
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 800),
+            "Pas d'agrandissement"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 601, 800),
+            "Pas d'agrandissement"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 801),
+            "Pas d'agrandissement"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 599, 800),
+            "Pas d'agrandissement"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 799),
+            "Pas d'agrandissement"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 799),
+            "Image de taille zéro"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 0),
+            "Image de taille zéro"
+        );
+        $this->assertEquals(
+            null,
+            $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 10, 0),
+            "Image de taille zéro"
+        );
 
         /*
          * Format portrait
