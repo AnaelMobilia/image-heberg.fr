@@ -164,7 +164,7 @@ abstract class RessourceObject
     /**
      * Rotation d'une ressource <br />
      * Inclus mise à jour largeur / hauteur / poids de l'image
-     * @param int $angle xxx° de rotation GAUCHE
+     * @param int $angle xxx° de rotation horaire
      * @param string $pathSrc chemin de la ressource d'origine
      * @param string $pathDst chemin de la ressource de destination
      * @return boolean succès ?
