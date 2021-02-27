@@ -180,12 +180,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::setNbPlus(self::FICHIER_MINIATURE);
         $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::FICHIER_MINIATURE), "Envoi image + miniature doit créer miniature en BDD");
         $this->assertEquals(true, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . '3/3ab7ee8245aa2a58dd42ee3fee5e2d83'), "Envoi image + miniature doit créer miniature sur HDD");
-        } else {
-            $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . 'd/da4abc98e046001225da25adbe877669'), "Envoi image + miniature doit créer miniature sur HDD");
-        }
+        $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . '3/3ab7ee8245aa2a58dd42ee3fee5e2d83'), "Envoi image + miniature doit créer miniature sur HDD");
     }
 
     /**
@@ -214,12 +209,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::setNbPlus(self::FICHIER_MINIATURE);
         $this->assertEquals(self::countMiniaturesEnBdd(), self::getNb(self::FICHIER_MINIATURE), "Envoi image + miniature (rotation) doit créer miniature en BDD");
         $this->assertEquals(true, file_exists(_PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6'), "Envoi image + miniature doit créer image sur HDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . '5/58aa6fc8aa83292b1cef879c66288aa7'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
-        } else {
-            $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . '2/2cdc6af129f1eaaca2b1fbc51d2b3694'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
-        }
+        $this->assertEquals(true, file_exists(_PATH_MINIATURES_ . '5/58aa6fc8aa83292b1cef879c66288aa7'), "Envoi image + miniature (rotation) doit créer miniature sur HDD");
     }
 
     /**
@@ -840,12 +830,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(self::countImagesEnBdd(), self::getNb(self::FICHIER_IMAGE), "Envoi image avec redim doit créer d'image en BDD");
         $this->assertEquals(false, file_exists(_PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6'), "Envoi image avec redim ne doit pas créer d'image originale sur HDD");
-        if (version_compare(PHP_VERSION, '7.2.0') >= 0) {
-            // PHP7.2+
-            $this->assertEquals(true, file_exists(_PATH_IMAGES_ . '0/02c7908b07fbbe94a7363bf76fc36e7f'), "Envoi image avec redim doit créer image redim sur HDD");
-        } else {
-            $this->assertEquals(true, file_exists(_PATH_IMAGES_ . '4/4ab29350fa47c1009fe56683aeef8a5c'), "Envoi image avec redim doit créer image redim sur HDD");
-        }
+        $this->assertEquals(true, file_exists(_PATH_IMAGES_ . '0/02c7908b07fbbe94a7363bf76fc36e7f'), "Envoi image avec redim doit créer image redim sur HDD");
     }
 
     /**
