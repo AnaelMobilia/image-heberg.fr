@@ -1,4 +1,4 @@
-name: Tests de l'application
+name: PHPUnit - Tests de l'application
 on: [push, pull_request]
 
 jobs:
