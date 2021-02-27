@@ -82,6 +82,6 @@ define('_GRAIN_DE_SEL_', '');
  * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
  */
 // Activation des tests Tests TRAVIS-CI
-define('_TRAVIS_', true);
+define('_PHPUNIT_', true);
 
 require _PATH_ . 'config/image-heberg.php';

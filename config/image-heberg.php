@@ -26,7 +26,7 @@ use Exception;
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
-if (!_TRAVIS_) {
+if (!_PHPUNIT_) {
 
     /**
      * Gestion des exceptions de l'application
@@ -104,7 +104,7 @@ spl_autoload_register(function ($class) {
     $charger = true;
 
     // Code spécifique Travis : pas de chargement des classes de PHPUnit
-    if (_TRAVIS_ && (strpos($class, "PHPUnit") !== false || strpos($class, "Composer") !== false)) {
+    if (_PHPUNIT_ && (strpos($class, "PHPUnit") !== false || strpos($class, "Composer") !== false)) {
         $charger = false;
     }
 

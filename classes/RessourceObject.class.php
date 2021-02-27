@@ -250,7 +250,7 @@ abstract class RessourceObject
         $hauteurFinale = round($hauteurImage * $monRatio);
 
         // Debug
-        if (_TRAVIS_) {
+        if (_PHPUNIT_) {
             echo "Initial : " . $largeurImage . " x " . $hauteurImage . "\r\n";
             echo "Demandé : " . $largeurDemandee . " x " . $hauteurDemandee . "\r\n";
             echo "Fourni : " . $largeurFinale . " x " . $hauteurFinale . "\r\n";

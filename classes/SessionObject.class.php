@@ -34,7 +34,7 @@ class SessionObject
     public function __construct()
     {
         // Je vérifie qu'une session n'est pas déjà lancée & que pas tests travis (session_start déjà effectué)
-        if (session_status() === PHP_SESSION_NONE && !_TRAVIS_) {
+        if (session_status() === PHP_SESSION_NONE && !_PHPUNIT_) {
             // Je lance la session côté PHP
             session_start();
         }
@@ -142,7 +142,7 @@ class SessionObject
         // Destruction de l'objet utilisateur
         unset($_SESSION['userObject']);
 
-        if (!_TRAVIS_) {
+        if (!_PHPUNIT_) {
             // Je détruis la session
             session_destroy();
         }

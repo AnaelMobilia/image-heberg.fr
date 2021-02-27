@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-if (!defined('_TRAVIS_')) {
+if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
 require _TPL_TOP_;
@@ -82,7 +82,7 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
         // TODO : envoi d'un mail avec les identifiants de l'utilisateur
         // voir une création de compte avec validation par mail ?
 
-        if (!_TRAVIS_) {
+        if (!_PHPUNIT_) {
             // Redirection sur la page d'accueil - sauf si mode tests
             header('Location: ' . _URL_);
             die();

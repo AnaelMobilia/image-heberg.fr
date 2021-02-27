@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-if (!defined('_TRAVIS_')) {
+if (!defined('_PHPUNIT_')) {
     require 'config/config.php';
 }
 require _TPL_TOP_;
@@ -53,7 +53,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         }
 
         // Gestion travis
-        if (!_TRAVIS_) {
+        if (!_PHPUNIT_) {
             // Je complète le message avec l'IP de mon émeteur
             $message = "URL : " . $_POST['urlImage'];
             $message .= "\r\n\r\nBlocage automatique : " . ($result ? 'OK' : 'KO');

@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-if (!defined('_TRAVIS_')) {
+if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_USER);

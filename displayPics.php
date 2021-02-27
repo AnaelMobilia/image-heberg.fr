@@ -82,7 +82,7 @@ MaBDD::close();
 /**
  * Envoi du bon entête HTTP
  */
-if (!_TRAVIS_) {
+if (!_PHPUNIT_) {
     header("Content-type: " . Outils::getMimeType($monObjet->getPathMd5()));
 }
 

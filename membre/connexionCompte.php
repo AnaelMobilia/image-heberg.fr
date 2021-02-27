@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-if (!defined('_TRAVIS_')) {
+if (!defined('_PHPUNIT_')) {
     require __DIR__ . '/../config/config.php';
 }
 
@@ -41,7 +41,7 @@ if (isset($_POST['valider'])) {
     // Si tout est bon
     if (empty($messageErreur)) {
         if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === true) {
-            if (!_TRAVIS_) {
+            if (!_PHPUNIT_) {
                 // Succès -> redirige sur la page d'accueil
                 header('Location: ' . _URL_);
                 die();
