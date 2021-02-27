@@ -31,11 +31,12 @@ use ImageHeberg\RessourceObject;
 use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
+use Imagick;
 
 class ImageObjectTest extends TestCase
 {
 
-    private const valeursAngles = ["90", "180", "270"];
+    private const VALEURS_ANGLE = ["90", "180", "270"];
 
     /**
      * Rotation des images PNG
@@ -46,14 +47,14 @@ class ImageObjectTest extends TestCase
 
         $monImage = new ImageObject();
 
-        foreach(self::valeursAngles as $angle) {
+        foreach(self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.png',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
             );
             $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
                 "Rotation PNG " . $angle
             );
@@ -66,16 +67,21 @@ class ImageObjectTest extends TestCase
      */
     public function testRotationImagesJPG()
     {
+        /**
+         * L'entête des fichiers contient des informations sur la bibliothéque système les ayant produit
+         * <CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100
+         * Il faut que l'image de référence et celle générée soit avec la même version de l'outil...
+         */
         $monImage = new ImageObject();
 
-        foreach(self::valeursAngles as $angle) {
+        foreach(self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
             );
             $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '-a-partir-php-7.2.png',
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
                 "Rotation JPG " . $angle
             );
@@ -91,7 +97,7 @@ class ImageObjectTest extends TestCase
     {
         $monImage = new ImageObject();
 
-        foreach(self::valeursAngles as $angle) {
+        foreach(self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.gif',
@@ -168,7 +174,7 @@ class ImageObjectTest extends TestCase
             400
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png-a-partir-php-7.2',
+            _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png',
             _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png',
             "Redimensionnement portrait 200x400"
         );
@@ -181,7 +187,7 @@ class ImageObjectTest extends TestCase
             200
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png-a-partir-php-7.2',
+            _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png',
             _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png',
             "Redimensionnement portrait 400x200"
         );
@@ -197,7 +203,7 @@ class ImageObjectTest extends TestCase
             200
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png-a-partir-php-7.2',
+            _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png',
             _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png',
             "Redimensionnement paysage 400x200"
         );
@@ -210,7 +216,7 @@ class ImageObjectTest extends TestCase
             400
         );
         $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png-a-partir-php-7.2',
+            _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png',
             _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png',
             "Redimensionnement paysage 200x400"
         );
