@@ -47,7 +47,6 @@
             </span>
         </div>
     </footer>
-    <script src="template/js/jquery-3.4.1.slim.min.js"></script>
     <script src="template/js/bootstrap-4.4.1.min.js"></script>
     <script src="template/js/js.php"></script>
     </body>
