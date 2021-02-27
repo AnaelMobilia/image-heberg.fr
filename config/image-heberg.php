@@ -30,11 +30,11 @@ if (!_PHPUNIT_) {
 
     /**
      * Gestion des exceptions de l'application
-     * @param \Exception $exception
+     * @param Exception $exception
      */
     function exception_handler($exception)
     {
-        /* @var $exception \Exception */
+        /* @var $exception Exception */
         if (_DEBUG_) {
             echo '<pre>';
             print_r($exception->getMessage());
@@ -84,7 +84,7 @@ define('_URL_ADMIN_', _URL_HTTPS_ . _REPERTOIRE_ADMIN_);
 define('_URL_MEMBRE_', _URL_HTTPS_ . _REPERTOIRE_MEMBRE_);
 define('_URL_IMAGES_', _URL_ . _REPERTOIRE_IMAGE_);
 define('_URL_MINIATURES_', _URL_ . _REPERTOIRE_MINIATURE_);
-define('_URL_CONFIG_', _URL_ . _REPERTOIRE_CONFIG_);
+define('_URL_CONFIG_', _URL_HTTPS_ . _REPERTOIRE_CONFIG_);
 
 // Système de fichiers
 define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);
