@@ -1,5 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-name: CI
+name: PHP_CodeSniffer
 
 # Controls when the action will run.
 on:
@@ -27,8 +27,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.0'
           tools: cs2pr, phpcs
 
       - name: Run phpcs
-        run: phpcs -q --standard=PSR12 --report=checkstyle $GITHUB_WORKSPACE | cs2pr
+        run: phpcs -q --standard=$GITHUB_WORKSPACE/.phpcs_ruleset.xml --report=checkstyle $GITHUB_WORKSPACE | cs2pr
