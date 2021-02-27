@@ -99,17 +99,11 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 spl_autoload_register(function ($class) {
     // Suppression du namespace
     $class = str_replace('ImageHeberg\\', "", $class);
+    $file = _PATH_ . 'classes/' . $class . '.class.php';
 
-    // Code pour TRAVIS
-    $charger = true;
-
-    // Code spécifique Travis : pas de chargement des classes de PHPUnit
-    if (_PHPUNIT_ && (strpos($class, "PHPUnit") !== false || strpos($class, "Composer") !== false)) {
-        $charger = false;
-    }
-
-    if ($charger) {
-        require _PATH_ . 'classes/' . $class . '.class.php';
+    // Si le fichier existe...
+    if (file_exists($file)) {
+        require $file;
     }
 });
 
