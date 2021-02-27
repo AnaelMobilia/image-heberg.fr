@@ -42,8 +42,8 @@ $visiteur = new SessionObject();
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-5.0.0-beta2.min.css" rel="stylesheet" type="text/css">
         <link href="template/css/image-heberg.css" rel="stylesheet">
-        <link href="template/css/fontawesome-solid-5.12.min.css" rel="stylesheet">
-        <link href="template/css/fontawesome-5.12.min.css" rel="stylesheet">
+        <link href="template/css/fontawesome-solid-5.15.2.min.css" rel="stylesheet">
+        <link href="template/css/fontawesome-5.15.2.min.css" rel="stylesheet">
         <link href="template/css/monSite.css" rel="stylesheet">
     </head>
 
