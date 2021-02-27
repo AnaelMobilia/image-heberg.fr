@@ -419,8 +419,9 @@ abstract class RessourceObject
      * Poids de la ressource en Mo
      * @return float
      */
-    public function getPoidsMo() {
-        return round($this->getPoids() /1024/1024, 1);
+    public function getPoidsMo()
+    {
+        return round($this->getPoids() / 1024 / 1024, 1);
     }
 
     /**
