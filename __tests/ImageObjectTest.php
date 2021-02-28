@@ -167,8 +167,12 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
+        // Chargement des fichiers
         $source = new Imagick(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png');
         $output = new Imagick(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png');
+        // Nettoyage des images
+        $source->stripImage();
+        $output->stripImage();
         $this->assertEquals(
             $source->getImageBlob(),
             $output->getImageBlob(),
