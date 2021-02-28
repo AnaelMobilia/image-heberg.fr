@@ -148,8 +148,8 @@ class ImageUploadAndDeleteTest extends TestCase
         require 'upload.php';
         ob_end_clean();
 
-        $this->assertEquals(empty($msgErreur), true, "Envoi image ne doit pas être bloqué dans upload.php");
-        $this->assertEquals(empty($msgWarning), true, "Envoi image ne doit pas être bloqué dans upload.php");
+        $this->assertEquals(empty($msgErreur), true, "Envoi image ne doit pas être bloqué dans upload.php - Erreur : " . $msgErreur);
+        $this->assertEquals(empty($msgWarning), true, "Envoi image ne doit pas être bloqué dans upload.php - Warning : " . $msgWarning);
         self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
             self::countImagesEnBdd(),
