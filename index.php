@@ -29,7 +29,7 @@ $maSession = new SessionObject();
 $maSession->setFlag();
 ?>
 <h1 class="mb-3"><small>Envoyer une image</small></h1>
-<?php if(isset($_GET["delete_success"])) : ?>
+<?php if (isset($_GET["delete_success"])) : ?>
     <div class="alert alert-success">
         <span class="glyphicon glyphicon-ok"></span>
         &nbsp;

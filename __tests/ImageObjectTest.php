@@ -47,7 +47,7 @@ class ImageObjectTest extends TestCase
 
         $monImage = new ImageObject();
 
-        foreach(self::VALEURS_ANGLE as $angle) {
+        foreach (self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.png',
@@ -74,7 +74,7 @@ class ImageObjectTest extends TestCase
          */
         $monImage = new ImageObject();
 
-        foreach(self::VALEURS_ANGLE as $angle) {
+        foreach (self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
@@ -97,7 +97,7 @@ class ImageObjectTest extends TestCase
     {
         $monImage = new ImageObject();
 
-        foreach(self::VALEURS_ANGLE as $angle) {
+        foreach (self::VALEURS_ANGLE as $angle) {
             $monImage->rotation(
                 $angle,
                 _PATH_TESTS_IMAGES_ . 'image_banned.gif',

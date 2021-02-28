@@ -71,9 +71,9 @@ if (!$erreur) {
 }
 
 // Pas d'erreur => Redirection sur la page d'accueil
-if(empty($erreur)) {
+if (empty($erreur)) {
     header('Location: ' . _URL_ . '?delete_success');
-} else  {
+} else {
     require _TPL_TOP_;
     ?>
     <h1 class="mb-3"><small>Suppression du fichier</small></h1>
@@ -85,5 +85,5 @@ if(empty($erreur)) {
     <?= $msgErreur ?>
     </div>
     <?php
-     require _TPL_BOTTOM_;
- }
+    require _TPL_BOTTOM_;
+}
