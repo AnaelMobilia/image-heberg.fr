@@ -206,7 +206,7 @@ abstract class RessourceObject
         }
 
         // Redimensionnement par Imagick
-        $monImage->thumbnailImage($hauteurDemandee, $largeurDemandee, true);
+        $monImage->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
 
         // Ecriture de l'image
         $monRetour = Outils::setImage($monImage, Outils::getType($pathSrc), $pathDst);
