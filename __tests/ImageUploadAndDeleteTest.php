@@ -147,7 +147,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), true, "Envoi image ne doit pas être bloqué dans upload.php");
         $this->assertEquals(empty($msgWarning), true, "Envoi image ne doit pas être bloqué dans upload.php");
@@ -180,8 +179,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), true, "Envoi image + miniature ne doit pas être bloqué dans upload.php");
         $this->assertEquals(
@@ -229,8 +226,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(
             empty($msgErreur),
@@ -281,8 +276,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(
             empty($msgErreur),
@@ -334,8 +327,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
-        echo "MD5 miniature : " . $maMiniature->getMd5() . "\r\n";
 
         $this->assertEquals(
             empty($msgErreur),
@@ -622,7 +613,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(
@@ -668,7 +658,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), true, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), true, "Renvoi image ne doit pas être bloquée dans upload.php");
@@ -710,7 +699,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), true, "Renvoi image ne doit pas être bloquée dans upload.php");
@@ -748,7 +736,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), true, "Renvoi image ne doit pas être bloquée dans upload.php");
         $this->assertEquals(empty($msgWarning), true, "Renvoi image ne doit pas être bloquée dans upload.php");
@@ -790,7 +777,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), true, "Renvoi image ne doit pas être bloquée dans upload.php");
@@ -834,7 +820,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals($unMembre->getId(), 2, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), true, "Renvoi image ne doit pas être bloquée dans upload.php");
@@ -1161,7 +1146,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'upload.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals(empty($msgErreur), true, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
         $this->assertEquals(empty($msgWarning), true, "Envoi image avec redim ne doit pas être bloqué dans upload.php");
@@ -1217,7 +1201,6 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_start();
         require 'delete.php';
         ob_end_clean();
-        echo "\r\nMD5 image : " . $monImage->getMd5() . "\r\n";
 
         $this->assertEquals($unMembre->getId(), 1, "Le membre doit être connecté");
         $this->assertEquals(empty($msgErreur), true, "Suppression image ne doit pas être bloqué dans delete.php");
