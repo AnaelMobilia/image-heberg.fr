@@ -81,7 +81,7 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
             );
             $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
+                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.jpg',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
                 "Rotation JPG " . $angle
             );
