@@ -33,6 +33,13 @@ use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
 use Imagick;
 
+/**
+ * L'entête des fichiers contient des informations sur la bibliothéque système les ayant produit
+ * <CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100
+ * Il faut que l'image de référence et celle générée soit avec la même version de l'outil...
+ * => Passage des fonction PHP à Imagick qui est un peu plus portable
+ * En cas de changement du serveur de tests, les iamges peuvent être à refaire depuis ce dernier...
+ */
 class ImageObjectTest extends TestCase
 {
 
@@ -67,11 +74,6 @@ class ImageObjectTest extends TestCase
      */
     public function testRotationImagesJPG()
     {
-        /**
-         * L'entête des fichiers contient des informations sur la bibliothéque système les ayant produit
-         * <CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100
-         * Il faut que l'image de référence et celle générée soit avec la même version de l'outil...
-         */
         $monImage = new ImageObject();
 
         foreach (self::VALEURS_ANGLE as $angle) {
