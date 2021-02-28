@@ -45,10 +45,18 @@ require _TPL_TOP_;
 </div>
 <div class="card">
     <div class="card-header">
+        Imagick
+    </div>
+    <div class="card-body">
+        <?= MetaObject::getImagickVersion() ?>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
         Accès aux répertoires protégés par .htaccess .
     </div>
     <div class="card-body">
-        Les valeurs doivent être de type "HTTP *.* 403 Forbidden".
+        Les valeurs doivent être de type "HTTP/*.* 403 Forbidden".
         <ul>
             <li>Répertoire config : <?= MetaObject::getStatusHTTP(_URL_CONFIG_) ?></li>
             <li>Répertoire admin : <?= MetaObject::getStatusHTTP(_URL_ADMIN_) ?></li>

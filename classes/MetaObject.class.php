@@ -23,6 +23,7 @@ namespace ImageHeberg;
 
 use PDO;
 use ArrayObject;
+use Imagick;
 
 /**
  * Les méthodes "génériques"
@@ -223,6 +224,17 @@ class MetaObject
     }
 
     /**
+     * Version de Imagick
+     * @return string
+     */
+    public static function getImagickVersion()
+    {
+        $retour = Imagick::getVersion()["versionString"];
+
+        return $retour;
+    }
+
+    /**
      * Version de MySQL
      * @return string
      */
@@ -241,9 +253,21 @@ class MetaObject
      */
     public static function getStatusHTTP($url)
     {
-        $retour = get_headers($url);
+        $classe = "danger";
+        $fa = "exclamation-circle";
 
-        return $retour[0];
+        // On regarde ce que ça donne
+        $resultat = get_headers($url);
+
+        // Est-ce le résultat attendu ?
+        if (stripos($resultat[0], "Forbidden")) {
+            $classe = "success";
+            $fa = "check";
+        }
+        // Mise en forme du résultat
+        $retour = "<span class=\"fas fa-" . $fa . " text-" . $classe . "\">&nbsp;" . $resultat[0] . "</span>";
+
+        return $retour;
     }
 
     /**
@@ -260,9 +284,9 @@ class MetaObject
         $monRetour = new ArrayObject();
 
         if (is_writable($folder)) {
-            $monRetour->append("OK - $folder");
+            $monRetour->append("<span class=\"fas fa-check text-success\">&nbsp;" . $folder . "</span>");
         } else {
-            $monRetour->append("KO - $folder");
+            $monRetour->append("<span class=\"fas fa-exclamation-circle text-danger\">&nbsp;" . $folder . "</span>");
         }
 
         // Dossiers enfants
