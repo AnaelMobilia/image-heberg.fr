@@ -42,8 +42,39 @@ use Imagick;
  */
 class ImageObjectTest extends TestCase
 {
-
     private const VALEURS_ANGLE = ["90", "180", "270"];
+
+    /**
+     * Charge en mémoire une image via Imagick en la nettoyant
+     * Peut permettre d'éviter les petites différences de fichier en fonction des versions de la bibliothèque
+     * @param $path String chemin du fichier
+     * @return Imagick
+     * @throws \ImagickException
+     */
+    public function chargeImage($path)
+    {
+        $uneImage = new Imagick($path);
+
+        switch (Outils::getType($path)) {
+            case IMAGETYPE_GIF:
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_GIF);
+                break;
+            case IMAGETYPE_JPEG:
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_JPEG);
+                // Pas de destruction de l'image
+                $uneImage->setImageCompression(Imagick::COMPRESSION_JPEG);
+                $uneImage->setImageCompressionQuality(100);
+                break;
+            case IMAGETYPE_PNG:
+                $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
+                $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
+                $uneImage->setImageCompressionQuality(9);
+                break;
+        }
+        $uneImage->stripImage();
+
+        return $uneImage;
+    }
 
     /**
      * Rotation des images PNG
@@ -167,15 +198,9 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        // Chargement des fichiers
-        $source = new Imagick(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png');
-        $output = new Imagick(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png');
-        // Nettoyage des images
-        $source->stripImage();
-        $output->stripImage();
         $this->assertEquals(
-            $source->getImageBlob(),
-            $output->getImageBlob(),
+            $this->chargeImage(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png')->getImageBlob(),
+            $this->chargeImage(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png')->getImageBlob(),
             "Redimensionnement portrait 200x400"
         );
 
