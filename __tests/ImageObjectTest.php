@@ -122,45 +122,37 @@ class ImageObjectTest extends TestCase
         $monImage = new ImageObject();
 
         /*
-         * Cas null
+         * Cas incohérents => Ne rien faire
          */
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 800),
             "Pas d'agrandissement"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 601, 800),
             "Pas d'agrandissement"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 801),
             "Pas d'agrandissement"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 599, 800),
             "Pas d'agrandissement"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 799),
             "Pas d'agrandissement"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 799),
             "Image de taille zéro"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 0),
             "Image de taille zéro"
         );
-        $this->assertEquals(
-            null,
+        $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 10, 0),
             "Image de taille zéro"
         );

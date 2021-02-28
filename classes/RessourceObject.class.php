@@ -196,6 +196,15 @@ abstract class RessourceObject
         // Chargement de l'image
         $monImage = Outils::getImage($pathSrc);
 
+        // Récupération de ses dimensions
+        $largeurImage = $monImage->getImageWidth();
+        $hauteurImage = $monImage->getImageHeight();
+
+        // Dimensions incohérentes : on arrête
+        if ($hauteurImage <= 0 || $hauteurDemandee <= 0 || $largeurImage <= 0 || $largeurDemandee <= 0 || $largeurImage <= $largeurDemandee || $hauteurImage <= $hauteurDemandee) {
+            return false;
+        }
+
         // Redimensionnement par Imagick
         $monImage->thumbnailImage($hauteurDemandee, $largeurDemandee, true);
 
