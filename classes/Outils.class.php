@@ -81,9 +81,14 @@ class Outils
                 break;
             case IMAGETYPE_JPEG:
                 $uneImage->setInterlaceScheme(Imagick::INTERLACE_JPEG);
+                // Pas de destruction de l'image
+                $uneImage->setImageCompression(Imagick::COMPRESSION_JPEG);
+                $uneImage->setImageCompressionQuality(100);
                 break;
             case IMAGETYPE_PNG:
                 $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
+                $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
+                $uneImage->setImageCompressionQuality(9);
                 break;
         }
 
