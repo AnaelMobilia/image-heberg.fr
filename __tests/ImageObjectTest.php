@@ -167,9 +167,11 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png',
-            _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png',
+        $source = new Imagick(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png');
+        $output = new Imagick(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png');
+        $this->assertEquals(
+            $source->getImageBlob(),
+            $output->getImageBlob(),
             "Redimensionnement portrait 200x400"
         );
 
