@@ -38,11 +38,14 @@ use Imagick;
  * <CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100
  * Il faut que l'image de référence et celle générée soit avec la même version de l'outil...
  * => Passage des fonction PHP à Imagick qui est un peu plus portable
- * En cas de changement du serveur de tests, les iamges peuvent être à refaire depuis ce dernier...
+ * ==> Pour éviter les petites différences liées à la stack de ImageMagick, utilisation d'un fuzz
  */
 class ImageObjectTest extends TestCase
 {
+    // Rotation pour les images
     private const VALEURS_ANGLE = ["90", "180", "270"];
+    // Tolérance pour la comparaison des couleurs
+    private const FUZZ = 10;
 
     /**
      * Charge en mémoire une image via Imagick en la nettoyant
@@ -51,9 +54,12 @@ class ImageObjectTest extends TestCase
      * @return Imagick
      * @throws \ImagickException
      */
-    public function chargeImage($path)
+    private function chargeImage($path)
     {
         $uneImage = new Imagick($path);
+        // Tolérance pour la comparaison des couleurs
+        // https://imagemagick.org/script/command-line-options.php#fuzz
+        $uneImage->SetOption('fuzz', self::FUZZ . '%');
 
         switch (Outils::getType($path)) {
             case IMAGETYPE_GIF:
@@ -77,6 +83,25 @@ class ImageObjectTest extends TestCase
     }
 
     /**
+     * Compare deux images
+     * @param $imgReference String Path de l'image de référence
+     * @param $img String Path de l'mage à comparer
+     * @return bool Identiques ?
+     * @throws \ImagickException
+     */
+    private function compareImages($imgReference, $img)
+    {
+        $img1 = $this->chargeImage($imgReference);
+        $img2 = $this->chargeImage($img);
+
+        // https://www.php.net/manual/en/imagick.compareimages.php#114944
+        // compare the images using METRIC=1 (Absolute Error)
+        $result = $img1->compareImages($img2, 1);
+
+        return ($result[1] == 0);
+    }
+
+    /**
      * Rotation des images PNG
      */
     public function testRotationImagesPNG()
@@ -91,9 +116,11 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_banned.png',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
             );
-            $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
+            $this->assertTrue(
+                $this->compareImages(
+                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
+                    _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
+                ),
                 "Rotation PNG " . $angle
             );
         }
@@ -113,9 +140,11 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
             );
-            $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.jpg',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle,
+            $this->assertTrue(
+                $this->compareImages(
+                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.jpg',
+                    _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
+                ),
                 "Rotation JPG " . $angle
             );
         }
@@ -136,9 +165,11 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_banned.gif',
                 _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
             );
-            $this->assertFileEquals(
-                _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle,
+            $this->assertTrue(
+                $this->compareImages(
+                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
+                    _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
+                ),
                 "Rotation GIF " . $angle
             );
         }
@@ -198,9 +229,11 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        $this->assertEquals(
-            $this->chargeImage(_PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png')->getImageBlob(),
-            $this->chargeImage(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png')->getImageBlob(),
+        $this->assertTrue(
+            $this->compareImages(
+                _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png',
+                _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png'
+            ),
             "Redimensionnement portrait 200x400"
         );
 
@@ -211,9 +244,11 @@ class ImageObjectTest extends TestCase
             400,
             200
         );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png',
-            _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png',
+        $this->assertTrue(
+            $this->compareImages(
+                _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png',
+                _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png'
+            ),
             "Redimensionnement portrait 400x200"
         );
 
@@ -227,9 +262,11 @@ class ImageObjectTest extends TestCase
             400,
             200
         );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png',
-            _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png',
+        $this->assertTrue(
+            $this->compareImages(
+                _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png',
+                _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png'
+            ),
             "Redimensionnement paysage 400x200"
         );
 
@@ -240,9 +277,11 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        $this->assertFileEquals(
-            _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png',
-            _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png',
+        $this->assertTrue(
+            $this->compareImages(
+                _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png',
+                _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png'
+            ),
             "Redimensionnement paysage 200x400"
         );
     }
