@@ -125,7 +125,7 @@ class Outils
         // Récupération de la valeur du php.ini
         $valBrute = trim(ini_get('memory_limit'));
         // memory_limit=0 est possible
-        if ($valBrute == 0) {
+        if ($valBrute <= 0) {
             // Arbitrairement limite à 2Go
             $valBrute = "2G";
         }
