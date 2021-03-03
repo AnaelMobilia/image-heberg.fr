@@ -28,6 +28,7 @@ jobs:
         mysql -V
         phpunit --version
         php -r 'echo Imagick::getVersion()["versionString"];'
+        php -r 'echo phpinfo();'
         
     - name: Mise en place de l'environnement
       run: |
