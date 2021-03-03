@@ -48,36 +48,20 @@ class ImageObjectTest extends TestCase
     private const FUZZ = 10;
 
     /**
-     * Charge en mémoire une image via Imagick en la nettoyant
-     * Peut permettre d'éviter les petites différences de fichier en fonction des versions de la bibliothèque
+     * Charge en mémoire une image via Imagick
+     * Intégre un fuzz sur l'image pour avoir une tolérance sur la comparaison des couleurs
      * @param $path String chemin du fichier
      * @return Imagick
      * @throws \ImagickException
      */
     private function chargeImage($path)
     {
-        $uneImage = new Imagick($path);
+        $uneImage = new Imagick();
         // Tolérance pour la comparaison des couleurs
         // https://imagemagick.org/script/command-line-options.php#fuzz
         $uneImage->SetOption('fuzz', self::FUZZ . '%');
-
-        switch (Outils::getType($path)) {
-            case IMAGETYPE_GIF:
-                $uneImage->setInterlaceScheme(Imagick::INTERLACE_GIF);
-                break;
-            case IMAGETYPE_JPEG:
-                $uneImage->setInterlaceScheme(Imagick::INTERLACE_JPEG);
-                // Pas de destruction de l'image
-                $uneImage->setImageCompression(Imagick::COMPRESSION_JPEG);
-                $uneImage->setImageCompressionQuality(100);
-                break;
-            case IMAGETYPE_PNG:
-                $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
-                $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
-                $uneImage->setImageCompressionQuality(9);
-                break;
-        }
-        $uneImage->stripImage();
+        // Chargement de l'image
+        $uneImage->readImage($path);
 
         return $uneImage;
     }
