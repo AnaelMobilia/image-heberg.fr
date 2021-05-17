@@ -51,7 +51,7 @@ if (!$monObjet->charger($fileName)) {
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_404_);
     // Envoi d'un header en 404
-    header("HTTP/1.0 404 Not Found");
+    header("HTTP/2 404 Not Found");
 }
 
 /**
@@ -60,6 +60,8 @@ if (!$monObjet->charger($fileName)) {
 if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_BAN_);
+    // Envoi d'un header en 451 -> Unavailable For Legal Reasons
+    header("HTTP/2 451 Unavailable For Legal Reasons");
 }
 
 /**
