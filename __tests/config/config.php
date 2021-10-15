@@ -69,6 +69,8 @@ define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
 define('_DEBUG_', true);
 
+// Désactiver l'envoi d'images depuis un noeud de sortie Tor
+define('_TOR_DISABLE_UPLOAD_', true);
 /**
  * FIN DES CHAMPS A CONFIGURER
  */
