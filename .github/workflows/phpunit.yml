@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:        
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2']
     name: PHP ${{ matrix.php-versions }}
     steps:
     - name: Checkout
@@ -20,7 +20,7 @@ jobs:
         tools: phpunit
 
     - name: Lancement de MySQL
-      run: sudo /etc/init.d/mysql start
+      run: sudo systemctl start mysql.service
 
     - name: Informations sur l'environnement
       run: |
@@ -32,6 +32,7 @@ jobs:
         
     - name: Mise en place de l'environnement
       run: |
+        mysql -u root -proot -e "alter user 'root'@'localhost' identified with mysql_native_password by 'root';"
         mysql -u root -proot -e "CREATE DATABASE imageheberg;"
         mysql -u root -proot imageheberg < database.sql
         sh -c "mv __tests/config/config.php config/"
