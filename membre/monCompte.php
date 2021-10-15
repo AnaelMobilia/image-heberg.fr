@@ -25,13 +25,13 @@ if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_USER);
-require _TPL_TOP_;
 
 // Je récupère la session de mon utilisateur
 $maSession = new SessionObject();
 // Et je reprend ses données
 $monUtilisateur = new UtilisateurObject($maSession->getId());
 
+require _TPL_TOP_;
 if (isset($_POST['modifierPwd'])) {
     // Je vérifie qu'on me donne le bon mot de passe
     if ($monUtilisateur->connexion($maSession->getUserName(), $_POST['oldUserPassword'])) {

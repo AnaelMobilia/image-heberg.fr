@@ -24,7 +24,6 @@ namespace ImageHeberg;
 if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
-require _TPL_TOP_;
 
 // Anti flood
 $maSession = new SessionObject();
@@ -32,6 +31,7 @@ $maSession = new SessionObject();
 // Un utilisateur...
 $monUtilisateur = new UtilisateurObject();
 
+require _TPL_TOP_;
 // En cas de validation du formulaire
 if (isset($_POST['valider']) && $maSession->checkFlag()) {
     // Flag pour la création de l'utilisateur

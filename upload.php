@@ -24,13 +24,14 @@ namespace ImageHeberg;
 if (!defined('_PHPUNIT_')) {
     require 'config/config.php';
 }
+// Gestion de la session
+$maSession = new SessionObject();
+
 require _TPL_TOP_;
 
 $msgErreur = '';
 $msgWarning = '';
 
-// Gestion de la session
-$maSession = new SessionObject();
 /**
  * Vérification de l'utilisation normale
  */

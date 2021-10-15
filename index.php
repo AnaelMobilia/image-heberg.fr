@@ -22,11 +22,12 @@
 namespace ImageHeberg;
 
 require 'config/config.php';
-require _TPL_TOP_;
 
 // Anti-flood
 $maSession = new SessionObject();
 $maSession->setFlag();
+
+require _TPL_TOP_;
 ?>
 <h1 class="mb-3"><small>Envoyer une image</small></h1>
 <?php if (isset($_GET["delete_success"])) : ?>

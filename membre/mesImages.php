@@ -27,11 +27,12 @@ namespace ImageHeberg;
 require __DIR__ . '/../config/config.php';
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_USER);
-require _TPL_TOP_;
 // Je récupère la session de mon utilisateur
 $maSession = new SessionObject();
 // Et je reprend ses données
 $monUtilisateur = new UtilisateurObject($maSession->getId());
+
+require _TPL_TOP_;
 ?>
 <h1 class="mb-3"><small>Mes images</small></h1>
 <table class="table table-hover">

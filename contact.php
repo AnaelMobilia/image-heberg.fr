@@ -22,10 +22,11 @@
 namespace ImageHeberg;
 
 require 'config/config.php';
-require _TPL_TOP_;
 
 // Anti flood
 $maSession = new SessionObject();
+
+require _TPL_TOP_;
 
 // En cas de validation du formulaire
 if (isset($_POST['Submit']) && $maSession->checkFlag()) {
