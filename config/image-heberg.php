@@ -69,14 +69,18 @@ if (!_PHPUNIT_) {
     set_exception_handler('ImageHeberg\exception_handler');
 }
 
-// Répertoires
+/**
+ * Répertoires
+ */
 define('_REPERTOIRE_IMAGE_', 'files/');
 define('_REPERTOIRE_MINIATURE_', _REPERTOIRE_IMAGE_ . 'thumbs/');
 define('_REPERTOIRE_ADMIN_', 'admin/');
 define('_REPERTOIRE_MEMBRE_', 'membre/');
 define('_REPERTOIRE_CONFIG_', 'config/');
 
-// URL
+/**
+ * URL
+ */
 define('_URL_', 'http://' . _BASE_URL_);
 define('_URL_HTTPS_', 'https://' . _BASE_URL_);
 define('_URL_SANS_SCHEME_', '//' . _BASE_URL_);
@@ -86,7 +90,9 @@ define('_URL_IMAGES_', _URL_ . _REPERTOIRE_IMAGE_);
 define('_URL_MINIATURES_', _URL_ . _REPERTOIRE_MINIATURE_);
 define('_URL_CONFIG_', _URL_HTTPS_ . _REPERTOIRE_CONFIG_);
 
-// Système de fichiers
+/**
+ * Système de fichiers
+ */
 define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);
 define('_PATH_MINIATURES_', _PATH_ . _REPERTOIRE_MINIATURE_);
 define('_PATH_ADMIN_', _PATH_ . _REPERTOIRE_ADMIN_);
@@ -107,6 +113,9 @@ spl_autoload_register(function ($class) {
     }
 });
 
+/**
+ * Paramètres divers pour les images
+ */
 // Gestion de la mémoire
 define('_FUDGE_FACTOR_', 1.8);
 define('_IMAGE_DIMENSION_MAX_', Outils::getMaxDimension());
@@ -114,3 +123,13 @@ define('_IMAGE_DIMENSION_MAX_', Outils::getMaxDimension());
 // Images spécifiques
 define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
+
+/**
+ * Tor
+ */
+// Désactiver l'envoi d'images depuis un noeud de sortie Tor
+define('_TOR_DISABLE_UPLOAD_', true);
+// URL de l'API Tor
+define('_TOR_EXIT_NODE_LIST_URL_', "https://onionoo.torproject.org/details?flag=exit");
+define('_TOR_LISTE_IPv4_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv4.txt');
+define('_TOR_LISTE_IPv6_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv6.txt');

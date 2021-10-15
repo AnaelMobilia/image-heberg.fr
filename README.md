@@ -15,7 +15,8 @@ Service d'hébergement d'images en ligne
   - Ajouter votre favicon dans template/images/monSite.ico
   - Ajouter votre css dans dans template/css/monSite.css
   - Configurer l'URL du site dans le fichier .htaccess
-  - Valider l'installation de base en appelant le fichier install.php (example.com/install.php).
+  - Valider l'installation de base en appelant le fichier install.php (example.com/install.php)
+  - Mettre en place un cron sur cron/updateTorIp.php
   - Se connecter avec le compte admin / password. Ce compte est le compte de l'administrateur du site. (pensez à mettre à jour l'adresse mail associée !)
 
 # Changer de thème

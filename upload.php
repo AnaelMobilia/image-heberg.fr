@@ -42,6 +42,13 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
 }
 
 /**
+ * Vérification de l'utilisation depuis Tor
+ */
+if (empty($msgErreur) && _TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_ADDR"])) {
+    $msgErreur .= 'Suite à un abus d\'utilisation de ' . _SITE_NAME_ . ', l\'envoi d\'image est impossible depuis le réseau Tor.<br />';
+}
+
+/**
  * Vérification de la présence d'un fichier
  */
 if (empty($msgErreur) && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier']['name']))) {

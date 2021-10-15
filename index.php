@@ -44,6 +44,11 @@ $maSession->setFlag();
         Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
+<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_ADDR"])): ?>
+    <div class="alert alert-danger">
+        Suite à un abus d'utilisation de <?= _SITE_NAME_ ?>, l'envoi d'image est impossible depuis le réseau Tor.
+    </div>
+<?php endif; ?>
 <div class="alert alert-info">
     <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
     <ul>
@@ -69,7 +74,7 @@ $maSession->setFlag();
                     <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?> class="form-control">
                 </div>
                 <div class="help-block">
-                    Tout envoi de fichier implique l'acceptation des 
+                    Tout envoi de fichier implique l'acceptation des
                     <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.
                 </div>
             </div>
