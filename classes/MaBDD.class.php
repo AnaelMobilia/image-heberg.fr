@@ -22,6 +22,7 @@
 namespace ImageHeberg;
 
 use PDO;
+use PDOStatement;
 
 /**
  * Lien vers la BDD
@@ -47,7 +48,7 @@ class MaBDD
 
     /**
      * Crée & renvoi l'objet d'instance
-     * @return PDO
+     * @return MaBDD
      */
     public static function getInstance()
     {
@@ -61,7 +62,7 @@ class MaBDD
     /**
      * PDO::query
      * @param string $query
-     * @return type
+     * @return false|PDOStatement
      */
     public function query($query)
     {
@@ -71,7 +72,7 @@ class MaBDD
     /**
      * PDO::prepare
      * @param string $query
-     * @return type
+     * @return false|PDOStatement
      */
     public function prepare($query)
     {
@@ -80,7 +81,7 @@ class MaBDD
 
     /**
      * PDO::lastInsertId
-     * @return type
+     * @return string
      */
     public function lastInsertId()
     {
@@ -98,7 +99,7 @@ class MaBDD
     /**
      * PDO::getAttribute
      * @param int $attribute
-     * @return type
+     * @return mixed
      */
     public function getAttribute($attribute)
     {

@@ -34,7 +34,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     // Vérification du bon format de l'adresse mail
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // On essaie de matcher l'image
-        $result = preg_match("#^.*\/([\d]*.[pngjpif]{3})$#", trim($_POST['urlImage']), $idImage);
+        $result = preg_match("#^.*\/([\d]*.[pngjif]{3})$#", trim($_POST['urlImage']), $idImage);
         if ($result) {
             // On flaggue l'image en signalée en BDD
             $monImage = new ImageObject($idImage[1]);

@@ -45,7 +45,7 @@ require _TPL_TOP_;
         Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
-<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_ADDR"])): ?>
+<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_ADDR"])) : ?>
     <div class="alert alert-danger">
         Suite à un abus d'utilisation de <?= _SITE_NAME_ ?>, l'envoi d'image est impossible depuis le réseau Tor.
     </div>
@@ -82,9 +82,9 @@ require _TPL_TOP_;
             <h3>Options</h3>
             <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
             <div class="mb-3">
-                <label class="col-mb-3 form-label">Rotation de l'image</label>
+                <label for="angleRotation" class="col-mb-3 form-label">Rotation de l'image</label>
                 <div class="col-md-9">
-                    <select name="angleRotation" class="form-select">
+                    <select name="angleRotation" id="angleRotation" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <optgroup label="Rotation vers la droite (sens horaire)">
                             <option value="90">90&deg; (&frac14; tour)</option>
@@ -95,9 +95,9 @@ require _TPL_TOP_;
                 </div>
             </div>
             <div class="mb-3">
-                <label class="col-mb-3 form-label">Faire une miniature</label>
+                <label for="dimMiniature" class="col-mb-3 form-label">Faire une miniature</label>
                 <div class="col-md-9">
-                    <select name="dimMiniature" class="form-select">
+                    <select name="dimMiniature" id="dimMiniature" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="100x100">Avatar (100x100)</option>
                         <option value="320x240">Miniature (320x240)</option>
@@ -107,9 +107,9 @@ require _TPL_TOP_;
                 </div>
             </div>
             <div class="mb-3">
-                <label class="col-mb-3 form-label">Redimensionner l'image</label>
+                <label for="redimImage" class="col-mb-3 form-label">Redimensionner l'image</label>
                 <div class="col-md-9">
-                    <select name="redimImage" class="form-select">
+                    <select name="redimImage" id="redimImage" class="form-select">
                         <option value="" selected>-- Ne pas effectuer --</option>
                         <option value="320x240">320x240</option>
                         <option value="640x480">640x480</option>

@@ -129,5 +129,5 @@ define('_IMAGE_BAN_', '_image_banned.png');
  */
 // URL de l'API Tor
 define('_TOR_EXIT_NODE_LIST_URL_', "https://onionoo.torproject.org/details?flag=exit");
-define('_TOR_LISTE_IPv4_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv4.txt');
-define('_TOR_LISTE_IPv6_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv6.txt');
+define('_TOR_LISTE_IPV4_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv4.txt');
+define('_TOR_LISTE_IPV6_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv6.txt');

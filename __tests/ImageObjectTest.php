@@ -30,6 +30,7 @@ use ImageHeberg\RessourceInterface;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
+use ImagickException;
 use PHPUnit\Framework\TestCase;
 use Imagick;
 
@@ -52,7 +53,7 @@ class ImageObjectTest extends TestCase
      * Intégre un fuzz sur l'image pour avoir une tolérance sur la comparaison des couleurs
      * @param $path String chemin du fichier
      * @return Imagick
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     private function chargeImage($path)
     {
@@ -71,7 +72,7 @@ class ImageObjectTest extends TestCase
      * @param $imgReference String Path de l'image de référence
      * @param $img String Path de l'mage à comparer
      * @return bool Identiques ?
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     private function compareImages($imgReference, $img)
     {

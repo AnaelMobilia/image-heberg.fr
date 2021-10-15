@@ -216,33 +216,33 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                     </div>
     <?php endif; ?>
                 <div class="mb-3">
-                    <label class="col-sm-2 form-label">Forum <em>(BBcode)</em></label>
+                    <label for="imgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" onFocus="this.select();"
+                        <input id="imgBBcode" type="text" class="form-control" onFocus="this.select();"
                                value="[img]<?= $monImage->getURL() ?>[/img]" />
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
-                        <label class="col-sm-2 form-label">Forum <em>(BBcode)</em> avec miniature</label>
+                        <label for="MinImgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" onFocus="this.select();"
+                            <input id="MinImgBBcode" type="text" class="form-control" onFocus="this.select();"
                                    value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
                         </div>
                     </div>
     <?php endif; ?>
                 <div class="mb-3">
-                    <label class="col-sm-2 form-label">HTML</label>
+                    <label for="html" class="col-sm-2 form-label">HTML</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" onFocus="this.select();"
+                        <input id="html" type="text" class="form-control" onFocus="this.select();"
                                value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
-                        <label class="col-sm-2 form-label">HTML avec miniature</label>
+                        <label for="htmlMin" class="col-sm-2 form-label">HTML avec miniature</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" onFocus="this.select();"
+                            <input id = "htmlMin" type="text" class="form-control" onFocus="this.select();"
                                    value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
                         </div>
                     </div>

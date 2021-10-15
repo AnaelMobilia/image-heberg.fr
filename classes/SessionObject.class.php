@@ -93,7 +93,7 @@ class SessionObject
 
     /**
      * Niveau de droits
-     * @return type
+     * @return int
      */
     public function getLevel()
     {
@@ -106,7 +106,7 @@ class SessionObject
      */
     public function getId()
     {
-        return (int) $this->getUserObject()->getId();
+        return $this->getUserObject()->getId();
     }
 
     /**
@@ -122,8 +122,8 @@ class SessionObject
 
     /**
      * Vérification des droits de l'utilisateur pour la page
-     * @param type $levelRequis
-     * @return boolean
+     * @param int $levelRequis
+     * @return bool
      */
     public function verifierDroits($levelRequis)
     {
@@ -166,7 +166,7 @@ class SessionObject
 
     /**
      * Vérifie le flag de suivi
-     * @return boolean Suivi OK ?
+     * @return bool Suivi OK ?
      */
     public function checkFlag()
     {

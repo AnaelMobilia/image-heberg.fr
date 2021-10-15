@@ -37,7 +37,7 @@ class MembreTest extends TestCase
 
     /**
      * Fonction requise par l'extension Database
-     * @return type
+     * @return mixed
      */
     public function getConnection()
     {

@@ -51,14 +51,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger($newName)
+    public function charger($nom)
     {
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
-        /* @var $req \PDOStatement */
-        $req->bindValue(':newName', $newName, PDO::PARAM_STR);
+        $req->bindValue(':newName', $nom);
         $req->execute();
 
         // J'éclate les informations
@@ -73,12 +72,12 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setMd5($resultat->md5);
             $this->setId($resultat->id);
             $this->setDateEnvoi($resultat->date_creation);
-            $this->setNomNouveau($newName);
+            $this->setNomNouveau($nom);
             $this->setIdImage($resultat->id_image);
 
             // Reprise des informations de l'image maitresse
             $imageMaitre = new ImageObject();
-            $imageMaitre->charger($newName);
+            $imageMaitre->charger($nom);
             $this->setBloquee($imageMaitre->isBloquee());
             $this->setSignalee($imageMaitre->isSignalee());
             $this->setNomOriginal($imageMaitre->getNomOriginal());
@@ -107,7 +106,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':lastView', $this->getLastView());
         $req->bindValue(':nbViewV4', $this->getNbViewIPv4(), PDO::PARAM_INT);
         $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
-        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(':md5', $this->getMd5());
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
@@ -118,12 +117,10 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
      */
     public function supprimer()
     {
-        $monRetour = true;
         /**
          * Suppression de l'image en BDD
          */
         $req = MaBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
-        /* @var $req \PDOStatement */
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
 
@@ -193,11 +190,11 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $req = MaBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (:idImage, NOW(), :newName, :size, :height, :width, :md5)");
             $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
-            $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STR);
+            $req->bindValue(':newName', $this->getNomNouveau());
             $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
             $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
             $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
-            $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+            $req->bindValue(':md5', $this->getMd5());
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD

@@ -34,7 +34,6 @@ $fileName = basename($url);
 /**
  * Définition du type
  */
-$monObjet;
 if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
     // Miniature
     $monObjet = new MiniatureObject();

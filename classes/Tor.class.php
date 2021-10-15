@@ -21,14 +21,13 @@
 
 namespace ImageHeberg;
 
-
 /**
  * Fonctions relative à Tor
  */
 class Tor
 {
-    const IPv4 = "IPv4";
-    const IPv6 = "IPv6";
+    const IPV4 = "IPv4";
+    const IPV6 = "IPv6";
 
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor
@@ -39,8 +38,8 @@ class Tor
         $objJson = json_decode(file_get_contents(_TOR_EXIT_NODE_LIST_URL_));
 
         $tabIP = [];
-        $tabIP[self::IPv4] = [];
-        $tabIP[self::IPv6] = [];
+        $tabIP[self::IPV4] = [];
+        $tabIP[self::IPV6] = [];
 
         foreach ($objJson->relays as $unRelay) {
             // Adresse IP de sortie (IPv4 uniquement)
@@ -60,8 +59,8 @@ class Tor
         }
 
         // Enregister le résultat sur le disque
-        file_put_contents(_TOR_LISTE_IPv4_, json_encode($tabIP[self::IPv4]));
-        file_put_contents(_TOR_LISTE_IPv6_, json_encode($tabIP[self::IPv6]));
+        file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4]));
+        file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6]));
     }
 
     /**
@@ -87,7 +86,7 @@ class Tor
             $ip = inet_ntop(inet_pton($ip));
 
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $this->saveInTab($ip, $tabIp, self::IPv6);
+                $this->saveInTab($ip, $tabIp, self::IPV6);
             }
         } else {
             // C'est une IPv4
@@ -99,7 +98,7 @@ class Tor
 
             // Valider l'IP et l'enregistrer si inconnue
             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                $this->saveInTab($ip, $tabIp, self::IPv4);
+                $this->saveInTab($ip, $tabIp, self::IPV4);
             }
         }
     }
@@ -107,7 +106,7 @@ class Tor
     /**
      * Insérer dans le tableau une adresse sans faire de doublon
      * @param string $ip @ IP à ajouter
-     * @param string[] $tabIp Liste des addresses IP déjà connues
+     * @param array $tabIp Liste des addresses IP déjà connues
      * @param string $typeIp IPv4 ou IPv6
      */
     private function saveInTab($ip, &$tabIp, $typeIp)
@@ -138,15 +137,15 @@ class Tor
         $ip = self::formatIp($ip);
 
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-            if (file_exists(_TOR_LISTE_IPv6_) && filesize(_TOR_LISTE_IPv6_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPv6_));
+            if (file_exists(_TOR_LISTE_IPV6_) && filesize(_TOR_LISTE_IPV6_) > 0) {
+                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV6_));
                 if (!in_array($ip, $tabIp)) {
                     $monRetour = false;
                 }
             }
         } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-            if (file_exists(_TOR_LISTE_IPv4_) && filesize(_TOR_LISTE_IPv4_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPv4_));
+            if (file_exists(_TOR_LISTE_IPV4_) && filesize(_TOR_LISTE_IPV4_) > 0) {
+                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV4_));
                 if (!in_array($ip, $tabIp)) {
                     $monRetour = false;
                 }

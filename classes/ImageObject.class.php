@@ -50,14 +50,14 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger($newName)
+    public function charger($nom)
     {
         // Retour
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = :newName");
-        $req->bindValue(':newName', $newName, PDO::PARAM_STR);
+        $req->bindValue(':newName', $nom);
         $req->execute();
 
         // J'éclate les informations
@@ -68,7 +68,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $this->setDateEnvoi($resultat->date_envoi);
             $this->setNomOriginal($resultat->old_name);
             // Permet l'effacement des fichiers non enregistrés en BDD
-            $this->setNomNouveau($newName);
+            $this->setNomNouveau($nom);
             $this->setPoids($resultat->size);
             $this->setHauteur($resultat->height);
             $this->setLargeur($resultat->width);
@@ -93,17 +93,17 @@ class ImageObject extends RessourceObject implements RessourceInterface
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
-        $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
+        $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
-        $req->bindValue(':oldName', $this->getNomOriginal(), PDO::PARAM_STR);
-        $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STR);
+        $req->bindValue(':oldName', $this->getNomOriginal());
+        $req->bindValue(':newName', $this->getNomNouveau());
         $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
         $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
         $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
         $req->bindValue(':lastView', $this->getLastView());
         $req->bindValue(':nbViewV4', $this->getNbViewIPv4(), PDO::PARAM_INT);
         $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
-        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(':md5', $this->getMd5());
         $req->bindValue(':isBloquee', $this->isBloquee(), PDO::PARAM_INT);
         $req->bindValue(':isSignalee', $this->isSignalee(), PDO::PARAM_INT);
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
@@ -137,19 +137,15 @@ class ImageObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de l'affectation
          */
-        if ($monRetour) {
-            $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
-            /* @var $req \PDOStatement */
-            $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
-            $monRetour = $req->execute();
-        }
+        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
+        $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
+        $monRetour = $req->execute();
 
         /**
          * Suppression de l'image en BDD
          */
         if ($monRetour) {
             $req = MaBDD::getInstance()->prepare("DELETE FROM images WHERE id = :id");
-            /* @var $req \PDOStatement */
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
         }
@@ -226,14 +222,14 @@ class ImageObject extends RessourceObject implements RessourceInterface
              * Création en BDD
              */
             $req = MaBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5)");
-            $req->bindValue(':ipEnvoi', $this->getIpEnvoi(), PDO::PARAM_STR);
+            $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
             // Date : NOW()
-            $req->bindValue(':oldName', $this->getNomOriginal(), PDO::PARAM_STR);
-            $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STR);
+            $req->bindValue(':oldName', $this->getNomOriginal());
+            $req->bindValue(':newName', $this->getNomNouveau());
             $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
             $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
             $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
-            $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+            $req->bindValue(':md5', $this->getMd5());
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD

@@ -22,6 +22,7 @@
 namespace ImageHeberg;
 
 use Imagick;
+use ImagickException;
 
 /**
  * Bibliothèque d'outils pour la gestion des images
@@ -32,7 +33,7 @@ class Outils
     /**
      * Type de l'image
      * @param string $path chemin sur le filesystem
-     * @return string
+     * @return false|int
      */
     public static function getType($path)
     {
@@ -56,11 +57,11 @@ class Outils
     /**
      * @param $path
      * @return Imagick
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     public static function getImage($path)
     {
-        $monImage = new \Imagick();
+        $monImage = new Imagick();
         $monImage->readImage($path);
 
         return $monImage;
@@ -71,7 +72,8 @@ class Outils
      * @param Imagick $uneImage Image à enregistrer
      * @param int $imageType type PHP de l'image
      * @param string $path chemin du fichier
-     * @return boolean Succès ?
+     * @return bool Succès ?
+     * @throws ImagickException
      */
     public static function setImage($uneImage, $imageType, $path)
     {
@@ -94,9 +96,7 @@ class Outils
 
         // Suppression des commentaires & co
         $uneImage->stripImage();
-        $monRetour = $uneImage->writeImage($path);
-
-        return $monRetour;
+        return $uneImage->writeImage($path);
     }
 
     /**
@@ -151,7 +151,7 @@ class Outils
     /**
      * Est-il possible de modifier l'image (mémoire suffisante ?)
      * @param string $path
-     * @return boolean Possible ?
+     * @return bool Possible ?
      * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
      */
     public static function isModifiableEnMemoire($path)
@@ -204,7 +204,7 @@ class Outils
          * => x 2 [imageSource + imageDest]
          * => x 1.8 [fudge factor]
          */
-        $dimMax = round(sqrt($memDispo / 4 / 2 / _FUDGE_FACTOR_), 0);
+        $dimMax = round(sqrt($memDispo / 4 / 2 / _FUDGE_FACTOR_));
 
         return (int) $dimMax;
     }

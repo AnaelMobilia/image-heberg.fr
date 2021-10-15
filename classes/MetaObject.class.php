@@ -35,7 +35,7 @@ class MetaObject
 
     /**
      * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
-     * @return \ArrayObject
+     * @return ArrayObject
      */
     public static function getNeverUsedFiles()
     {
@@ -74,7 +74,7 @@ class MetaObject
 
     /**
      * Liste des images plus utilisées depuis au moins xx jours
-     * @return \ArrayObject
+     * @return ArrayObject
      */
     public static function getUnusedFiles()
     {
@@ -114,7 +114,7 @@ class MetaObject
 
     /**
      * Liste de l'ensemble des images en BDD
-     * @return \ArrayObject
+     * @return ArrayObject
      */
     public static function getAllImagesNameBDD()
     {
@@ -136,8 +136,8 @@ class MetaObject
 
     /**
      * Liste de l'ensemble des images en HDD
-     * @param type $path path à analyser
-     * @return \ArrayObject
+     * @param string $path path à analyser
+     * @return ArrayObject
      */
     public static function getAllImagesNameHDD($path)
     {
@@ -190,7 +190,7 @@ class MetaObject
 
     /**
      * Volume des images
-     * @return int
+     * @return float
      */
     public static function getHDDUsage()
     {
@@ -207,9 +207,7 @@ class MetaObject
         // Récupération de la valeur
         $value = $resultat->fetch();
 
-        $retour = round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
-
-        return $retour;
+        return round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
     }
 
     /**
@@ -218,9 +216,7 @@ class MetaObject
      */
     public static function getPhpVersion()
     {
-        $retour = PHP_VERSION . " - " . PHP_OS;
-
-        return $retour;
+        return PHP_VERSION . " - " . PHP_OS;
     }
 
     /**
@@ -229,9 +225,7 @@ class MetaObject
      */
     public static function getImagickVersion()
     {
-        $retour = Imagick::getVersion()["versionString"];
-
-        return $retour;
+        return Imagick::getVersion()["versionString"];
     }
 
     /**
@@ -241,9 +235,7 @@ class MetaObject
     public static function getMysqlVersion()
     {
         // Exécution de la requête
-        $retour = MaBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
-
-        return $retour;
+        return MaBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
     }
 
     /**
@@ -265,9 +257,7 @@ class MetaObject
             $fa = "check";
         }
         // Mise en forme du résultat
-        $retour = "<span class=\"fas fa-" . $fa . " text-" . $classe . "\">&nbsp;" . $resultat[0] . "</span>";
-
-        return $retour;
+        return "<span class=\"fas fa-" . $fa . " text-" . $classe . "\">&nbsp;" . $resultat[0] . "</span>";
     }
 
     /**
@@ -306,13 +296,13 @@ class MetaObject
     /**
      * Toutes les images avec un même MD5
      * @param string $unMd5
-     * @return \ArrayObject
+     * @return ArrayObject
      */
     public static function getImageByMd5($unMd5)
     {
         // Images avec le même MD5
         $req = MaBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");
-        $req->bindValue(':md5', $unMd5, PDO::PARAM_STR);
+        $req->bindValue(':md5', $unMd5);
         $req->execute();
 
         $retour = new ArrayObject();

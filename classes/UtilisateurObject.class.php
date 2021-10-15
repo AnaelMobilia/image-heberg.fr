@@ -36,7 +36,7 @@ class UtilisateurObject
     private $ipInscription;
     private $level = self::LEVEL_GUEST;
     private $id = 0;
-    private $isActif = 1;
+    private $isActif = true;
     private $token;
 
     // Niveaux de droits
@@ -93,7 +93,7 @@ class UtilisateurObject
 
     /**
      * Date d'inscription
-     * @return type
+     * @return string
      */
     private function getDateInscription()
     {
@@ -102,7 +102,7 @@ class UtilisateurObject
 
     /**
      * Date d'inscription formatée
-     * @return type
+     * @return false|string
      */
     public function getDateInscriptionFormate()
     {
@@ -125,7 +125,7 @@ class UtilisateurObject
      */
     public function getLevel()
     {
-        return (int) $this->level;
+        return $this->level;
     }
 
     /**
@@ -134,12 +134,12 @@ class UtilisateurObject
      */
     public function getId()
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     /**
      * Utilisateur est actif ?
-     * @return boolean
+     * @return bool
      */
     public function getIsActif()
     {
@@ -157,7 +157,7 @@ class UtilisateurObject
 
     /**
      * Utilisateur est actif ?
-     * @param boolean $isActif
+     * @param bool $isActif
      */
     public function setIsActif($isActif)
     {
@@ -211,7 +211,7 @@ class UtilisateurObject
 
     /**
      * Date d'inscription
-     * @param type $dateInscription
+     * @param string $dateInscription
      */
     private function setDateInscription($dateInscription)
     {
@@ -258,8 +258,7 @@ class UtilisateurObject
 
         // Vérification de l'existance du login
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
-        /* @var $req \PDOStatement */
-        $req->bindValue(':login', $user, PDO::PARAM_STR);
+        $req->bindValue(':login', $user);
         $req->execute();
 
         // Je récupère les potentielles valeurs
@@ -307,7 +306,7 @@ class UtilisateurObject
      * Connexion d'un utilisateur : vérification & création de la session
      * @param string $user Utilisateur
      * @param string $pwd Mot de passe
-     * @return boolean
+     * @return bool
      */
     public function connexion($user, $pwd)
     {
@@ -332,7 +331,7 @@ class UtilisateurObject
 
             // J'enregistre en BDD la connexion réussie
             $req = MaBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (:ipLogin, NOW(), :pkMembres)");
-            $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+            $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
             $req->bindValue(':pkMembres', $userID, PDO::PARAM_INT);
 
             $req->execute();
@@ -345,7 +344,7 @@ class UtilisateurObject
     /**
      * Charge un utilisateur depuis la BDD
      * @param int $userID ID en BDD
-     * @return boolean Utilisateur existant ?
+     * @return bool Utilisateur existant ?
      */
     private function charger($userID)
     {
@@ -353,7 +352,6 @@ class UtilisateurObject
 
         // Je récupère les données en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
-        /* @var $req \PDOStatement */
         $req->bindValue(':id', $userID, PDO::PARAM_INT);
         $req->execute();
 
@@ -386,14 +384,14 @@ class UtilisateurObject
     public function enregistrer()
     {
         $req = MaBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
-        $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
-        $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
-        $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+        $req->bindValue(':email', $this->getEmail());
+        $req->bindValue(':login', $this->getUserNameBDD());
+        $req->bindValue(':password', $this->getPassword());
         // Date est définie par NOW()
-        $req->bindValue(':ipInscription', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+        $req->bindValue(':ipInscription', $_SERVER['REMOTE_ADDR']);
         $req->bindValue(':lvl', $this->getLevel(), PDO::PARAM_INT);
         $req->bindValue(':isActif', $this->getIsActif(), PDO::PARAM_BOOL);
-        $req->bindValue(':token', $this->getToken(), PDO::PARAM_STR);
+        $req->bindValue(':token', $this->getToken());
 
         $req->execute();
     }
@@ -404,12 +402,12 @@ class UtilisateurObject
     public function modifier()
     {
         $req = MaBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
-        $req->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
-        $req->bindValue(':login', $this->getUserNameBDD(), PDO::PARAM_STR);
-        $req->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+        $req->bindValue(':email', $this->getEmail());
+        $req->bindValue(':login', $this->getUserNameBDD());
+        $req->bindValue(':password', $this->getPassword());
         $req->bindValue(':lvl', $this->getLevel(), PDO::PARAM_INT);
         $req->bindValue(':isActif', $this->getIsActif(), PDO::PARAM_BOOL);
-        $req->bindValue(':token', $this->getToken(), PDO::PARAM_STR);
+        $req->bindValue(':token', $this->getToken());
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
@@ -455,14 +453,13 @@ class UtilisateurObject
 
     /**
      * Vérifier si un login est disponible pour enregistrement
-     * @param type $login
-     * @return boolean
+     * @param string $login
+     * @return bool
      */
     public static function verifierLoginDisponible($login)
     {
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
-        /* @var $req \PDOStatement */
-        $req->bindValue(':login', $login, PDO::PARAM_STR);
+        $req->bindValue(':login', $login);
         $req->execute();
 
         // Par défaut le login est disponible
@@ -479,7 +476,7 @@ class UtilisateurObject
 
     /**
      * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
-     * @param type $levelRequis
+     * @param int $levelRequis
      */
     public static function checkAccess($levelRequis)
     {
@@ -496,14 +493,12 @@ class UtilisateurObject
 
     /**
      * Toutes les images appartenant à un utilisateur
-     * @param type $userId ID de l'user en question
-     * @return \ArrayObject new_name image
+     * @return ArrayObject new_name image
      */
     public function getImages()
     {
         // Toutes les images
         $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
-        /* @var $req \PDOStatement */
         $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
 
         // Exécution de la requête

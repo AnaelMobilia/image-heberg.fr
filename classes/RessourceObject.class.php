@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use ImagickException;
 use PDO;
 
 /**
@@ -64,9 +65,7 @@ abstract class RessourceObject
         $timestamp = $_SERVER['REQUEST_TIME'];
 
         // Calcul du nom de l'image
-        $new_name = $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . Outils::getExtension($this->getPathTemp());
-
-        return $new_name;
+        return $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . Outils::getExtension($this->getPathTemp());
     }
 
     /**
@@ -90,11 +89,7 @@ abstract class RessourceObject
      */
     public function getPathMd5()
     {
-        // Path final
-        $pathFinal = '';
-
         // Path du type d'image
-        $pathDuType = '';
         if ($this->getType() === self::TYPE_IMAGE) {
             // Image
             $pathDuType = _PATH_IMAGES_;
@@ -103,6 +98,7 @@ abstract class RessourceObject
             $pathDuType = _PATH_MINIATURES_;
         }
 
+        // Path final
         if ($this->getType() === self::TYPE_IMAGE && ($this->getId() === 1 || $this->getId() === 2)) {
             // Gestion des images spécificques 404 / ban
             $pathFinal = $pathDuType . $this->getNomNouveau();
@@ -132,8 +128,7 @@ abstract class RessourceObject
             // Miniature
             $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
         }
-        /* @var $req \PDOStatement */
-        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(':md5', $this->getMd5());
         $req->execute();
         $values = $req->fetch();
         if ($values !== false) {
@@ -149,7 +144,6 @@ abstract class RessourceObject
     public function getURL()
     {
         // Path du type d'image
-        $urlDuType = '';
         if ($this->getType() === self::TYPE_IMAGE) {
             // Image
             $urlDuType = _URL_IMAGES_;
@@ -167,7 +161,8 @@ abstract class RessourceObject
      * @param int $angle xxx° de rotation horaire
      * @param string $pathSrc chemin de la ressource d'origine
      * @param string $pathDst chemin de la ressource de destination
-     * @return boolean succès ?
+     * @return bool succès ?
+     * @throws ImagickException
      */
     public function rotation($angle, $pathSrc, $pathDst)
     {
@@ -178,9 +173,7 @@ abstract class RessourceObject
         $resImg->rotateImage("rgb(0,0,0)", $angle);
 
         // J'enregistre l'image
-        $retour = Outils::setImage($resImg, Outils::getType($pathSrc), $pathDst);
-
-        return $retour;
+        return Outils::setImage($resImg, Outils::getType($pathSrc), $pathDst);
     }
 
     /**
@@ -189,7 +182,8 @@ abstract class RessourceObject
      * @param string $pathDst chemin de la ressource de destination
      * @param int $largeurDemandee largeur souhaitée
      * @param int $hauteurDemandee hauteur souhaitée
-     * @return boolean réussi ?
+     * @return bool réussi ?
+     * @throws ImagickException
      */
     public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee)
     {
@@ -209,14 +203,12 @@ abstract class RessourceObject
         $monImage->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
 
         // Ecriture de l'image
-        $monRetour = Outils::setImage($monImage, Outils::getType($pathSrc), $pathDst);
-
-        return $monRetour;
+        return Outils::setImage($monImage, Outils::getType($pathSrc), $pathDst);
     }
 
     /**
      * Cet utilisateur est-il propriétaire de l'image ?
-     * @return boolean
+     * @return bool
      */
     public function isProprietaire()
     {
@@ -224,7 +216,6 @@ abstract class RessourceObject
 
         // Je vais chercher les infos en BDD
         $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
-        /* @var $req \PDOStatement */
         $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
@@ -277,7 +268,7 @@ abstract class RessourceObject
      */
     public function getNbViewTotal()
     {
-        return (int) $this->getNbViewIPv4() + $this->getNbViewIPv6();
+        return $this->getNbViewIPv4() + $this->getNbViewIPv6();
     }
 
     /**
@@ -375,7 +366,7 @@ abstract class RessourceObject
 
     /**
      * Date de dernier affichage
-     * @return type
+     * @return string
      */
     protected function getLastView()
     {
@@ -402,7 +393,7 @@ abstract class RessourceObject
 
     /**
      * Date d'envoi du fichier
-     * @return type
+     * @return string
      */
     public function getDateEnvoiBrute()
     {
@@ -420,7 +411,7 @@ abstract class RessourceObject
 
     /**
      * Image bloquée ?
-     * @return boolean
+     * @return bool
      */
     public function isBloquee()
     {
@@ -429,7 +420,7 @@ abstract class RessourceObject
 
     /**
      * Image signalée ?
-     * @return boolean
+     * @return bool
      */
     public function isSignalee()
     {
@@ -492,7 +483,7 @@ abstract class RessourceObject
 
     /**
      * Image bloquée ?
-     * @param boolean $bloquee
+     * @param bool $bloquee
      */
     public function setBloquee($bloquee)
     {
@@ -501,7 +492,7 @@ abstract class RessourceObject
 
     /**
      * Image signalée ?
-     * @param boolean $isSignalee
+     * @param bool $isSignalee
      */
     public function setSignalee($isSignalee)
     {
@@ -564,7 +555,7 @@ abstract class RessourceObject
 
     /**
      * Date de dernier affichage
-     * @param type $lastView
+     * @param string $lastView
      */
     protected function setLastView($lastView)
     {
@@ -591,7 +582,7 @@ abstract class RessourceObject
 
     /**
      * Date d'envoi du fichier
-     * @param type $dateEnvoi
+     * @param string $dateEnvoi
      */
     protected function setDateEnvoi($dateEnvoi)
     {

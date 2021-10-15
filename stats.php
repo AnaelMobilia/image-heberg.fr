@@ -26,34 +26,29 @@ require _TPL_TOP_;
 
 // Stats Images
 $reqImage = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM images");
-/* @var $reqImage PDOStatement */
 // Je récupère les valeurs
 $valImage = $reqImage->fetch();
 
 // Stats Miniatures
 $reqMiniature = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM thumbnails");
-/* @var $reqMiniature PDOStatement */
 // Je récupère les valeurs
 $valMiniature = $reqMiniature->fetch();
 
 // Stats membres
 $reqMembre = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM membres");
-/* @var $reqMembre PDOStatement */
 // Je récupère les valeurs
 $valMembre = $reqMembre->fetch();
 
 // Stats membres -> possède
 $reqPossede = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
-/* @var $reqPossede PDOStatement */
 // Je récupère les valeurs
 $valPossede = $reqPossede->fetch();
 
 // Bande passante
-$bp_v4 = $valImage->bpv4 + $valMiniature->bpv4;
+$bp_all = 1;
+$bp_all += $valImage->bpv4 + $valMiniature->bpv4;
 $bp_v6 = $valImage->bpv6 + $valMiniature->bpv6;
-$bp_all = $bp_v4 + $bp_v6;
-// Fix pour l'affichage des stats sans utilisation du service
-$bp_all = ($bp_all) ? $bp_all : 1;
+$bp_all += $bp_v6;
 // Nombre d'affichages
 $nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
 // Taille totale
@@ -74,7 +69,7 @@ $size_all = $valImage->totSize + $valMiniature->totSize;
             <li>
                 <?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont
                 <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>%
-                en <a href="http://fr.wikipedia.org/wiki/Ipv6">IPv6</a>
+                en <a href="https://fr.wikipedia.org/wiki/Ipv6">IPv6</a>
             </li>
             <li>
                 <?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images

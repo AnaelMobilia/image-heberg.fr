@@ -83,7 +83,7 @@ class ImageUploadAndDeleteTest extends TestCase
      */
     private static function getNb($nomFichier)
     {
-        return file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
+        return (int) file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
     }
 
     /**
