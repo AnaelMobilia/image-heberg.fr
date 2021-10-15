@@ -26,6 +26,7 @@ namespace ImageHeberg;
  */
 
 require '../config/config.php';
+define('_IS_CRON_', true);
 
 if (_TOR_DISABLE_UPLOAD_) {
     $objTor = new Tor();
