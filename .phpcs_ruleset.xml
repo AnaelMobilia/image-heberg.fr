@@ -15,5 +15,6 @@
     <!-- Exclure les fichiers de conf qui ont un require sur le fichier générique à la fin -->
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>*/config/*.php</exclude-pattern>
+        <exclude-pattern>*/cron/*.php</exclude-pattern>
     </rule>
 </ruleset>

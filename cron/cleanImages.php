@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-/**
+/*
  * Suppression des images obsolètes
  */
 

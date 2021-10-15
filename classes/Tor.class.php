@@ -26,8 +26,8 @@ namespace ImageHeberg;
  */
 class Tor
 {
-    const IPV4 = "IPv4";
-    const IPV6 = "IPv6";
+    private const IPV4 = "IPv4";
+    private const IPV6 = "IPv6";
 
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor

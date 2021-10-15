@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-/**
+/*
  * Mise à jour des adresses IP des noeuds de sortie TOR
  */
 
