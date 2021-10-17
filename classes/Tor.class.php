@@ -59,8 +59,10 @@ class Tor
         }
 
         // Enregister le résultat sur le disque
-        file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4]));
-        file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6]));
+        $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4]));
+        echo "IPv4 : " . $retour;
+        $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6]));
+        echo "<br />IPv6 : " . $retour;
     }
 
     /**
