@@ -112,6 +112,34 @@ class ImageObject extends RessourceObject implements RessourceInterface
     }
 
     /**
+     * Récupérer les ID des images des miniatures associées
+     * @param bool $onlyPreview Uniquement les miniatures d'aperçu dans l'espace membre ?
+     * @return \ArrayObject new_name en BDD des miniatures
+     */
+    public function getMiniatures($onlyPreview = false)
+    {
+        $monRetour = new \ArrayObject();
+
+        // Chargement des miniatures
+        $query = "SELECT new_name FROM thumbnails where id_image = :idImage";
+        if ($onlyPreview) {
+            $query .= " AND is_preview = 1";
+        }
+
+        $req = MaBDD::getInstance()->prepare($query);
+        $req->bindValue(':idImage', $this->getId(), PDO::PARAM_INT);
+        $req->execute();
+
+        // Je passe toutes les lignes de résultat
+        foreach ($req->fetchAll() as $value) {
+            // Nom du fichier
+            $monRetour->append($value->new_name);
+        }
+
+        return $monRetour;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function supprimer()
@@ -121,15 +149,10 @@ class ImageObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de la ou les miniatures
          */
-        // Chargement des miniatures
-        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM thumbnails where id_image = :idImage");
-        $req->bindValue(':idImage', $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
         // Je passe toutes les lignes de résultat
-        foreach ($req->fetchAll() as $value) {
+        foreach ($this->getMiniatures() as $new_name) {
             // Chargement de la miniature
-            $maMiniature = new MiniatureObject($value->new_name);
+            $maMiniature = new MiniatureObject($new_name);
             // Suppression
             $maMiniature->supprimer();
         }
