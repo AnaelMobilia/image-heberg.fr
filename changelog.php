@@ -27,12 +27,12 @@ require _TPL_TOP_;
 <h1 class="mb-3"><small>Historique des versions</small></h1>
 <div class="card">
     <div class="card-header">
-        <a data-bs-toggle="collapse" href="#v22">
-            v2.2 - A venir
+        <a data-bs-toggle="collapse" href="#v2x">
+            v2.x - A venir
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
-    <div id="v22" class="card-collapse">
+    <div id="v2x" class="card-collapse">
         <div class="card-body">
             <ul>
                 <li>Envoi de plusieurs images simultanément.</li>
@@ -40,7 +40,21 @@ require _TPL_TOP_;
                 <li>Membres : Albums photos (création, affichage, partage).</li>
                 <li>Membres : Permettre de définir une valeur par défaut pour les paramètres des images à l'envoi.</li>
                 <li>Membres : Afficher les liens de partage dans l'espace membre.</li>
-                <li>Expliquer les avantages pour les personnes inscrites sur le site.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <a data-bs-toggle="collapse" href="#v22">
+            v2.2 - Décembre 2021
+            &nbsp;<span class="fas fa-caret-down"></span>
+        </a>
+    </div>
+    <div id="v22" class="card-collapse">
+        <div class="card-body">
+            <ul>
+                <li>Espace membre : ajout des miniatures des images possédées.</li>
             </ul>
         </div>
     </div>
@@ -52,7 +66,7 @@ require _TPL_TOP_;
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
-    <div id="v21" class="card-collapse">
+    <div id="v21" class="card-collapse collapse">
         <div class="card-body">
             <ul>
                 <li>Migration bootstrap 4 -> 5.</li>
