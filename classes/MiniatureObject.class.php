@@ -29,6 +29,7 @@ use PDO;
 class MiniatureObject extends RessourceObject implements RessourceInterface
 {
     private $idImage;
+    private $isPreview;
 
     /**
      * Constructeur
@@ -74,6 +75,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setDateEnvoi($resultat->date_creation);
             $this->setNomNouveau($nom);
             $this->setIdImage($resultat->id_image);
+            $this->setIsPreview($resultat->is_preview);
 
             // Reprise des informations de l'image maitresse
             $imageMaitre = new ImageObject();
@@ -95,9 +97,10 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function sauver()
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
 
         $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
+        $req->bindValue(':isPreview', $this->getIsPreview(), PDO::PARAM_INT);
         $req->bindValue(':dateCreation', $this->getDateEnvoiBrute());
         $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STMT);
         $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
@@ -230,5 +233,21 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function setIdImage($idImage)
     {
         $this->idImage = $idImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsPreview()
+    {
+        return $this->isPreview;
+    }
+
+    /**
+     * @param mixed $isPreview
+     */
+    public function setIsPreview($isPreview): void
+    {
+        $this->isPreview = $isPreview;
     }
 }

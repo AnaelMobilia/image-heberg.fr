@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS `possede` (
 CREATE TABLE IF NOT EXISTS `thumbnails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_image` int(11) NOT NULL,
+  `is_preview` tinyint(4) NOT NULL DEFAULT '0',
   `date_creation` date NULL DEFAULT NULL,
   `new_name` text NOT NULL,
   `size` int(11) NOT NULL,
