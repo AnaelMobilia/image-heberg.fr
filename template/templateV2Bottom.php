@@ -47,7 +47,7 @@
             </span>
         </div>
     </footer>
-    <script src="template/js/bootstrap-5.0.0-beta2.min.js"></script>
+    <script src="template/js/bootstrap-5.1.3.min.js"></script>
     <script src="template/js/js.php"></script>
     </body>
 </html>
