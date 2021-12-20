@@ -124,6 +124,9 @@ define('_IMAGE_DIMENSION_MAX_', Outils::getMaxDimension());
 define('_IMAGE_404_', '_image_404.png');
 define('_IMAGE_BAN_', '_image_banned.png');
 
+// Dimensions des apeçus dans l'espace membre
+define('_SIZE_PREVIEW_', 256);
+
 /**
  * Tor
  */
