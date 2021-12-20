@@ -48,7 +48,7 @@ require _TPL_TOP_;
 <div class="card">
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v21">
-            v21 - Février 2021
+            v2.1 - Février 2021
             &nbsp;<span class="fas fa-caret-down"></span>
         </a>
     </div>
