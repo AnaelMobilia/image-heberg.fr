@@ -153,7 +153,7 @@ class SessionObject
      */
     public function setFlag()
     {
-        $_SESSION['flag'] = true;
+        $_SESSION['flag'] = time();
     }
 
     /**
@@ -165,11 +165,18 @@ class SessionObject
     }
 
     /**
-     * Vérifie le flag de suivi
+     * Vérifie le flag de suivi (a été activé il y a plus d'une seconde)
      * @return bool Suivi OK ?
      */
     public function checkFlag()
     {
-        return isset($_SESSION['flag']);
+        $monRetour = false;
+        if (isset($_SESSION['flag'])) {
+            // Au moins une seconde pour remplir le formulaire
+            if (time() - $_SESSION['flag'] > 1) {
+                $monRetour = true;
+            }
+        }
+        return $monRetour;
     }
 }
