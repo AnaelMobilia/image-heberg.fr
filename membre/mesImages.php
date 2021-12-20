@@ -65,7 +65,7 @@ require _TPL_TOP_;
                         <p class="card-text">
                             Envoyée le <?= $uneImage->getDateEnvoiFormatee() ?>
                             <br/>
-                            <?= $uneImage->getNbViewTotal() ?> affichages <span title="Date du dernier affichage" class="fw-light fst-italic">(<?= $uneImage->getLastViewFormate() ?>)</span>
+                            <?= $uneImage->getNbViewTotal() ?> affichage<?= $uneImage->getNbViewTotal() > 1 ? "s" : "" ?> <span title="Date du dernier affichage" class="fw-light fst-italic">(<?= $uneImage->getLastViewFormate() ?>)</span>
                         </p>
                     </div>
                     <div class="text-center">
