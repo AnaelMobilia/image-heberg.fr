@@ -204,14 +204,14 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
                 <div class="mb-3">
                     <label class="col-sm-2 form-label">Lien direct</label>
                     <div class="col-sm-10">
-                        <a href="<?= $monImage->getURL() ?>"><?= $monImage->getURL() ?></a>
+                        <a href="<?= $monImage->getURL() ?>" target="_blank"><?= $monImage->getURL() ?></a>
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
                         <label class="col-sm-2 form-label">Lien direct miniature</label>
                         <div class="col-sm-10">
-                            <a href="<?= $maMiniature->getURL() ?>"><?= $maMiniature->getURL() ?></a>
+                            <a href="<?= $maMiniature->getURL() ?>" target="_blank"><?= $maMiniature->getURL() ?></a>
                         </div>
                     </div>
     <?php endif; ?>
