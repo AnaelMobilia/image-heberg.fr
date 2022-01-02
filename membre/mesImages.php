@@ -69,7 +69,7 @@ require _TPL_TOP_;
                         </p>
                     </div>
                     <div class="text-center">
-                        <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>">
+                        <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>" loading="lazy">
                     </div>
                     <div class="card-footer text-muted text-end">
                         <span class="fas fa-edit"></span>
