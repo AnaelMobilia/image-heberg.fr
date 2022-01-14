@@ -43,7 +43,7 @@ if (isset($_POST['valider'])) {
         if ($monUtilisateur->connexion($_POST['userName'], $_POST['userPassword']) === true) {
             if (!_PHPUNIT_) {
                 // Succès -> redirige sur la page d'accueil
-                header('Location: ' . _URL_);
+                header('Location: ' . _URL_HTTPS_);
                 die();
             }
         } else {

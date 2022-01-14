@@ -51,7 +51,7 @@ $visiteur = new SessionObject();
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-light fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="<?= _URL_ ?>"><span class="fas fa-cloud-upload-alt"></span>
+                <a class="navbar-brand" href="<?= _URL_HTTPS_ ?>"><span class="fas fa-cloud-upload-alt"></span>
                     &nbsp;
                     <?= _SITE_NAME_ ?>
                 </a>

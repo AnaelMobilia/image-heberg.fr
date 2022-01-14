@@ -72,7 +72,7 @@ if (!$erreur) {
 
 // Pas d'erreur => Redirection sur la page d'accueil
 if (empty($erreur)) {
-    header('Location: ' . _URL_ . '?delete_success');
+    header('Location: ' . _URL_HTTPS_ . '?delete_success');
 } else {
     require _TPL_TOP_;
     ?>

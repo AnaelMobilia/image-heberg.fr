@@ -77,7 +77,7 @@ require _TPL_TOP_;
                         <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' title="Afficher" target="_blank">
                             <span class="fas fa-search-plus"></span>
                         </a>
-                        <a href='<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>' title="Effacer" class="link-danger" target="_blank">
+                        <a href='<?= _URL_HTTPS_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>' title="Effacer" class="link-danger" target="_blank">
                             <span class="fas fa-trash"></span>
                         </a>
                     </div>

@@ -84,7 +84,7 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
 
         if (!_PHPUNIT_) {
             // Redirection sur la page d'accueil - sauf si mode tests
-            header('Location: ' . _URL_);
+            header('Location: ' . _URL_HTTPS_);
             die();
         }
     } else {

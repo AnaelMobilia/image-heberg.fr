@@ -270,12 +270,12 @@ if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMini
             </div>
             <div class="clearfix"></div>
             <br />
-            <a href="<?= _URL_ ?>" class="btn btn-success">
+            <a href="<?= _URL_HTTPS_ ?>" class="btn btn-success">
                 <span class="fas fa-cloud-upload-alt"></span>
                 &nbsp;
                 Envoyer une autre image
             </a>
-            <a href="<?= _URL_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>"
+            <a href="<?= _URL_HTTPS_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>"
                class="btn btn-danger">
                 <span class="fas fa-trash"></span>
                 &nbsp;
