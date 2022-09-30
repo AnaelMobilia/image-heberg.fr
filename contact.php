@@ -58,7 +58,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     <form method="post">
         <div class="mb-3 form-floating">
             <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
-            <label for="userMail" >Votre adresse courriel</label>
+            <label for="userMail">Votre adresse courriel</label>
             <div class="form-text">Sera utilisée uniquement pour vous apporter une réponse.</div>
         </div>
         <div class="mb-3 form-floating">
