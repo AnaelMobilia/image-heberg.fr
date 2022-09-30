@@ -48,15 +48,12 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         // Adresse mail invalide
         echo '<div class = "alert alert-danger">Votre adresse mail n\'est pas valide !<br /><pre>' . $_POST['userMail'] . '</pre></div>';
     }
-} else {
-    // Premier affichage de la page
-    if (!isset($_POST['Submit'])) {
-        // Activation de la protection robot
-        $maSession->setFlag();
-    }
+} elseif (!isset($_POST['Submit'])) {
+    // Premier affichage de la page => activation de la protection robot
+    $maSession->setFlag();
 }
 ?>
-<?php if ($maSession->checkFlag()) : ?>
+<?php if (!isset($_POST['Submit']) || (isset($_POST['Submit']) && $maSession->checkFlag())) : ?>
     <h1 class="mb-3"><small>Contacter l'administrateur du service - <?= _ADMINISTRATEUR_NOM_ ?></small></h1>
     <form method="post">
         <div class="mb-3 form-floating">
