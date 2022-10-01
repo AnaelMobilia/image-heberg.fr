@@ -148,9 +148,9 @@ class UtilisateurObject
 
     /**
      * Token associé au compte utilisateur
-     * @return string|null
+     * @return string
      */
-    public function getToken(): ?string
+    public function getToken(): string
     {
         return $this->token;
     }
@@ -166,9 +166,9 @@ class UtilisateurObject
 
     /**
      * Token lié à l'utilisateur
-     * @param string|null $token
+     * @param string $token
      */
-    public function setToken(?string $token): void
+    public function setToken(string $token): void
     {
         $this->token = $token;
     }
