@@ -83,8 +83,6 @@ require _TPL_TOP_;
                     </div>
                 </div>
             </div>
-        <?php
-        endforeach; ?>
+        <?php endforeach; ?>
     </div>
-    <?php
-require _TPL_BOTTOM_; ?>
+    <?php require _TPL_BOTTOM_; ?>

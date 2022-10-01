@@ -279,7 +279,7 @@ class UtilisateurObject
                     // Identifiants matchent !
                     $monRetour = $values->id;
                 }
-            } else if (password_verify($pwd, $values->password)) {
+            } elseif (password_verify($pwd, $values->password)) {
                 // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
                 // => Faut-il mettre à jour le chiffrement utilisé ?
                 if (password_needs_rehash($values->password, PASSWORD_DEFAULT)) {

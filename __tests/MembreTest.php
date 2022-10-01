@@ -47,7 +47,7 @@ class MembreTest extends TestCase
 
     /**
      * Fonction requise par l'extension Database
-     * @return \PHPUnit_Extensions_Database_DataSet_DefaultDataSet
+     * @return PHPUnit_Extensions_Database_DataSet_DefaultDataSet
      */
     public function getDataSet()
     {

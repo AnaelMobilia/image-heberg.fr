@@ -51,11 +51,11 @@ class ImageObjectTest extends TestCase
     /**
      * Charge en mémoire une image via Imagick
      * Intégre un fuzz sur l'image pour avoir une tolérance sur la comparaison des couleurs
-     * @param $path String chemin du fichier
+     * @param $path string chemin du fichier
      * @return Imagick
      * @throws ImagickException
      */
-    private function chargeImage($path)
+    private function chargeImage(string $path): Imagick
     {
         $uneImage = new Imagick();
         // Tolérance pour la comparaison des couleurs
@@ -69,12 +69,12 @@ class ImageObjectTest extends TestCase
 
     /**
      * Compare deux images
-     * @param $imgReference String Path de l'image de référence
-     * @param $img String Path de l'mage à comparer
+     * @param $imgReference string Path de l'image de référence
+     * @param $img string Path de l'mage à comparer
      * @return bool Identiques ?
      * @throws ImagickException
      */
-    private function compareImages($imgReference, $img)
+    private function compareImages(string $imgReference, string $img): bool
     {
         $img1 = $this->chargeImage($imgReference);
         $img2 = $this->chargeImage($img);

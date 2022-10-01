@@ -47,7 +47,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * Nombre d'images en BDD
      * @return int
      */
-    private static function countImagesEnBdd()
+    private static function countImagesEnBdd(): int
     {
         $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM images");
         $result = $maReq->fetch();
@@ -58,7 +58,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * Nombre de miniatures en BDD
      * @return int
      */
-    private static function countMiniaturesEnBdd()
+    private static function countMiniaturesEnBdd(): int
     {
         $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM thumbnails");
         $result = $maReq->fetch();
@@ -69,7 +69,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * Nombre d'images POSSEDEES en BDD
      * @return int
      */
-    private static function countImagesPossedeesEnBdd()
+    private static function countImagesPossedeesEnBdd(): int
     {
         $maReq = MaBDD::getInstance()->query("SELECT COUNT(*) AS nb FROM possede");
         $result = $maReq->fetch();
@@ -81,7 +81,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * @param string $nomFichier nom du fichier
      * @return int nb éléments
      */
-    private static function getNb($nomFichier)
+    private static function getNb(string $nomFichier): int
     {
         return (int) file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
     }
@@ -91,7 +91,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * @param string $nomFichier
      * @param int $valeur
      */
-    private static function setNb($nomFichier, $valeur)
+    private static function setNb(string $nomFichier, int $valeur)
     {
         file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
         echo "\r\n$nomFichier -> $valeur\r\n";
@@ -101,7 +101,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * $val--
      * @param string $nomFichier
      */
-    private static function setNbMoins($nomFichier)
+    private static function setNbMoins(string $nomFichier)
     {
         $val = self::getNb($nomFichier);
         self::setNb($nomFichier, --$val);
@@ -111,7 +111,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * $val++
      * @param string $nomFichier
      */
-    private static function setNbPlus($nomFichier)
+    private static function setNbPlus(string $nomFichier)
     {
         $val = self::getNb($nomFichier);
         self::setNb($nomFichier, ++$val);

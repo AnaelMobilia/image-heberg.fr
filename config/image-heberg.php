@@ -32,7 +32,7 @@ if (!_PHPUNIT_) {
      * Gestion des exceptions de l'application
      * @param Exception $exception
      */
-    function exception_handler($exception)
+    function exception_handler(Exception $exception)
     {
         /* @var $exception Exception */
         if (_DEBUG_) {

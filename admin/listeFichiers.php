@@ -35,7 +35,7 @@ require _TPL_TOP_;
      * @param string $path
      * @return string
      */
-    function getScandirRecursif($path)
+    function getScandirRecursif(string $path): string
     {
         $monRetour = '<ul>';
 
