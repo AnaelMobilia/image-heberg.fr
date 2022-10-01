@@ -32,30 +32,30 @@ abstract class RessourceObject
     public const TYPE_IMAGE = 1;
     public const TYPE_MINIATURE = 2;
 
-    private $id;
-    private $nomOriginal;
-    private $nomNouveau;
-    private $largeur;
-    private $hauteur;
-    private $poids;
-    private $lastView;
-    private $nbViewIPv4;
-    private $nbViewIPv6;
-    private $dateEnvoi;
-    private $md5;
-    private $ipEnvoi;
-    private $isBloquee;
-    private $isSignalee;
-    private $pathTemp;
-    private $type;
-    private $nomTemp;
+    private int $id = 0;
+    private string $nomOriginal = "";
+    private string $nomNouveau = "";
+    private int $largeur = 0;
+    private int $hauteur = 0;
+    private int $poids = 0;
+    private string $lastView = "";
+    private int $nbViewIPv4 = 0;
+    private int $nbViewIPv6 = 0;
+    private string $dateEnvoi = "";
+    private ?string $md5 = null;
+    private string $ipEnvoi = "";
+    private bool $isBloquee = false;
+    private bool $isSignalee = false;
+    private string $pathTemp = "";
+    private int $type = self::TYPE_IMAGE;
+    private string $nomTemp = "";
 
     /**
      * Génère le nom d'une nouvelle image
      * @param int $nb nombre de chiffres à rajouter à la fin du nom
      * @return string nom de l'image
      */
-    protected function genererNom($nb = 0)
+    protected function genererNom(int $nb = 0): string
     {
         // Random pour unicité + cassage lien nom <-> @IP
         $random = rand(100, 999);
@@ -72,7 +72,7 @@ abstract class RessourceObject
      * MD5 de la ressource
      * @return string
      */
-    public function getMd5()
+    public function getMd5(): string
     {
         // Création d'une image => Utilisation du fichier temporaire
         if (is_null($this->md5) && $this->getPathTemp()) {
@@ -87,7 +87,7 @@ abstract class RessourceObject
      * Path sur le HDD
      * @return string
      */
-    public function getPathMd5()
+    public function getPathMd5(): string
     {
         // Path du type d'image
         if ($this->getType() === self::TYPE_IMAGE) {
@@ -115,7 +115,7 @@ abstract class RessourceObject
      * Nombre d'images ayant le même MD5 (Normalement 1 à minima, l'image courante...)
      * @return int nombre d'images ayant ce MD5 (-1 en cas d'erreur)
      */
-    public function getNbDoublons()
+    public function getNbDoublons(): int
     {
         // Retour - -1 par défaut pour marquer l'erreur
         $monRetour = -1;
@@ -141,7 +141,7 @@ abstract class RessourceObject
      * URL de la ressource
      * @return string
      */
-    public function getURL()
+    public function getURL(): string
     {
         // Path du type d'image
         if ($this->getType() === self::TYPE_IMAGE) {
@@ -164,7 +164,7 @@ abstract class RessourceObject
      * @return bool succès ?
      * @throws ImagickException
      */
-    public function rotation($angle, $pathSrc, $pathDst)
+    public function rotation(int $angle, string $pathSrc, string $pathDst): bool
     {
         // Je charge l'image en mémoire
         $resImg = Outils::getImage($pathSrc);
@@ -185,7 +185,7 @@ abstract class RessourceObject
      * @return bool réussi ?
      * @throws ImagickException
      */
-    public function redimensionner($pathSrc, $pathDst, $largeurDemandee, $hauteurDemandee)
+    public function redimensionner(string $pathSrc, string $pathDst, int $largeurDemandee, int $hauteurDemandee): bool
     {
         // Chargement de l'image
         $monImage = Outils::getImage($pathSrc);
@@ -210,7 +210,7 @@ abstract class RessourceObject
      * Cet utilisateur est-il propriétaire de l'image ?
      * @return bool
      */
-    public function isProprietaire()
+    public function isProprietaire(): bool
     {
         $monRetour = false;
 
@@ -241,7 +241,7 @@ abstract class RessourceObject
      * Date d'envoi formatée
      * @return string
      */
-    public function getDateEnvoiFormatee()
+    public function getDateEnvoiFormatee(): string
     {
         $phpdate = strtotime($this->getDateEnvoiBrute());
         return date("d/m/Y H:i:s", $phpdate);
@@ -251,7 +251,7 @@ abstract class RessourceObject
      * Date de dernier affichage formaté
      * @return string
      */
-    public function getLastViewFormate()
+    public function getLastViewFormate(): string
     {
         $phpdate = strtotime($this->getLastView());
 
@@ -266,7 +266,7 @@ abstract class RessourceObject
      * Nombre d'appels IPv4 & IPv6
      * @return int
      */
-    public function getNbViewTotal()
+    public function getNbViewTotal(): int
     {
         return $this->getNbViewIPv4() + $this->getNbViewIPv6();
     }
@@ -275,7 +275,7 @@ abstract class RessourceObject
      * Nom original de la ressource
      * @return string
      */
-    public function getNomOriginalFormate()
+    public function getNomOriginalFormate(): string
     {
         return htmlentities($this->nomOriginal);
     }
@@ -283,7 +283,7 @@ abstract class RessourceObject
     /**
      * Incrémente le nombre d'affichage IPv4
      */
-    public function setNbViewIpv4PlusUn()
+    public function setNbViewIpv4PlusUn(): void
     {
         $this->nbViewIPv4 = $this->getNbViewIPv4() + 1;
         $this->setLastView(date("Y-m-d"));
@@ -292,7 +292,7 @@ abstract class RessourceObject
     /**
      * Incrémente le nombre d'affichage IPv6
      */
-    public function setNbViewIpv6PlusUn()
+    public function setNbViewIpv6PlusUn(): void
     {
         $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
         $this->setLastView(date("Y-m-d"));
@@ -305,16 +305,16 @@ abstract class RessourceObject
      * ID de la ressource
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     /**
      * Nom original de la ressource
      * @return string
      */
-    protected function getNomOriginal()
+    protected function getNomOriginal(): string
     {
         return $this->nomOriginal;
     }
@@ -323,7 +323,7 @@ abstract class RessourceObject
      * Nom image-heberg
      * @return string
      */
-    public function getNomNouveau()
+    public function getNomNouveau(): string
     {
         return $this->nomNouveau;
     }
@@ -332,34 +332,34 @@ abstract class RessourceObject
      * Largeur en px
      * @return int
      */
-    public function getLargeur()
+    public function getLargeur(): int
     {
-        return (int) $this->largeur;
+        return $this->largeur;
     }
 
     /**
      * Hauteur en px
      * @return int
      */
-    public function getHauteur()
+    public function getHauteur(): int
     {
-        return (int) $this->hauteur;
+        return $this->hauteur;
     }
 
     /**
      * Poids de la ressource
      * @return int
      */
-    public function getPoids()
+    public function getPoids(): int
     {
-        return (int) $this->poids;
+        return $this->poids;
     }
 
     /**
      * Poids de la ressource en Mo
      * @return float
      */
-    public function getPoidsMo()
+    public function getPoidsMo(): float
     {
         return round($this->getPoids() / 1024 / 1024, 1);
     }
@@ -368,7 +368,7 @@ abstract class RessourceObject
      * Date de dernier affichage
      * @return string
      */
-    protected function getLastView()
+    protected function getLastView(): string
     {
         return $this->lastView;
     }
@@ -377,25 +377,25 @@ abstract class RessourceObject
      * Nb d'affichage en IPv4
      * @return int
      */
-    protected function getNbViewIPv4()
+    protected function getNbViewIPv4(): int
     {
-        return (int) $this->nbViewIPv4;
+        return $this->nbViewIPv4;
     }
 
     /**
      * Nb d'affichage en IPv6
      * @return int
      */
-    protected function getNbViewIPv6()
+    protected function getNbViewIPv6(): int
     {
-        return (int) $this->nbViewIPv6;
+        return $this->nbViewIPv6;
     }
 
     /**
      * Date d'envoi du fichier
      * @return string
      */
-    public function getDateEnvoiBrute()
+    public function getDateEnvoiBrute(): string
     {
         return $this->dateEnvoi;
     }
@@ -404,7 +404,7 @@ abstract class RessourceObject
      * @ IP d'envoi
      * @return string
      */
-    public function getIpEnvoi()
+    public function getIpEnvoi(): string
     {
         return $this->ipEnvoi;
     }
@@ -413,7 +413,7 @@ abstract class RessourceObject
      * Image bloquée ?
      * @return bool
      */
-    public function isBloquee()
+    public function isBloquee(): bool
     {
         return $this->isBloquee;
     }
@@ -422,7 +422,7 @@ abstract class RessourceObject
      * Image signalée ?
      * @return bool
      */
-    public function isSignalee()
+    public function isSignalee(): bool
     {
         return $this->isSignalee;
     }
@@ -431,16 +431,16 @@ abstract class RessourceObject
      * Path temporaire (upload d'image)
      * @return string
      */
-    public function getPathTemp()
+    public function getPathTemp(): string
     {
         return $this->pathTemp;
     }
 
     /**
      * Type d'image
-     * @return int ressoruceObject const
+     * @return int ressourceObject const
      */
-    public function getType()
+    public function getType(): int
     {
         return $this->type;
     }
@@ -449,7 +449,7 @@ abstract class RessourceObject
      * Nom temporaire (PC utilisateur - upload d'image)
      * @return string
      */
-    public function getNomTemp()
+    public function getNomTemp(): string
     {
         return $this->nomTemp;
     }
@@ -458,7 +458,7 @@ abstract class RessourceObject
      * Nom temporaire (PC utilisateur - upload d'image)
      * @param string $nomTemp
      */
-    public function setNomTemp($nomTemp)
+    public function setNomTemp(string $nomTemp): void
     {
         $this->nomTemp = $nomTemp;
     }
@@ -467,7 +467,7 @@ abstract class RessourceObject
      * Type d'image
      * @param int $type RessourceObject const
      */
-    public function setType($type)
+    public function setType(int $type): void
     {
         $this->type = $type;
     }
@@ -476,7 +476,7 @@ abstract class RessourceObject
      * Path temporaire (upload d'image)
      * @param string $pathTemp
      */
-    public function setPathTemp($pathTemp)
+    public function setPathTemp(string $pathTemp): void
     {
         $this->pathTemp = $pathTemp;
     }
@@ -485,7 +485,7 @@ abstract class RessourceObject
      * Image bloquée ?
      * @param bool $bloquee
      */
-    public function setBloquee($bloquee)
+    public function setBloquee(bool $bloquee): void
     {
         $this->isBloquee = $bloquee;
     }
@@ -494,7 +494,7 @@ abstract class RessourceObject
      * Image signalée ?
      * @param bool $isSignalee
      */
-    public function setSignalee($isSignalee)
+    public function setSignalee(bool $isSignalee): void
     {
         $this->isSignalee = $isSignalee;
     }
@@ -503,7 +503,7 @@ abstract class RessourceObject
      * ID de l'image
      * @param int $id
      */
-    protected function setId($id)
+    protected function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -512,7 +512,7 @@ abstract class RessourceObject
      * Nom original de la ressource
      * @param string $nomOriginal
      */
-    protected function setNomOriginal($nomOriginal)
+    protected function setNomOriginal(string $nomOriginal): void
     {
         $this->nomOriginal = $nomOriginal;
     }
@@ -521,7 +521,7 @@ abstract class RessourceObject
      * Nom image-heberg
      * @param string $nomNouveau
      */
-    protected function setNomNouveau($nomNouveau)
+    protected function setNomNouveau(string $nomNouveau): void
     {
         $this->nomNouveau = $nomNouveau;
     }
@@ -530,7 +530,7 @@ abstract class RessourceObject
      * Largeur en px
      * @param int $largeur
      */
-    protected function setLargeur($largeur)
+    protected function setLargeur(int $largeur): void
     {
         $this->largeur = $largeur;
     }
@@ -539,7 +539,7 @@ abstract class RessourceObject
      * Hauteur en px
      * @param int $hauteur
      */
-    protected function setHauteur($hauteur)
+    protected function setHauteur(int $hauteur): void
     {
         $this->hauteur = $hauteur;
     }
@@ -548,17 +548,21 @@ abstract class RessourceObject
      * Poids de la ressource
      * @param int $poids
      */
-    protected function setPoids($poids)
+    protected function setPoids(int $poids): void
     {
         $this->poids = $poids;
     }
 
     /**
      * Date de dernier affichage
-     * @param string $lastView
+     * @param ?string $lastView
      */
-    protected function setLastView($lastView)
+    protected function setLastView(?string $lastView): void
     {
+        if (is_null($lastView)) {
+            // Si l'image n'a jamais été affichée, elle est à NULL en BDD
+            $lastView = "";
+        }
         $this->lastView = $lastView;
     }
 
@@ -566,7 +570,7 @@ abstract class RessourceObject
      * Nb d'affichage en IPv4
      * @param int $nbViewIPv4
      */
-    protected function setNbViewIPv4($nbViewIPv4)
+    protected function setNbViewIPv4(int $nbViewIPv4): void
     {
         $this->nbViewIPv4 = $nbViewIPv4;
     }
@@ -575,7 +579,7 @@ abstract class RessourceObject
      * Nb d'affichage en IPv6
      * @param int $nbViewIPv6
      */
-    protected function setNbViewIPv6($nbViewIPv6)
+    protected function setNbViewIPv6(int $nbViewIPv6): void
     {
         $this->nbViewIPv6 = $nbViewIPv6;
     }
@@ -584,7 +588,7 @@ abstract class RessourceObject
      * Date d'envoi du fichier
      * @param string $dateEnvoi
      */
-    protected function setDateEnvoi($dateEnvoi)
+    protected function setDateEnvoi(string $dateEnvoi): void
     {
         $this->dateEnvoi = $dateEnvoi;
     }
@@ -593,7 +597,7 @@ abstract class RessourceObject
      * MD5 de la ressource
      * @param string $md5
      */
-    protected function setMd5($md5)
+    protected function setMd5(string $md5): void
     {
         $this->md5 = $md5;
     }
@@ -602,7 +606,7 @@ abstract class RessourceObject
      * @ IP d'envoi
      * @param string $ipEnvoi
      */
-    protected function setIpEnvoi($ipEnvoi)
+    protected function setIpEnvoi(string $ipEnvoi): void
     {
         $this->ipEnvoi = $ipEnvoi;
     }

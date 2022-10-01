@@ -35,7 +35,7 @@ class Outils
      * @param string $path chemin sur le filesystem
      * @return false|int
      */
-    public static function getType($path)
+    public static function getType(string $path)
     {
         return exif_imagetype($path);
     }
@@ -45,7 +45,7 @@ class Outils
      * @param string $path chemin sur le filesystem
      * @return string
      */
-    public static function getMimeType($path)
+    public static function getMimeType(string $path): string
     {
         return image_type_to_mime_type(self::getType($path));
     }
@@ -55,11 +55,11 @@ class Outils
      * @return Imagick
      */
     /**
-     * @param $path
+     * @param string $path
      * @return Imagick
      * @throws ImagickException
      */
-    public static function getImage($path)
+    public static function getImage(string $path): Imagick
     {
         $monImage = new Imagick();
         $monImage->readImage($path);
@@ -75,7 +75,7 @@ class Outils
      * @return bool Succès ?
      * @throws ImagickException
      */
-    public static function setImage($uneImage, $imageType, $path)
+    public static function setImage(Imagick $uneImage, int $imageType, string $path): bool
     {
         switch ($imageType) {
             case IMAGETYPE_GIF:
@@ -104,7 +104,7 @@ class Outils
      * @param string $path chemin sur le filesystem
      * @return string
      */
-    public static function getExtension($path)
+    public static function getExtension(string $path): string
     {
         $ext = image_type_to_extension(self::getType($path), false);
         if ($ext === 'jpeg') {
@@ -120,7 +120,7 @@ class Outils
      * @see http://php.net/manual/fr/function.ini-get.php
      * @return int
      */
-    public static function getMemoireAllouee()
+    public static function getMemoireAllouee(): int
     {
         // Récupération de la valeur du php.ini
         $valBrute = trim(ini_get('memory_limit'));
@@ -154,7 +154,7 @@ class Outils
      * @return bool Possible ?
      * @see http://www.dotsamazing.com/en/labs/phpmemorylimit
      */
-    public static function isModifiableEnMemoire($path)
+    public static function isModifiableEnMemoire(string $path): bool
     {
         $monRetour = false;
         // Nombre de canaux d'information de l'image
@@ -194,7 +194,7 @@ class Outils
      * @return int
      * @see isModifiableEnMemoire
      */
-    public static function getMaxDimension()
+    public static function getMaxDimension(): int
     {
         $memDispo = self::getMemoireAllouee();
 

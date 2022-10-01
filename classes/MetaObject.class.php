@@ -37,7 +37,7 @@ class MetaObject
      * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
      * @return ArrayObject
      */
-    public static function getNeverUsedFiles()
+    public static function getNeverUsedFiles(): ArrayObject
     {
         // Toutes les images jamais affichées & envoyées il y a plus de xx jours
         $req = "SELECT im.new_name
@@ -76,7 +76,7 @@ class MetaObject
      * Liste des images plus utilisées depuis au moins xx jours
      * @return ArrayObject
      */
-    public static function getUnusedFiles()
+    public static function getUnusedFiles(): ArrayObject
     {
         // Toutes les images non affichées depuis xx jours
         $req = "SELECT im.new_name
@@ -116,7 +116,7 @@ class MetaObject
      * Liste de l'ensemble des images en BDD
      * @return ArrayObject
      */
-    public static function getAllImagesNameBDD()
+    public static function getAllImagesNameBDD(): ArrayObject
     {
         // Toutes les images (sauf 404 & banned)
         $req = "SELECT md5 FROM images WHERE id > 2";
@@ -139,7 +139,7 @@ class MetaObject
      * @param string $path path à analyser
      * @return ArrayObject
      */
-    public static function getAllImagesNameHDD($path)
+    public static function getAllImagesNameHDD(string $path): ArrayObject
     {
         $monRetour = new ArrayObject();
 
@@ -169,7 +169,7 @@ class MetaObject
     /**
      * Liste de l'ensemble des miniatures en BDD
      */
-    public static function getAllMiniaturesNameBDD()
+    public static function getAllMiniaturesNameBDD(): ArrayObject
     {
         // Toutes les images
         $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
@@ -192,7 +192,7 @@ class MetaObject
      * Volume des images
      * @return float
      */
-    public static function getHDDUsage()
+    public static function getHDDUsage(): float
     {
         // Poids de l'ensemble des images
         $req = "SELECT SUM(im.size) AS images, (
@@ -214,7 +214,7 @@ class MetaObject
      * Version de PHP
      * @return string
      */
-    public static function getPhpVersion()
+    public static function getPhpVersion(): string
     {
         return PHP_VERSION . " - " . PHP_OS;
     }
@@ -223,7 +223,7 @@ class MetaObject
      * Version de Imagick
      * @return string
      */
-    public static function getImagickVersion()
+    public static function getImagickVersion(): string
     {
         return Imagick::getVersion()["versionString"];
     }
@@ -232,7 +232,7 @@ class MetaObject
      * Version de MySQL
      * @return string
      */
-    public static function getMysqlVersion()
+    public static function getMysqlVersion(): string
     {
         // Exécution de la requête
         return MaBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
@@ -243,7 +243,7 @@ class MetaObject
      * @param string $url URL à tester
      * @return string retour HTTP
      */
-    public static function getStatusHTTP($url)
+    public static function getStatusHTTP(string $url): string
     {
         $classe = "danger";
         $fa = "exclamation-circle";
@@ -265,7 +265,7 @@ class MetaObject
      * @param string $folder Path du dossier parent
      * @return ArrayObject
      */
-    public static function isRecursivelyWritable($folder)
+    public static function isRecursivelyWritable(string $folder): ArrayObject
     {
         // On évite le // dans le path... (estéthique)
         if (substr($folder, -1) === "/") {
@@ -298,7 +298,7 @@ class MetaObject
      * @param string $unMd5
      * @return ArrayObject
      */
-    public static function getImageByMd5($unMd5)
+    public static function getImageByMd5(string $unMd5): ArrayObject
     {
         // Images avec le même MD5
         $req = MaBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");

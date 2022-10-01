@@ -31,24 +31,24 @@ interface RessourceInterface
      * Crée sur le HDD et dans la BDD la ressource
      * @return bool Résultat ?
      */
-    public function creer();
+    public function creer(): bool;
 
     /**
      * Charge unn objet ressource depuis la BDD
      * @param string $nom Identifiant image-heberg
      * @return bool Résultat ?
      */
-    public function charger($nom);
+    public function charger(string $nom): bool;
 
     /**
      * Enregistre en BDD un objet ressource
      * @return bool Résultat ?
      */
-    public function sauver();
+    public function sauver(): bool;
 
     /**
      * Supprime sur le HDD et dans la BDD la ressource
      * @return bool Résultat ?
      */
-    public function supprimer();
+    public function supprimer(): bool;
 }

@@ -28,8 +28,8 @@ use PDO;
  */
 class MiniatureObject extends RessourceObject implements RessourceInterface
 {
-    private $idImage;
-    private $isPreview;
+    private int $idImage;
+    private bool $isPreview;
 
     /**
      * Constructeur
@@ -52,7 +52,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger($nom)
+    public function charger(string $nom): bool
     {
         $monRetour = false;
 
@@ -94,7 +94,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function sauver()
+    public function sauver(): bool
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
@@ -113,12 +113,14 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supprimer()
+    public function supprimer(): bool
     {
         /**
          * Suppression de l'image en BDD
@@ -144,7 +146,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function creer()
+    public function creer(): bool
     {
         // Retour
         $monRetour = true;
@@ -221,7 +223,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
      * ID image parente
      * @return int
      */
-    public function getIdImage()
+    public function getIdImage(): int
     {
         return $this->idImage;
     }
@@ -230,15 +232,15 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
      * ID image parente
      * @param int $idImage
      */
-    public function setIdImage($idImage)
+    public function setIdImage(int $idImage): void
     {
         $this->idImage = $idImage;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getIsPreview()
+    public function getIsPreview(): bool
     {
         return $this->isPreview;
     }

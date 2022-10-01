@@ -27,9 +27,9 @@ namespace ImageHeberg;
 class SessionObject
 {
     // @ IP de l'utilisateur
-    private $IP;
+    private string $IP = "";
     // Objet utilisateur
-    private $userObject;
+    private UtilisateurObject $userObject;
 
     public function __construct()
     {
@@ -54,7 +54,7 @@ class SessionObject
      * Mon utilisateur
      * @return UtilisateurObject
      */
-    private function getUserObject()
+    private function getUserObject(): UtilisateurObject
     {
         if (isset($this->userObject)) {
             return $this->userObject;
@@ -67,7 +67,7 @@ class SessionObject
      * Mon utilisateur
      * @param UtilisateurObject $userObject Objet utilisateur
      */
-    public function setUserObject($userObject)
+    public function setUserObject(UtilisateurObject $userObject): void
     {
         $this->userObject = $userObject;
         $_SESSION['userObject'] = $userObject;
@@ -77,7 +77,7 @@ class SessionObject
      * Nom d'utilisateur
      * @return string
      */
-    public function getUserName()
+    public function getUserName(): string
     {
         return $this->getUserObject()->getUserName();
     }
@@ -86,7 +86,7 @@ class SessionObject
      * @ IP
      * @return string
      */
-    public function getIP()
+    public function getIP(): string
     {
         return $this->IP;
     }
@@ -95,7 +95,7 @@ class SessionObject
      * Niveau de droits
      * @return int
      */
-    public function getLevel()
+    public function getLevel(): int
     {
         return $this->getUserObject()->getLevel();
     }
@@ -104,7 +104,7 @@ class SessionObject
      * ID en BDD
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->getUserObject()->getId();
     }
@@ -113,7 +113,7 @@ class SessionObject
      * IP
      * @param string $IP
      */
-    public function setIP($IP)
+    public function setIP(string $IP): void
     {
         $this->IP = $IP;
         // On enregistre dans la session
@@ -125,7 +125,7 @@ class SessionObject
      * @param int $levelRequis
      * @return bool
      */
-    public function verifierDroits($levelRequis)
+    public function verifierDroits(int $levelRequis): bool
     {
         if ($this->getLevel() >= $levelRequis) {
             return true;
@@ -137,7 +137,7 @@ class SessionObject
     /**
      * Déconnexion d'un utilisateur
      */
-    public function deconnexion()
+    public function deconnexion(): void
     {
         // Destruction de l'objet utilisateur
         unset($_SESSION['userObject']);
@@ -151,7 +151,7 @@ class SessionObject
     /**
      * Active le flag de suivi (vérification d'affichage de page avant envoi)
      */
-    public function setFlag()
+    public function setFlag(): void
     {
         $_SESSION['flag'] = time();
     }
@@ -159,7 +159,7 @@ class SessionObject
     /**
      * Supprime le flag de suivi
      */
-    public function removeFlag()
+    public function removeFlag(): void
     {
         unset($_SESSION['flag']);
     }
@@ -168,7 +168,7 @@ class SessionObject
      * Vérifie le flag de suivi (a été activé il y a plus d'une seconde)
      * @return bool Suivi OK ?
      */
-    public function checkFlag()
+    public function checkFlag(): bool
     {
         $monRetour = false;
         if (isset($_SESSION['flag'])) {

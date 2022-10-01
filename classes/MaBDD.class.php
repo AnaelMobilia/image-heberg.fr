@@ -32,9 +32,9 @@ use PDOStatement;
 class MaBDD
 {
     // PDO
-    private $maBDD = null;
+    private PDO $maBDD;
     // Instance de la classe
-    private static $monInstance = null;
+    private static ?MaBDD $monInstance = null;
 
     /**
      * Constructeur
@@ -50,7 +50,7 @@ class MaBDD
      * Crée & renvoi l'objet d'instance
      * @return MaBDD
      */
-    public static function getInstance()
+    public static function getInstance(): ?MaBDD
     {
         // Si pas de connexion active, en crée une
         if (is_null(self::$monInstance)) {
@@ -64,7 +64,7 @@ class MaBDD
      * @param string $query
      * @return false|PDOStatement
      */
-    public function query($query)
+    public function query(string $query)
     {
         return $this->maBDD->query($query);
     }
@@ -74,7 +74,7 @@ class MaBDD
      * @param string $query
      * @return false|PDOStatement
      */
-    public function prepare($query)
+    public function prepare(string $query)
     {
         return $this->maBDD->prepare($query);
     }
@@ -83,7 +83,7 @@ class MaBDD
      * PDO::lastInsertId
      * @return string
      */
-    public function lastInsertId()
+    public function lastInsertId(): string
     {
         return $this->maBDD->lastInsertId();
     }
@@ -91,7 +91,7 @@ class MaBDD
     /**
      * Fermeture du PDO
      */
-    public static function close()
+    public static function close(): void
     {
         self::$monInstance = null;
     }
@@ -101,7 +101,7 @@ class MaBDD
      * @param int $attribute
      * @return mixed
      */
-    public function getAttribute($attribute)
+    public function getAttribute(int $attribute)
     {
         return $this->maBDD->getAttribute($attribute);
     }

@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use ArrayObject;
 use PDO;
 
 /**
@@ -50,7 +51,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger($nom)
+    public function charger(string $nom): bool
     {
         // Retour
         $monRetour = false;
@@ -89,7 +90,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function sauver()
+    public function sauver(): bool
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
@@ -109,16 +110,18 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
+
+        return true;
     }
 
     /**
      * Récupérer les ID des images des miniatures associées
      * @param bool $onlyPreview Uniquement les miniatures d'aperçu dans l'espace membre ?
-     * @return \ArrayObject new_name en BDD des miniatures
+     * @return ArrayObject new_name en BDD des miniatures
      */
-    public function getMiniatures($onlyPreview = false)
+    public function getMiniatures(bool $onlyPreview = false): ArrayObject
     {
-        $monRetour = new \ArrayObject();
+        $monRetour = new ArrayObject();
 
         // Chargement des miniatures
         $query = "SELECT new_name FROM thumbnails where id_image = :idImage";
@@ -142,7 +145,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function supprimer()
+    public function supprimer(): bool
     {
         $monRetour = true;
 
@@ -190,7 +193,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function creer()
+    public function creer(): bool
     {
         // Retour
         $monRetour = true;

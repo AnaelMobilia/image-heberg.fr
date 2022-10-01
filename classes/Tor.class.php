@@ -32,7 +32,7 @@ class Tor
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor
      */
-    public function updateListeExitNodes()
+    public function updateListeExitNodes(): void
     {
         // Récupération du dernier fichier
         $objJson = json_decode(file_get_contents(_TOR_EXIT_NODE_LIST_URL_));
@@ -71,7 +71,7 @@ class Tor
      * @param string[] $tabIp Liste des addresses IP déjà connues
      * @param bool $withPort Le port est précisé (1.2.3.4:1234)
      */
-    private function addToTab($ip, &$tabIp, $withPort = false)
+    private function addToTab(string $ip, array &$tabIp, bool $withPort = false): void
     {
         if (substr_count($ip, ":") > 1) {
             // C'est une IPv6
@@ -111,7 +111,7 @@ class Tor
      * @param array $tabIp Liste des addresses IP déjà connues
      * @param string $typeIp IPv4 ou IPv6
      */
-    private function saveInTab($ip, &$tabIp, $typeIp)
+    private function saveInTab(string $ip, array &$tabIp, string $typeIp): void
     {
         if (!in_array($ip, $tabIp[$typeIp])) {
             $tabIp[$typeIp][] = self::formatIp($ip);
@@ -123,7 +123,7 @@ class Tor
      * @param string $ip adresse IP à formatter
      * @return string adresse IP formattée
      */
-    private static function formatIp($ip)
+    private static function formatIp(string $ip): string
     {
         return inet_ntop(inet_pton($ip));
     }
@@ -131,8 +131,9 @@ class Tor
     /**
      * Vérifie si une IP correspond à un noeud de sortie Tor
      * @param string $ip
+     * @return bool
      */
-    public static function checkIp($ip)
+    public static function checkIp(string $ip): bool
     {
         $monRetour = true;
 
