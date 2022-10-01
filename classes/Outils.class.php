@@ -29,7 +29,6 @@ use ImagickException;
  */
 class Outils
 {
-
     /**
      * Type de l'image
      * @param string $path chemin sur le filesystem

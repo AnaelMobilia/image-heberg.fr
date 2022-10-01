@@ -26,7 +26,6 @@ namespace ImageHeberg;
  */
 interface RessourceInterface
 {
-
     /**
      * Crée sur le HDD et dans la BDD la ressource
      * @return bool Résultat ?

@@ -34,7 +34,6 @@ use PHPUnit\Framework\TestCase;
 
 class DisplayPicsTest extends TestCase
 {
-
     /**
      * Affichage d'une image inexistante
      * @runInSeparateProcess

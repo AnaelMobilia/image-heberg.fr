@@ -34,7 +34,6 @@ use PHPUnit\Framework\TestCase;
 
 class InstallationTest extends TestCase
 {
-
     public function testValidationInstallation()
     {
         /**

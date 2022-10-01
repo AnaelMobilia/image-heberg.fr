@@ -34,7 +34,6 @@ use PHPUnit\Framework\TestCase;
 
 class AbuseTest extends TestCase
 {
-
     /**
      * Signalement d'une image
      * @runInSeparateProcess

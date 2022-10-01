@@ -32,7 +32,6 @@ use Imagick;
  */
 class MetaObject
 {
-
     /**
      * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
      * @return ArrayObject

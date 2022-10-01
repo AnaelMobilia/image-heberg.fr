@@ -29,7 +29,6 @@ use PDO;
  */
 class ImageObject extends RessourceObject implements RessourceInterface
 {
-
     /**
      * Constructeur
      * @param string $newName nom de l'image
