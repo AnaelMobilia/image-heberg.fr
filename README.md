@@ -3,7 +3,7 @@
 Service d'hébergement d'images en ligne
 
 # Configuration requise
-  - PHP 7.3, 7.4 [*(Préférez une version de PHP maintenue !)*](https://www.php.net/supported-versions.php)
+  - PHP 7.3, 7.4, 8.0, 8.1 [*(Préférez une version de PHP maintenue !)*](https://www.php.net/supported-versions.php)
   - Imagick 
   - MySQL ou MariaDB
   - Serveur web gérant les fichiers .htaccess
