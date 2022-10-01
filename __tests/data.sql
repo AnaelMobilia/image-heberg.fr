@@ -57,5 +57,5 @@ INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('11', '2'),
 --
 -- Second compte utilisateur
 --
-INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`) VALUES
-(2, 'john.doe2@example.com', 'user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 1);
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`, `token`) VALUES
+(2, 'john.doe2@example.com', 'user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 1, '');
