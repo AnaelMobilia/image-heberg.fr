@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-use Exception;
+use Throwable;
 
 if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
@@ -30,11 +30,10 @@ if (!_PHPUNIT_) {
 
     /**
      * Gestion des exceptions de l'application
-     * @param Exception $exception
+     * @param Throwable $exception
      */
-    function exception_handler(Exception $exception)
+    function exception_handler(Throwable $exception)
     {
-        /* @var $exception Exception */
         if (_DEBUG_) {
             echo '<pre>';
             print_r($exception->getMessage());
