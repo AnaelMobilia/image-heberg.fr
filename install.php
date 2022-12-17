@@ -25,6 +25,8 @@ namespace ImageHeberg;
  * Vérification des prérequis basiques
  * Ce fichier peut être supprimé après l'installation
  */
+echo "PHP v" . phpversion() . "<br />";
+
 /* 1 - Existence du fichier de config */
 $conf = file_exists(__DIR__ . "/config/config.php");
 if (!$conf) {
