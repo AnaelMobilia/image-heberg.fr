@@ -74,8 +74,18 @@ if (headers_sent()) {
     $msg = "Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !";
     if (!_PHPUNIT_) {
         die($msg);
+    } else {
+        // Sinon, ne rien faire, nous sommes dans l'environnement de tests qui a déjà affiché des données (phpunit...)
     }
-    // Sinon, ne rien faire, nous sommes dans l'environnement de tests qui a déjà affiché des données (phpunit...)
 }
 
+/* Configuration */
+if (_PATH_ != __DIR__ . "/") {
+    $msg = "La variable _PATH_ (" . _PATH_ . ") n'est pas cohérente avec l'emplacement de l'application (" . __DIR__ . ")";
+    if (!_PHPUNIT_) {
+        die($msg);
+    } else {
+        echo $msg;
+    }
+}
 echo "L'installation est OK !";
