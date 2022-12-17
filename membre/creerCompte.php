@@ -55,6 +55,11 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
         $flagCreation = false;
         $messageErreur .= "<br />L'adresse courriel saisie n'est pas correcte.";
     }
+    // Disponibilité de l'email
+    if (UtilisateurObject::verifierEmailDisponible($_POST['userMail']) !== true) {
+        $flagCreation = false;
+        $messageErreur .= "<br />Cet email n'est pas disponible. Merci d'en choisir un autre.";
+    }
     // Disponibilité du login
     if (UtilisateurObject::verifierLoginDisponible($_POST['userName']) !== true) {
         $flagCreation = false;

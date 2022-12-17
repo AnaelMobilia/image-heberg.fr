@@ -473,6 +473,29 @@ class UtilisateurObject
     }
 
     /**
+     * Vérifier si un email est disponible pour enregistrement
+     * @param string $email
+     * @return bool
+     */
+    public static function verifierEmailDisponible(string $email): bool
+    {
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE email = :email");
+        $req->bindValue(':email', $email);
+        $req->execute();
+
+        // Par défaut l'email est disponible
+        $retour = true;
+
+        // Si j'ai un résultat...
+        if ($req->fetch()) {
+            // Le retour est négatif
+            $retour = false;
+        }
+
+        return $retour;
+    }
+
+    /**
      * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
      * @param int $levelRequis
      */
