@@ -52,14 +52,10 @@ require _TPL_TOP_;
                 <b>Conservation :</b>
                 <ul>
                     <li>
-                        <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> 
-                        jour<?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1 ? 's' : '' ?>
-                        à compter de la dernière utilisation du fichier.
+                        <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?>  jour<?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1 ? 's' : '' ?> à compter de la dernière utilisation du fichier.
                     </li>
                     <li>
-                        A défaut, <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?>
-                        jour<?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1 ? 's' : '' ?>
-                        après l'envoi <em>(si aucun affichage)</em>.
+                        A défaut, <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1 ? 's' : '' ?> après l'envoi <em>(si aucun affichage)</em>.
                     </li>
                 </ul>
             </li>
@@ -71,17 +67,20 @@ require _TPL_TOP_;
             </li>
             <li>
                 Aucune suppression sur demande d'un utilisateur.
-                <em>(utilisez la fonction de suppression à l'envoi ou utilisez l'espace membre)</em>
+                <em>(utilisez la fonction de suppression à l'envoi ou utilisez <a href="membre/connexionCompte.php">l'espace membre)</a></em>
             </li>
             <li>
                 Toutes les données possédées seront fournies en cas de demande judiciaire.
             </li>
             <li>
-                Rappel : l'administrateur (<?= _ADMINISTRATEUR_NOM_ ?>) a accès à toutes les données du service.
+                Suppression des comptes membres qui n'ont jamais été utilisés au bout de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?>  jour<?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1 ? 's' : '' ?>.
+            </li>
+            <li>
+                Rappel : <a href="contact.php">l'administrateur (<?= _ADMINISTRATEUR_NOM_ ?>)</a> a accès à toutes les données du service.
             </li>
         </ul>
         <div class="card-footer">
-            <em>Mises à jour le 29 juin 2018 : réduction des durées de conservation des images inactives</em>
+            <em>Mises à jour le 18 décembre 2022 : ajout de la suppression des comptes membres jamais utilisés</em>
         </div>
     </div>
 </div>

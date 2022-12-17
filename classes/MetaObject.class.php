@@ -100,12 +100,41 @@ class MetaObject
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
-
         $retour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
             $retour->append($value->new_name);
+        }
+
+        return $retour;
+    }
+
+    /**
+     * Liste des comptes sans images et créés depuis au moins xx jours
+     * @return ArrayObject
+     */
+    public static function getNeverUsedAccounts(): ArrayObject
+    {
+        // Toutes les comptes créés et jamais utilisés depuis xx jours
+        $req = "SELECT m.id
+               FROM membres m
+               WHERE m.date_inscription < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . " DAY)
+               /* Préservation des comptes possédant des images */
+               AND 0 = (
+                  SELECT COUNT(*)
+                  FROM possede po
+                  WHERE po.pk_membres = m.id
+               )";
+
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        $retour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute l'ID du compte
+            $retour->append($value->id);
         }
 
         return $retour;

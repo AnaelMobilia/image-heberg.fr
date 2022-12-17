@@ -68,6 +68,8 @@ define('_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_', 365);
 define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
 define('_DEBUG_', false);
+// Délai de conservation des comptes jamais utilisés (en jours)
+define('_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_', 30);
 
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 define('_TOR_DISABLE_UPLOAD_', true);
