@@ -480,7 +480,7 @@ class UtilisateurObject
     public static function verifierEmailDisponible(string $email): bool
     {
         $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE email = :email");
-        $req->bindValue(':email', $email);
+        $req->bindValue(':email', strtolower($email));
         $req->execute();
 
         // Par défaut l'email est disponible
