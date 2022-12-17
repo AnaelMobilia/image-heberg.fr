@@ -36,6 +36,7 @@ $message = '';
 
 // Je récupère la liste des images non affichées depuis xx jours
 $listeImages = MetaObject::getUnusedFiles();
+$isPlural = $listeImages->count() > 0;
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
@@ -54,8 +55,7 @@ if (isset($_POST['effacer'])) :
 <?php else : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeImages->count() ?> image(s) non affichée(s)
-            depuis au moins <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour(s).
+            <?= $listeImages->count() ?> image<?= $isPlural ?? "s" ?> non affichée<?= $isPlural ?? "s" ?> depuis au moins <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour<?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 0 ?? "s" ?>.
         </div>
         <div class="card-body">
             <ul>
@@ -68,8 +68,7 @@ if (isset($_POST['effacer'])) :
         <form method="post">
             <button class="btn btn-danger" type="submit" name="effacer">
                 <span class="fas fa-trash"></span>
-                &nbsp;
-                Effacer ces fichiers
+                &nbsp;Effacer ce<?= $isPlural ?? "s" ?> fichier<?= $isPlural ?? "s" ?>
             </button>
         </form>
     </div>

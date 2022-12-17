@@ -36,10 +36,11 @@ $message = '';
 
 // Je récupère la liste des images jamais affichées
 $listeImages = MetaObject::getNeverUsedFiles();
+$isPlural = $listeImages->count() > 0;
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-    foreach ((array) $listeImages as $value) {
+    foreach ((array)$listeImages as $value) {
         $message .= '<br />Suppression de l\'image ' . $value;
 
         // Je crée mon objet et lance la suppression
@@ -48,14 +49,13 @@ if (isset($_POST['effacer'])) :
     }
     $message .= '<br />Effacement terminé !';
     ?>
-    <div class = "alert alert-success">
+    <div class="alert alert-success">
         <?= $message ?>
     </div>
 <?php else : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeImages->count() ?> image(s) envoyée(s) il y a
-            au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour(s) et jamais affichée(s)
+            <?= $listeImages->count() ?> image<?= $isPlural ?? "s" ?> envoyée<?= $isPlural ?? "s" ?> il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 0 ?? "s" ?> et jamais affichée<?= $isPlural ?? "s" ?>
         </div>
         <div class="card-body">
             <ul>
@@ -68,8 +68,7 @@ if (isset($_POST['effacer'])) :
         <form method="post">
             <button class="btn btn-danger" type="submit" name="effacer">
                 <span class="fas fa-trash"></span>
-                &nbsp;
-                Effacer ces fichiers
+                &nbsp;Effacer ce<?= $isPlural ?? "s" ?> fichier<?= $isPlural ?? "s" ?>
             </button>
         </form>
     </div>
