@@ -274,7 +274,7 @@ class UtilisateurObject
             $updateHash = false;
 
             // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-            if (str_starts_with($values->password, '$')) {
+            if (!str_starts_with($values->password, '$')) {
                 // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
                 // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
                 if (hash_equals($values->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
