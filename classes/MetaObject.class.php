@@ -175,7 +175,7 @@ class MetaObject
         $scan_rep = scandir($path);
         // Pour chaque item
         foreach ($scan_rep as $item) {
-            if ($item !== '.' && $item !== '..' && $item !== '_dummy') {
+            if (!in_array($item, ['.', '..', '_dummy', 'z_cache'])) {
                 if (is_dir($path . $item)) {
                     // Appel récursif
                     if ($path . $item . '/' !== _PATH_MINIATURES_) {
