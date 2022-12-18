@@ -64,7 +64,7 @@ if (isset($_POST['effacer'])) :
         $message .= '<br />Suppression de la BDD de l\'image ' . $value;
 
         // Je crée mon objet et lance la suppression
-        $monImage = new ImageObject($value);
+        $monImage = new ImageObject($value, RessourceObject::SEARCH_BY_MD5);
         $monImage->supprimer();
     }
     // Images uniquement en HDD
@@ -81,7 +81,7 @@ if (isset($_POST['effacer'])) :
         $message .= '<br />Suppression de la BDD de la miniature ' . $value;
 
         // Je crée mon objet et lance la suppression
-        $maMiniature = new MiniatureObject($value);
+        $maMiniature = new MiniatureObject($value, RessourceObject::SEARCH_BY_MD5);
         $maMiniature->supprimer();
     }
 

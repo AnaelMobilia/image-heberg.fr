@@ -34,19 +34,20 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
 
     /**
      * Constructeur
-     * @param string $newName newName de l'image maître
+     * @param string $value Identifiant image-heberg
+     * @param string $fromField Champ à utiliser en BDD
      * @throws Exception
      */
-    public function __construct(string $newName = "")
+    public function __construct(string $value = "", string $fromField = RessourceObject::SEARCH_BY_NAME)
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_MINIATURE);
 
-        // Si on me donne un newName d'image, je charge l'objet
-        if ($newName !== "") {
-            if (!$this->charger($newName)) {
+        // Faut-il charger l'objet ?
+        if ($value !== "") {
+            if (!$this->charger($value, $fromField)) {
                 // Envoi d'une exception si l'image n'existe pas
-                throw new Exception('Miniature ' . $newName . ' inexistante');
+                throw new Exception('Miniature ' . $value . ' inexistante - ' . $fromField);
             }
         }
     }
@@ -54,13 +55,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger(string $nom): bool
+    public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE new_name = :newName");
-        $req->bindValue(':newName', $nom);
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE " . $fromField . " = :value");
+        $req->bindValue(':value', $value);
         $req->execute();
 
         // J'éclate les informations
@@ -75,13 +76,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setMd5($resultat->md5);
             $this->setId($resultat->id);
             $this->setDateEnvoi($resultat->date_creation);
-            $this->setNomNouveau($nom);
+            $this->setNomNouveau($resultat->new_name);
             $this->setIdImage($resultat->images_id);
             $this->setIsPreview($resultat->is_preview);
 
             // Reprise des informations de l'image maitresse
             $imageMaitre = new ImageObject();
-            $imageMaitre->charger($nom);
+            $imageMaitre->charger($this->getIdImage(), RessourceObject::SEARCH_BY_ID);
             $this->setBloquee($imageMaitre->isBloquee());
             $this->setSignalee($imageMaitre->isSignalee());
             $this->setNomOriginal($imageMaitre->getNomOriginal());

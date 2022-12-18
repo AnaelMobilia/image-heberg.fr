@@ -29,9 +29,16 @@ use PDO;
  */
 abstract class RessourceObject
 {
+    // Types de ressources
     public const TYPE_IMAGE = 1;
     public const TYPE_MINIATURE = 2;
 
+    // Champ à utiliser en BDD pour charger la ressource
+    public const SEARCH_BY_MD5 = "md5";
+    public const SEARCH_BY_NAME = "new_name";
+    public const SEARCH_BY_ID = "id";
+
+    // Attributs de la classe
     private int $id = 0;
     private string $nomOriginal = "";
     private string $nomNouveau = "";

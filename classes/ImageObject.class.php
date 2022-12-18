@@ -32,19 +32,20 @@ class ImageObject extends RessourceObject implements RessourceInterface
 {
     /**
      * Constructeur
-     * @param string $newName nom de l'image
+     * @param string $value Identifiant image-heberg
+     * @param string $fromField Champ à utiliser en BDD
      * @throws Exception
      */
-    public function __construct(string $newName = "")
+    public function __construct(string $value = "", string $fromField = RessourceObject::SEARCH_BY_NAME)
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_IMAGE);
 
-        // Si on me donne un ID d'image, je charge l'objet
-        if ($newName !== "") {
-            if (!$this->charger($newName)) {
+        // Faut-il charger l'objet ?
+        if ($value !== "") {
+            if (!$this->charger($value, $fromField)) {
                 // Envoi d'une exception si l'image n'existe pas
-                throw new Exception('Image ' . $newName . ' inexistante');
+                throw new Exception('Image ' . $value . ' inexistante' . $fromField);
             }
         }
     }
@@ -52,14 +53,14 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function charger(string $nom): bool
+    public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         // Retour
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM images WHERE new_name = :newName");
-        $req->bindValue(':newName', $nom);
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM images WHERE " . $fromField . " = :value");
+        $req->bindValue(':value', $value);
         $req->execute();
 
         // J'éclate les informations
@@ -69,8 +70,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $this->setIpEnvoi($resultat->ip_envoi);
             $this->setDateEnvoi($resultat->date_envoi);
             $this->setNomOriginal($resultat->old_name);
-            // Permet l'effacement des fichiers non enregistrés en BDD
-            $this->setNomNouveau($nom);
+            $this->setNomNouveau($resultat->new_name);
             $this->setPoids($resultat->size);
             $this->setHauteur($resultat->height);
             $this->setLargeur($resultat->width);

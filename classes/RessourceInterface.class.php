@@ -33,11 +33,12 @@ interface RessourceInterface
     public function creer(): bool;
 
     /**
-     * Charge unn objet ressource depuis la BDD
-     * @param string $nom Identifiant image-heberg
+     * Charge un objet ressource depuis la BDD
+     * @param string $value Identifiant image-heberg
+     * @param string $fromField Champ à utiliser en BDD
      * @return bool Résultat ?
      */
-    public function charger(string $nom): bool;
+    public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool;
 
     /**
      * Enregistre en BDD un objet ressource
