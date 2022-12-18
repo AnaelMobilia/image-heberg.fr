@@ -43,9 +43,12 @@ if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
 }
 
 /**
- * Est-ce que le fichier existe ?
+ * Est-ce que le fichier existe en BDD et sur le système de fichier ?
  */
-if (!$monObjet->charger($fileName)) {
+if (
+    !$monObjet->charger($fileName)
+    || ! file_exists($monObjet->getPathMd5())
+) {
     // Fichier non trouvé...
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_404_);
