@@ -20,7 +20,7 @@
 -- Image bloquée
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
-(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, NULL, 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0);
+(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0);
 
 --
 -- Images à supprimer
