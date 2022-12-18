@@ -200,7 +200,7 @@ class MetaObject
     public static function getAllMiniaturesNameBDD(): ArrayObject
     {
         // Toutes les images
-        $req = "SELECT thumbnails.md5 FROM images, thumbnails WHERE images.id = thumbnails.id";
+        $req = "SELECT md5 FROM thumbnails";
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
