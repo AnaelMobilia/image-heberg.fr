@@ -30,7 +30,7 @@ use PDO;
 class MiniatureObject extends RessourceObject implements RessourceInterface
 {
     private int $idImage;
-    private bool $isPreview;
+    private bool $isPreview = false;
 
     /**
      * Constructeur

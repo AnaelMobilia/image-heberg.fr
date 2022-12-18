@@ -24,18 +24,18 @@
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `ip_envoi` text NOT NULL,
-  `date_envoi` datetime NULL DEFAULT NULL,
+  `date_envoi` datetime NOT NULL,
   `old_name` text NOT NULL,
   `new_name` text NOT NULL,
   `size` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
   `last_view` date NOT NULL,
-  `nb_view_v4` int(11) NOT NULL DEFAULT '0',
-  `nb_view_v6` int(11) NOT NULL DEFAULT '0',
+  `nb_view_v4` int(11) NOT NULL,
+  `nb_view_v6` int(11) NOT NULL,
   `md5` tinytext NOT NULL,
-  `isBloquee` tinyint(1) NOT NULL DEFAULT '0',
-  `isSignalee` tinyint(1) NOT NULL DEFAULT '0',
+  `isBloquee` tinyint(1) NOT NULL,
+  `isSignalee` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `password` text NOT NULL,
   `date_inscription` date NOT NULL,
   `ip_inscription` text NOT NULL,
-  `lvl` tinyint(4) NOT NULL,
-  `isActif` tinyint(1) NOT NULL DEFAULT '1',
+  `lvl` tinyint(1) NOT NULL,
+  `isActif` tinyint(1) NOT NULL,
   `token` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
@@ -86,15 +86,15 @@ CREATE TABLE IF NOT EXISTS `possede` (
 CREATE TABLE IF NOT EXISTS `thumbnails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `images_id` int(11) NOT NULL,
-  `is_preview` tinyint(4) NOT NULL DEFAULT '0',
-  `date_creation` date NULL DEFAULT NULL,
+  `is_preview` tinyint(1) NOT NULL,
+  `date_creation` date NOT NULL,
   `new_name` text NOT NULL,
   `size` int(11) NOT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
   `last_view` date NOT NULL,
-  `nb_view_v4` int(11) NOT NULL DEFAULT '0',
-  `nb_view_v6` int(11) NOT NULL DEFAULT '0',
+  `nb_view_v4` int(11) NOT NULL,
+  `nb_view_v6` int(11) NOT NULL,
   `md5` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `images_id` (`images_id`)
