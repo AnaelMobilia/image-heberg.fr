@@ -39,7 +39,7 @@ class InstallationTest extends TestCase
         /**
          * Valeur attendue
          */
-        $this->expectOutputString("L'installation est OK !");
+        $this->expectOutputRegex("#.*L'installation est OK !$#U");
 
         /**
          * Exécution du script...

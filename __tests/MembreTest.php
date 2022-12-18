@@ -148,7 +148,7 @@ class MembreTest extends TestCase
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals('myMail@example.com', $monMembre->getEmail(), "Vérification email");
+        $this->assertEquals('mymail@example.com', $monMembre->getEmail(), "Vérification email");
         // ID
         $this->assertEquals(3, $monMembre->getId());
         // @ IP d'inscription
