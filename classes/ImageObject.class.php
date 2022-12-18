@@ -123,13 +123,13 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $monRetour = new ArrayObject();
 
         // Chargement des miniatures
-        $query = "SELECT new_name FROM thumbnails where id_image = :idImage";
+        $query = "SELECT new_name FROM thumbnails where images_id = :imagesId";
         if ($onlyPreview) {
             $query .= " AND is_preview = 1";
         }
 
         $req = MaBDD::getInstance()->prepare($query);
-        $req->bindValue(':idImage', $this->getId(), PDO::PARAM_INT);
+        $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Je passe toutes les lignes de résultat
@@ -162,8 +162,8 @@ class ImageObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de l'affectation
          */
-        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE image_id = :imageId");
-        $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE images_id = :imagesId");
+        $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
 
         /**

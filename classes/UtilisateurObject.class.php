@@ -328,9 +328,9 @@ class UtilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
-            $req = MaBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, pk_membres) VALUES (:ipLogin, NOW(), :pkMembres)");
+            $req = MaBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, membres_id) VALUES (:ipLogin, NOW(), :membresId)");
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
-            $req->bindValue(':pkMembres', $userID, PDO::PARAM_INT);
+            $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
 
             $req->execute();
         }
@@ -417,13 +417,13 @@ class UtilisateurObject
     public function supprimer(): void
     {
         // Les images possédées
-        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE pk_membres = :pkMembres");
-        $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE membres_id = :membresId");
+        $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Historique des logins
-        $req = MaBDD::getInstance()->prepare("DELETE FROM login WHERE pk_membres = :pkMembres");
-        $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("DELETE FROM login WHERE membres_id = :membresId");
+        $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Paramètres du compte
@@ -443,9 +443,9 @@ class UtilisateurObject
         }
 
         // Les images possédées
-        $req = MaBDD::getInstance()->prepare("INSERT INTO possede (image_id, pk_membres) VALUES (:imageId, :pkMembres)");
-        $req->bindValue(':imageId', $imageObject->getId(), PDO::PARAM_INT);
-        $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("INSERT INTO possede (images_id, membres_id) VALUES (:imagesId, :membresId)");
+        $req->bindValue(':imagesId', $imageObject->getId(), PDO::PARAM_INT);
+        $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }
 
@@ -519,8 +519,8 @@ class UtilisateurObject
     public function getImages(): ArrayObject
     {
         // Toutes les images
-        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = image_id AND pk_membres = :pkMembres ");
-        $req->bindValue(':pkMembres', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = images_id AND membres_id = :membresId ");
+        $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
 
         // Exécution de la requête
         $req->execute();

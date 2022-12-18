@@ -44,11 +44,11 @@ CREATE TABLE IF NOT EXISTS `images` (
 --
 
 CREATE TABLE IF NOT EXISTS `login` (
-  `pk_login` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip_login` text NOT NULL,
   `date_login` datetime NOT NULL,
-  `pk_membres` int(11) NOT NULL,
-  PRIMARY KEY (`pk_login`)
+  `membres_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 --
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS `membres` (
 --
 
 CREATE TABLE IF NOT EXISTS `possede` (
-  `image_id` int(11) NOT NULL,
-  `pk_membres` int(11) NOT NULL,
-  PRIMARY KEY (`image_id`,`pk_membres`),
-  KEY `image_id` (`image_id`)
+  `images_id` int(11) NOT NULL,
+  `membres_id` int(11) NOT NULL,
+  PRIMARY KEY (`images_id`,`membres_id`),
+  KEY `images_id` (`images_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `possede` (
 
 CREATE TABLE IF NOT EXISTS `thumbnails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_image` int(11) NOT NULL,
+  `images_id` int(11) NOT NULL,
   `is_preview` tinyint(4) NOT NULL DEFAULT '0',
   `date_creation` date NULL DEFAULT NULL,
   `new_name` text NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
   `nb_view_v6` int(11) NOT NULL DEFAULT '0',
   `md5` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_image` (`id_image`)
+  KEY `images_id` (`images_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -116,4 +116,4 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 --
 -- Assignation à l'administrateur
 --
-INSERT INTO `possede` (`image_id`, `pk_membres`) VALUES ('1', '1'), ('2', '1');
+INSERT INTO `possede` (`images_id`, `membres_id`) VALUES ('1', '1'), ('2', '1');

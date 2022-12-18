@@ -47,13 +47,13 @@ class MetaObject
                AND 0 = (
                   SELECT COUNT(*)
                   FROM possede po
-                  WHERE po.image_id = im.id
+                  WHERE po.images_id = im.id
                )
                /* Préservation si miniature affichée */
                AND 0 = (
                   SELECT COUNT(*)
                   FROM thumbnails th
-                  WHERE th.id_image = im.id
+                  WHERE th.images_id = im.id
                   AND th.last_view IS NOT NULL
                )
 ";
@@ -87,13 +87,13 @@ class MetaObject
                AND 0 = (
                   SELECT COUNT(*)
                   FROM possede po
-                  WHERE po.image_id = im.id
+                  WHERE po.images_id = im.id
                )
                /* Préservation si miniature affichée */
                AND 0 = (
                   SELECT COUNT(*)
                   FROM thumbnails th
-                  WHERE th.id_image = im.id
+                  WHERE th.images_id = im.id
                   AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
                )";
 
@@ -124,7 +124,7 @@ class MetaObject
                AND 0 = (
                   SELECT COUNT(*)
                   FROM possede po
-                  WHERE po.pk_membres = m.id
+                  WHERE po.membres_id = m.id
                )";
 
         // Exécution de la requête

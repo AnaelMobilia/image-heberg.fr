@@ -215,8 +215,8 @@ abstract class RessourceObject
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE image_id = :imageId");
-        $req->bindValue(':imageId', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE images_id = :imagesId");
+        $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Je récupère les potentielles valeurs
@@ -228,7 +228,7 @@ abstract class RessourceObject
             $uneSession = new SessionObject();
 
             // Est-ce le propriétaire de l'image ?
-            if ((int) $values->pk_membres === $uneSession->getId()) {
+            if ((int) $values->membres_id === $uneSession->getId()) {
                 // Si oui... on confirme !
                 $monRetour = true;
             }

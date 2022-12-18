@@ -74,7 +74,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setId($resultat->id);
             $this->setDateEnvoi($resultat->date_creation);
             $this->setNomNouveau($nom);
-            $this->setIdImage($resultat->id_image);
+            $this->setIdImage($resultat->images_id);
             $this->setIsPreview($resultat->is_preview);
 
             // Reprise des informations de l'image maitresse
@@ -97,9 +97,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function sauver(): bool
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET id_image = :idImage, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
 
-        $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
+        $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(':isPreview', $this->getIsPreview(), PDO::PARAM_INT);
         $req->bindValue(':dateCreation', $this->getDateEnvoiBrute());
         $req->bindValue(':newName', $this->getNomNouveau(), PDO::PARAM_STMT);
@@ -195,8 +195,8 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare("INSERT INTO thumbnails (id_image, date_creation, new_name, size, height, width, md5) VALUES (:idImage, NOW(), :newName, :size, :height, :width, :md5)");
-            $req->bindValue(':idImage', $this->getIdImage(), PDO::PARAM_INT);
+            $req = MaBDD::getInstance()->prepare("INSERT INTO thumbnails (images_id, date_creation, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)");
+            $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(':newName', $this->getNomNouveau());
             $req->bindValue(':size', $this->getPoids(), PDO::PARAM_INT);
