@@ -3,7 +3,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   run:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:        
         php-versions: ['8.0', '8.1', '8.2']
@@ -29,6 +29,7 @@ jobs:
         phpunit --version
         php -r 'echo Imagick::getVersion()["versionString"];'
         php -r 'echo phpinfo();'
+        mysql -u root -proot -e "SELECT @@GLOBAL.sql_mode global, @@SESSION.sql_mode session"
         
     - name: Mise en place de l'environnement
       run: |
