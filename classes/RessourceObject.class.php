@@ -38,7 +38,7 @@ abstract class RessourceObject
     private int $largeur = 0;
     private int $hauteur = 0;
     private int $poids = 0;
-    private string $lastView = "";
+    private string $lastView = "0000-00-00";
     private int $nbViewIPv4 = 0;
     private int $nbViewIPv6 = 0;
     private string $dateEnvoi = "";
