@@ -106,9 +106,9 @@ class UtilisateurObject
 
     /**
      * Date d'inscription formatée
-     * @return false|string
+     * @return string
      */
-    public function getDateInscriptionFormate()
+    public function getDateInscriptionFormate(): string
     {
         $phpdate = strtotime($this->getDateInscription());
         return date("d/m/Y", $phpdate);
@@ -274,7 +274,7 @@ class UtilisateurObject
             $updateHash = false;
 
             // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-            if (substr($values->password, 0, 1) !== '$') {
+            if (str_starts_with($values->password, '$')) {
                 // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
                 // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
                 if (hash_equals($values->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {

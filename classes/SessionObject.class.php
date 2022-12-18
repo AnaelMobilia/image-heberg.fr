@@ -56,11 +56,7 @@ class SessionObject
      */
     private function getUserObject(): UtilisateurObject
     {
-        if (isset($this->userObject)) {
-            return $this->userObject;
-        } else {
-            return new UtilisateurObject();
-        }
+        return $this->userObject ?? new UtilisateurObject();
     }
 
     /**

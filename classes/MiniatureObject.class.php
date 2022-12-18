@@ -251,9 +251,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     }
 
     /**
-     * @param mixed $isPreview
+     * @param bool $isPreview
      */
-    public function setIsPreview($isPreview): void
+    public function setIsPreview(bool $isPreview): void
     {
         $this->isPreview = $isPreview;
     }

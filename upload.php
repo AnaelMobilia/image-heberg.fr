@@ -52,7 +52,7 @@ if (empty($msgErreur) && _TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_A
 /**
  * Vérification de la présence d'un fichier
  */
-if (empty($msgErreur) && (!isset($_FILES['fichier']['name']) || empty($_FILES['fichier']['name']))) {
+if (empty($msgErreur) && empty($_FILES['fichier']['name'])) {
     $msgErreur .= 'Aucun fichier n\'a été envoyé.<br />';
 }
 

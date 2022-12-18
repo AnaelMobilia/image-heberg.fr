@@ -53,7 +53,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     $maSession->setFlag();
 }
 ?>
-<?php if (!isset($_POST['Submit']) || (isset($_POST['Submit']) && $maSession->checkFlag())) : ?>
+<?php if (!isset($_POST['Submit']) || $maSession->checkFlag()) : ?>
     <h1 class="mb-3"><small>Contacter l'administrateur du service - <?= _ADMINISTRATEUR_NOM_ ?></small></h1>
     <form method="post">
         <div class="mb-3 form-floating">

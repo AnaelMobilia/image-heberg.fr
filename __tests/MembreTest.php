@@ -38,7 +38,7 @@ class MembreTest extends TestCase
      * Fonction requise par l'extension Database
      * @return mixed
      */
-    public function getConnection()
+    public function getConnection(): mixed
     {
         $pdo = new PDO('sqlite::memory:');
         return $this->createDefaultDBConnection($pdo, ':memory:');
@@ -48,7 +48,7 @@ class MembreTest extends TestCase
      * Fonction requise par l'extension Database
      * @return PHPUnit_Extensions_Database_DataSet_DefaultDataSet
      */
-    public function getDataSet()
+    public function getDataSet(): PHPUnit_Extensions_Database_DataSet_DefaultDataSet
     {
         return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
     }

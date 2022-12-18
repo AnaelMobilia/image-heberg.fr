@@ -79,7 +79,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     $maSession->setFlag();
 }
 ?>
-<?php if (!isset($_POST['Submit']) || (isset($_POST['Submit']) && $maSession->checkFlag())) : ?>
+<?php if (!isset($_POST['Submit']) || $maSession->checkFlag()) : ?>
     <h1 class="mb-3"><small>Signaler une image</small></h1>
 
     <form method="post">

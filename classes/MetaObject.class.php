@@ -296,7 +296,7 @@ class MetaObject
     public static function isRecursivelyWritable(string $folder): ArrayObject
     {
         // On évite le // dans le path... (estéthique)
-        if (substr($folder, -1) === "/") {
+        if (str_ends_with($folder, "/")) {
             $folder = substr($folder, 0, -1);
         }
         $monRetour = new ArrayObject();

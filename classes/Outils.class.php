@@ -34,7 +34,7 @@ class Outils
      * @param string $path chemin sur le filesystem
      * @return false|int
      */
-    public static function getType(string $path)
+    public static function getType(string $path): bool|int
     {
         return exif_imagetype($path);
     }

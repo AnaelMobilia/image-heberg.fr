@@ -50,7 +50,7 @@ class MaBDD
      * Crée & renvoi l'objet d'instance
      * @return MaBDD
      */
-    public static function getInstance(): ?MaBDD
+    public static function getInstance(): MaBDD
     {
         // Si pas de connexion active, en crée une
         if (is_null(self::$monInstance)) {
@@ -64,7 +64,7 @@ class MaBDD
      * @param string $query
      * @return false|PDOStatement
      */
-    public function query(string $query)
+    public function query(string $query): bool|PDOStatement
     {
         return $this->maBDD->query($query);
     }
@@ -74,7 +74,7 @@ class MaBDD
      * @param string $query
      * @return false|PDOStatement
      */
-    public function prepare(string $query)
+    public function prepare(string $query): bool|PDOStatement
     {
         return $this->maBDD->prepare($query);
     }
@@ -101,7 +101,7 @@ class MaBDD
      * @param int $attribute
      * @return mixed
      */
-    public function getAttribute(int $attribute)
+    public function getAttribute(int $attribute): mixed
     {
         return $this->maBDD->getAttribute($attribute);
     }

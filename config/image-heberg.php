@@ -32,7 +32,7 @@ if (!_PHPUNIT_) {
      * Gestion des exceptions de l'application
      * @param Throwable $exception
      */
-    function exception_handler(Throwable $exception)
+    function exception_handler(Throwable $exception): void
     {
         if (_DEBUG_) {
             echo '<pre>';
@@ -94,7 +94,6 @@ define('_URL_CONFIG_', _URL_HTTPS_ . _REPERTOIRE_CONFIG_);
  */
 define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);
 define('_PATH_MINIATURES_', _PATH_ . _REPERTOIRE_MINIATURE_);
-define('_PATH_ADMIN_', _PATH_ . _REPERTOIRE_ADMIN_);
 define('_PATH_TESTS_IMAGES_', _PATH_ . '__tests/images/');
 define('_PATH_TESTS_OUTPUT_', _PATH_ . '__tests/output/');
 define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');

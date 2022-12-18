@@ -76,9 +76,8 @@ if (headers_sent()) {
     $msg = "Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !";
     if (!_PHPUNIT_) {
         die($msg);
-    } else {
-        // Sinon, ne rien faire, nous sommes dans l'environnement de tests qui a déjà affiché des données (phpunit...)
     }
+    // Sinon, ne rien faire, nous sommes dans l'environnement de tests qui a déjà affiché des données (phpunit...)
 }
 
 /* Configuration */
