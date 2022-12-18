@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use Exception;
 use PDO;
 use ArrayObject;
 
@@ -44,6 +45,9 @@ class UtilisateurObject
     public const LEVEL_USER = 1;
     public const LEVEL_ADMIN = 2;
 
+    /**
+     * @throws Exception
+     */
     public function __construct($userID = false)
     {
         // Utilisateur à charger
@@ -435,6 +439,7 @@ class UtilisateurObject
     /**
      * Assigne une image à un utilisateur en BDD
      * @param ImageObject $imageObject
+     * @throws Exception
      */
     public function assignerImage(ImageObject $imageObject): void
     {

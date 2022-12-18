@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use Exception;
 use PDO;
 
 /**
@@ -34,14 +35,15 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * Constructeur
      * @param string $newName newName de l'image maître
+     * @throws Exception
      */
-    public function __construct($newName = false)
+    public function __construct(string $newName = "")
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_MINIATURE);
 
         // Si on me donne un newName d'image, je charge l'objet
-        if ($newName) {
+        if ($newName !== "") {
             if (!$this->charger($newName)) {
                 // Envoi d'une exception si l'image n'existe pas
                 throw new Exception('Miniature ' . $newName . ' inexistante');

@@ -22,6 +22,7 @@
 namespace ImageHeberg;
 
 use ArrayObject;
+use Exception;
 use PDO;
 
 /**
@@ -32,14 +33,15 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * Constructeur
      * @param string $newName nom de l'image
+     * @throws Exception
      */
-    public function __construct($newName = false)
+    public function __construct(string $newName = "")
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_IMAGE);
 
         // Si on me donne un ID d'image, je charge l'objet
-        if ($newName) {
+        if ($newName !== "") {
             if (!$this->charger($newName)) {
                 // Envoi d'une exception si l'image n'existe pas
                 throw new Exception('Image ' . $newName . ' inexistante');
