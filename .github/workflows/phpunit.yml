@@ -37,6 +37,8 @@ jobs:
         mysql -u root -proot imageheberg < database.sql
         sh -c "mv __tests/config/config.php config/"
         sh -c "mv __tests/ipv*.txt files/z_cache/"
+        sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
+        sh -c "cp __tests/images/image_a_supprimer.png files/d/d456d1b6582a15f0f458006898b40e29"
         mysql -u root -proot imageheberg < __tests/data.sql
 
     - name : Test de l'application
