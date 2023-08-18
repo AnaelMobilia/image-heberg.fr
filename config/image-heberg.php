@@ -35,10 +35,11 @@ if (!_PHPUNIT_) {
     function exception_handler(Throwable $exception): void
     {
         if (_DEBUG_) {
+            // Afficher l'erreur en masquant les informations sensibles
             echo '<pre>';
-            print_r($exception->getMessage());
+            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], "xxx", $exception->getMessage()));
             echo '<br /><br /><hr /><br />';
-            print_r($exception->getTraceAsString());
+            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], "xxx", $exception->getTraceAsString()));
             echo '</pre>';
         } else {
             echo 'Une erreur a été rencontrée';
