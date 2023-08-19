@@ -31,7 +31,8 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 (13, '127.0.0.1', '2016-01-01 00:00:00', 'image.png', '146734019451334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'a876d1b6582a15f0f458006898b40e29', 0, 0),
 (14, '127.0.0.1', '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', '14777777.png', 4239, 400, 640, '0000-00-00', 0, 0, 'aec65c6b4469bb7267d2d55af5fbd87b', 0, 0),
 (15, '127.0.0.1', '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', '15.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0),
-(16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', '16.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0);
+(16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', '16.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0),
+(17, '127.0.0.1', '2016-01-01 00:00:00', 'imageDejaBloquee.png', '17.png', 4239, 400, 640, '0000-00-00', 0, 0, '3487a240d00aa62f2abcfe43ba84a85c', 0, 0);
 
 --
 -- Image signalée

@@ -227,6 +227,15 @@ class ImageObject extends RessourceObject implements RessourceInterface
             // Copie du fichier vers l'emplacement de stockage
             // Ne peut pas être fait avant car le MD5 n'est pas encore connu
             copy($this->getPathTemp(), $this->getPathMd5());
+        } else {
+            // Ce MD5 est-il déjà bloqué pour une autre image ?
+            $req = MaBDD::getInstance()->prepare("SELECT MAX(isBloquee) AS isBloquee FROM images WHERE md5 = :md5");
+            $req->bindValue(':md5', $this->getMd5());
+            $req->execute();
+            $values = $req->fetch();
+            if ($values !== false) {
+                $this->setBloquee((bool)$values->isBloquee);
+            }
         }
 
         // Ssi copie du fichier réussie
@@ -248,7 +257,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5)");
+            $req = MaBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)");
             $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
             // Date : NOW()
             $req->bindValue(':oldName', $this->getNomOriginal());
@@ -257,6 +266,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
             $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
             $req->bindValue(':md5', $this->getMd5());
+            $req->bindValue(':isBloquee', $this->isBloquee());
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD

@@ -60,4 +60,34 @@ class AbuseTest extends TestCase
             "Image avec même MD5 qu'une image signalée doit l'être également"
         );
     }
+
+    /**
+     * Renvoi d'une image bloquée et demande de son affichage
+     * @depends testAbuse
+     */
+    public function testAbuseRenvoiImage()
+    {
+        ImageUploadAndDeleteTest::prepareTest();
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+
+        $this->assertTrue(
+            empty($msgErreur),
+            "Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : " . $msgErreur
+        );
+        $this->assertTrue(
+            empty($msgWarning),
+            "Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : " . $msgWarning
+        );
+        $this->assertEquals(
+            true,
+            $monImage->isBloquee(),
+            "Renvoi image déjà bloquée doit être isBloquéene en BDD"
+        );
+    }
 }
