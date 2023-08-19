@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2008-2022 Anael MOBILIA
+ * Copyright 2008-2023 Anael MOBILIA
  *
  * This file is part of image-heberg.fr.
  *
