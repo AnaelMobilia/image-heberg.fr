@@ -83,6 +83,11 @@ class ImageObjectTest extends TestCase
         // compare the images using METRIC=1 (Absolute Error)
         $result = $img1->compareImages($img2, 1);
 
+        // Afficher le détail des incohérences
+        if ($result[1] != 0) {
+            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1];
+        }
+
         return ($result[1] == 0);
     }
 

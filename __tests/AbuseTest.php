@@ -71,8 +71,8 @@ class AbuseTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
-        $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = '15180025661369047607.gif';
+        $_FILES['fichier']['size'] = 146;
+        $_FILES['fichier']['name'] = 'imageDejaBloquee.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
         ob_start();
