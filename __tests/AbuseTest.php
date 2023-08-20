@@ -72,7 +72,7 @@ class AbuseTest extends TestCase
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_FILES['fichier']['size'] = 104857;
-        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['name'] = '15180025661369047607.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
         ob_start();
@@ -90,7 +90,7 @@ class AbuseTest extends TestCase
         $this->assertEquals(
             true,
             $monImage->isBloquee(),
-            "Renvoi image déjà bloquée doit être isBloquéene en BDD"
+            "Renvoi image déjà bloquée doit être isBloquée en BDD"
         );
     }
 }

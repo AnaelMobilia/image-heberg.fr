@@ -41,6 +41,7 @@ jobs:
           sh -c "mv __tests/ipv*.txt files/z_cache/"
           sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
           sh -c "cp __tests/images/image_a_supprimer.png files/d/d456d1b6582a15f0f458006898b40e29"
+          sh -c "cp __tests/images/imageDejaBloquee.gif files/f/f7a498af28acb8a3bbc20ddc95da4c2a"
           mysql -u root -proot imageheberg < __tests/data.sql
 
       - name: Test de l'application - phpunit v9

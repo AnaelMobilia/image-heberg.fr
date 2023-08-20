@@ -43,7 +43,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 -- Image bloquée
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`) VALUES
-(18, '127.0.0.1', '2016-01-01 00:00:00', 'imageDejaBloquee.png', '17.png', 4239, 400, 640, '0000-00-00', 0, 0, '3487a240d00aa62f2abcfe43ba84a85c', 0, 0);
+(18, '127.0.0.1', '2016-01-01 00:00:00', '15180025661369047607.gif', 'imageDejaBloquee.gif', 146, 25, 37, '0000-00-00', 0, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 1, 0);
 
 --
 -- Miniatures à supprimer
