@@ -44,10 +44,10 @@ jobs:
           mysql -u root -proot imageheberg < __tests/data.sql
 
       - name: Test de l'application - phpunit v9
-        if: ${{ matrix.php-version == '8.0' }}
+        if: ${{ matrix.php-versions == '8.0' }}
         run: phpunit --colors --debug __tests/
 
       - name: Test de l'application - phpunit v10
-        if: ${{ matrix.php-version != '8.0' }}
+        if: ${{ matrix.php-versions != '8.0' }}
         run: phpunit --colors --display-warnings --display-errors __tests/
 
