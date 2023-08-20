@@ -85,7 +85,7 @@ class ImageObjectTest extends TestCase
 
         // Afficher le détail des incohérences
         if ($result[1] != 0) {
-            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1] . "\n";
+            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1] . " (Fuzz factor : " . self::FUZZ . ")\n";
         }
 
         return ($result[1] == 0);
