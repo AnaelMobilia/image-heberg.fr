@@ -1,47 +1,53 @@
 name: PHPUnit - Tests de l'application
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request, workflow_dispatch ]
 
 jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
-      matrix:        
-        php-versions: ['8.0', '8.1', '8.2']
+      matrix:
+        php-versions: [ '8.0', '8.1', '8.2' ]
     name: PHP ${{ matrix.php-versions }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Configuration PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: imagick, pdo_mysql
-        tools: phpunit
+      - name: Configuration PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: imagick, pdo_mysql
+          tools: phpunit
 
-    - name: Lancement de MySQL
-      run: sudo systemctl start mysql.service
+      - name: Lancement de MySQL
+        run: sudo systemctl start mysql.service
 
-    - name: Informations sur l'environnement
-      run: |
-        php --version
-        mysql -V
-        phpunit --version
-        php -r 'echo Imagick::getVersion()["versionString"];'
-        php -r 'echo phpinfo();'
-        mysql -u root -proot -e "SELECT @@GLOBAL.sql_mode global, @@SESSION.sql_mode session"
-        
-    - name: Mise en place de l'environnement
-      run: |
-        mysql -u root -proot -e "SET GLOBAL sql_mode = 'NO_ENGINE_SUBSTITUTION';"
-        mysql -u root -proot -e "alter user 'root'@'localhost' identified with mysql_native_password by 'root';"
-        mysql -u root -proot -e "CREATE DATABASE imageheberg;"
-        mysql -u root -proot imageheberg < database.sql
-        sh -c "mv __tests/config/config.php config/"
-        sh -c "mv __tests/ipv*.txt files/z_cache/"
-        sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
-        sh -c "cp __tests/images/image_a_supprimer.png files/d/d456d1b6582a15f0f458006898b40e29"
-        mysql -u root -proot imageheberg < __tests/data.sql
+      - name: Informations sur l'environnement
+        run: |
+          php --version
+          mysql -V
+          phpunit --version
+          php -r 'echo Imagick::getVersion()["versionString"];'
+          php -r 'echo phpinfo();'
+          mysql -u root -proot -e "SELECT @@GLOBAL.sql_mode global, @@SESSION.sql_mode session"
 
-    - name : Test de l'application
-      run: phpunit --colors --debug __tests/
+      - name: Mise en place de l'environnement
+        run: |
+          mysql -u root -proot -e "SET GLOBAL sql_mode = 'NO_ENGINE_SUBSTITUTION';"
+          mysql -u root -proot -e "alter user 'root'@'localhost' identified with mysql_native_password by 'root';"
+          mysql -u root -proot -e "CREATE DATABASE imageheberg;"
+          mysql -u root -proot imageheberg < database.sql
+          sh -c "mv __tests/config/config.php config/"
+          sh -c "mv __tests/ipv*.txt files/z_cache/"
+          sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
+          sh -c "cp __tests/images/image_a_supprimer.png files/d/d456d1b6582a15f0f458006898b40e29"
+          mysql -u root -proot imageheberg < __tests/data.sql
+
+      - name: Test de l'application - phpunit v9
+        if: ${{ matrix.php-version == '8.0' }}
+        run: phpunit --colors --debug __tests/
+
+      - name: Test de l'application - phpunit v10
+        if: ${{ matrix.php-version !== '8.0' }}
+        run: phpunit --colors --display-warnings --display-errors __tests/
+
