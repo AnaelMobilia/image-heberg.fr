@@ -81,7 +81,7 @@ class ImageObjectTest extends TestCase
 
         // https://www.php.net/manual/en/imagick.compareimages.php#114944
         // compare the images using METRIC=1 (Absolute Error)
-        $result = $img1->compareImages($img2, 1);
+        $result = $img1->compareImages($img2, Imagick::METRIC_STRUCTURAL_DISSIMILARITY_ERROR);
 
         // Afficher le détail des incohérences
         if ($result[1] != 0) {
