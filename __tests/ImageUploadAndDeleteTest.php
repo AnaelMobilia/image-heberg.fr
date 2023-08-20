@@ -120,7 +120,7 @@ class ImageUploadAndDeleteTest extends TestCase
     /**
      * Prépare l'environnement pour le test
      */
-    public static function prepareTest($chargerConfig = false)
+    private static function prepareTest($chargerConfig = false)
     {
         if ($chargerConfig) {
             require_once 'config/config.php';

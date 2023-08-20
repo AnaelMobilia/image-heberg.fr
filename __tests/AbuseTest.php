@@ -67,7 +67,10 @@ class AbuseTest extends TestCase
      */
     public function testAbuseRenvoiImage()
     {
-        ImageUploadAndDeleteTest::prepareTest(true);
+        require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['flag'] = true;
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
