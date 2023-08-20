@@ -63,11 +63,11 @@ class AbuseTest extends TestCase
 
     /**
      * Renvoi d'une image bloquée et demande de son affichage
-     * @depends testAbuse
+     * @runInSeparateProcess
      */
     public function testAbuseRenvoiImage()
     {
-        ImageUploadAndDeleteTest::prepareTest();
+        ImageUploadAndDeleteTest::prepareTest(true);
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
