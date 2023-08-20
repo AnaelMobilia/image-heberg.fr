@@ -85,7 +85,7 @@ class ImageObjectTest extends TestCase
 
         // Afficher le détail des incohérences
         if ($result[1] != 0) {
-            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1];
+            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1] . "\n";
         }
 
         return ($result[1] == 0);
