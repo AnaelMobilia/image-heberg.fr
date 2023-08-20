@@ -185,6 +185,9 @@ class ImageUploadAndDeleteTest extends TestCase
         require 'upload.php';
         ob_end_clean();
 
+        /* @var $monImage ImageObject */
+        echo "MD5 : " . $monImage->getMd5();
+
         $this->assertTrue(
             empty($msgErreur),
             "Envoi image + miniature ne doit pas être bloqué dans upload.php - Erreur : " . $msgErreur
