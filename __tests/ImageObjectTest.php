@@ -88,6 +88,7 @@ class ImageObjectTest extends TestCase
 
     /**
      * Rotation des images PNG
+     * @runInSeparateProcess
      */
     public function testRotationImagesPNG()
     {
@@ -113,10 +114,11 @@ class ImageObjectTest extends TestCase
 
     /**
      * Rotation des images JPG
-     * @depends testRotationImagesPNG
+     * @runInSeparateProcess
      */
     public function testRotationImagesJPG()
     {
+        require 'config/config.php';
         $monImage = new ImageObject();
 
         foreach (self::VALEURS_ANGLE as $angle) {
@@ -138,10 +140,11 @@ class ImageObjectTest extends TestCase
     /**
      * Rotation des images GIF
      * Pas de changement en fonction des versions de PHP
-     * @depends testRotationImagesJPG
+     * @runInSeparateProcess
      */
     public function testRotationImagesGIF()
     {
+        require 'config/config.php';
         $monImage = new ImageObject();
 
         foreach (self::VALEURS_ANGLE as $angle) {
@@ -162,10 +165,11 @@ class ImageObjectTest extends TestCase
 
     /**
      * Redimensionnement des images
-     * @depends testRotationImagesGIF
+     * @runInSeparateProcess
      */
     public function testRedimensionnementImages()
     {
+        require 'config/config.php';
         $monImage = new ImageObject();
 
         /*
