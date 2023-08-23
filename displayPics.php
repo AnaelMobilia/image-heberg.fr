@@ -28,8 +28,8 @@ require 'config/config.php';
 
 // URL demandée
 $url = $_SERVER['REQUEST_URI'];
-// Nom du fichier demandé
-$fileName = basename($url);
+// Nom du fichier demandé - Nettoyer les paramètres
+$fileName = basename(parse_url($url, PHP_URL_PATH));
 
 /**
  * Définition du type
@@ -47,7 +47,7 @@ if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
  */
 if (
     !$monObjet->charger($fileName)
-    || ! file_exists($monObjet->getPathMd5())
+    || !file_exists($monObjet->getPathMd5())
 ) {
     // Fichier non trouvé...
     $monObjet = new ImageObject();
