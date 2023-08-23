@@ -333,13 +333,13 @@ class MetaObject
         $req->bindValue(':md5', $unMd5);
         $req->execute();
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($req->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $monRetour->append($value->new_name);
         }
 
-        return $retour;
+        return $monRetour;
     }
 }
