@@ -242,8 +242,29 @@ abstract class HelperAdmin
      */
     public static function getImagesSignalees(): ArrayObject
     {
-        // Images avec le même MD5
-        $req = "SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 1";
+        // Images signalées
+        $req = "SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 0";
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        $monRetour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $monRetour->append($value->new_name);
+        }
+
+        return $monRetour;
+    }
+
+    /**
+     * Images dont les statistiques d'affichage sont incohérentes
+     * @return ArrayObject
+     */
+    public static function getImagesTropAffichees(): ArrayObject
+    {
+        // Images avec trop d'affichages
+        $req = "SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 HAVING nbViewPerDay > " . _ABUSE_AFFICHAGES_PAR_JOUR . " ORDER BY nbViewPerDay DESC";
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 

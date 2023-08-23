@@ -32,6 +32,12 @@ require _TPL_TOP_;
             Gestion du site
         </div>
         <div class="card-body">
+            <a href="<?= _URL_ADMIN_ ?>abuse.php" class="btn btn-success">
+                <span class="fas fa-radiation"></span>
+                &nbsp;Images à vérifier
+            </a>
+            <div class="clearfix"></div>
+            <br/>
             <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
                 <span class="fas fa-list-alt"></span>
                 &nbsp;Vérifier la configuration

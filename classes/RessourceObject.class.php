@@ -282,6 +282,20 @@ abstract class RessourceObject
     }
 
     /**
+     * Nombre d'affichage par jour
+     * @return int
+     */
+    public function getNbViewPerDay(): int
+    {
+        $dateNow = time();
+        $dateEnvoi = strtotime($this->getDateEnvoiBrute());
+
+        $nbJours = ($dateNow - $dateEnvoi) / (60 * 60 * 24);
+
+        return (int) $this->getNbViewTotal() / $nbJours;
+    }
+
+    /**
      * Nom original de la ressource
      * @return string
      */

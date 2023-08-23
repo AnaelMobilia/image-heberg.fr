@@ -71,6 +71,9 @@ define('_DEBUG_', false);
 // Délai de conservation des comptes jamais utilisés (en jours)
 define('_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_', 30);
 
+// Nombre d'affichage par jour à partir duquel une image est suspecte
+define('_ABUSE_AFFICHAGES_PAR_JOUR', 1500);
+
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 define('_TOR_DISABLE_UPLOAD_', true);
 
