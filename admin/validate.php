@@ -32,7 +32,7 @@ require _TPL_TOP_;
         PHP
     </div>
     <div class="card-body">
-        <?= MetaObject::getPhpVersion() ?>
+        <?= HelperSysteme::getPhpVersion() ?>
     </div>
 </div>
 <div class="card">
@@ -40,7 +40,7 @@ require _TPL_TOP_;
         MySQL
     </div>
     <div class="card-body">
-        <?= MetaObject::getMysqlVersion() ?>
+        <?= HelperSysteme::getMysqlVersion() ?>
     </div>
 </div>
 <div class="card">
@@ -48,7 +48,7 @@ require _TPL_TOP_;
         Imagick
     </div>
     <div class="card-body">
-        <?= MetaObject::getImagickVersion() ?>
+        <?= HelperSysteme::getImagickVersion() ?>
     </div>
 </div>
 <div class="card">
@@ -58,9 +58,9 @@ require _TPL_TOP_;
     <div class="card-body">
         Les valeurs doivent être de type "HTTP/*.* 403 Forbidden".
         <ul>
-            <li>Répertoire config : <?= MetaObject::getStatusHTTP(_URL_CONFIG_) ?></li>
-            <li>Répertoire admin : <?= MetaObject::getStatusHTTP(_URL_ADMIN_) ?></li>
-            <li>Répertoire membre : <?= MetaObject::getStatusHTTP(_URL_MEMBRE_) ?></li>
+            <li>Répertoire config : <?= HelperSysteme::getStatusHTTP(_URL_CONFIG_) ?></li>
+            <li>Répertoire admin : <?= HelperSysteme::getStatusHTTP(_URL_ADMIN_) ?></li>
+            <li>Répertoire membre : <?= HelperSysteme::getStatusHTTP(_URL_MEMBRE_) ?></li>
         </ul>
     </div>
 </div>
@@ -72,7 +72,7 @@ require _TPL_TOP_;
         <ul>
             <?php
 
-            $lesDroits = MetaObject::isRecursivelyWritable(_PATH_IMAGES_);
+            $lesDroits = HelperSysteme::isRecursivelyWritable(_PATH_IMAGES_);
             foreach ((array) $lesDroits as $unItem) :
                 ?>
                 <li><?= $unItem ?></li>

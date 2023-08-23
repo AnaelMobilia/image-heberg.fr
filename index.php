@@ -37,7 +37,7 @@ require _TPL_TOP_;
         <b>L'image a été supprimée avec succès !</b>
     </div>
 <?php endif; ?>
-<?php if (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
+<?php if (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
     <div class="alert alert-danger">
         <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées
         et tout l'espace disque acheté est utilisé !
@@ -72,7 +72,7 @@ require _TPL_TOP_;
             <div class="mb-3">
                 <label for="fichier" class="col-mb-3 form-label">Fichier à envoyer</label>
                 <div class="col-md-9">
-                    <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= (MetaObject::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?> class="form-control">
+                    <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?> class="form-control">
                 </div>
                 <div class="help-block">
                     Tout envoi de fichier implique l'acceptation des

@@ -42,7 +42,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             $monImage->sauver();
 
             // On cherche les autres images avec le même MD5
-            $images = MetaObject::getImageByMd5($monImage->getMd5());
+            $images = HelperAdmin::getImageByMd5($monImage->getMd5());
             foreach ($images as $uneImage) {
                 // On flaggue en signalée...
                 $monImage = new ImageObject($uneImage);

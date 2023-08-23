@@ -27,7 +27,7 @@ use ImagickException;
 /**
  * Bibliothèque d'outils pour la gestion des images
  */
-class Outils
+abstract class HelperImage
 {
     /**
      * Type de l'image
@@ -115,39 +115,6 @@ class Outils
     }
 
     /**
-     * Taille mémoire maximale autorisée
-     * @see http://php.net/manual/fr/function.ini-get.php
-     * @return int
-     */
-    public static function getMemoireAllouee(): int
-    {
-        // Récupération de la valeur du php.ini
-        $valBrute = trim(ini_get('memory_limit'));
-        // memory_limit=0 est possible
-        if ($valBrute <= 0) {
-            // Arbitrairement limite à 2Go
-            $valBrute = "2G";
-        }
-
-        // Gestion de l'unité multiplicatrice...
-        $unite = strtolower(substr($valBrute, -1));
-        $val = (int) substr($valBrute, 0, -1);
-        switch ($unite) {
-            case 'g':
-                $val *= 1024;
-            // no break
-            case 'm':
-                $val *= 1024;
-            // no break
-            case 'k':
-                $val *= 1024;
-            // no break
-        }
-
-        return $val;
-    }
-
-    /**
      * Est-il possible de modifier l'image (mémoire suffisante ?)
      * @param string $path
      * @return bool Possible ?
@@ -179,7 +146,7 @@ class Outils
         $memReq *= _FUDGE_FACTOR_;
 
         // Est-ce possible ?
-        if ($memReq < self::getMemoireAllouee()) {
+        if ($memReq < HelperSysteme::getMemoireAllouee()) {
             $monRetour = true;
         }
 
@@ -195,7 +162,7 @@ class Outils
      */
     public static function getMaxDimension(): int
     {
-        $memDispo = self::getMemoireAllouee();
+        $memDispo = HelperSysteme::getMemoireAllouee();
 
         /**
          * Mémoire requise :

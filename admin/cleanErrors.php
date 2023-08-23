@@ -34,9 +34,9 @@ require _TPL_TOP_;
 $message = '';
 
 // Je récupère la liste des images en BDD
-$listeImagesBDD = MetaObject::getAllImagesNameBDD();
+$listeImagesBDD = HelperAdmin::getAllImagesNameBDD();
 // Je récupère la liste des images sur le HDD
-$listeImagesHDD = MetaObject::getAllImagesNameHDD(_PATH_IMAGES_);
+$listeImagesHDD = HelperAdmin::getAllImagesNameHDD(_PATH_IMAGES_);
 
 // Je recherche les erreurs sur les images
 // Pour chaque images en BDD
@@ -46,9 +46,9 @@ $listeErreursImagesHDD = new ArrayObject(array_diff((array) $listeImagesHDD, (ar
 
 
 // Je récupère la liste des miniatures en BDD
-$listeMiniaturesBDD = MetaObject::getAllMiniaturesNameBDD();
+$listeMiniaturesBDD = HelperAdmin::getAllMiniaturesNameBDD();
 // Je récupère la liste des miniatures en HDD
-$listeMiniaturesHDD = MetaObject::getAllImagesNameHDD(_PATH_MINIATURES_);
+$listeMiniaturesHDD = HelperAdmin::getAllImagesNameHDD(_PATH_MINIATURES_);
 
 // Je recherche les erreurs sur les miniatures
 // Pour chaque miniatures en BDD

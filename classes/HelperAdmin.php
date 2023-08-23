@@ -26,11 +26,9 @@ use ArrayObject;
 use Imagick;
 
 /**
- * Les méthodes "génériques"
- *
- * @author anael
+ * Bibliothèque d'outils pour la gestion du site en tant qu'admin
  */
-class MetaObject
+abstract class HelperAdmin
 {
     /**
      * Liste des images n'ayant jamais été affichées et présentes sur le serveur depuis xx temps
@@ -61,14 +59,14 @@ class MetaObject
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $monRetour->append($value->new_name);
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -100,14 +98,14 @@ class MetaObject
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $monRetour->append($value->new_name);
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -130,14 +128,14 @@ class MetaObject
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute l'ID du compte
-            $retour->append($value->id);
+            $monRetour->append($value->id);
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -152,14 +150,14 @@ class MetaObject
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->md5);
+            $monRetour->append($value->md5);
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -206,116 +204,11 @@ class MetaObject
         $resultat = MaBDD::getInstance()->query($req);
 
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->md5);
-        }
-
-        return $retour;
-    }
-
-    /**
-     * Volume des images
-     * @return float
-     */
-    public static function getHDDUsage(): float
-    {
-        // Poids de l'ensemble des images
-        $req = "SELECT SUM(im.size) AS images, (
-                  SELECT SUM(th.size)
-                  FROM thumbnails th
-               ) AS miniatures
-               FROM images im";
-
-        // Exécution de la requête
-        $resultat = MaBDD::getInstance()->query($req);
-
-        // Récupération de la valeur
-        $value = $resultat->fetch();
-
-        return round(($value->images + $value->miniatures) / (1024 * 1024 * 1024));
-    }
-
-    /**
-     * Version de PHP
-     * @return string
-     */
-    public static function getPhpVersion(): string
-    {
-        return PHP_VERSION . " - " . PHP_OS;
-    }
-
-    /**
-     * Version de Imagick
-     * @return string
-     */
-    public static function getImagickVersion(): string
-    {
-        return Imagick::getVersion()["versionString"];
-    }
-
-    /**
-     * Version de MySQL
-     * @return string
-     */
-    public static function getMysqlVersion(): string
-    {
-        // Exécution de la requête
-        return MaBDD::getInstance()->getAttribute(PDO::ATTR_SERVER_VERSION);
-    }
-
-    /**
-     * Headers HTTP status code
-     * @param string $url URL à tester
-     * @return string retour HTTP
-     */
-    public static function getStatusHTTP(string $url): string
-    {
-        $classe = "danger";
-        $fa = "exclamation-circle";
-
-        // On regarde ce que ça donne
-        $resultat = get_headers($url);
-
-        // Est-ce le résultat attendu ?
-        if (stripos($resultat[0], "Forbidden")) {
-            $classe = "success";
-            $fa = "check";
-        }
-        // Mise en forme du résultat
-        return "<span class=\"fas fa-" . $fa . " text-" . $classe . "\">&nbsp;" . $resultat[0] . "</span>";
-    }
-
-    /**
-     * Vérifie de manière récursive l'écriture dans un dossier
-     * @param string $folder Path du dossier parent
-     * @return ArrayObject
-     */
-    public static function isRecursivelyWritable(string $folder): ArrayObject
-    {
-        // On évite le // dans le path... (estéthique)
-        if (str_ends_with($folder, "/")) {
-            $folder = substr($folder, 0, -1);
-        }
-        $monRetour = new ArrayObject();
-
-        if (is_writable($folder)) {
-            $monRetour->append("<span class=\"fas fa-check text-success\">&nbsp;" . $folder . "</span>");
-        } else {
-            $monRetour->append("<span class=\"fas fa-exclamation-circle text-danger\">&nbsp;" . $folder . "</span>");
-        }
-
-        // Dossiers enfants
-        $objects = glob($folder . "/*", GLOB_ONLYDIR);
-        foreach ($objects as $object) {
-            // Je vérifie si les dossiers enfants sont écrivables
-            $sousRetour = self::isRecursivelyWritable($object);
-            // Gestion de l'itération...
-            foreach ($sousRetour as $unRetour) {
-                $monRetour->append($unRetour);
-            }
+            $monRetour->append($value->md5);
         }
 
         return $monRetour;
@@ -336,6 +229,27 @@ class MetaObject
         $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($req->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $monRetour->append($value->new_name);
+        }
+
+        return $monRetour;
+    }
+
+    /**
+     * Toutes les images signalées
+     * @return ArrayObject
+     */
+    public static function getImagesSignalees(): ArrayObject
+    {
+        // Images avec le même MD5
+        $req = "SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 1";
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        $monRetour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
             // J'ajoute le nom de l'image
             $monRetour->append($value->new_name);
         }

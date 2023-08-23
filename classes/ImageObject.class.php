@@ -223,7 +223,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         // Vérification de la non existence du fichier
         if ($this->getNbDoublons() == 0) {
             // Image inconnue : optimisation de sa taille
-            $monRetour = Outils::setImage(Outils::getImage($this->getPathTemp()), Outils::getType($this->getPathTemp()), $this->getPathTemp());
+            $monRetour = HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
             // Copie du fichier vers l'emplacement de stockage
             // Ne peut pas être fait avant car le MD5 n'est pas encore connu
             copy($this->getPathTemp(), $this->getPathMd5());

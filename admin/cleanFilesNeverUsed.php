@@ -35,7 +35,7 @@ require _TPL_TOP_;
 $message = '';
 
 // Je récupère la liste des images jamais affichées
-$listeImages = MetaObject::getNeverUsedFiles();
+$listeImages = HelperAdmin::getNeverUsedFiles();
 $isPlural = ($listeImages->count() > 1 ? "s" : "");
 
 // Si l'effacement est demandé

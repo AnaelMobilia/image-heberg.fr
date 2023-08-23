@@ -466,15 +466,15 @@ class UtilisateurObject
         $req->execute();
 
         // Par défaut le login est disponible
-        $retour = true;
+        $monRetour = true;
 
         // Si j'ai un résultat...
         if ($req->fetch()) {
             // Le retour est négatif
-            $retour = false;
+            $monRetour = false;
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -489,15 +489,15 @@ class UtilisateurObject
         $req->execute();
 
         // Par défaut l'email est disponible
-        $retour = true;
+        $monRetour = true;
 
         // Si j'ai un résultat...
         if ($req->fetch()) {
             // Le retour est négatif
-            $retour = false;
+            $monRetour = false;
         }
 
-        return $retour;
+        return $monRetour;
     }
 
     /**
@@ -530,13 +530,13 @@ class UtilisateurObject
         // Exécution de la requête
         $req->execute();
 
-        $retour = new ArrayObject();
+        $monRetour = new ArrayObject();
         // Pour chaque résultat retourné
         foreach ($req->fetchAll() as $value) {
             // J'ajoute le nom de l'image
-            $retour->append($value->new_name);
+            $monRetour->append($value->new_name);
         }
 
-        return $retour;
+        return $monRetour;
     }
 }

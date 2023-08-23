@@ -79,7 +79,7 @@ if (empty($msgErreur)) {
     $pathTmp = $_FILES['fichier']['tmp_name'];
     // Type mime autorisés
     $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
-    if (!in_array(Outils::getType($pathTmp), $mimeType)) {
+    if (!in_array(HelperImage::getType($pathTmp), $mimeType)) {
         $msgErreur .= 'Le fichier ' . $_FILES['fichier']['name'] . ' n\'est pas une image valide.<br />';
     }
 }
@@ -88,7 +88,7 @@ if (empty($msgErreur)) {
  * Vérification des dimensions
  */
 if (empty($msgErreur)) {
-    if (!Outils::isModifiableEnMemoire($pathTmp)) {
+    if (!HelperImage::isModifiableEnMemoire($pathTmp)) {
         $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée '
                 . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
     }

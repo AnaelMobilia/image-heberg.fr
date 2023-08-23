@@ -23,9 +23,10 @@ namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
-use ImageHeberg\MetaObject;
+use ImageHeberg\HelperAdmin;
 use ImageHeberg\MiniatureObject;
-use ImageHeberg\Outils;
+use ImageHeberg\HelperImage;
+use ImageHeberg\HelperSysteme;
 use ImageHeberg\RessourceInterface;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\SessionObject;

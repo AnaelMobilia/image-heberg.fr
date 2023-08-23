@@ -27,7 +27,6 @@ if (_DEBUG_) {
     error_reporting(E_ALL | E_STRICT);
 }
 if (!_PHPUNIT_) {
-
     /**
      * Gestion des exceptions de l'application
      * @param Throwable $exception
@@ -66,6 +65,7 @@ if (!_PHPUNIT_) {
 
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
     }
+
     set_exception_handler('ImageHeberg\exception_handler');
 }
 
@@ -104,7 +104,13 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 spl_autoload_register(function ($class) {
     // Suppression du namespace
     $class = str_replace('ImageHeberg\\', "", $class);
-    $file = _PATH_ . 'classes/' . $class . '.class.php';
+    if (str_contains($class, "Helper")) {
+        // Helper par exemple
+        $file = _PATH_ . 'classes/' . $class . '.php';
+    } else {
+        // Classe instantiable
+        $file = _PATH_ . 'classes/' . $class . '.class.php';
+    }
 
     // Si le fichier existe...
     if (file_exists($file)) {
@@ -117,7 +123,7 @@ spl_autoload_register(function ($class) {
  */
 // Gestion de la mémoire
 define('_FUDGE_FACTOR_', 1.8);
-define('_IMAGE_DIMENSION_MAX_', Outils::getMaxDimension());
+define('_IMAGE_DIMENSION_MAX_', HelperImage::getMaxDimension());
 
 // Images spécifiques
 define('_IMAGE_404_', '_image_404.png');

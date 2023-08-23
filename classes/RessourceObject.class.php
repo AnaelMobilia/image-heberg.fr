@@ -72,7 +72,7 @@ abstract class RessourceObject
         $timestamp = $_SERVER['REQUEST_TIME'];
 
         // Calcul du nom de l'image
-        return $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . Outils::getExtension($this->getPathTemp());
+        return $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . HelperImage::getExtension($this->getPathTemp());
     }
 
     /**
@@ -174,13 +174,13 @@ abstract class RessourceObject
     public function rotation(int $angle, string $pathSrc, string $pathDst): bool
     {
         // Je charge l'image en mémoire
-        $resImg = Outils::getImage($pathSrc);
+        $resImg = HelperImage::getImage($pathSrc);
 
         // Rotation (Imagick est dans le sens horaire, imagerotate dans le sens anti-horaire)
         $resImg->rotateImage("rgb(0,0,0)", $angle);
 
         // J'enregistre l'image
-        return Outils::setImage($resImg, Outils::getType($pathSrc), $pathDst);
+        return HelperImage::setImage($resImg, HelperImage::getType($pathSrc), $pathDst);
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class RessourceObject
     public function redimensionner(string $pathSrc, string $pathDst, int $largeurDemandee, int $hauteurDemandee): bool
     {
         // Chargement de l'image
-        $monImage = Outils::getImage($pathSrc);
+        $monImage = HelperImage::getImage($pathSrc);
 
         // Récupération de ses dimensions
         $largeurImage = $monImage->getImageWidth();
@@ -210,7 +210,7 @@ abstract class RessourceObject
         $monImage->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
 
         // Ecriture de l'image
-        return Outils::setImage($monImage, Outils::getType($pathSrc), $pathDst);
+        return HelperImage::setImage($monImage, HelperImage::getType($pathSrc), $pathDst);
     }
 
     /**
