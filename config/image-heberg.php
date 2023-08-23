@@ -63,7 +63,7 @@ if (!_PHPUNIT_) {
         $message .= "\r\nHTTP USER AGENT : " . $_SERVER['HTTP_USER_AGENT'];
         $message .= "\r\nREMOTE ADDR : " . $_SERVER['REMOTE_ADDR'];
 
-        mail(_ADMINISTRATEUR_EMAIL_, '[' . _URL_ . '] Erreur rencontrée', $message, $headers);
+        mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] -  Erreur rencontrée", $message, $headers);
     }
 
     set_exception_handler('ImageHeberg\exception_handler');
