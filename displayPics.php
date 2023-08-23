@@ -31,6 +31,19 @@ $url = $_SERVER['REQUEST_URI'];
 // Nom du fichier demandé - Nettoyer les paramètres
 $fileName = basename(parse_url($url, PHP_URL_PATH));
 
+// Faut-il forcer l'affichage (et ne pas enregistrer les stats) ?
+$adminForceAffichage = false;
+
+/**
+ * Gestion du God mode
+ */
+if (
+    str_contains($url, "forceDisplay=1") // Mis en premier pour éviter d'ouvrir des sessions inutiles
+    && UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN, false)
+) {
+    $adminForceAffichage = true;
+}
+
 /**
  * Définition du type
  */
@@ -59,7 +72,10 @@ if (
 /**
  * Le fichier est-il bloqué ?
  */
-if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
+if (
+    ($monObjet->isBloquee() || $monObjet->isSignalee())
+    && !$adminForceAffichage
+) {
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_BAN_);
     // Envoi d'un header en 451 -> Unavailable For Legal Reasons
@@ -69,14 +85,16 @@ if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
 /**
  * Mise à jour des stats d'affichage
  */
-if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-// IPv4
-    $monObjet->setNbViewIpv4PlusUn();
-} else {
-// IPv6
-    $monObjet->setNbViewIpv6PlusUn();
+if (!$adminForceAffichage) {
+    if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        // IPv4
+        $monObjet->setNbViewIpv4PlusUn();
+    } else {
+        // IPv6
+        $monObjet->setNbViewIpv6PlusUn();
+    }
+    $monObjet->sauver();
 }
-$monObjet->sauver();
 
 /**
  * Fermeture du lien sur la BDD
