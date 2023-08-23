@@ -77,6 +77,11 @@ $visiteur = new SessionObject();
                                 <span class="fas fa-envelope"></span>&nbsp;
                                 Contact
                             </a>
+                        </li><li class="nav-item">
+                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === "/abuse.php") ? " active" : "" ?>" href="<?= _URL_HTTPS_ ?>abuse.php">
+                                <span class="fas fa-radiation"></span>&nbsp;
+                                Signaler un abus
+                            </a>
                         </li>
                     </ul>
                     <?php if ($visiteur->getLevel() === UtilisateurObject::LEVEL_GUEST) : ?>

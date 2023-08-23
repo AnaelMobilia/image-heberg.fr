@@ -94,6 +94,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             <select name="raison" id="raison" class="form-select" required="required">
                 <option value="" selected>-- Sélectionner une raison --</option>
                 <option value="porno">Pornographie et érotisme</option>
+                <option value="phishing">Spam et phishing</option>
                 <option value="legislation">Non respect de la législation française (à préciser)</option>
                 <option value="autre">Autre (à préciser)</option>
             </select>
