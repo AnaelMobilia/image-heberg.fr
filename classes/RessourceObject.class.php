@@ -260,13 +260,16 @@ abstract class RessourceObject
      */
     public function getLastViewFormate(): string
     {
-        $phpdate = strtotime($this->getLastView());
+        $monRetour = "?";
+        if ($this->getLastView() != "0000-00-00") {
+            $phpdate = strtotime($this->getLastView());
 
-        // Gestion du cas de non affichage
-        if ($phpdate === 0) {
-            return "-";
+            // Gestion du cas de non affichage
+            if ($phpdate !== 0 && $phpdate !== false) {
+                $monRetour = date("d/m/Y", $phpdate);
+            }
         }
-        return date("d/m/Y", $phpdate);
+        return $monRetour;
     }
 
     /**
