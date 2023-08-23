@@ -502,19 +502,30 @@ class UtilisateurObject
 
     /**
      * Vérifie que l'utilisateur à le droit d'afficher la page et affiche un EM au cas où
-     * @param int $levelRequis
+     * @param int $levelRequis Niveau de droit minimum requis
+     * @param bool $dieIfNotGranted Arrêter le script si le niveau de droit n'est pas atteint
+     * @return void|bool
      */
-    public static function checkAccess(int $levelRequis): void
+    public static function checkAccess(int $levelRequis, bool $dieIfNotGranted = true)
     {
+        $monRetour = false;
+
         $monUser = new SessionObject();
         if ($monUser->verifierDroits($levelRequis) === false) {
-            header("HTTP/1.1 403 Forbidden");
-            require _TPL_TOP_;
-            echo "<h1 class=\"mb-3\">Accès refusé</h1>";
-            echo "<p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>";
-            require _TPL_BOTTOM_;
-            die();
+            // Arrêter le script...
+            if ($dieIfNotGranted) {
+                header("HTTP/2 403 Forbidden");
+                require _TPL_TOP_;
+                echo "<h1 class=\"mb-3\">Accès refusé</h1>";
+                echo "<p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>";
+                require _TPL_BOTTOM_;
+                die();
+            }
+        } else {
+            $monRetour = true;
         }
+
+        return $monRetour;
     }
 
     /**
