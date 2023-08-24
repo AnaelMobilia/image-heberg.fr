@@ -31,13 +31,18 @@ require _TPL_TOP_;
 
 // En cas de validation du formulaire
 if (isset($_POST['Submit']) && $maSession->checkFlag()) {
+    // Suivi du traitement
+    $isTraitee = false;
+
     // Vérification du bon format de l'adresse mail
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
-        // On essaie de matcher l'image
-        $result = preg_match("#^.*\/([\d]*.[pngjif]{3})$#", trim($_POST['urlImage']), $idImage);
-        if ($result) {
+        // On essaie de matcher l'image - nettoyage des pramètres
+        $fileName = basename(parse_url(trim($_POST['urlImage']), PHP_URL_PATH));
+        if (preg_match("#^[\d]+\.(?:png|jpg|gif)$#", $fileName)) {
+            // Suivi du traitement
+            $isTraitee = true;
             // On flaggue l'image en signalée en BDD
-            $monImage = new ImageObject($idImage[1]);
+            $monImage = new ImageObject($fileName);
             // Si l'image est approuvée, on ne la bloque pas en automatique
             if (!$monImage->isApprouvee()) {
                 $monImage->setSignalee(true);
@@ -52,6 +57,8 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
                     $monImage->sauver();
                 }
                 // Les miniatures reprennent automatiquement les informations de l'image parent
+            } else {
+                $isTraitee = false;
             }
         }
 
@@ -59,7 +66,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         if (!_PHPUNIT_) {
             // Je complète le message avec l'IP de mon émeteur
             $message = "URL : " . $_POST['urlImage'];
-            $message .= "\r\n\r\nBlocage automatique : " . (($result && !$monImage->isApprouvee()) ? 'OK' : 'KO');
+            $message .= "\r\n\r\nBlocage automatique : " . ($isTraitee ? 'OK' : 'KO');
             $message .= "\r\n\r\nRaison : " . $_POST['raison'];
             $message .= "\r\n\r\nMessage : " . $_POST['userMessage'];
             $message .= "\r\n\r\n---------------------------------------------";
