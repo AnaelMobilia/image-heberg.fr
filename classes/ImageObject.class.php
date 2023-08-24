@@ -92,7 +92,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function sauver(): bool
+    public function sauver(): void
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id");
@@ -113,8 +113,6 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
-
-        return true;
     }
 
     /**

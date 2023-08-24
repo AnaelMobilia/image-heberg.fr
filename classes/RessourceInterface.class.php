@@ -42,9 +42,8 @@ interface RessourceInterface
 
     /**
      * Enregistre en BDD un objet ressource
-     * @return bool Résultat ?
      */
-    public function sauver(): bool;
+    public function sauver(): void;
 
     /**
      * Supprime sur le HDD et dans la BDD la ressource

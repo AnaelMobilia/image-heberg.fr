@@ -98,7 +98,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function sauver(): bool
+    public function sauver(): void
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
@@ -117,8 +117,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
-
-        return true;
     }
 
     /**
