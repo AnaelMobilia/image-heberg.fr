@@ -38,25 +38,28 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         if ($result) {
             // On flaggue l'image en signalée en BDD
             $monImage = new ImageObject($idImage[1]);
-            $monImage->setSignalee(true);
-            $monImage->sauver();
-
-            // On cherche les autres images avec le même MD5
-            $images = HelperAdmin::getImageByMd5($monImage->getMd5());
-            foreach ($images as $uneImage) {
-                // On flaggue en signalée...
-                $monImage = new ImageObject($uneImage);
+            // Si l'image est approuvée, on ne la bloque pas en automatique
+            if (!$monImage->isApprouvee()) {
                 $monImage->setSignalee(true);
                 $monImage->sauver();
+
+                // On cherche les autres images avec le même MD5
+                $images = HelperAdmin::getImageByMd5($monImage->getMd5());
+                foreach ($images as $uneImage) {
+                    // On flaggue en signalée...
+                    $monImage = new ImageObject($uneImage);
+                    $monImage->setSignalee(true);
+                    $monImage->sauver();
+                }
+                // Les miniatures reprennent automatiquement les informations de l'image parent
             }
-            // Les miniatures reprennent automatiquement les informations de l'image parent
         }
 
         // Gestion travis
         if (!_PHPUNIT_) {
             // Je complète le message avec l'IP de mon émeteur
             $message = "URL : " . $_POST['urlImage'];
-            $message .= "\r\n\r\nBlocage automatique : " . ($result ? 'OK' : 'KO');
+            $message .= "\r\n\r\nBlocage automatique : " . (($result && !$monImage->isApprouvee()) ? 'OK' : 'KO');
             $message .= "\r\n\r\nRaison : " . $_POST['raison'];
             $message .= "\r\n\r\nMessage : " . $_POST['userMessage'];
             $message .= "\r\n\r\n---------------------------------------------";
@@ -69,7 +72,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             $maSession->removeFlag();
         }
         // Retour utilisateur
-        echo '<div class="alert alert-success">Votre signalement a été envoyé !</div>';
+        echo '<div class="alert alert-success">Votre signalement a été envoyé, merci !</div>';
     } else {
         // Adresse mail invalide
         echo '<div class = "alert alert-danger">Votre adresse mail n\'est pas valide !<br /><pre>' . $_POST['userMail'] . '</pre></div>';

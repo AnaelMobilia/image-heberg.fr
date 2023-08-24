@@ -53,6 +53,7 @@ abstract class RessourceObject
     private string $ipEnvoi = "";
     private bool $isBloquee = false;
     private bool $isSignalee = false;
+    private bool $isApprouvee = false;
     private string $pathTemp = "";
     private int $type = self::TYPE_IMAGE;
     private string $nomTemp = "";
@@ -452,6 +453,15 @@ abstract class RessourceObject
     }
 
     /**
+     * Image approuvée (marquée comme valide)
+     * @return bool
+     */
+    public function isApprouvee(): bool
+    {
+        return $this->isApprouvee;
+    }
+
+    /**
      * Path temporaire (upload d'image)
      * @return string
      */
@@ -521,6 +531,15 @@ abstract class RessourceObject
     public function setSignalee(bool $isSignalee): void
     {
         $this->isSignalee = $isSignalee;
+    }
+
+    /**
+     * Image approuvée (marquée comme valide) ?
+     * @param bool $isApprouvee
+     */
+    public function setApprouvee(bool $isApprouvee): void
+    {
+        $this->isApprouvee = $isApprouvee;
     }
 
     /**

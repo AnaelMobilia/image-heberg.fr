@@ -80,6 +80,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $this->setMd5($resultat->md5);
             $this->setBloquee($resultat->isBloquee);
             $this->setSignalee($resultat->isSignalee);
+            $this->setApprouvee($resultat->isApprouvee);
 
             // Gestion du retour
             $monRetour = true;
@@ -94,7 +95,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function sauver(): bool
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id");
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal());
@@ -108,6 +109,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':md5', $this->getMd5());
         $req->bindValue(':isBloquee', $this->isBloquee(), PDO::PARAM_INT);
         $req->bindValue(':isSignalee', $this->isSignalee(), PDO::PARAM_INT);
+        $req->bindValue(':isApprouvee', $this->isApprouvee(), PDO::PARAM_INT);
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
@@ -281,5 +283,29 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
 
         return $monRetour;
+    }
+
+    /**
+     * Bloquer une image en BDD
+     */
+    public function bloquer(): void
+    {
+        // J'enregistre les infos en BDD
+        $req = MaBDD::getInstance()->prepare("UPDATE images SET isBloquee = 1 WHERE id = :id");
+        $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+
+        $req->execute();
+    }
+
+    /**
+     * Approuver une image en BDD
+     */
+    public function approuver(): void
+    {
+        // J'enregistre les infos en BDD
+        $req = MaBDD::getInstance()->prepare("UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE id = :id");
+        $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+
+        $req->execute();
     }
 }

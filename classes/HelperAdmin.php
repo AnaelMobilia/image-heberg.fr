@@ -264,7 +264,7 @@ abstract class HelperAdmin
     public static function getImagesTropAffichees(): ArrayObject
     {
         // Images avec trop d'affichages
-        $req = "SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 HAVING nbViewPerDay > " . _ABUSE_AFFICHAGES_PAR_JOUR . " ORDER BY nbViewPerDay DESC";
+        $req = "SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > " . _ABUSE_AFFICHAGES_PAR_JOUR . " ORDER BY nbViewPerDay DESC";
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 

@@ -81,12 +81,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setIsPreview($resultat->is_preview);
 
             // Reprise des informations de l'image maitresse
-            $imageMaitre = new ImageObject();
-            $imageMaitre->charger($this->getIdImage(), RessourceObject::SEARCH_BY_ID);
-            $this->setBloquee($imageMaitre->isBloquee());
-            $this->setSignalee($imageMaitre->isSignalee());
-            $this->setNomOriginal($imageMaitre->getNomOriginal());
-            $this->setIpEnvoi($imageMaitre->getIpEnvoi());
+            $imageParente = new ImageObject();
+            $imageParente->charger($this->getIdImage(), RessourceObject::SEARCH_BY_ID);
+            $this->setBloquee($imageParente->isBloquee());
+            $this->setSignalee($imageParente->isSignalee());
+            $this->setApprouvee($imageParente->isApprouvee());
+            $this->setNomOriginal($imageParente->getNomOriginal());
+            $this->setIpEnvoi($imageParente->getIpEnvoi());
 
             // Notification du chargement réussi
             $monRetour = true;

@@ -94,4 +94,54 @@ class AbuseTest extends TestCase
             "Renvoi image déjà bloquée doit être isBloquée en BDD"
         );
     }
+
+    /**
+     * Signalement d'une image approuvée
+     * @runInSeparateProcess
+     */
+    public function testAbuseImageApprouvee()
+    {
+        require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_POST['Submit'] = 1;
+        $_SESSION['flag'] = true;
+        $_POST['userMail'] = 'john.doe@example.com';
+        $_POST['urlImage'] = 'https://www.example.com/files/_image_404.png';
+
+        ob_start();
+        require 'abuse.php';
+        ob_end_clean();
+
+        $imageSignalee = new ImageObject("_image_404.png");
+        $this->assertEquals(false, $imageSignalee->isSignalee(), "Image approuvée qui est signalée ne doit pas être bloquée");
+    }
+
+    /**
+     * Signalement d'une image approuvée
+     * @runInSeparateProcess
+     */
+    public function testAbuseImageSignaleePuisApprouvee()
+    {
+        require 'config/config.php';
+
+        // Flagguer l'image comme signalée
+        $image = new ImageObject("_image_banned.png");
+        $image->setSignalee(true);
+        $image->sauver();
+
+        // Se connecter en tant que l'admin
+        $monMembre = new UtilisateurObject();
+        $monMembre->connexion('admin', 'password');
+
+        // Approuver l'image dans l'admin
+        $_GET['approuver'] = '1';
+        $_GET['idImage'] = '2';
+
+        ob_start();
+        require 'admin/abuse.php';
+        ob_end_clean();
+
+        $image = new ImageObject("_image_banned.png");
+        $this->assertEquals(false, $image->isSignalee(), "Image signalée qui est approuvée ne doit plus être signalée");
+    }
 }
