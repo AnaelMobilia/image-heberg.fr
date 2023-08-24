@@ -40,8 +40,8 @@ $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
 
 // Effacer les fichiers jamais utilisés
 $_POST['effacer'] = true;
-include '../admin/cleanFilesNeverUsed.php';
+require '../admin/cleanFilesNeverUsed.php';
 
 // Effacer les fichiers inactifs
 $_POST['effacer'] = true;
-include '../admin/cleanInactiveFiles.php';
+require '../admin/cleanInactiveFiles.php';

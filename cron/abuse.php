@@ -42,9 +42,9 @@ $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
 
 // Consulter les abus
 ob_start();
-include '../admin/abuse.php';
 $contenu = ob_get_contents();
 ob_end_clean();
+require '../admin/abuse.php';
 
 /* @var $listeImagesTropAffichees ArrayObject */
 if ($listeImagesTropAffichees->count() > 0) {
