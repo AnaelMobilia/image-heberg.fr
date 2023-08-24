@@ -77,7 +77,7 @@ if (!empty($message)) : ?>
             <?php foreach ((array)$listeImagesSignalees as $value) : ?>
                 <?php $uneImage = new ImageObject($value); ?>
                 <tr>
-                    <td><a href="<?= $uneImage->getURL() ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
+                    <td><a href="<?= str_replace('http:', 'https:', $uneImage->getURL()) ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
                     <td>
                         <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="fas fa-thumbs-up" style="color: green"></span></a>
                         <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="fas fa-thumbs-down" style="color: red"></span></a>

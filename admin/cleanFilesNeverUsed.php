@@ -60,7 +60,9 @@ if (isset($_POST['effacer'])) :
         <div class="card-body">
             <ul>
                 <?php foreach ((array) $listeImages as $value) : ?>
-                    <li><?= $value ?></li>
+                    <li>
+                        <a href="<?= str_replace('http:', 'https:', _URL_IMAGES_) . $value ?>?forceDisplay=1" target="_blank"><?= $value ?></a>
+                    </li>
                 <?php endforeach; ?>
             </ul>
 
