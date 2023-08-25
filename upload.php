@@ -106,7 +106,7 @@ if (empty($msgErreur)) {
 /**
  * Traitement du redimensionnement
  */
-if (empty($msgErreur) && isset($_POST['redimImage']) && !empty($_POST['redimImage'])) {
+if (empty($msgErreur) && !empty($_POST['redimImage'])) {
     // Calcul des dimensions demandées [largeur]x[hauteur]
     $maLargeur = substr(strstr($_POST['redimImage'], 'x'), 1);
     $maHauteur = strstr($_POST['redimImage'], 'x', true);
@@ -151,7 +151,7 @@ if (empty($msgErreur) && $maSession->getId() !== 0) {
 /**
  * Traitement de la miniature
  */
-if (empty($msgErreur) && isset($_POST['dimMiniature']) && !empty($_POST['dimMiniature'])) {
+if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
     // Calcul des dimensions demandées [largeur]x[hauteur]
     $maLargeur = substr(strstr($_POST['dimMiniature'], 'x'), 1);
     $maHauteur = strstr($_POST['dimMiniature'], 'x', true);

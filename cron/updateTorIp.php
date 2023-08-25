@@ -25,8 +25,8 @@ namespace ImageHeberg;
  * Mise à jour des adresses IP des noeuds de sortie TOR
  */
 
-require __DIR__ . '/../config/config.php';
 define('_IS_CRON_', true);
+require __DIR__ . '/../config/config.php';
 
 if (_TOR_DISABLE_UPLOAD_) {
     $objTor = new Tor();

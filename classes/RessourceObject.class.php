@@ -293,7 +293,7 @@ abstract class RessourceObject
 
         $nbJours = ($dateNow - $dateEnvoi) / (60 * 60 * 24);
 
-        return (int) $this->getNbViewTotal() / $nbJours;
+        return $this->getNbViewTotal() / $nbJours;
     }
 
     /**

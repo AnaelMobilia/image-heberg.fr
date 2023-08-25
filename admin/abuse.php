@@ -65,13 +65,13 @@ if (!empty($message)) : ?>
     <div class="card-body">
         <table class="table">
             <thead>
-                <td>Image</td>
-                <td>Actions</td>
-                <td>Nom originel</td>
-                <td>Date d'envoi</td>
-                <td>IP envoi</td>
-                <td>Nb vues</td>
-                <td>Dernier affichage</td>
+                <th>Image</th>
+                <th>Actions</th>
+                <th>Nom originel</th>
+                <th>Date d'envoi</th>
+                <th>IP envoi</th>
+                <th>Nb vues</th>
+                <th>Dernier affichage</th>
             </thead>
             <tbody>
             <?php foreach ((array)$listeImagesSignalees as $value) : ?>
@@ -100,13 +100,13 @@ if (!empty($message)) : ?>
     <div class="card-body">
         <table class="table">
             <thead>
-            <td>Image</td>
-            <td>Actions</td>
-            <td>Nom originel</td>
-            <td>Date d'envoi</td>
-            <td>IP envoi</td>
-            <td>Nb vues</td>
-            <td>Dernier affichage</td>
+            <th>Image</th>
+            <th>Actions</th>
+            <th>Nom originel</th>
+            <th>Date d'envoi</th>
+            <th>IP envoi</th>
+            <th>Nb vues</th>
+            <th>Dernier affichage</th>
             </thead>
             <tbody>
             <?php foreach ((array)$listeImagesTropAffichees as $value) : ?>

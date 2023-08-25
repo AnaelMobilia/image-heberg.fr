@@ -25,8 +25,8 @@ namespace ImageHeberg;
  * Suppression des images obsolètes
  */
 
-require __DIR__ . '/../config/config.php';
 define('_IS_CRON_', true);
+require __DIR__ . '/../config/config.php';
 
 // Création d'une session admin
 $monUser = new UtilisateurObject();

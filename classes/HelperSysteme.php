@@ -23,6 +23,7 @@ namespace ImageHeberg;
 
 use ArrayObject;
 use Imagick;
+use PDO;
 
 /**
  * Bibliothèque d'outils pour la gestion du système

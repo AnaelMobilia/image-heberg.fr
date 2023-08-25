@@ -104,8 +104,8 @@ CREATE TABLE IF NOT EXISTS `thumbnails` (
 --
 -- Création du compte administrateur
 --
-INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`, `token`) VALUES
-(1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', DATE(NOW()), '127.0.0.1', 2, '');
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`, `isActif`, `token`) VALUES
+(1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', DATE(NOW()), '127.0.0.1', 2, 1, '');
 
 --
 -- Images 404 & bannie

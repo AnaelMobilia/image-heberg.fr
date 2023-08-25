@@ -138,7 +138,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             // Plus aucune miniature n'utilise le fichier (BDD déjà mise à jour !)
             if ($this->getNbDoublons() == 0) {
                 // Vérifier que l'image existe bien sur le système de fichier
-                if(file_exists($this->getPathMd5())) {
+                if (file_exists($this->getPathMd5())) {
                     // Suppression de l'image sur le HDD
                     $monRetour = unlink($this->getPathMd5());
                 }

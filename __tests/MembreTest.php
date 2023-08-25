@@ -31,6 +31,7 @@ use ImageHeberg\RessourceInterface;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
+use PDO;
 use PHPUnit\Framework\TestCase;
 
 class MembreTest extends TestCase

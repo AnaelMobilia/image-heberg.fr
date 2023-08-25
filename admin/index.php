@@ -81,5 +81,4 @@ require _TPL_TOP_;
             </a>
         </div>
     </div>
-    <?php
-require _TPL_BOTTOM_ ?>
+    <?php require _TPL_BOTTOM_ ?>
