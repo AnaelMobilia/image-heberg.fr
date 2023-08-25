@@ -123,6 +123,7 @@ class AbuseTest extends TestCase
     public function testAbuseImageSignaleePuisApprouvee()
     {
         require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         // Flagguer l'image comme signalée
         $image = new ImageObject("_image_banned.png");
