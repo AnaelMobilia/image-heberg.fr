@@ -36,4 +36,4 @@ foreach ((array) $listeComptes as $value) {
     echo '   -> ' . $monUtilisateur->getEmail() . ' - créé le ' . $monUtilisateur->getDateInscriptionFormate() . ' via IP ' . $monUtilisateur->getIpInscription() . PHP_EOL;
     $monUtilisateur->supprimer();
 }
-echo '...done';
+echo '...done' . PHP_EOL;

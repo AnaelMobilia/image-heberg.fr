@@ -31,3 +31,4 @@ if (_TOR_DISABLE_UPLOAD_) {
     $objTor = new Tor();
     $objTor->updateListeExitNodes();
 }
+echo '...done' . PHP_EOL;

@@ -36,7 +36,7 @@ foreach ((array) $listeImages as $value) {
     echo '   -> ' . $monImage->getNomNouveau() . ' (envoi le ' . $monImage->getDateEnvoiFormatee() . ')' . PHP_EOL;
     $monImage->supprimer();
 }
-echo '...done';
+echo '...done' . PHP_EOL;
 
 // Effacer les fichiers inactifs
 echo 'Suppression des images non affichées depuis ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' jours' . PHP_EOL;
@@ -47,4 +47,4 @@ foreach ((array) $listeImages as $value) {
     echo '   -> ' . $monImage->getNomNouveau() . ' (dernier affichage le ' . $monImage->getLastViewFormate() . ')' . PHP_EOL;
     $monImage->supprimer();
 }
-echo '...done';
+echo '...done' . PHP_EOL;

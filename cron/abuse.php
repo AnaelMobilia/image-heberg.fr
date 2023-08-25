@@ -53,9 +53,9 @@ $listeImages = HelperAdmin::getImagesSignalees();
 $contenuTmp = formatageMailListeImages($listeImages);
 if ($contenuTmp !== '') {
     $envoiMail = true;
-    $contenu .= $contenu;
+    $contenu .= $contenuTmp;
 }
-$contenu .= '...done';
+$contenu .= '...done' . PHP_EOL;
 
 // Liste des images avec un ratio d'affichage important
 $contenu .= 'Images qui sont beaucoup affichées (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . '/jour):' . PHP_EOL;
@@ -63,9 +63,9 @@ $listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR
 $contenuTmp = formatageMailListeImages($listeImages);
 if ($contenuTmp !== '') {
     $envoiMail = true;
-    $contenu .= $contenu;
+    $contenu .= $contenuTmp;
 }
-$contenu .= '...done';
+$contenu .= '...done' . PHP_EOL;
 
 // Liste des images avec un ratio d'affichage abusif
 $contenu .= 'Blocage des images qui abusent (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '/jour):' . PHP_EOL;
@@ -79,9 +79,9 @@ foreach ((array) $listeImages as $value) {
 $contenuTmp = formatageMailListeImages($listeImages);
 if ($contenuTmp !== '') {
     $envoiMail = true;
-    $contenu .= $contenu;
+    $contenu .= $contenuTmp;
 }
-$contenu .= '...done';
+$contenu .= '...done' . PHP_EOL;
 
 if ($envoiMail) {
     // Envoyer une notification à l'admin
