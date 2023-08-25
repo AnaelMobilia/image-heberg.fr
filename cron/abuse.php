@@ -29,30 +29,62 @@ use ArrayObject;
 
 require __DIR__ . '/../config/config.php';
 
+/**
+ * Met en forme pour un mail une liste d'images
+ * @param ArrayObject $listeImages
+ * @return string
+ * @throws \Exception
+ */
+function formatageMailListeImages(ArrayObject $listeImages): string
+{
+    $monRetour = '';
+    foreach ((array) $listeImages as $value) {
+        $monImage = new ImageObject($value);
+        $monRetour .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
+    }
+    return $monRetour;
+}
+
 $contenu = '';
 $envoiMail = false;
 // Liste des images signalées
 $contenu .= 'Images signalées :' . PHP_EOL;
 $listeImages = HelperAdmin::getImagesSignalees();
-foreach ((array) $listeImages as $value) {
+$contenuTmp = formatageMailListeImages($listeImages);
+if ($contenuTmp !== '') {
     $envoiMail = true;
-    $monImage = new ImageObject($value);
-    $contenu .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
+    $contenu .= $contenu;
 }
 $contenu .= '...done';
 
-// Liste des images avec un ratio d'affichage incohérent
-$contenu .= 'Images trop affichées :' . PHP_EOL;
-$listeImages = HelperAdmin::getImagesTropAffichees();
-foreach ((array) $listeImages as $value) {
+// Liste des images avec un ratio d'affichage important
+$contenu .= 'Images qui sont beaucoup affichées (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . '/jour):' . PHP_EOL;
+$listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_);
+$contenuTmp = formatageMailListeImages($listeImages);
+if ($contenuTmp !== '') {
     $envoiMail = true;
+    $contenu .= $contenu;
+}
+$contenu .= '...done';
+
+// Liste des images avec un ratio d'affichage abusif
+$contenu .= 'Blocage des images qui abusent (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '/jour):' . PHP_EOL;
+$listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_);
+// Blocage des images
+foreach ((array) $listeImages as $value) {
     $monImage = new ImageObject($value);
-    $contenu .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
+    $monImage->setSignalee(true);
+    $monImage->sauver();
+}
+$contenuTmp = formatageMailListeImages($listeImages);
+if ($contenuTmp !== '') {
+    $envoiMail = true;
+    $contenu .= $contenu;
 }
 $contenu .= '...done';
 
 if ($envoiMail) {
     // Envoyer une notification à l'admin
-    mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Images trop affichées', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
+    mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Gestion des abus', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
 echo $contenu;

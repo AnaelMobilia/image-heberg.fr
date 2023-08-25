@@ -21,10 +21,10 @@
 
 namespace ImageHeberg;
 
-// Ce script peut être appelé par les tests
-if (!_PHPUNIT_) {
+if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
+
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
@@ -51,7 +51,7 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
 // Liste des images signalées
 $listeImagesSignalees = HelperAdmin::getImagesSignalees();
 // Liste des images avec un ratio d'affichage incohérent
-$listeImagesTropAffichees = HelperAdmin::getImagesTropAffichees();
+$listeImagesTropAffichees = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_);
 
 if (!empty($message)) : ?>
     <div class="alert alert-success">
@@ -95,7 +95,7 @@ if (!empty($message)) : ?>
 </div>
 <div class="card">
     <div class="card-header">
-        <?= $listeImagesTropAffichees->count() ?> image<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?> trop affichée<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?>
+        <?= $listeImagesTropAffichees->count() ?> image<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?> affichée<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?> plus de <?= _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ ?> fois/jour <small>(blocage automatique à <?= _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ ?>)</small>
     </div>
     <div class="card-body">
         <table class="table">
