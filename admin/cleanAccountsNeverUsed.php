@@ -21,10 +21,8 @@
 
 namespace ImageHeberg;
 
-// Ce script peut être appelé par un cron
-if (!_IS_CRON_) {
-    require '../config/config.php';
-}
+require '../config/config.php';
+
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
@@ -44,8 +42,8 @@ if (isset($_POST['effacer'])) :
         $message .= '<br />Suppression du compte ' . $value;
 
         // Je crée mon objet et lance la suppression
-        $monImage = new UtilisateurObject($value);
-        $monImage->supprimer();
+        $monUtilisateur = new UtilisateurObject($value);
+        $monUtilisateur->supprimer();
     }
     $message .= '<br />Effacement terminé !';
     ?>

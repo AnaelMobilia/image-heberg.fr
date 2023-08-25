@@ -27,28 +27,32 @@ use ArrayObject;
  * Vérifier les images avec des comportements suspects
  */
 
-define('_IS_CRON_', true);
 require __DIR__ . '/../config/config.php';
 
-// Création d'une session admin
-$monUser = new UtilisateurObject();
-$monUser->setLevel(UtilisateurObject::LEVEL_ADMIN);
-$maSession = new SessionObject();
-$maSession->setUserObject($monUser);
+$contenu = '';
+$envoiMail = false;
+// Liste des images signalées
+$contenu .= 'Images signalées :' . PHP_EOL;
+$listeImages = HelperAdmin::getImagesSignalees();
+foreach ((array) $listeImages as $value) {
+    $envoiMail = true;
+    $monImage = new ImageObject($value);
+    $contenu .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
+}
+$contenu .= '...done';
 
-// Forcer les IP
-$_SESSION['IP'] = '127.0.0.1';
-$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+// Liste des images avec un ratio d'affichage incohérent
+$contenu .= 'Images trop affichées :' . PHP_EOL;
+$listeImages = HelperAdmin::getImagesTropAffichees();
+foreach ((array) $listeImages as $value) {
+    $envoiMail = true;
+    $monImage = new ImageObject($value);
+    $contenu .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
+}
+$contenu .= '...done';
 
-// Consulter les abus
-ob_start();
-require _PATH_ . 'admin/abuse.php';
-$contenu = ob_get_flush();
-
-/* @var $listeImagesTropAffichees ArrayObject */
-if ($listeImagesTropAffichees->count() > 0) {
+if ($envoiMail) {
     // Envoyer une notification à l'admin
     mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Images trop affichées', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
-// ajouter un niveau de signalement automatique pour bloquer automatiquement l'image
-echo '...done';
+echo $contenu;

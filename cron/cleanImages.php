@@ -25,25 +25,26 @@ namespace ImageHeberg;
  * Suppression des images obsolètes
  */
 
-define('_IS_CRON_', true);
 require __DIR__ . '/../config/config.php';
 
-// Création d'une session admin
-$monUser = new UtilisateurObject();
-$monUser->setLevel(UtilisateurObject::LEVEL_ADMIN);
-$maSession = new SessionObject();
-$maSession->setUserObject($monUser);
-
-// Forcer les IP
-$_SESSION['IP'] = '127.0.0.1';
-$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
-// Effacer les fichiers jamais utilisés
-$_POST['effacer'] = true;
-require _PATH_ . 'admin/cleanFilesNeverUsed.php';
+// Effacer les fichiers jamais affichées
+echo 'Suppression des images jamais affichées depuis ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' jours' . PHP_EOL;
+$listeImages = HelperAdmin::getNeverUsedFiles();
+foreach ((array) $listeImages as $value) {
+    // Je crée mon objet et lance la suppression
+    $monImage = new ImageObject($value);
+    echo '   -> ' . $monImage->getNomNouveau() . ' (envoi le ' . $monImage->getDateEnvoiFormatee() . ')' . PHP_EOL;
+    $monImage->supprimer();
+}
+echo '...done';
 
 // Effacer les fichiers inactifs
-$_POST['effacer'] = true;
-require _PATH_ . 'admin/cleanInactiveFiles.php';
-
+echo 'Suppression des images non affichées depuis ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' jours' . PHP_EOL;
+$listeImages = HelperAdmin::getUnusedFiles();
+foreach ((array) $listeImages as $value) {
+    // Je crée mon objet et lance la suppression
+    $monImage = new ImageObject($value);
+    echo '   -> ' . $monImage->getNomNouveau() . ' (dernier affichage le ' . $monImage->getLastViewFormate() . ')' . PHP_EOL;
+    $monImage->supprimer();
+}
 echo '...done';

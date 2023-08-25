@@ -21,8 +21,8 @@
 
 namespace ImageHeberg;
 
-// Ce script peut être appelé par un cron et par les tests
-if (!_IS_CRON_ && !_PHPUNIT_) {
+// Ce script peut être appelé par les tests
+if (!_PHPUNIT_) {
     require '../config/config.php';
 }
 // Vérification des droits d'accès

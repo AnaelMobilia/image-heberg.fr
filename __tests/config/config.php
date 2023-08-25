@@ -86,9 +86,4 @@ define('_GRAIN_DE_SEL_', '');
 // Activation des tests Tests TRAVIS-CI
 define('_PHPUNIT_', true);
 
-// Exécution d'un cron
-if (!defined('_IS_CRON_')) {
-    define('_IS_CRON_', false);
-}
-
 require _PATH_ . 'config/image-heberg.php';

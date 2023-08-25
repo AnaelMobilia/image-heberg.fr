@@ -25,21 +25,15 @@ namespace ImageHeberg;
  * Suppression des comptes obsolètes
  */
 
-define('_IS_CRON_', true);
 require __DIR__ . '/../config/config.php';
 
-// Création d'une session admin
-$monUser = new UtilisateurObject();
-$monUser->setLevel(UtilisateurObject::LEVEL_ADMIN);
-$maSession = new SessionObject();
-$maSession->setUserObject($monUser);
-
-// Forcer les IP
-$_SESSION['IP'] = '127.0.0.1';
-$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
 // Effacer les comptes jamais utilisés
-$_POST['effacer'] = true;
-require _PATH_ . 'admin/cleanAccountsNeverUsed.php';
-
+echo 'Suppression des comptes jamais utilisés ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' jours après leur création' . PHP_EOL;
+$listeComptes = HelperAdmin::getNeverUsedAccounts();
+foreach ((array) $listeComptes as $value) {
+    // Je crée mon objet et lance la suppression
+    $monUtilisateur = new UtilisateurObject($value);
+    echo '   -> ' . $monUtilisateur->getEmail() . ' - créé le ' . $monUtilisateur->getDateInscriptionFormate() . ' via IP ' . $monUtilisateur->getIpInscription() . PHP_EOL;
+    $monUtilisateur->supprimer();
+}
 echo '...done';

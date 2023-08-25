@@ -21,10 +21,8 @@
 
 namespace ImageHeberg;
 
-// Ce script peut être appelé par un cron
-if (!_IS_CRON_) {
-    require '../config/config.php';
-}
+require '../config/config.php';
+
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
