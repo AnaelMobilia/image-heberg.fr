@@ -22,7 +22,7 @@
 namespace ImageHeberg;
 
 // Ce script peut être appelé par un cron
-if (! defined('_IS_CRON_') || !_IS_CRON_) {
+if (!_IS_CRON_) {
     require '../config/config.php';
 }
 // Vérification des droits d'accès
