@@ -40,4 +40,6 @@ $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
 
 // Effacer les comptes jamais utilisés
 $_POST['effacer'] = true;
-require '../admin/cleanAccountsNeverUsed.php';
+require _PATH_ . 'admin/cleanAccountsNeverUsed.php';
+
+echo "...done";

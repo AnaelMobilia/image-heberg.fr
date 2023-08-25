@@ -44,10 +44,12 @@ $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
 ob_start();
 $contenu = ob_get_contents();
 ob_end_clean();
-require '../admin/abuse.php';
+require _PATH_ . 'admin/abuse.php';
 
 /* @var $listeImagesTropAffichees ArrayObject */
 if ($listeImagesTropAffichees->count() > 0) {
     // Envoyer une notification à l'admin
     mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Images trop affichées', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
+
+echo "...done";
