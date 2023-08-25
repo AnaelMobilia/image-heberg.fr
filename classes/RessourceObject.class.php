@@ -34,29 +34,29 @@ abstract class RessourceObject
     public const TYPE_MINIATURE = 2;
 
     // Champ à utiliser en BDD pour charger la ressource
-    public const SEARCH_BY_MD5 = "md5";
-    public const SEARCH_BY_NAME = "new_name";
-    public const SEARCH_BY_ID = "id";
+    public const SEARCH_BY_MD5 = 'md5';
+    public const SEARCH_BY_NAME = 'new_name';
+    public const SEARCH_BY_ID = 'id';
 
     // Attributs de la classe
     private int $id = 0;
-    private string $nomOriginal = "";
-    private string $nomNouveau = "";
+    private string $nomOriginal = '';
+    private string $nomNouveau = '';
     private int $largeur = 0;
     private int $hauteur = 0;
     private int $poids = 0;
-    private string $lastView = "0000-00-00";
+    private string $lastView = '0000-00-00';
     private int $nbViewIPv4 = 0;
     private int $nbViewIPv6 = 0;
-    private string $dateEnvoi = "";
+    private string $dateEnvoi = '';
     private ?string $md5 = null;
-    private string $ipEnvoi = "";
+    private string $ipEnvoi = '';
     private bool $isBloquee = false;
     private bool $isSignalee = false;
     private bool $isApprouvee = false;
-    private string $pathTemp = "";
+    private string $pathTemp = '';
     private int $type = self::TYPE_IMAGE;
-    private string $nomTemp = "";
+    private string $nomTemp = '';
 
     /**
      * Génère le nom d'une nouvelle image
@@ -131,10 +131,10 @@ abstract class RessourceObject
         // Existe-t-il d'autres occurences de cette image ?
         if ($this->getType() === self::TYPE_IMAGE) {
             // Image
-            $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5");
+            $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5');
         } else {
             // Miniature
-            $req = MaBDD::getInstance()->prepare("SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5");
+            $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5');
         }
         $req->bindValue(':md5', $this->getMd5());
         $req->execute();
@@ -178,7 +178,7 @@ abstract class RessourceObject
         $resImg = HelperImage::getImage($pathSrc);
 
         // Rotation (Imagick est dans le sens horaire, imagerotate dans le sens anti-horaire)
-        $resImg->rotateImage("rgb(0,0,0)", $angle);
+        $resImg->rotateImage('rgb(0,0,0)', $angle);
 
         // J'enregistre l'image
         return HelperImage::setImage($resImg, HelperImage::getType($pathSrc), $pathDst);
@@ -223,7 +223,7 @@ abstract class RessourceObject
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM possede WHERE images_id = :imagesId");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM possede WHERE images_id = :imagesId');
         $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
@@ -252,7 +252,7 @@ abstract class RessourceObject
     public function getDateEnvoiFormatee(): string
     {
         $phpdate = strtotime($this->getDateEnvoiBrute());
-        return date("d/m/Y H:i:s", $phpdate);
+        return date('d/m/Y H:i:s', $phpdate);
     }
 
     /**
@@ -261,13 +261,13 @@ abstract class RessourceObject
      */
     public function getLastViewFormate(): string
     {
-        $monRetour = "?";
-        if ($this->getLastView() != "0000-00-00") {
+        $monRetour = '?';
+        if ($this->getLastView() != '0000-00-00') {
             $phpdate = strtotime($this->getLastView());
 
             // Gestion du cas de non affichage
             if ($phpdate !== 0 && $phpdate !== false) {
-                $monRetour = date("d/m/Y", $phpdate);
+                $monRetour = date('d/m/Y', $phpdate);
             }
         }
         return $monRetour;
@@ -311,7 +311,7 @@ abstract class RessourceObject
     public function setNbViewIpv4PlusUn(): void
     {
         $this->nbViewIPv4 = $this->getNbViewIPv4() + 1;
-        $this->setLastView(date("Y-m-d"));
+        $this->setLastView(date('Y-m-d'));
     }
 
     /**
@@ -320,7 +320,7 @@ abstract class RessourceObject
     public function setNbViewIpv6PlusUn(): void
     {
         $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
-        $this->setLastView(date("Y-m-d"));
+        $this->setLastView(date('Y-m-d'));
     }
     /**
      * GETTERS ET SETTERS
@@ -604,7 +604,7 @@ abstract class RessourceObject
     {
         if (is_null($lastView)) {
             // Si l'image n'a jamais été affichée, elle est à NULL en BDD
-            $lastView = "";
+            $lastView = '';
         }
         $this->lastView = $lastView;
     }

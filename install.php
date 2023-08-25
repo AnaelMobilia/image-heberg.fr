@@ -25,12 +25,12 @@ namespace ImageHeberg;
  * Vérification des prérequis basiques
  * Ce fichier peut être supprimé après l'installation
  */
-echo "PHP v" . phpversion() . "<br />";
+echo 'PHP v' . phpversion() . '<br />';
 
 /* 1 - Existence du fichier de config */
-$conf = file_exists(__DIR__ . "/config/config.php");
+$conf = file_exists(__DIR__ . '/config/config.php');
 if (!$conf) {
-    $msg = "Le fichier de configuration n'existe pas dans config/config.php !";
+    $msg = 'Le fichier de configuration n\'existe pas dans config/config.php !';
     if (!_PHPUNIT_) {
         die($msg);
     } else {
@@ -42,9 +42,9 @@ if (!$conf) {
 if (!defined('_PHPUNIT_')) {
     require 'config/config.php';
 }
-$res = MaBDD::getInstance()->query("SELECT COUNT(*) AS nbImages FROM images");
+$res = MaBDD::getInstance()->query('SELECT COUNT(*) AS nbImages FROM images');
 if (!$res) {
-    $msg = "Erreur de connexion à la base de données, vérifiez les identifiants dans le fichier config/config.php !";
+    $msg = 'Erreur de connexion à la base de données, vérifiez les identifiants dans le fichier config/config.php !';
     if (!_PHPUNIT_) {
         die($msg);
     } else {
@@ -53,7 +53,7 @@ if (!$res) {
 }
 $resultat = $res->fetch()->nbImages;
 if ($resultat < 2) { // 404 & banned par défaut
-    $msg = "La base de données n'a pas été initialisée correctement avec le fichier database.sql !";
+    $msg = 'La base de données n\'a pas été initialisée correctement avec le fichier database.sql !';
     if (!_PHPUNIT_) {
         die($msg);
     } else {
@@ -63,7 +63,7 @@ if ($resultat < 2) { // 404 & banned par défaut
 
 /* 3 - droits sur répertoire des images */
 if (!is_writable(_PATH_IMAGES_ . '_image_404.png')) {
-    $msg = "PHP doit pouvoir écrire dans les répertoires " . _REPERTOIRE_IMAGE_ . "* !";
+    $msg = 'PHP doit pouvoir écrire dans les répertoires ' . _REPERTOIRE_IMAGE_ . '* !';
     if (!_PHPUNIT_) {
         die($msg);
     } else {
@@ -73,7 +73,7 @@ if (!is_writable(_PATH_IMAGES_ . '_image_404.png')) {
 
 /* 4 - gestion des sessions */
 if (headers_sent()) {
-    $msg = "Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !";
+    $msg = 'Les entêtes (sessions) ont déjà été envoyés, corrigez votre configuration serveur !';
     if (!_PHPUNIT_) {
         die($msg);
     }
@@ -81,12 +81,12 @@ if (headers_sent()) {
 }
 
 /* Configuration */
-if (_PATH_ != __DIR__ . "/") {
-    $msg = "La variable _PATH_ (" . _PATH_ . ") n'est pas cohérente avec l'emplacement de l'application (" . __DIR__ . ")";
+if (_PATH_ != __DIR__ . '/') {
+    $msg = 'La variable _PATH_ (' . _PATH_ . ') n\'est pas cohérente avec l\'emplacement de l\'application (' . __DIR__ . ')';
     if (!_PHPUNIT_) {
         die($msg);
     } else {
         echo $msg;
     }
 }
-echo "L'installation est OK !";
+echo 'L\'installation est OK !';

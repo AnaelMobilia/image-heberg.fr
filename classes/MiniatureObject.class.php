@@ -38,13 +38,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
      * @param string $fromField Champ à utiliser en BDD
      * @throws Exception
      */
-    public function __construct(string $value = "", string $fromField = RessourceObject::SEARCH_BY_NAME)
+    public function __construct(string $value = '', string $fromField = RessourceObject::SEARCH_BY_NAME)
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_MINIATURE);
 
         // Faut-il charger l'objet ?
-        if ($value !== "") {
+        if ($value !== '') {
             if (!$this->charger($value, $fromField)) {
                 // Envoi d'une exception si l'image n'existe pas
                 throw new Exception('Miniature ' . $value . ' inexistante - ' . $fromField);
@@ -60,7 +60,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM thumbnails WHERE " . $fromField . " = :value");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM thumbnails WHERE ' . $fromField . ' = :value');
         $req->bindValue(':value', $value);
         $req->execute();
 
@@ -101,7 +101,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id');
 
         $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(':isPreview', $this->getIsPreview(), PDO::PARAM_INT);
@@ -127,7 +127,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de l'image en BDD
          */
-        $req = MaBDD::getInstance()->prepare("DELETE FROM thumbnails WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('DELETE FROM thumbnails WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
 
@@ -197,7 +197,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare("INSERT INTO thumbnails (images_id, date_creation, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)");
+            $req = MaBDD::getInstance()->prepare('INSERT INTO thumbnails (images_id, date_creation, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)');
             $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(':newName', $this->getNomNouveau());

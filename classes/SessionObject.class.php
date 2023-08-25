@@ -27,7 +27,7 @@ namespace ImageHeberg;
 class SessionObject
 {
     // @ IP de l'utilisateur
-    private string $IP = "";
+    private string $IP = '';
     // Objet utilisateur
     private UtilisateurObject $userObject;
 

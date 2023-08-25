@@ -37,10 +37,10 @@ abstract class HelperAdmin
     public static function getNeverUsedFiles(): ArrayObject
     {
         // Toutes les images jamais affichées & envoyées il y a plus de xx jours
-        $req = "SELECT im.new_name
+        $req = 'SELECT im.new_name
                FROM images im
                WHERE im.last_view IS NULL
-               AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . " DAY)
+               AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' DAY)
                /* Préservation des fichiers des membres */
                AND 0 = (
                   SELECT COUNT(*)
@@ -54,7 +54,7 @@ abstract class HelperAdmin
                   WHERE th.images_id = im.id
                   AND th.last_view IS NOT NULL
                )
-";
+';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
@@ -76,9 +76,9 @@ abstract class HelperAdmin
     public static function getUnusedFiles(): ArrayObject
     {
         // Toutes les images non affichées depuis xx jours
-        $req = "SELECT im.new_name
+        $req = 'SELECT im.new_name
                FROM images im
-               WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
+               WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
                /* Non prise en compte des images jamais affichées */
                AND im.last_view IS NOT NULL
                /* Préservation des images membres */
@@ -92,8 +92,8 @@ abstract class HelperAdmin
                   SELECT COUNT(*)
                   FROM thumbnails th
                   WHERE th.images_id = im.id
-                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . " DAY)
-               )";
+                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
+               )';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
@@ -115,15 +115,15 @@ abstract class HelperAdmin
     public static function getNeverUsedAccounts(): ArrayObject
     {
         // Toutes les comptes créés et jamais utilisés depuis xx jours
-        $req = "SELECT m.id
+        $req = 'SELECT m.id
                FROM membres m
-               WHERE m.date_inscription < DATE_SUB(CURRENT_DATE(), INTERVAL " . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . " DAY)
+               WHERE m.date_inscription < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' DAY)
                /* Préservation des comptes possédant des images */
                AND 0 = (
                   SELECT COUNT(*)
                   FROM possede po
                   WHERE po.membres_id = m.id
-               )";
+               )';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
@@ -145,7 +145,7 @@ abstract class HelperAdmin
     public static function getAllImagesNameBDD(): ArrayObject
     {
         // Toutes les images (sauf 404 & banned)
-        $req = "SELECT md5 FROM images WHERE id > 2";
+        $req = 'SELECT md5 FROM images WHERE id > 2';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
@@ -198,7 +198,7 @@ abstract class HelperAdmin
     public static function getAllMiniaturesNameBDD(): ArrayObject
     {
         // Toutes les images
-        $req = "SELECT md5 FROM thumbnails";
+        $req = 'SELECT md5 FROM thumbnails';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
@@ -222,7 +222,7 @@ abstract class HelperAdmin
     public static function getImageByMd5(string $unMd5): ArrayObject
     {
         // Images avec le même MD5
-        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM images WHERE md5 = :md5");
+        $req = MaBDD::getInstance()->prepare('SELECT new_name FROM images WHERE md5 = :md5');
         $req->bindValue(':md5', $unMd5);
         $req->execute();
 
@@ -243,7 +243,7 @@ abstract class HelperAdmin
     public static function getImagesSignalees(): ArrayObject
     {
         // Images signalées
-        $req = "SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 0";
+        $req = 'SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 0';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
@@ -264,7 +264,7 @@ abstract class HelperAdmin
     public static function getImagesTropAffichees(): ArrayObject
     {
         // Images avec trop d'affichages
-        $req = "SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > " . _ABUSE_AFFICHAGES_PAR_JOUR . " ORDER BY nbViewPerDay DESC";
+        $req = 'SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > ' . _ABUSE_AFFICHAGES_PAR_JOUR . ' ORDER BY nbViewPerDay DESC';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 

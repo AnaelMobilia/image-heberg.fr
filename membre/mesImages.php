@@ -48,7 +48,7 @@ require _TPL_TOP_;
                 $maMiniature->setPathTemp($tmpFile);
                 $maMiniature->setIdImage($uneImage->getId());
                 $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), _SIZE_PREVIEW_, _SIZE_PREVIEW_);
-                $maMiniature->setNomTemp("preview_" . $uneImage->getId());
+                $maMiniature->setNomTemp('preview_' . $uneImage->getId());
                 $maMiniature->creer();
                 $maMiniature->setIsPreview(true);
                 $maMiniature->sauver();
@@ -65,7 +65,7 @@ require _TPL_TOP_;
                         <p class="card-text">
                             Envoyée le <?= $uneImage->getDateEnvoiFormatee() ?>
                             <br/>
-                            <?= $uneImage->getNbViewTotal() ?> affichage<?= $uneImage->getNbViewTotal() > 1 ? "s" : "" ?> <span title="Date du dernier affichage" class="fw-light fst-italic">(<?= $uneImage->getLastViewFormate() ?>)</span>
+                            <?= $uneImage->getNbViewTotal() ?> affichage<?= $uneImage->getNbViewTotal() > 1 ? 's' : '' ?> <span title="Date du dernier affichage" class="fw-light fst-italic">(<?= $uneImage->getLastViewFormate() ?>)</span>
                         </p>
                     </div>
                     <div class="text-center">

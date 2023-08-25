@@ -61,24 +61,24 @@ $visiteur = new SessionObject();
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === "/index.php") ? " active" : "" ?>" href="<?= _URL_HTTPS_ ?>">
+                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/index.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>">
                                 <span class="fas fa-home"></span>&nbsp;
                                 Accueil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === "/a_propos.php") ? " active" : "" ?>" href="<?= _URL_HTTPS_ ?>a_propos.php">
+                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/a_propos.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>a_propos.php">
                                 <span class="fas fa-cloud"></span>&nbsp;
                                 A propos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === "/contact.php") ? " active" : "" ?>" href="<?= _URL_HTTPS_ ?>contact.php">
+                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/contact.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>contact.php">
                                 <span class="fas fa-envelope"></span>&nbsp;
                                 Contact
                             </a>
                         </li><li class="nav-item">
-                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === "/abuse.php") ? " active" : "" ?>" href="<?= _URL_HTTPS_ ?>abuse.php">
+                            <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/abuse.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>abuse.php">
                                 <span class="fas fa-radiation"></span>&nbsp;
                                 Signaler un abus
                             </a>
@@ -109,13 +109,13 @@ $visiteur = new SessionObject();
                     <?php else : ?>
                         <!-- Menu utilisateur connecté -->
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === "/membre/mesImages.php") ? " active" : "" ?>">
+                            <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/membre/mesImages.php') ? ' active' : '' ?>">
                                 <a class="nav-link text-nowrap" href="<?= _URL_MEMBRE_ ?>mesImages.php">
                                     <span class="fas fa-images"></span>&nbsp;
                                     Mes images
                                 </a>
                             </li>
-                            <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === "/membre/monCompte.php") ? " active" : "" ?>">
+                            <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/membre/monCompte.php') ? ' active' : '' ?>">
                                 <a class="nav-link text-nowrap" href="<?= _URL_MEMBRE_ ?>monCompte.php">
                                     <span class="fas fa-user"></span>&nbsp;
                                     Mon compte
@@ -123,7 +123,7 @@ $visiteur = new SessionObject();
                             </li>
                             <!-- Si c'est un admin : lien vers le panneau admin -->
                             <?php if ($visiteur->getLevel() === UtilisateurObject::LEVEL_ADMIN) : ?>
-                                <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === "/admin/index.php") ? " active" : "" ?>">
+                                <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/admin/index.php') ? ' active' : '' ?>">
                                     <a class="nav-link text-nowrap" href="<?= _URL_ADMIN_ ?>">
                                         <span class="fas fa-wrench"></span>&nbsp;
                                         Administration

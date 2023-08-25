@@ -45,7 +45,7 @@ use Imagick;
 class ImageObjectTest extends TestCase
 {
     // Rotation pour les images
-    private const VALEURS_ANGLE = ["90", "180", "270"];
+    private const VALEURS_ANGLE = [90, 180, 270];
     // Tolérance pour la comparaison des couleurs
     private const FUZZ = 10;
 
@@ -86,7 +86,7 @@ class ImageObjectTest extends TestCase
 
         // Afficher le détail des incohérences
         if ($result[1] != 0) {
-            echo "compareImages - " . $imgReference . " VS " . $img . " => " . $result[1] . " (Fuzz factor : " . self::FUZZ . ")\n";
+            echo 'compareImages - ' . $imgReference . ' VS ' . $img . ' => ' . $result[1] . ' (Fuzz factor : ' . self::FUZZ . ')' . PHP_EOL;
         }
 
         return ($result[1] == 0);
@@ -113,7 +113,7 @@ class ImageObjectTest extends TestCase
                     _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
                     _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
                 ),
-                "Rotation PNG " . $angle
+                'Rotation PNG ' . $angle
             );
         }
     }
@@ -138,7 +138,7 @@ class ImageObjectTest extends TestCase
                     _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.jpg',
                     _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
                 ),
-                "Rotation JPG " . $angle
+                'Rotation JPG ' . $angle
             );
         }
     }
@@ -164,7 +164,7 @@ class ImageObjectTest extends TestCase
                     _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
                     _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
                 ),
-                "Rotation GIF " . $angle
+                'Rotation GIF ' . $angle
             );
         }
     }
@@ -183,35 +183,35 @@ class ImageObjectTest extends TestCase
          */
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 800),
-            "Pas d'agrandissement"
+            'Pas d\'agrandissement'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 601, 800),
-            "Pas d'agrandissement"
+            'Pas d\'agrandissement'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 801),
-            "Pas d'agrandissement"
+            'Pas d\'agrandissement'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 599, 800),
-            "Pas d'agrandissement"
+            'Pas d\'agrandissement'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 600, 799),
-            "Pas d'agrandissement"
+            'Pas d\'agrandissement'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 799),
-            "Image de taille zéro"
+            'Image de taille zéro'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 0, 0),
-            "Image de taille zéro"
+            'Image de taille zéro'
         );
         $this->assertFalse(
             $monImage->redimensionner(_PATH_TESTS_IMAGES_ . 'image_portrait_600x800.png', '', 10, 0),
-            "Image de taille zéro"
+            'Image de taille zéro'
         );
 
         /*
@@ -229,7 +229,7 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png',
                 _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png'
             ),
-            "Redimensionnement portrait 200x400"
+            'Redimensionnement portrait 200x400'
         );
 
         // Doit être 150x200
@@ -244,7 +244,7 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png',
                 _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png'
             ),
-            "Redimensionnement portrait 400x200"
+            'Redimensionnement portrait 400x200'
         );
 
         /*
@@ -262,7 +262,7 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png',
                 _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png'
             ),
-            "Redimensionnement paysage 400x200"
+            'Redimensionnement paysage 400x200'
         );
 
         // Doit être 200x150
@@ -277,7 +277,7 @@ class ImageObjectTest extends TestCase
                 _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png',
                 _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png'
             ),
-            "Redimensionnement paysage 200x400"
+            'Redimensionnement paysage 200x400'
         );
     }
 }

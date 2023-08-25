@@ -36,9 +36,9 @@ if (!_PHPUNIT_) {
         if (_DEBUG_) {
             // Afficher l'erreur en masquant les informations sensibles
             echo '<pre>';
-            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], "xxx", $exception->getMessage()));
+            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], 'xxx', $exception->getMessage()));
             echo '<br /><br /><hr /><br />';
-            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], "xxx", $exception->getTraceAsString()));
+            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], 'xxx', $exception->getTraceAsString()));
             echo '</pre>';
         } else {
             echo 'Une erreur a été rencontrée';
@@ -48,22 +48,22 @@ if (!_PHPUNIT_) {
          * Envoi d'un mail avec le détail de l'erreur à l'administrateur
          */
         // Adresse expediteur
-        $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_ . "\n";
+        $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_;
         // Adresse de retour
-        $headers .= 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_ . "\n";
+        $headers .= PHP_EOL . 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_;
         // Agent mail
-        $headers .= 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_ . "\n";
+        $headers .= PHP_EOL . 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_;
         // Date
-        $headers .= 'Date: ' . date('D, j M Y H:i:s +0200') . "\n";
-        $message = $exception->getMessage() . "\r\n" . $exception->getTraceAsString();
-        $message .= "\r\nURL : " . $_SERVER['REQUEST_URI'];
+        $headers .= PHP_EOL . 'Date: ' . date('D, j M Y H:i:s +0200');
+        $message = PHP_EOL . $exception->getMessage() . PHP_EOL . $exception->getTraceAsString();
+        $message .= PHP_EOL . 'URL : ' . $_SERVER['REQUEST_URI'];
         if (isset($_SERVER['HTTP_REFERER'])) {
-            $message .= "\r\nHTTP REFERER : " . $_SERVER['HTTP_REFERER'];
+            $message .= PHP_EOL . 'HTTP REFERER : ' . $_SERVER['HTTP_REFERER'];
         }
-        $message .= "\r\nHTTP USER AGENT : " . $_SERVER['HTTP_USER_AGENT'];
-        $message .= "\r\nREMOTE ADDR : " . $_SERVER['REMOTE_ADDR'];
+        $message .= PHP_EOL . 'HTTP USER AGENT : ' . $_SERVER['HTTP_USER_AGENT'];
+        $message .= PHP_EOL . 'REMOTE ADDR : ' . $_SERVER['REMOTE_ADDR'];
 
-        mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] -  Erreur rencontrée", $message, $headers);
+        mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] -  Erreur rencontrée', $message, $headers);
     }
 
     set_exception_handler('ImageHeberg\exception_handler');
@@ -103,8 +103,8 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(function ($class) {
     // Suppression du namespace
-    $class = str_replace('ImageHeberg\\', "", $class);
-    if (str_contains($class, "Helper")) {
+    $class = str_replace('ImageHeberg\\', '', $class);
+    if (str_contains($class, 'Helper')) {
         // Helper par exemple
         $file = _PATH_ . 'classes/' . $class . '.php';
     } else {
@@ -136,6 +136,6 @@ define('_SIZE_PREVIEW_', 256);
  * Tor
  */
 // URL de l'API Tor
-define('_TOR_EXIT_NODE_LIST_URL_', "https://onionoo.torproject.org/details?flag=exit");
+define('_TOR_EXIT_NODE_LIST_URL_', 'https://onionoo.torproject.org/details?flag=exit');
 define('_TOR_LISTE_IPV4_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv4.txt');
 define('_TOR_LISTE_IPV6_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv6.txt');

@@ -22,7 +22,7 @@
 namespace ImageHeberg;
 
 // Ce script peut être appelé par un cron
-if (! defined("_IS_CRON_") || !_IS_CRON_) {
+if (! defined('_IS_CRON_') || !_IS_CRON_) {
     require '../config/config.php';
 }
 // Vérification des droits d'accès
@@ -36,7 +36,7 @@ $message = '';
 
 // Je récupère la liste des images jamais affichées
 $listeImages = HelperAdmin::getNeverUsedFiles();
-$isPlural = ($listeImages->count() > 1 ? "s" : "");
+$isPlural = ($listeImages->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
@@ -55,7 +55,7 @@ if (isset($_POST['effacer'])) :
 <?php else : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeImages->count() ?> image<?= $isPlural ?> envoyée<?= $isPlural ?> il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1 ? "s" : "" ?> et jamais affichée<?= $isPlural ?>
+            <?= $listeImages->count() ?> image<?= $isPlural ?> envoyée<?= $isPlural ?> il y a au moins <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1 ? 's' : '' ?> et jamais affichée<?= $isPlural ?>
         </div>
         <div class="card-body">
             <ul>

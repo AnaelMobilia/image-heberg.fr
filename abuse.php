@@ -38,7 +38,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // On essaie de matcher l'image - nettoyage des pramètres
         $fileName = basename(parse_url(trim($_POST['urlImage']), PHP_URL_PATH));
-        if (preg_match("#^[\d]+\.(?:png|jpg|gif)$#", $fileName)) {
+        if (preg_match('#^[\d]+\.(?:png|jpg|gif)$#', $fileName)) {
             // Suivi du traitement
             $isTraitee = true;
             // On flaggue l'image en signalée en BDD
@@ -65,17 +65,17 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         // Gestion travis
         if (!_PHPUNIT_) {
             // Je complète le message avec l'IP de mon émeteur
-            $message = "URL : " . $_POST['urlImage'];
-            $message .= "\r\n\r\nBlocage automatique : " . ($isTraitee ? 'OK' : 'KO');
-            $message .= "\r\n\r\nRaison : " . $_POST['raison'];
-            $message .= "\r\n\r\nMessage : " . $_POST['userMessage'];
-            $message .= "\r\n\r\n---------------------------------------------";
-            $message .= "\r\n\r\nIP : " . $_SERVER['REMOTE_ADDR'];
-            $message .= "\r\n\r\nBROWSER : " . $_SERVER['HTTP_USER_AGENT'];
+            $message = 'URL : ' . $_POST['urlImage'];
+            $message .= PHP_EOL . 'Blocage automatique : ' . ($isTraitee ? 'OK' : 'KO');
+            $message .= PHP_EOL . 'Raison : ' . $_POST['raison'];
+            $message .= PHP_EOL . 'Message : ' . $_POST['userMessage'];
+            $message .= PHP_EOL . '---------------------------------------------';
+            $message .= PHP_EOL . 'IP : ' . $_SERVER['REMOTE_ADDR'];
+            $message .= PHP_EOL . 'BROWSER : ' . $_SERVER['HTTP_USER_AGENT'];
 
             // Tout va bien, on envoit un mail
-            $subject = "[" . _SITE_NAME_ . "] - Signalement d'image";
-            mail(_ADMINISTRATEUR_EMAIL_, $subject, $message, "From: " . $_POST['userMail']);
+            $subject = '[' . _SITE_NAME_ . '] - Signalement d\'image';
+            mail(_ADMINISTRATEUR_EMAIL_, $subject, $message, 'From: ' . $_POST['userMail']);
             $maSession->removeFlag();
         }
         // Retour utilisateur

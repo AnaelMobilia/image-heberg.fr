@@ -41,7 +41,7 @@ abstract class HelperSysteme
         // memory_limit=0 est possible
         if ($valBrute <= 0) {
             // Arbitrairement limite à 2Go
-            $valBrute = "2G";
+            $valBrute = '2G';
         }
 
         // Gestion de l'unité multiplicatrice...
@@ -68,7 +68,7 @@ abstract class HelperSysteme
      */
     public static function getPhpVersion(): string
     {
-        return PHP_VERSION . " - " . PHP_OS;
+        return PHP_VERSION . ' - ' . PHP_OS;
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class HelperSysteme
      */
     public static function getImagickVersion(): string
     {
-        return Imagick::getVersion()["versionString"];
+        return Imagick::getVersion()['versionString'];
     }
 
     /**
@@ -97,19 +97,19 @@ abstract class HelperSysteme
      */
     public static function getStatusHTTP(string $url): string
     {
-        $classe = "danger";
-        $fa = "exclamation-circle";
+        $classe = 'danger';
+        $fa = 'exclamation-circle';
 
         // On regarde ce que ça donne
         $resultat = get_headers($url);
 
         // Est-ce le résultat attendu ?
-        if (stripos($resultat[0], "Forbidden")) {
-            $classe = "success";
-            $fa = "check";
+        if (stripos($resultat[0], 'Forbidden')) {
+            $classe = 'success';
+            $fa = 'check';
         }
         // Mise en forme du résultat
-        return "<span class=\"fas fa-" . $fa . " text-" . $classe . "\">&nbsp;" . $resultat[0] . "</span>";
+        return '<span class="fas fa-' . $fa . ' text-' . $classe . '">&nbsp;' . $resultat[0] . '</span>';
     }
 
     /**
@@ -120,19 +120,19 @@ abstract class HelperSysteme
     public static function isRecursivelyWritable(string $folder): ArrayObject
     {
         // On évite le // dans le path... (estéthique)
-        if (str_ends_with($folder, "/")) {
+        if (str_ends_with($folder, '/')) {
             $folder = substr($folder, 0, -1);
         }
         $monRetour = new ArrayObject();
 
         if (is_writable($folder)) {
-            $monRetour->append("<span class=\"fas fa-check text-success\">&nbsp;" . $folder . "</span>");
+            $monRetour->append('<span class="fas fa-check text-success">&nbsp;' . $folder . '</span>');
         } else {
-            $monRetour->append("<span class=\"fas fa-exclamation-circle text-danger\">&nbsp;" . $folder . "</span>");
+            $monRetour->append('<span class="fas fa-exclamation-circle text-danger">&nbsp;' . $folder . '</span>');
         }
 
         // Dossiers enfants
-        $objects = glob($folder . "/*", GLOB_ONLYDIR);
+        $objects = glob($folder . '/*', GLOB_ONLYDIR);
         foreach ($objects as $object) {
             // Je vérifie si les dossiers enfants sont écrivables
             $sousRetour = self::isRecursivelyWritable($object);
@@ -152,11 +152,11 @@ abstract class HelperSysteme
     public static function getHDDUsage(): float
     {
         // Poids de l'ensemble des images
-        $req = "SELECT SUM(im.size) AS images, (
+        $req = 'SELECT SUM(im.size) AS images, (
                   SELECT SUM(th.size)
                   FROM thumbnails th
                ) AS miniatures
-               FROM images im";
+               FROM images im';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);

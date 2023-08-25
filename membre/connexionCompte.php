@@ -33,10 +33,10 @@ if (isset($_POST['valider'])) {
     $messageErreur = '';
 
     if (empty($_POST['userName'])) {
-        $messageErreur .= "<br />Merci de saisir un identifiant.";
+        $messageErreur .= '<br />Merci de saisir un identifiant.';
     }
     if (empty($_POST['userPassword'])) {
-        $messageErreur .= "<br />Merci de saisir un mot de passe.";
+        $messageErreur .= '<br />Merci de saisir un mot de passe.';
     }
     // Si tout est bon
     if (empty($messageErreur)) {
@@ -47,7 +47,7 @@ if (isset($_POST['valider'])) {
                 die();
             }
         } else {
-            $messageErreur .= "<br />Erreur dans vos identifiants.";
+            $messageErreur .= '<br />Erreur dans vos identifiants.';
         }
     }
 }

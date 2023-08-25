@@ -35,8 +35,8 @@ $maSession = new SessionObject();
 $maSession->setUserObject($monUser);
 
 // Forcer les IP
-$_SESSION['IP'] = "127.0.0.1";
-$_SERVER['REMOTE_ADDR'] = "127.0.0.1";
+$_SESSION['IP'] = '127.0.0.1';
+$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
 // Effacer les fichiers jamais utilisés
 $_POST['effacer'] = true;
@@ -46,4 +46,4 @@ require _PATH_ . 'admin/cleanFilesNeverUsed.php';
 $_POST['effacer'] = true;
 require _PATH_ . 'admin/cleanInactiveFiles.php';
 
-echo "...done";
+echo '...done';

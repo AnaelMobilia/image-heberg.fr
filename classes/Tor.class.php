@@ -26,8 +26,8 @@ namespace ImageHeberg;
  */
 class Tor
 {
-    private const IPV4 = "IPv4";
-    private const IPV6 = "IPv6";
+    private const IPV4 = 'IPv4';
+    private const IPV6 = 'IPv6';
 
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor
@@ -60,9 +60,9 @@ class Tor
 
         // Enregister le résultat sur le disque
         $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4]));
-        echo "IPv4 : " . $retour;
+        echo 'IPv4 : ' . $retour;
         $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6]));
-        echo "<br />IPv6 : " . $retour;
+        echo '<br />IPv6 : ' . $retour;
     }
 
     /**
@@ -73,16 +73,16 @@ class Tor
      */
     private function addToTab(string $ip, array &$tabIp, bool $withPort = false): void
     {
-        if (substr_count($ip, ":") > 1) {
+        if (substr_count($ip, ':') > 1) {
             // C'est une IPv6
 
             // Supprimer le port
             if ($withPort) {
-                $ip = substr($ip, 0, strrpos($ip, ":"));
+                $ip = substr($ip, 0, strrpos($ip, ':'));
             }
 
             // Supprimer les crochets de la notation [1234:5678::]
-            $ip = str_replace(["[", "]"], "", $ip);
+            $ip = str_replace(['[', ']'], '', $ip);
 
             // Forcer la réécriture de l'IP
             $ip = inet_ntop(inet_pton($ip));
@@ -95,7 +95,7 @@ class Tor
 
             // Supprimer le port
             if ($withPort) {
-                $ip = substr($ip, 0, strrpos($ip, ":"));
+                $ip = substr($ip, 0, strrpos($ip, ':'));
             }
 
             // Valider l'IP et l'enregistrer si inconnue

@@ -30,15 +30,15 @@ use ArrayObject;
  */
 class UtilisateurObject
 {
-    private string $userName = "";
-    private string $password = "";
-    private string $email = "";
-    private string $dateInscription = "";
-    private string $ipInscription = "";
+    private string $userName = '';
+    private string $password = '';
+    private string $email = '';
+    private string $dateInscription = '';
+    private string $ipInscription = '';
     private int $level = self::LEVEL_GUEST;
     private int $id = 0;
     private bool $isActif = true;
-    private string $token = "";
+    private string $token = '';
 
     // Niveaux de droits
     public const LEVEL_GUEST = 0;
@@ -111,7 +111,7 @@ class UtilisateurObject
     public function getDateInscriptionFormate(): string
     {
         $phpdate = strtotime($this->getDateInscription());
-        return date("d/m/Y", $phpdate);
+        return date('d/m/Y', $phpdate);
     }
 
     /**
@@ -261,7 +261,7 @@ class UtilisateurObject
         $monRetour = 0;
 
         // Vérification de l'existance du login
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM membres WHERE login = :login');
         $req->bindValue(':login', $user);
         $req->execute();
 
@@ -332,7 +332,7 @@ class UtilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
-            $req = MaBDD::getInstance()->prepare("INSERT INTO login (ip_login, date_login, membres_id) VALUES (:ipLogin, NOW(), :membresId)");
+            $req = MaBDD::getInstance()->prepare('INSERT INTO login (ip_login, date_login, membres_id) VALUES (:ipLogin, NOW(), :membresId)');
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
             $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
 
@@ -353,7 +353,7 @@ class UtilisateurObject
         $monRetour = false;
 
         // Je récupère les données en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM membres WHERE id = :id');
         $req->bindValue(':id', $userID, PDO::PARAM_INT);
         $req->execute();
 
@@ -385,7 +385,7 @@ class UtilisateurObject
      */
     public function enregistrer(): void
     {
-        $req = MaBDD::getInstance()->prepare("INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)");
+        $req = MaBDD::getInstance()->prepare('INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)');
         $req->bindValue(':email', $this->getEmail());
         $req->bindValue(':login', $this->getUserNameBDD());
         $req->bindValue(':password', $this->getPassword());
@@ -403,7 +403,7 @@ class UtilisateurObject
      */
     public function modifier(): void
     {
-        $req = MaBDD::getInstance()->prepare("UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('UPDATE membres SET email = :email, login = :login, password = :password, lvl = :lvl, isActif = :isActif, token = :token WHERE id = :id');
         $req->bindValue(':email', $this->getEmail());
         $req->bindValue(':login', $this->getUserNameBDD());
         $req->bindValue(':password', $this->getPassword());
@@ -421,17 +421,17 @@ class UtilisateurObject
     public function supprimer(): void
     {
         // Les images possédées
-        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE membres_id = :membresId");
+        $req = MaBDD::getInstance()->prepare('DELETE FROM possede WHERE membres_id = :membresId');
         $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Historique des logins
-        $req = MaBDD::getInstance()->prepare("DELETE FROM login WHERE membres_id = :membresId");
+        $req = MaBDD::getInstance()->prepare('DELETE FROM login WHERE membres_id = :membresId');
         $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
 
         // Paramètres du compte
-        $req = MaBDD::getInstance()->prepare("DELETE FROM membres WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('DELETE FROM membres WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
         $req->execute();
     }
@@ -444,11 +444,11 @@ class UtilisateurObject
     public function assignerImage(ImageObject $imageObject): void
     {
         if ($this->getId() === 0) {
-            throw new Exception("Aucun utilisateur n'est défini !");
+            throw new Exception('Aucun utilisateur n\'est défini !');
         }
 
         // Les images possédées
-        $req = MaBDD::getInstance()->prepare("INSERT INTO possede (images_id, membres_id) VALUES (:imagesId, :membresId)");
+        $req = MaBDD::getInstance()->prepare('INSERT INTO possede (images_id, membres_id) VALUES (:imagesId, :membresId)');
         $req->bindValue(':imagesId', $imageObject->getId(), PDO::PARAM_INT);
         $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
         $req->execute();
@@ -461,7 +461,7 @@ class UtilisateurObject
      */
     public static function verifierLoginDisponible(string $login): bool
     {
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE login = :login");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM membres WHERE login = :login');
         $req->bindValue(':login', $login);
         $req->execute();
 
@@ -484,7 +484,7 @@ class UtilisateurObject
      */
     public static function verifierEmailDisponible(string $email): bool
     {
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM membres WHERE email = :email");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM membres WHERE email = :email');
         $req->bindValue(':email', strtolower($email));
         $req->execute();
 
@@ -514,10 +514,10 @@ class UtilisateurObject
         if ($monUser->verifierDroits($levelRequis) === false) {
             // Arrêter le script...
             if ($dieIfNotGranted) {
-                header("HTTP/2 403 Forbidden");
+                header('HTTP/2 403 Forbidden');
                 require _TPL_TOP_;
-                echo "<h1 class=\"mb-3\">Accès refusé</h1>";
-                echo "<p>Désolé, vous n'avez pas le droit d'accèder à cette page.</p>";
+                echo '<h1 class="mb-3">Accès refusé</h1>';
+                echo '<p>Désolé, vous n\'avez pas le droit d\'accèder à cette page.</p>';
                 require _TPL_BOTTOM_;
                 die();
             }
@@ -535,7 +535,7 @@ class UtilisateurObject
     public function getImages(): ArrayObject
     {
         // Toutes les images
-        $req = MaBDD::getInstance()->prepare("SELECT new_name FROM possede, images WHERE id = images_id AND membres_id = :membresId ");
+        $req = MaBDD::getInstance()->prepare('SELECT new_name FROM possede, images WHERE id = images_id AND membres_id = :membresId ');
         $req->bindValue(':membresId', $this->getId(), PDO::PARAM_INT);
 
         // Exécution de la requête

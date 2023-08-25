@@ -36,13 +36,13 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * @param string $fromField Champ à utiliser en BDD
      * @throws Exception
      */
-    public function __construct(string $value = "", string $fromField = RessourceObject::SEARCH_BY_NAME)
+    public function __construct(string $value = '', string $fromField = RessourceObject::SEARCH_BY_NAME)
     {
         // Définition du type pour le RessourceObject
         $this->setType(RessourceObject::TYPE_IMAGE);
 
         // Faut-il charger l'objet ?
-        if ($value !== "") {
+        if ($value !== '') {
             if (!$this->charger($value, $fromField)) {
                 // Envoi d'une exception si l'image n'existe pas
                 throw new Exception('Image ' . $value . ' inexistante' . $fromField);
@@ -59,7 +59,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare("SELECT * FROM images WHERE " . $fromField . " = :value");
+        $req = MaBDD::getInstance()->prepare('SELECT * FROM images WHERE ' . $fromField . ' = :value');
         $req->bindValue(':value', $value);
         $req->execute();
 
@@ -95,7 +95,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id');
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal());
@@ -125,9 +125,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $monRetour = new ArrayObject();
 
         // Chargement des miniatures
-        $query = "SELECT new_name FROM thumbnails where images_id = :imagesId";
+        $query = 'SELECT new_name FROM thumbnails where images_id = :imagesId';
         if ($onlyPreview) {
-            $query .= " AND is_preview = 1";
+            $query .= ' AND is_preview = 1';
         }
 
         $req = MaBDD::getInstance()->prepare($query);
@@ -164,7 +164,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de l'affectation
          */
-        $req = MaBDD::getInstance()->prepare("DELETE FROM possede WHERE images_id = :imagesId");
+        $req = MaBDD::getInstance()->prepare('DELETE FROM possede WHERE images_id = :imagesId');
         $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         $monRetour = $req->execute();
 
@@ -172,7 +172,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
          * Suppression de l'image en BDD
          */
         if ($monRetour) {
-            $req = MaBDD::getInstance()->prepare("DELETE FROM images WHERE id = :id");
+            $req = MaBDD::getInstance()->prepare('DELETE FROM images WHERE id = :id');
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
             $monRetour = $req->execute();
         }
@@ -229,7 +229,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             copy($this->getPathTemp(), $this->getPathMd5());
         } else {
             // Ce MD5 est-il déjà bloqué pour une autre image ?
-            $req = MaBDD::getInstance()->prepare("SELECT MAX(isBloquee) AS isBloquee FROM images WHERE md5 = :md5");
+            $req = MaBDD::getInstance()->prepare('SELECT MAX(isBloquee) AS isBloquee FROM images WHERE md5 = :md5');
             $req->bindValue(':md5', $this->getMd5());
             $req->execute();
             $values = $req->fetch();
@@ -257,7 +257,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare("INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)");
+            $req = MaBDD::getInstance()->prepare('INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)');
             $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
             // Date : NOW()
             $req->bindValue(':oldName', $this->getNomOriginal());
@@ -289,7 +289,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function bloquer(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE images SET isBloquee = 1 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1 WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
@@ -301,7 +301,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function approuver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare("UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE id = :id");
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();

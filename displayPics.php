@@ -38,7 +38,7 @@ $adminForceAffichage = false;
  * Gestion du God mode
  */
 if (
-    str_contains($url, "forceDisplay=1") // Mis en premier pour éviter d'ouvrir des sessions inutiles
+    str_contains($url, 'forceDisplay=1') // Mis en premier pour éviter d'ouvrir des sessions inutiles
     && UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN, false)
 ) {
     $adminForceAffichage = true;
@@ -47,7 +47,7 @@ if (
 /**
  * Définition du type
  */
-if (preg_match("#/" . _REPERTOIRE_MINIATURE_ . "#", trim($url))) {
+if (preg_match('#/' . _REPERTOIRE_MINIATURE_ . '#', trim($url))) {
     // Miniature
     $monObjet = new MiniatureObject();
 } else {
@@ -66,7 +66,7 @@ if (
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_404_);
     // Envoi d'un header en 404
-    header("HTTP/2 404 Not Found");
+    header('HTTP/2 404 Not Found');
 }
 
 /**
@@ -79,7 +79,7 @@ if (
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_BAN_);
     // Envoi d'un header en 451 -> Unavailable For Legal Reasons
-    header("HTTP/2 451 Unavailable For Legal Reasons");
+    header('HTTP/2 451 Unavailable For Legal Reasons');
 }
 
 /**
@@ -105,7 +105,7 @@ MaBDD::close();
  * Envoi du bon entête HTTP
  */
 if (!_PHPUNIT_) {
-    header("Content-type: " . HelperImage::getMimeType($monObjet->getPathMd5()));
+    header('Content-type: ' . HelperImage::getMimeType($monObjet->getPathMd5()));
 }
 
 /**

@@ -45,20 +45,20 @@ class AbuseTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
-        $_POST['userMail'] = "john.doe@example.com";
-        $_POST['urlImage'] = "https://www.example.com/files/15.png";
+        $_POST['userMail'] = 'john.doe@example.com';
+        $_POST['urlImage'] = 'https://www.example.com/files/15.png';
 
         ob_start();
         require 'abuse.php';
         ob_end_clean();
 
-        $imageBloquee = new ImageObject("15.png");
-        $imageMemeMd5 = new ImageObject("16.png");
-        $this->assertEquals(true, $imageBloquee->isSignalee(), "Image signalée doit l'être");
+        $imageBloquee = new ImageObject('15.png');
+        $imageMemeMd5 = new ImageObject('16.png');
+        $this->assertEquals(true, $imageBloquee->isSignalee(), 'Image signalée doit l\'être');
         $this->assertEquals(
             true,
             $imageMemeMd5->isSignalee(),
-            "Image avec même MD5 qu'une image signalée doit l'être également"
+            'Image avec même MD5 qu\'une image signalée doit l\'être également'
         );
     }
 
@@ -82,16 +82,16 @@ class AbuseTest extends TestCase
 
         $this->assertTrue(
             empty($msgErreur),
-            "Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : " . $msgErreur
+            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : ' . $msgErreur
         );
         $this->assertTrue(
             empty($msgWarning),
-            "Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : " . $msgWarning
+            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : ' . $msgWarning
         );
         $this->assertEquals(
             true,
             $monImage->isBloquee(),
-            "Renvoi image déjà bloquée doit être isBloquée en BDD"
+            'Renvoi image déjà bloquée doit être isBloquée en BDD'
         );
     }
 
@@ -112,8 +112,8 @@ class AbuseTest extends TestCase
         require 'abuse.php';
         ob_end_clean();
 
-        $imageSignalee = new ImageObject("_image_404.png");
-        $this->assertEquals(false, $imageSignalee->isSignalee(), "Image approuvée qui est signalée ne doit pas être bloquée");
+        $imageSignalee = new ImageObject('_image_404.png');
+        $this->assertEquals(false, $imageSignalee->isSignalee(), 'Image approuvée qui est signalée ne doit pas être bloquée');
     }
 
     /**
@@ -126,7 +126,7 @@ class AbuseTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         // Flagguer l'image comme signalée
-        $image = new ImageObject("_image_banned.png");
+        $image = new ImageObject('_image_banned.png');
         $image->setSignalee(true);
         $image->sauver();
 
@@ -142,7 +142,7 @@ class AbuseTest extends TestCase
         require 'admin/abuse.php';
         ob_end_clean();
 
-        $image = new ImageObject("_image_banned.png");
-        $this->assertEquals(false, $image->isSignalee(), "Image signalée qui est approuvée ne doit plus être signalée");
+        $image = new ImageObject('_image_banned.png');
+        $this->assertEquals(false, $image->isSignalee(), 'Image signalée qui est approuvée ne doit plus être signalée');
     }
 }

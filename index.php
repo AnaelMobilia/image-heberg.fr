@@ -30,7 +30,7 @@ $maSession->setFlag();
 require _TPL_TOP_;
 ?>
 <h1 class="mb-3"><small>Envoyer une image</small></h1>
-<?php if (isset($_GET["delete_success"])) : ?>
+<?php if (isset($_GET['delete_success'])) : ?>
     <div class="alert alert-success">
         <span class="glyphicon glyphicon-ok"></span>
         &nbsp;
@@ -45,7 +45,7 @@ require _TPL_TOP_;
         Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
-<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER["REMOTE_ADDR"])) : ?>
+<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER['REMOTE_ADDR'])) : ?>
     <div class="alert alert-danger">
         Suite à un abus d'utilisation de <?= _SITE_NAME_ ?>, l'envoi d'image est impossible depuis le réseau Tor.
     </div>

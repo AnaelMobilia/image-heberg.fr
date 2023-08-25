@@ -34,12 +34,12 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // Je complète le message avec l'IP de mon émeteur
         $message = $_POST['userMessage'];
-        $message .= "\r\n\r\n ---------------------------------------------";
-        $message .= "\r\n\r\n IP : " . $_SERVER['REMOTE_ADDR'];
-        $message .= "\r\n\r\n BROWSER : " . $_SERVER['HTTP_USER_AGENT'];
+        $message .= PHP_EOL . '---------------------------------------------';
+        $message .=  PHP_EOL . 'IP : ' . $_SERVER['REMOTE_ADDR'];
+        $message .=  PHP_EOL . 'BROWSER : ' . $_SERVER['HTTP_USER_AGENT'];
 
         // Tout va bien, on envoit un mail
-        mail(_ADMINISTRATEUR_EMAIL_, "[" . _SITE_NAME_ . "] - Formulaire de contact", $message, "From: " . $_POST['userMail']);
+        mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Formulaire de contact', $message, 'From: ' . $_POST['userMail']);
         $maSession->removeFlag();
 
         // Retour utilisateur

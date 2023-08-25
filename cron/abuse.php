@@ -37,8 +37,8 @@ $maSession = new SessionObject();
 $maSession->setUserObject($monUser);
 
 // Forcer les IP
-$_SESSION['IP'] = "127.0.0.1";
-$_SERVER['REMOTE_ADDR'] = "127.0.0.1";
+$_SESSION['IP'] = '127.0.0.1';
+$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
 // Consulter les abus
 ob_start();
@@ -50,5 +50,5 @@ if ($listeImagesTropAffichees->count() > 0) {
     // Envoyer une notification à l'admin
     mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Images trop affichées', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
-
-echo "...done";
+// ajouter un niveau de signalement automatique pour bloquer automatiquement l'image
+echo '...done';
