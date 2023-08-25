@@ -94,7 +94,7 @@ define('_PHPUNIT_', false);
 
 // Exécution d'un cron
 if (!defined('_IS_CRON_')) {
-    define('IS_CRON', false);
+    define('_IS_CRON_', false);
 }
 
 require _PATH_ . 'config/image-heberg.php';
