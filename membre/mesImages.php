@@ -72,13 +72,13 @@ require _TPL_TOP_;
                         <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>" loading="lazy">
                     </div>
                     <div class="card-footer text-muted text-end">
-                        <span class="fas fa-edit"></span>
-                        <span class="fas fa-link"></span>
+                        <span class="bi-pencil"></span>
+                        <span class="bi-link-45deg"></span>
                         <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' title="Afficher" target="_blank">
-                            <span class="fas fa-search-plus"></span>
+                            <span class="bi-box-arrow-up-right"></span>
                         </a>
                         <a href='<?= _URL_HTTPS_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>' title="Effacer" class="link-danger" target="_blank">
-                            <span class="fas fa-trash"></span>
+                            <span class="bi-trash"></span>
                         </a>
                     </div>
                 </div>

@@ -79,8 +79,8 @@ if (!empty($message)) : ?>
                 <tr>
                     <td><a href="<?= str_replace('http:', 'https:', $uneImage->getURL()) ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
                     <td>
-                        <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="fas fa-thumbs-up" style="color: green"></span></a>
-                        <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="fas fa-thumbs-down" style="color: red"></span></a>
+                        <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
+                        <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
                     </td>
                     <td><?= $uneImage->getNomOriginalFormate() ?></td>
                     <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
@@ -114,8 +114,8 @@ if (!empty($message)) : ?>
                 <tr>
                     <td><a href="<?= $uneImage->getURL() ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
                     <td>
-                        <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="fas fa-thumbs-up" style="color: green"></span></a>
-                        <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="fas fa-thumbs-down" style="color: red"></span></a>
+                        <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
+                        <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
                     </td>
                     <td><?= $uneImage->getNomOriginalFormate() ?></td>
                     <td><?= $uneImage->getDateEnvoiFormatee() ?></td>

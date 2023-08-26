@@ -64,7 +64,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <form method="post">
             <button class="btn btn-danger" type="submit" name="effacer">
-                <span class="fas fa-trash"></span>
+                <span class="bi-trash"></span>
                 &nbsp;Effacer ce<?= $isPlural ?> compte<?= $isPlural ?>
             </button>
         </form>

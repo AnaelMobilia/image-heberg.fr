@@ -110,7 +110,7 @@ abstract class HelperSysteme
             $fa = 'check';
         }
         // Mise en forme du résultat
-        return '<span class="fas fa-' . $fa . ' text-' . $classe . '">&nbsp;' . $resultat[0] . '</span>';
+        return '<span class="bi-' . $fa . ' text-' . $classe . '">&nbsp;' . $resultat[0] . '</span>';
     }
 
     /**
@@ -127,9 +127,9 @@ abstract class HelperSysteme
         $monRetour = new ArrayObject();
 
         if (is_writable($folder)) {
-            $monRetour->append('<span class="fas fa-check text-success">&nbsp;' . $folder . '</span>');
+            $monRetour->append('<span class="bi-check text-success">&nbsp;' . $folder . '</span>');
         } else {
-            $monRetour->append('<span class="fas fa-exclamation-circle text-danger">&nbsp;' . $folder . '</span>');
+            $monRetour->append('<span class="bi-exclamation-circle text-danger">&nbsp;' . $folder . '</span>');
         }
 
         // Dossiers enfants

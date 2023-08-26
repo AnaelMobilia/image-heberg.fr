@@ -114,7 +114,7 @@ if (isset($_POST['modifierPwd'])) {
 <div class="card card-default">
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#collapsePwd">
-            Changer de mot de passe <span class="fas fa-caret-down"></span>
+            Changer de mot de passe <span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="collapsePwd" class="card-collapse collapse">
@@ -140,7 +140,7 @@ if (isset($_POST['modifierPwd'])) {
 <div class="card card-default">
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#collapseMail">
-            Changer d'adresse courriel <span class="fas fa-caret-down"></span>
+            Changer d'adresse courriel <span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="collapseMail" class="card-collapse collapse">
@@ -167,7 +167,7 @@ if (isset($_POST['modifierPwd'])) {
 <div class="card card-default">
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#collapseDelete">
-            Supprimer mon compte <span class="fas fa-caret-down"></span>
+            Supprimer mon compte <span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="collapseDelete" class="card-collapse collapse">
@@ -175,7 +175,7 @@ if (isset($_POST['modifierPwd'])) {
             <form method="post">
                 <label class="text-danger form-label">
                     <input type="checkbox" value="" name="confirmeDelete">
-                    <span class="fas fa-warning-sign"></span>
+                    <span class="bi-exclamation-triangle-fill"></span>
                     Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
                     <br />
                     <b>

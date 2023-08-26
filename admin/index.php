@@ -33,31 +33,31 @@ require _TPL_TOP_;
         </div>
         <div class="card-body">
             <a href="<?= _URL_ADMIN_ ?>abuse.php" class="btn btn-success">
-                <span class="fas fa-radiation"></span>
+                <span class="bi-radioactive"></span>
                 &nbsp;Images à vérifier
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
-                <span class="fas fa-list-alt"></span>
+                <span class="bi-cloud-check"></span>
                 &nbsp;Vérifier la configuration
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-warning">
-                <span class="fas fa-trash"></span>
+                <span class="bi-file-earmark-x"></span>
                 &nbsp;Supprimer les images jamais affichées et envoyées depuis plus de <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1) ? 's' : '' ?>
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-warning">
-                <span class="fas fa-trash"></span>
+                <span class="bi-file-earmark-x-fill"></span>
                 &nbsp;Supprimer les images non affichées depuis plus de <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour<?= (_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1) ? 's' : '' ?>
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanAccountsNeverUsed.php" class="btn btn-warning">
-                <span class="fas fa-trash"></span>
+                <span class="bi-person-x"></span>
                 &nbsp;Supprimer les comptes créés il y a plus de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?> et jamais utilisés
             </a>
         </div>
@@ -68,14 +68,14 @@ require _TPL_TOP_;
         </div>
         <div class="card-body">
             <a href="<?= _URL_ADMIN_ ?>listeFichiers.php" class="btn btn-default">
-                <span class="fas fa-list-alt"></span>
+                <span class="bi-list-check"></span>
                 &nbsp;
                 Lister les fichiers présents sur le disque
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanErrors.php" class="btn btn-default">
-                <span class="fas fa-check"></span>
+                <span class="bi-database-fill-check"></span>
                 &nbsp;
                 Vérifier la cohérence disque et BDD
             </a>

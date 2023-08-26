@@ -29,7 +29,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v2x">
             v2.x - A venir
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v2x" class="card-collapse">
@@ -48,10 +48,10 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v22">
             v2.2 - Décembre 2021
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
-    <div id="v22" class="card-collapse">
+    <div id="v22" class="card-collapse collapse">
         <div class="card-body">
             <ul>
                 <li>Espace membre : ajout des miniatures des images possédées.</li>
@@ -63,7 +63,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v21">
             v2.1 - Février 2021
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v21" class="card-collapse collapse">
@@ -80,7 +80,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v205">
             v2.0.5 - 2020
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v205" class="card-collapse collapse">
@@ -96,7 +96,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v204">
             v2.0.4 - Octobre 2019
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v204" class="card-collapse collapse">
@@ -111,7 +111,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v203">
             v2.0.3 - Octobre 2019
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v203" class="card-collapse collapse">
@@ -128,7 +128,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v202">
             v2.0.2 - Janvier 2019
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v202" class="card-collapse collapse">
@@ -145,7 +145,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v201">
             v2.0.1 - Juin 2018
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v201" class="card-collapse collapse">
@@ -161,7 +161,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v20">
             v2.0 - Novembre 2016
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v20" class="card-collapse collapse">
@@ -182,7 +182,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v19">
             v1.9 - Janvier 2014
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v19" class="card-collapse collapse">
@@ -198,7 +198,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v127">
             v1.2.7 - 26 avril 2012
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v127" class="card-collapse collapse">
@@ -215,7 +215,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v126">
             v1.2.6 - 9 janvier 2012
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v126" class="card-collapse collapse">
@@ -237,7 +237,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v125">
             v1.2.5 - 30 octobre 2011
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v125" class="card-collapse collapse">
@@ -253,7 +253,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v124">
             v1.2.4 - 08 septembre 2011
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v124" class="card-collapse collapse">
@@ -268,7 +268,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v123e">
             v1.2.3.e - 14 août 2011
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v123e" class="card-collapse collapse">
@@ -286,7 +286,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#v123d">
             v1.2.3.d - 10 août 2011
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="v123d" class="card-collapse collapse">

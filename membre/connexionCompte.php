@@ -72,8 +72,8 @@ if (isset($messageErreur)) :
         <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
         <label for="userPassword">Mot de passe</label>
     </div>
-    <button type="submit" name="valider" class="btn btn-success"><span class="fas fa-sign-in-alt"></span>&nbsp;Se connecter</button>
+    <button type="submit" name="valider" class="btn btn-success"><span class="bi-box-arrow-in-right"></span>&nbsp;Se connecter</button>
     <a class="btn btn-outline-warning" role="button" disabled>Mot de passe oublié (à venir)</a>
-    <a class="btn btn-info" href="<?= _URL_MEMBRE_ ?>creerCompte.php" role="button"><span class="fas fa-save"></span>&nbsp;S'inscrire</a>
+    <a class="btn btn-info" href="<?= _URL_MEMBRE_ ?>creerCompte.php" role="button"><span class="bi-person-add"></span>&nbsp;S'inscrire</a>
 </form>
 <?php require _TPL_BOTTOM_ ?>

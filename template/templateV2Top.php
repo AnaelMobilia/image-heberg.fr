@@ -42,8 +42,7 @@ $visiteur = new SessionObject();
         <!-- Bootstrap core CSS -->
         <link href="template/css/bootstrap-5.3.1.min.css" rel="stylesheet" type="text/css">
         <link href="template/css/image-heberg.css" rel="stylesheet">
-        <link href="template/css/fontawesome-solid-5.15.2.min.css" rel="stylesheet">
-        <link href="template/css/fontawesome-5.15.2.min.css" rel="stylesheet">
+        <link href="template/css/bootstrap-icons-1.10.5.min.css" rel="stylesheet">
         <link href="template/css/monSite.css" rel="stylesheet">
     </head>
 
@@ -51,7 +50,7 @@ $visiteur = new SessionObject();
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-light fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="<?= _URL_HTTPS_ ?>"><span class="fas fa-cloud-upload-alt"></span>
+                <a class="navbar-brand" href="<?= _URL_HTTPS_ ?>"><span class="bi-cloud-arrow-up-fill"></span>
                     &nbsp;
                     <?= _SITE_NAME_ ?>
                 </a>
@@ -62,24 +61,24 @@ $visiteur = new SessionObject();
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
                             <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/index.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>">
-                                <span class="fas fa-home"></span>&nbsp;
+                                <span class="bi-house-door-fill"></span>&nbsp;
                                 Accueil
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/a_propos.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>a_propos.php">
-                                <span class="fas fa-cloud"></span>&nbsp;
+                                <span class="bi-info-circle-fill"></span>&nbsp;
                                 A propos
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/contact.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>contact.php">
-                                <span class="fas fa-envelope"></span>&nbsp;
+                                <span class="bi-envelope-fill"></span>&nbsp;
                                 Contact
                             </a>
                         </li><li class="nav-item">
                             <a class="nav-link<?= ($_SERVER['SCRIPT_NAME'] === '/abuse.php') ? ' active' : '' ?>" href="<?= _URL_HTTPS_ ?>abuse.php">
-                                <span class="fas fa-radiation"></span>&nbsp;
+                                <span class="bi-radioactive"></span>&nbsp;
                                 Signaler un abus
                             </a>
                         </li>
@@ -89,7 +88,7 @@ $visiteur = new SessionObject();
                         <div id="monCompteGestion">
                             <form class="d-flex my-2 my-lg-0">
                                 <button id="buttonMonCompteGestion" class="btn btn-success text-nowrap">
-                                    <span class="fas fa-user"></span>&nbsp;
+                                    <span class="bi-person-fill"></span>&nbsp;
                                     Mon compte
                                 </button>
                             </form>
@@ -99,10 +98,10 @@ $visiteur = new SessionObject();
                                 <input type="text" name="userName" placeholder="Identifiant" class="form-control" required="required">
                                 <input type="password" name="userPassword" placeholder="Mot de passe" class="form-control" required="required">
                                 <button type="submit" name="valider" class="btn btn-success text-nowrap">
-                                    <span class="fas fa-sign-in-alt"></span>&nbsp;Se connecter
+                                    <span class="bi-box-arrow-in-right"></span>&nbsp;Se connecter
                                 </button>
                                 <a href="<?= _URL_MEMBRE_ ?>creerCompte.php"  class="btn btn-success text-nowrap">
-                                    <span class="fas fa-save"></span>&nbsp;S'inscrire
+                                    <span class="bi-person-add"></span>&nbsp;S'inscrire
                                 </a>
                             </form>
                         </div>
@@ -111,13 +110,13 @@ $visiteur = new SessionObject();
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                             <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/membre/mesImages.php') ? ' active' : '' ?>">
                                 <a class="nav-link text-nowrap" href="<?= _URL_MEMBRE_ ?>mesImages.php">
-                                    <span class="fas fa-images"></span>&nbsp;
+                                    <span class="bi-images"></span>&nbsp;
                                     Mes images
                                 </a>
                             </li>
                             <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/membre/monCompte.php') ? ' active' : '' ?>">
                                 <a class="nav-link text-nowrap" href="<?= _URL_MEMBRE_ ?>monCompte.php">
-                                    <span class="fas fa-user"></span>&nbsp;
+                                    <span class="bi-person-fill"></span>&nbsp;
                                     Mon compte
                                 </a>
                             </li>
@@ -125,7 +124,7 @@ $visiteur = new SessionObject();
                             <?php if ($visiteur->getLevel() === UtilisateurObject::LEVEL_ADMIN) : ?>
                                 <li class="nav-item<?= ($_SERVER['SCRIPT_NAME'] === '/admin/index.php') ? ' active' : '' ?>">
                                     <a class="nav-link text-nowrap" href="<?= _URL_ADMIN_ ?>">
-                                        <span class="fas fa-wrench"></span>&nbsp;
+                                        <span class="bi-gear-wide-connected"></span>&nbsp;
                                         Administration
                                     </a>
                                 </li>
@@ -133,7 +132,7 @@ $visiteur = new SessionObject();
                         </ul>
                         <form action="<?= _URL_MEMBRE_ ?>deconnexionCompte.php" class="d-flex">
                             <button type="submit" class="btn btn-success text-nowrap">
-                                <span class="fas fa-power-off"></span>&nbsp;
+                                <span class="bi-box-arrow-right"></span>&nbsp;
                                 Se déconnecter (<?= $visiteur->getUserName() ?>)
                             </button>
                         </form>

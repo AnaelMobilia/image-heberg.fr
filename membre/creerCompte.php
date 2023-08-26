@@ -116,6 +116,9 @@ $maSession->setFlag();
         <label for="userMail">Adresse courriel</label>
         <div class="form-text">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</div>
     </div>
-    <button type="submit" name="valider" class="btn btn-success">M'inscrire</button>
+    <button type="submit" name="valider" class="btn btn-success">
+        <span class="bi-person-add"></span>&nbsp;
+        M'inscrire
+    </button>
 </form>
 <?php require _TPL_BOTTOM_ ?>

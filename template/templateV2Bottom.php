@@ -26,13 +26,13 @@
             <span class="text-muted">
                 <?= _SITE_NAME_ ?>
                 -
-                <a href="<?= _URL_HTTPS_ ?>changelog.php">v2.2 (2021) <span class="fas fa-award"></span></a>
+                <a href="<?= _URL_HTTPS_ ?>changelog.php">v2.2 (2021) <span class="bi-award"></span></a>
                 -
-                <a href="<?= _URL_HTTPS_ ?>stats.php">Statistiques <span class="fas fa-chart-bar"></span></a>
+                <a href="<?= _URL_HTTPS_ ?>stats.php">Statistiques <span class="bi-graph-up"></span></a>
                 -
-                <a href="<?= _URL_HTTPS_ ?>cgu.php">CGU <span class="fas fa-briefcase"></span></a>
+                <a href="<?= _URL_HTTPS_ ?>cgu.php">CGU <span class="bi-briefcase"></span></a>
                 -
-                <a href="<?= _URL_HTTPS_ ?>abuse.php">Signaler une image <span class="fas fa-radiation"></span></a>
+                <a href="<?= _URL_HTTPS_ ?>abuse.php">Signaler une image <span class="bi-radioactive"></span></a>
                 <span class="d-none d-lg-inline">
                     <span class="d-none d-xl-inline">
                         -

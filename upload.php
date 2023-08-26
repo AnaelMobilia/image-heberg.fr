@@ -176,7 +176,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
 <h1 class="mb-3"><small>Envoi d'une image</small></h1>
 <?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
-        <span class="fas fa-remove"></span>
+        <span class="bi-x-circle"></span>
         &nbsp;
         <b>Une erreur a été rencontrée !</b>
         <br />
@@ -185,7 +185,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
 <?php else : ?>
     <?php if (!empty($msgWarning)) : ?>
         <div class="alert alert-warning">
-            <span class="fas fa-remove"></span>
+            <span class="bi-x-circle"></span>
             &nbsp;
             <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
             <br />
@@ -193,7 +193,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
         </div>
     <?php endif; ?>
     <div class="alert alert-success">
-        <span class="fas fa-ok"></span>
+        <span class="bi-check"></span>
         &nbsp;
         <b>Image enregistrée avec succès !</b>
     </div>
@@ -271,13 +271,13 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
             <div class="clearfix"></div>
             <br />
             <a href="<?= _URL_HTTPS_ ?>" class="btn btn-success">
-                <span class="fas fa-cloud-upload-alt"></span>
+                <span class="bi-cloud-arrow-up-fill"></span>
                 &nbsp;
                 Envoyer une autre image
             </a>
             <a href="<?= _URL_HTTPS_ ?>delete.php?id=<?= $monImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>"
                class="btn btn-danger">
-                <span class="fas fa-trash"></span>
+                <span class="bi-trash"></span>
                 &nbsp;
                 Effacer cette image
             </a>

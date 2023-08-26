@@ -67,7 +67,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#collapseCNIL">
             Conservations de données à caractère privé
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="collapseCNIL" class="collapse">
@@ -92,7 +92,7 @@ require _TPL_TOP_;
     <div class="card-header">
         <a data-bs-toggle="collapse" href="#collapseCNIL2">
             Responsable du traitement : <?= _ADMINISTRATEUR_NOM_ ?>
-            &nbsp;<span class="fas fa-caret-down"></span>
+            &nbsp;<span class="bi-caret-down-fill"></span>
         </a>
     </div>
     <div id="collapseCNIL2" class="collapse">

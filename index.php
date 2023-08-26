@@ -118,7 +118,7 @@ require _TPL_TOP_;
                     </select>
                 </div>
             </div>
-            <button class="btn btn-success" name="Submit" type="submit"><span class="fas fa-cloud-upload-alt"></span>&nbsp;Envoyer</button>
+            <button class="btn btn-success" name="Submit" type="submit"><span class="bi-cloud-arrow-up-fill"></span>&nbsp;Envoyer</button>
         </form>
     </div>
 </div>
