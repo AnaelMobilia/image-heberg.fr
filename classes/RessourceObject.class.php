@@ -288,10 +288,11 @@ abstract class RessourceObject
      */
     public function getNbViewPerDay(): int
     {
-        $dateNow = time();
-        $dateEnvoi = strtotime($this->getDateEnvoiBrute());
-
-        $nbJours = ($dateNow - $dateEnvoi) / (60 * 60 * 24);
+        $nbJours = (int) date_diff(date_create($this->getDateEnvoiBrute()), date_create('now'))->format('%r%a');
+        // Le premier jour, autoriser les xxx vues de la journée
+        if ($nbJours == 0) {
+            $nbJours = 1;
+        }
 
         return $this->getNbViewTotal() / $nbJours;
     }
