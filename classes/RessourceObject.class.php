@@ -288,7 +288,12 @@ abstract class RessourceObject
      */
     public function getNbViewPerDay(): int
     {
-        $nbJours = (int) date_diff(date_create($this->getDateEnvoiBrute()), date_create('now'))->format('%r%a');
+        // date_diff ne comptabilise que les journées entières, alors qu'en SQL, on compare des dates
+        // date_diff('2023-09-03 23:38:42', '2023-09-05 22:53:03') => 1
+        // date_diff('2023-09-03', '2023-09-05 22:53:03') => 2
+        // => substr() de la date d'envoi pour aligner sur les valeurs du SQL
+        $nbJours = (int) date_diff(date_create(substr($this->getDateEnvoiBrute(), 0, 10)), date_create('now'))->format('%r%a');
+
         // Le premier jour, autoriser les xxx vues de la journée
         if ($nbJours == 0) {
             $nbJours = 1;
