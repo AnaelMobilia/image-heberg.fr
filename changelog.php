@@ -46,6 +46,23 @@ require _TPL_TOP_;
 </div>
 <div class="card">
     <div class="card-header">
+        <a data-bs-toggle="collapse" href="#v23">
+            v2.3 - Août 2023
+            &nbsp;<span class="bi-caret-down-fill"></span>
+        </a>
+    </div>
+    <div id="v23" class="card-collapse">
+        <div class="card-body">
+            <ul>
+                <li>Espace admin : ajout d'une interface pour gérer les abus.</li>
+                <li>Renforcement des systèmes anti-abus.</li>
+                <li>Migration bootstrap 5.1 -> 5.3</li>
+                <li>Migration fontawesome -> bootstrap icons</li>
+            </ul>
+        </div>
+    </div>
+</div><div class="card">
+    <div class="card-header">
         <a data-bs-toggle="collapse" href="#v22">
             v2.2 - Décembre 2021
             &nbsp;<span class="bi-caret-down-fill"></span>

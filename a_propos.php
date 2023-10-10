@@ -46,7 +46,7 @@ require _TPL_TOP_;
         <br />
         Graphismes : <a href="//getbootstrap.com/">Bootstrap</a>
         <br />
-        Logos : <a href="//fontawesome.com">Font Awesome</a>
+        Logos : <a href="//icons.getbootstrap.com/">Bootstrap Icons</a>
         <br />
         Technologies : PHP, MySQL, HTML5, CSS3
     </div>
