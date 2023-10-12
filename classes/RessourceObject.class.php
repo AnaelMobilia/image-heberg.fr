@@ -58,6 +58,7 @@ abstract class RessourceObject
     private string $pathTemp = '';
     private int $type = self::TYPE_IMAGE;
     private string $nomTemp = '';
+    private ?int $idProprietaire = null;
 
     /**
      * Génère le nom d'une nouvelle image
@@ -224,21 +225,13 @@ abstract class RessourceObject
     {
         $monRetour = false;
 
-        // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare('SELECT * FROM possede WHERE images_id = :imagesId');
-        $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
-        $req->execute();
-
-        // Je récupère les potentielles valeurs
-        $values = $req->fetch();
-
         // Si l'image à un propriétaire...
-        if ($values !== false) {
+        if ($this->getIdProprietaire() !== null) {
             // Le propriétaire est-il connecté ?
             $uneSession = new SessionObject();
 
             // Est-ce le propriétaire de l'image ?
-            if ((int)$values->membres_id === $uneSession->getId()) {
+            if ($this->getIdProprietaire() === $uneSession->getId()) {
                 // Si oui... on confirme !
                 $monRetour = true;
             }
@@ -661,4 +654,23 @@ abstract class RessourceObject
     {
         $this->ipEnvoi = $ipEnvoi;
     }
+
+    /**
+     * ID du compte propriétaire de l'image
+     * @return ?int
+     */
+    public function getIdProprietaire(): ?int
+    {
+        return $this->idProprietaire;
+    }
+
+    /**
+     * @param ?int $idProprietaire ID du compte propriétaire de l'image
+     * @return void
+     */
+    protected function setIdProprietaire(?int $idProprietaire): void
+    {
+        $this->idProprietaire = $idProprietaire;
+    }
+
 }

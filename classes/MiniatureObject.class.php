@@ -86,6 +86,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setApprouvee($imageParente->isApprouvee());
             $this->setNomOriginal($imageParente->getNomOriginal());
             $this->setIpEnvoi($imageParente->getIpEnvoi());
+            $this->setIdProprietaire($imageParente->getIdProprietaire());
 
             // Notification du chargement réussi
             $monRetour = true;

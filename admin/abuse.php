@@ -86,6 +86,7 @@ if (!empty($message)) : ?>
                         <th>IP envoi</th>
                         <th>Nb vues</th>
                         <th>Dernier affichage</th>
+                        <th>Utilisateur</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +105,7 @@ if (!empty($message)) : ?>
                             <td><?= $uneImage->getIpEnvoi() ?></td>
                             <td><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
                             <td><?= $uneImage->getLastViewFormate() ?></td>
+                            <td><?= $uneImage->getIdProprietaire() ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
