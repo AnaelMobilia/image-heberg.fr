@@ -258,13 +258,14 @@ abstract class HelperAdmin
     }
 
     /**
-     * Toutes les images bloquées
+     * Images dont les statistiques d'affichage sont incohérentes
+     * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
      * @return ArrayObject
      */
-    public static function getImagesBloquees(): ArrayObject
+    public static function getImagesTropAffichees(int $nbMax): ArrayObject
     {
-        // Images signalées
-        $req = 'SELECT new_name FROM images WHERE isBloquee = 1';
+        // Images avec trop d'affichages
+        $req = 'SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > ' . $nbMax . ' ORDER BY nbViewPerDay DESC';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
@@ -279,14 +280,25 @@ abstract class HelperAdmin
     }
 
     /**
-     * Images dont les statistiques d'affichage sont incohérentes
-     * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
+     * Images dont les données sont proches d'images déjà bloquées
      * @return ArrayObject
      */
-    public static function getImagesTropAffichees(int $nbMax): ArrayObject
+    public static function getImagesPotentiellementIndesirables(): ArrayObject
     {
         // Images avec trop d'affichages
-        $req = 'SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > ' . $nbMax . ' ORDER BY nbViewPerDay DESC';
+        $req = 'SELECT im.new_name
+                    FROM images im
+                    LEFT JOIN possede po ON po.images_id = im.id
+                    WHERE im.isBloquee = 0 AND (
+                        /* Même adresse IP */
+                        im.ip_envoi IN (SELECT DISTINCT ip_envoi FROM images WHERE isBloquee = 1)
+                        OR (
+                            /* Même propriétaire */
+                            po.membres_id IS NOT NULL
+                            AND
+                            po.membres_id IN (SELECT DISTINCT membres_id FROM possede WHERE images_id IN (SELECT id FROM images WHERE isBloquee = 1))
+                        )
+                    )';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 

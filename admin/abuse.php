@@ -59,17 +59,17 @@ $tabTables[] = [
     'legende' => 'signalée##',
     'values' => HelperAdmin::getImagesSignalees()
 ];
-// Liste des images bloquées
+// Liste des images suspectes
 $tabTables[] = [
-    'legende' => 'bloquée##',
-    'values' => HelperAdmin::getImagesBloquees()
+    'legende' => 'suspecte##',
+    'values' => HelperAdmin::getImagesPotentiellementIndesirables()
 ];
-
-if (!empty($message)) : ?>
+?>
+    <?php if (!empty($message)) : ?>
     <div class="alert alert-success">
         <?= $message ?>
     </div>
-<?php endif; ?>
+    <?php endif; ?>
     <?php foreach ($tabTables as $uneTable) : ?>
     <div class="card">
         <div class="card-header">
