@@ -23,7 +23,6 @@
 
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `ip_envoi` text NOT NULL,
   `date_envoi` datetime NOT NULL,
   `old_name` text NOT NULL,
   `new_name` text NOT NULL,
@@ -39,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `isApprouvee` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+    `ip_envoi`    varchar(45) NOT NULL,
 
 --
 -- Structure de la table `login`
@@ -46,11 +46,11 @@ CREATE TABLE IF NOT EXISTS `images` (
 
 CREATE TABLE IF NOT EXISTS `login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ip_login` text NOT NULL,
   `date_login` datetime NOT NULL,
   `membres_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+    `ip_login`   varchar(45) NOT NULL,
 
 --
 -- Structure de la table `membres`
@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `login` text NOT NULL,
   `password` text NOT NULL,
   `date_inscription` date NOT NULL,
-  `ip_inscription` text NOT NULL,
   `lvl` tinyint(1) NOT NULL,
   `isActif` tinyint(1) NOT NULL,
   `token` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+    `ip_inscription`   varchar(45) NOT NULL,
 
 --
 -- Structure de la table `possede`
