@@ -31,7 +31,7 @@ $msgErreur = '';
 /**
  * Vérification du paramètre
  */
-if (!isset($_GET['id']) || !isset($_GET['type'])) {
+if (!isset($_GET['id'], $_GET['type'])) {
     $erreur = true;
     $msgErreur .= 'La page n\'a pas été appelée correctement !<br />';
 }
@@ -61,7 +61,7 @@ if (!$erreur) {
  * -> Envoi il y a moins d'une heure par la même @ IP
  */
 if (!$erreur) {
-    if ($monImage->isProprietaire() || ((strtotime($monImage->getDateEnvoiBrute()) + 3600) > strtotime('now') && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
+    if ($monImage->isProprietaire() || ((strtotime($monImage->getDateEnvoiBrute()) + 3600) > time() && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
         // Effacement...
         $monImage->supprimer();
     } else {

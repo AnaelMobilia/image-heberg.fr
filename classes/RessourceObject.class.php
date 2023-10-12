@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use Exception;
 use ImagickException;
 use PDO;
 
@@ -62,11 +63,12 @@ abstract class RessourceObject
      * Génère le nom d'une nouvelle image
      * @param int $nb nombre de chiffres à rajouter à la fin du nom
      * @return string nom de l'image
+     * @throws Exception
      */
     protected function genererNom(int $nb = 0): string
     {
         // Random pour unicité + cassage lien nom <-> @IP
-        $random = rand(100, 999);
+        $random = random_int(100, 999);
         // @IP expéditeur
         $adresseIP = abs(crc32($_SERVER['REMOTE_ADDR'] . $random));
         // Timestamp d'envoi
@@ -262,7 +264,7 @@ abstract class RessourceObject
     public function getLastViewFormate(): string
     {
         $monRetour = '?';
-        if ($this->getLastView() != '0000-00-00') {
+        if ($this->getLastView() !== '0000-00-00') {
             $phpdate = strtotime($this->getLastView());
 
             // Gestion du cas de non affichage
@@ -292,10 +294,10 @@ abstract class RessourceObject
         // date_diff('2023-09-03 23:38:42', '2023-09-05 22:53:03') => 1
         // date_diff('2023-09-03', '2023-09-05 22:53:03') => 2
         // => substr() de la date d'envoi pour aligner sur les valeurs du SQL
-        $nbJours = (int) date_diff(date_create(substr($this->getDateEnvoiBrute(), 0, 10)), date_create('now'))->format('%r%a');
+        $nbJours = (int) date_diff(date_create(substr($this->getDateEnvoiBrute(), 0, 10)), date_create())->format('%r%a');
 
         // Le premier jour, autoriser les xxx vues de la journée
-        if ($nbJours == 0) {
+        if ($nbJours === 0) {
             $nbJours = 1;
         }
 

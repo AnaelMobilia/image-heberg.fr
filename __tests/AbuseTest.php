@@ -80,12 +80,12 @@ class AbuseTest extends TestCase
         require 'upload.php';
         ob_end_clean();
 
-        $this->assertTrue(
-            empty($msgErreur),
+        $this->assertEmpty(
+            $msgErreur,
             'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : ' . $msgErreur
         );
-        $this->assertTrue(
-            empty($msgWarning),
+        $this->assertEmpty(
+            $msgWarning,
             'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : ' . $msgWarning
         );
         $this->assertEquals(

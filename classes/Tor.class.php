@@ -21,6 +21,8 @@
 
 namespace ImageHeberg;
 
+use JsonException;
+
 /**
  * Fonctions relative à Tor
  */
@@ -31,11 +33,12 @@ class Tor
 
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor
+     * @throws JsonException
      */
     public function updateListeExitNodes(): void
     {
         // Récupération du dernier fichier
-        $objJson = json_decode(file_get_contents(_TOR_EXIT_NODE_LIST_URL_));
+        $objJson = json_decode(file_get_contents(_TOR_EXIT_NODE_LIST_URL_), false, 512, JSON_THROW_ON_ERROR);
 
         $tabIP = [];
         $tabIP[self::IPV4] = [];
@@ -59,9 +62,9 @@ class Tor
         }
 
         // Enregister le résultat sur le disque
-        $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4]));
+        $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4], JSON_THROW_ON_ERROR));
         echo 'IPv4 : ' . $retour;
-        $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6]));
+        $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6], JSON_THROW_ON_ERROR));
         echo '<br />IPv6 : ' . $retour;
     }
 
@@ -113,7 +116,7 @@ class Tor
      */
     private function saveInTab(string $ip, array &$tabIp, string $typeIp): void
     {
-        if (!in_array($ip, $tabIp[$typeIp])) {
+        if (!in_array($ip, $tabIp[$typeIp], true)) {
             $tabIp[$typeIp][] = self::formatIp($ip);
         }
     }
@@ -132,6 +135,7 @@ class Tor
      * Vérifie si une IP correspond à un noeud de sortie Tor
      * @param string $ip
      * @return bool
+     * @throws JsonException
      */
     public static function checkIp(string $ip): bool
     {
@@ -141,15 +145,15 @@ class Tor
 
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
             if (file_exists(_TOR_LISTE_IPV6_) && filesize(_TOR_LISTE_IPV6_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV6_));
-                if (!in_array($ip, $tabIp)) {
+                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV6_), true, 512, JSON_THROW_ON_ERROR);
+                if (!in_array($ip, $tabIp, true)) {
                     $monRetour = false;
                 }
             }
         } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             if (file_exists(_TOR_LISTE_IPV4_) && filesize(_TOR_LISTE_IPV4_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV4_));
-                if (!in_array($ip, $tabIp)) {
+                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV4_), true, 512, JSON_THROW_ON_ERROR);
+                if (!in_array($ip, $tabIp, true)) {
                     $monRetour = false;
                 }
             }

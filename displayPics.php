@@ -73,8 +73,8 @@ if (
  * Le fichier est-il bloqué ?
  */
 if (
-    ($monObjet->isBloquee() || $monObjet->isSignalee())
-    && !$adminForceAffichage
+    !$adminForceAffichage
+    && ($monObjet->isBloquee() || $monObjet->isSignalee())
 ) {
     $monObjet = new ImageObject();
     $monObjet->charger(_IMAGE_BAN_);

@@ -36,7 +36,7 @@
                 <span class="d-none d-lg-inline">
                     <span class="d-none d-xl-inline">
                         -
-                        Exécution en <?= round(microtime(true) - $timeStart, 4); ?>s
+                        Exécution en <?= round(microtime(true) - $timeStart, 4) ?>s
                         -
                         IPv<?= (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) ? '4' : '6' ?>
                     </span>

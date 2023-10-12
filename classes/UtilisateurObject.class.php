@@ -51,11 +51,9 @@ class UtilisateurObject
     public function __construct($userID = false)
     {
         // Utilisateur à charger
-        if ($userID) {
-            if (!$this->charger($userID)) {
-                // Envoi d'une exception si l'utilisateur n'existe pas
-                throw new Exception('Utilisateur ' . $userID . ' inexistant.');
-            }
+        if ($userID && !$this->charger($userID)) {
+            // Envoi d'une exception si l'utilisateur n'existe pas
+            throw new Exception('Utilisateur ' . $userID . ' inexistant.');
         }
     }
 

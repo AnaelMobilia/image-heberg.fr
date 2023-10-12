@@ -25,7 +25,7 @@ namespace ImageHeberg;
  * Vérification des prérequis basiques
  * Ce fichier peut être supprimé après l'installation
  */
-echo 'PHP v' . phpversion() . '<br />';
+echo 'PHP v' . PHP_VERSION . '<br />';
 
 /* 1 - Existence du fichier de config */
 $conf = file_exists(__DIR__ . '/config/config.php');
@@ -81,7 +81,7 @@ if (headers_sent()) {
 }
 
 /* Configuration */
-if (_PATH_ != __DIR__ . '/') {
+if (_PATH_ !== __DIR__ . '/') {
     $msg = 'La variable _PATH_ (' . _PATH_ . ') n\'est pas cohérente avec l\'emplacement de l\'application (' . __DIR__ . ')';
     if (!_PHPUNIT_) {
         die($msg);

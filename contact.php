@@ -57,12 +57,12 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     <h1 class="mb-3"><small>Contacter l'administrateur du service - <?= _ADMINISTRATEUR_NOM_ ?></small></h1>
     <form method="post">
         <div class="mb-3 form-floating">
-            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
+            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= $_POST['userMail'] ?? '' ?>">
             <label for="userMail">Votre adresse courriel</label>
             <div class="form-text">Sera utilisée uniquement pour vous apporter une réponse.</div>
         </div>
         <div class="mb-3 form-floating">
-            <textarea class="form-control" name="userMessage" id="userMessage" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+            <textarea class="form-control" name="userMessage" id="userMessage" required="required"><?= $_POST['userMessage'] ?? '' ?></textarea>
             <label for="userMessage">Votre message</label>
         </div>
         <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>

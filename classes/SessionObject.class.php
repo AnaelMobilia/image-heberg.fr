@@ -34,19 +34,16 @@ class SessionObject
     public function __construct()
     {
         // Je vérifie qu'une session n'est pas déjà lancée & que pas tests travis (session_start déjà effectué)
-        if (session_status() === PHP_SESSION_NONE && !_PHPUNIT_) {
+        if (!_PHPUNIT_ && session_status() === PHP_SESSION_NONE) {
             // Je lance la session côté PHP
             session_start();
         }
 
-        // Si j'ai déjà une session existante
-        if (isset($_SESSION['userObject'])) {
-            // Si l'@ IP correspond
-            if ($_SESSION['IP'] === $_SERVER['REMOTE_ADDR']) {
-                // On recharge les informations
-                $this->setIP($_SESSION['IP']);
-                $this->setUserObject($_SESSION['userObject']);
-            }
+        // Si j'ai déjà une session existante && que l'@ IP correspond
+        if (isset($_SESSION['userObject']) && $_SESSION['IP'] === $_SERVER['REMOTE_ADDR']) {
+            // On recharge les informations
+            $this->setIP($_SESSION['IP']);
+            $this->setUserObject($_SESSION['userObject']);
         }
     }
 
@@ -123,11 +120,11 @@ class SessionObject
      */
     public function verifierDroits(int $levelRequis): bool
     {
+        $monRetour = false;
         if ($this->getLevel() >= $levelRequis) {
-            return true;
-        } else {
-            return false;
+            $monRetour = true;
         }
+        return $monRetour;
     }
 
     /**
@@ -167,11 +164,9 @@ class SessionObject
     public function checkFlag(): bool
     {
         $monRetour = false;
-        if (isset($_SESSION['flag'])) {
-            // Au moins une seconde pour remplir le formulaire
-            if (time() - $_SESSION['flag'] > 1) {
-                $monRetour = true;
-            }
+        // Au moins une seconde pour remplir le formulaire
+        if (isset($_SESSION['flag']) && (time() - $_SESSION['flag']) > 1) {
+            $monRetour = true;
         }
         return $monRetour;
     }

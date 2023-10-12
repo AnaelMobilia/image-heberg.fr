@@ -47,7 +47,6 @@ interface RessourceInterface
 
     /**
      * Supprime sur le HDD et dans la BDD la ressource
-     * @return bool Résultat ?
      */
-    public function supprimer(): bool;
+    public function supprimer(): void;
 }

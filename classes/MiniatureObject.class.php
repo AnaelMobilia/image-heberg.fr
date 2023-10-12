@@ -44,11 +44,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $this->setType(RessourceObject::TYPE_MINIATURE);
 
         // Faut-il charger l'objet ?
-        if ($value !== '') {
-            if (!$this->charger($value, $fromField)) {
-                // Envoi d'une exception si l'image n'existe pas
-                throw new Exception('Miniature ' . $value . ' inexistante - ' . $fromField);
-            }
+        if ($value !== '' && !$this->charger($value, $fromField)) {
+            // Envoi d'une exception si l'image n'existe pas
+            throw new Exception('Miniature ' . $value . ' inexistante - ' . $fromField);
         }
     }
 
@@ -122,30 +120,20 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function supprimer(): bool
+    public function supprimer(): void
     {
         /**
          * Suppression de l'image en BDD
          */
         $req = MaBDD::getInstance()->prepare('DELETE FROM thumbnails WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
-        $monRetour = $req->execute();
-
-        /**
-         * Suppression du HDD
-         */
-        if ($monRetour) {
-            // Plus aucune miniature n'utilise le fichier (BDD déjà mise à jour !)
-            if ($this->getNbDoublons() == 0) {
-                // Vérifier que l'image existe bien sur le système de fichier
-                if (file_exists($this->getPathMd5())) {
-                    // Suppression de l'image sur le HDD
-                    $monRetour = unlink($this->getPathMd5());
-                }
-            }
+        if ($req->execute() && $this->getNbDoublons() === 0 && file_exists($this->getPathMd5())) {
+            /**
+             * Suppression du HDD
+             */
+            // Plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+            unlink($this->getPathMd5());
         }
-
-        return $monRetour;
     }
 
     /**
@@ -178,7 +166,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
          * Déplacement du fichier
          */
         // Vérification de la non existence du fichier
-        if ($this->getNbDoublons() == 0) {
+        if ($this->getNbDoublons() === 0) {
             $monRetour = rename($this->getPathTemp(), $this->getPathMd5());
         }
 

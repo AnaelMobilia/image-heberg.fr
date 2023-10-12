@@ -38,9 +38,9 @@ require _TPL_TOP_;
         foreach ((array)$mesImages as $newName) :
             $uneImage = new ImageObject($newName);
             $miniature = $uneImage->getMiniatures(true);
-            if ($miniature->count() == 0) {
+            if ($miniature->count() === 0) {
                 // Duplication de l'image source
-                $tmpFile = tempnam(sys_get_temp_dir(), uniqid());
+                $tmpFile = tempnam(sys_get_temp_dir(), uniqid('', true));
                 copy($uneImage->getPathMd5(), $tmpFile);
 
                 // Génération de la miniature pour l'aperçu

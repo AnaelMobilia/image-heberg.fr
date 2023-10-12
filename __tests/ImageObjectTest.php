@@ -85,11 +85,11 @@ class ImageObjectTest extends TestCase
         $result = $img1->compareImages($img2, Imagick::METRIC_STRUCTURAL_DISSIMILARITY_ERROR);
 
         // Afficher le détail des incohérences
-        if ($result[1] != 0) {
+        if ($result[1] !== 0) {
             echo 'compareImages - ' . $imgReference . ' VS ' . $img . ' => ' . $result[1] . ' (Fuzz factor : ' . self::FUZZ . ')' . PHP_EOL;
         }
 
-        return ($result[1] == 0);
+        return ($result[1] === 0);
     }
 
     /**

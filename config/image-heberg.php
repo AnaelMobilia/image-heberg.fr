@@ -101,7 +101,7 @@ define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
 define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Fonction de chargement des classes en cas de besoin
-spl_autoload_register(function ($class) {
+spl_autoload_register(static function ($class) {
     // Suppression du namespace
     $class = str_replace('ImageHeberg\\', '', $class);
     if (str_contains($class, 'Helper')) {

@@ -68,7 +68,7 @@ if (empty($msgErreur)) {
     $poids = $_FILES['fichier']['size'];
     if ($poids > _IMAGE_POIDS_MAX_) {
         $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1)
-                . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
+            . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
@@ -79,7 +79,7 @@ if (empty($msgErreur)) {
     $pathTmp = $_FILES['fichier']['tmp_name'];
     // Type mime autorisés
     $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
-    if (!in_array(HelperImage::getType($pathTmp), $mimeType)) {
+    if (!in_array(HelperImage::getType($pathTmp), $mimeType, true)) {
         $msgErreur .= 'Le fichier ' . $_FILES['fichier']['name'] . ' n\'est pas une image valide.<br />';
     }
 }
@@ -87,11 +87,8 @@ if (empty($msgErreur)) {
 /**
  * Vérification des dimensions
  */
-if (empty($msgErreur)) {
-    if (!HelperImage::isModifiableEnMemoire($pathTmp)) {
-        $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée '
-                . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
-    }
+if (empty($msgErreur) && !HelperImage::isModifiableEnMemoire($pathTmp)) {
+    $msgErreur .= 'Les dimensions de l\'image ' . $_FILES['fichier']['name'] . ' dépassent la limite autorisée ' . _IMAGE_DIMENSION_MAX_ . ' x ' . _IMAGE_DIMENSION_MAX_ . '<br />';
 }
 
 /**
@@ -169,26 +166,29 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
     $maMiniature->setNomTemp($_FILES['fichier']['name']);
     if (!$maMiniature->creer()) {
         $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name']
-                . ' .<br />';
+            . ' .<br />';
     }
 }
 ?>
-<h1 class="mb-3"><small>Envoi d'une image</small></h1>
-<?php if (!empty($msgErreur)) : ?>
+    <h1 class="mb-3"><small>Envoi d'une image</small></h1>
+    <?php
+if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="bi-x-circle"></span>
         &nbsp;
         <b>Une erreur a été rencontrée !</b>
-        <br />
-    <?= $msgErreur ?>
+        <br/>
+        <?= $msgErreur ?>
     </div>
-<?php else : ?>
-    <?php if (!empty($msgWarning)) : ?>
+<?php
+else : ?>
+    <?php
+    if (!empty($msgWarning)) : ?>
         <div class="alert alert-warning">
             <span class="bi-x-circle"></span>
             &nbsp;
             <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
-            <br />
+            <br/>
         <?= $msgWarning ?>
         </div>
     <?php endif; ?>
@@ -219,7 +219,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
                     <label for="imgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
                         <input id="imgBBcode" type="text" class="form-control" onFocus="this.select();"
-                               value="[img]<?= $monImage->getURL() ?>[/img]" />
+                               value="[img]<?= $monImage->getURL() ?>[/img]"/>
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
@@ -227,7 +227,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
                         <label for="MinImgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
                             <input id="MinImgBBcode" type="text" class="form-control" onFocus="this.select();"
-                                   value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]" />
+                                   value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]"/>
                         </div>
                     </div>
     <?php endif; ?>
@@ -235,29 +235,29 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
                     <label for="html" class="col-sm-2 form-label">HTML</label>
                     <div class="col-sm-10">
                         <input id="html" type="text" class="form-control" onFocus="this.select();"
-                               value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>' />
+                               value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>'/>
                     </div>
                 </div>
     <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
                         <label for="htmlMin" class="col-sm-2 form-label">HTML avec miniature</label>
                         <div class="col-sm-10">
-                            <input id = "htmlMin" type="text" class="form-control" onFocus="this.select();"
-                                   value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>' />
+                            <input id="htmlMin" type="text" class="form-control" onFocus="this.select();"
+                                   value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>'/>
                         </div>
                     </div>
     <?php endif; ?>
             </div>
             <div class="clearfix"></div>
-            <br />
+            <br/>
             <div class="container">
                 <div class="row">
                     <span class="col-sm-2">Nom de l'image</span>
                     <span class="col-sm-10"><?= $monImage->getNomOriginalFormate() ?> </span>
-                 </div>
+                </div>
                 <div class="row">
-                <span class="col-sm-2">Poids</span>
-                <span class="col-sm-10"><?= $monImage->getPoidsMo() ?>&nbsp;Mo</span>
+                    <span class="col-sm-2">Poids</span>
+                    <span class="col-sm-10"><?= $monImage->getPoidsMo() ?>&nbsp;Mo</span>
                 </div>
                 <div class="row">
                     <span class="col-sm-2">Largeur</span>
@@ -269,7 +269,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
                 </div>
             </div>
             <div class="clearfix"></div>
-            <br />
+            <br/>
             <a href="<?= _URL_HTTPS_ ?>" class="btn btn-success">
                 <span class="bi-cloud-arrow-up-fill"></span>
                 &nbsp;

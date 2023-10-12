@@ -94,7 +94,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
 
     <form method="post">
         <div class="mb-3 form-floating">
-            <input type="text" class="form-control" name="urlImage" id="urlImage" required="required" value="<?= (isset($_POST['urlImage'])) ? $_POST['urlImage'] : '' ?>">
+            <input type="text" class="form-control" name="urlImage" id="urlImage" required="required" value="<?= $_POST['urlImage'] ?? '' ?>">
             <label for="urlImage">Adresse de l'image</label>
             <div class="form-text text-muted">
                 Indiquer toute l'URL de l'image, telle qu'affichée dans le navigateur (<?= _URL_IMAGES_ . _IMAGE_BAN_ ?>).
@@ -111,12 +111,12 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
             <label for="raison">Raison du signalement</label>
         </div>
         <div class="mb-3 form-floating">
-            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= (isset($_POST['userMail'])) ? $_POST['userMail'] : '' ?>">
+            <input type="email" class="form-control" name="userMail" id="userMail" required="required" value="<?= $_POST['userMail'] ?? '' ?>">
             <label for="userMail">Votre adresse courriel</label>
             <div class="form-text text-muted">Sera utilisée uniquement pour vous apporter une réponse.</div>
         </div>
         <div class="mb-3 form-floating">
-            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Informations complémentaires sur la raison de votre demande" required="required"><?= (isset($_POST['userMessage'])) ? $_POST['userMessage'] : '' ?></textarea>
+            <textarea class="form-control" rows="5" name="userMessage" id="userMessage" placeholder="Informations complémentaires sur la raison de votre demande" required="required"><?= $_POST['userMessage'] ?? '' ?></textarea>
             <label for="userMessage">Votre message</label>
         </div>
         <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>

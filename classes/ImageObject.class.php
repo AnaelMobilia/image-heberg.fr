@@ -42,11 +42,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $this->setType(RessourceObject::TYPE_IMAGE);
 
         // Faut-il charger l'objet ?
-        if ($value !== '') {
-            if (!$this->charger($value, $fromField)) {
-                // Envoi d'une exception si l'image n'existe pas
-                throw new Exception('Image ' . $value . ' inexistante' . $fromField);
-            }
+        if ($value !== '' && !$this->charger($value, $fromField)) {
+            // Envoi d'une exception si l'image n'existe pas
+            throw new Exception('Image ' . $value . ' inexistante' . $fromField);
         }
     }
 
@@ -146,10 +144,8 @@ class ImageObject extends RessourceObject implements RessourceInterface
     /**
      * {@inheritdoc}
      */
-    public function supprimer(): bool
+    public function supprimer(): void
     {
-        $monRetour = true;
-
         /**
          * Suppression de la ou les miniatures
          */
@@ -166,29 +162,20 @@ class ImageObject extends RessourceObject implements RessourceInterface
          */
         $req = MaBDD::getInstance()->prepare('DELETE FROM possede WHERE images_id = :imagesId');
         $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
-        $monRetour = $req->execute();
-
-        /**
-         * Suppression de l'image en BDD
-         */
-        if ($monRetour) {
+        if ($req->execute()) {
+            /**
+             * Suppression de l'image en BDD
+             */
             $req = MaBDD::getInstance()->prepare('DELETE FROM images WHERE id = :id');
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
-            $monRetour = $req->execute();
-        }
-
-        /**
-         * Suppression du HDD
-         */
-        if ($monRetour) {
-            // Plus aucune image n'utilise le fichier (BDD déjà mise à jour !)
-            if ($this->getNbDoublons() == 0) {
-                // Je supprime l'image sur le HDD
-                $monRetour = unlink($this->getPathMd5());
+            if ($req->execute() && $this->getNbDoublons() === 0) {
+                /**
+                 * Suppression du HDD
+                 */
+                // Plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+                unlink($this->getPathMd5());
             }
         }
-
-        return $monRetour;
     }
 
     /**
@@ -221,7 +208,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
          * Déplacement du fichier
          */
         // Vérification de la non existence du fichier
-        if ($this->getNbDoublons() == 0) {
+        if ($this->getNbDoublons() === 0) {
             // Image inconnue : optimisation de sa taille
             $monRetour = HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
             // Copie du fichier vers l'emplacement de stockage
@@ -234,7 +221,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $req->execute();
             $values = $req->fetch();
             if ($values !== false) {
-                $this->setBloquee((bool)$values->isBloquee);
+                $this->setBloquee((bool) $values->isBloquee);
             }
         }
 

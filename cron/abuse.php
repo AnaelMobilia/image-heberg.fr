@@ -22,6 +22,7 @@
 namespace ImageHeberg;
 
 use ArrayObject;
+use Exception;
 
 /*
  * Vérifier les images avec des comportements suspects
@@ -33,7 +34,7 @@ require __DIR__ . '/../config/config.php';
  * Met en forme pour un mail une liste d'images
  * @param ArrayObject $listeImages
  * @return string
- * @throws \Exception
+ * @throws Exception
  */
 function formatageMailListeImages(ArrayObject $listeImages): string
 {

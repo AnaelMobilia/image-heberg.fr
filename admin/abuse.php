@@ -67,13 +67,15 @@ if (!empty($message)) : ?>
     <div class="card-body">
         <table class="table">
             <thead>
-            <th>Image</th>
-            <th>Actions</th>
-            <th>Nom originel</th>
-            <th>Date d'envoi</th>
-            <th>IP envoi</th>
-            <th>Nb vues</th>
-            <th>Dernier affichage</th>
+                <tr>
+                    <th>Image</th>
+                    <th>Actions</th>
+                    <th>Nom originel</th>
+                    <th>Date d'envoi</th>
+                    <th>IP envoi</th>
+                    <th>Nb vues</th>
+                    <th>Dernier affichage</th>
+                </tr>
             </thead>
             <tbody>
             <?php foreach ((array)$listeImagesTropAffichees as $value) : ?>
@@ -102,13 +104,15 @@ if (!empty($message)) : ?>
     <div class="card-body">
         <table class="table">
             <thead>
-                <th>Image</th>
-                <th>Actions</th>
-                <th>Nom originel</th>
-                <th>Date d'envoi</th>
-                <th>IP envoi</th>
-                <th>Nb vues</th>
-                <th>Dernier affichage</th>
+                <tr>
+                    <th>Image</th>
+                    <th>Actions</th>
+                    <th>Nom originel</th>
+                    <th>Date d'envoi</th>
+                    <th>IP envoi</th>
+                    <th>Nb vues</th>
+                    <th>Dernier affichage</th>
+                </tr>
             </thead>
             <tbody>
             <?php foreach ((array)$listeImagesSignalees as $value) : ?>
@@ -137,13 +141,15 @@ if (!empty($message)) : ?>
     <div class="card-body">
         <table class="table">
             <thead>
-            <th>Image</th>
-            <th>Actions</th>
-            <th>Nom originel</th>
-            <th>Date d'envoi</th>
-            <th>IP envoi</th>
-            <th>Nb vues</th>
-            <th>Dernier affichage</th>
+                <tr>
+                    <th>Image</th>
+                    <th>Actions</th>
+                    <th>Nom originel</th>
+                    <th>Date d'envoi</th>
+                    <th>IP envoi</th>
+                    <th>Nb vues</th>
+                    <th>Dernier affichage</th>
+                </tr>
             </thead>
             <tbody>
             <?php foreach ((array)$listeImagesBloquees as $value) : ?>
