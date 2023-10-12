@@ -48,21 +48,32 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
     }
 }
 
+$tabTables = [];
 // Liste des images avec un ratio d'affichage incohérent
-$listeImagesTropAffichees = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_);
+$tabTables[] = [
+    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_)
+];
 // Liste des images signalées
-$listeImagesSignalees = HelperAdmin::getImagesSignalees();
+$tabTables[] = [
+    'legende' => 'signalée##',
+    'values' => HelperAdmin::getImagesSignalees()
+];
 // Liste des images bloquées
-$listeImagesBloquees = HelperAdmin::getImagesBloquees();
+$tabTables[] = [
+    'legende' => 'bloquée##',
+    'values' => HelperAdmin::getImagesBloquees()
+];
 
 if (!empty($message)) : ?>
     <div class="alert alert-success">
         <?= $message ?>
     </div>
 <?php endif; ?>
+    <?php foreach ($tabTables as $uneTable) : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeImagesTropAffichees->count() ?> image<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?> affichée<?= ($listeImagesTropAffichees->count() > 1) ? 's' : '' ?> plus de <?= _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ ?> fois/jour <small>(blocage automatique à <?= _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ ?>)</small>
+            <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
         </div>
         <div class="card-body">
             <table class="table">
@@ -79,7 +90,7 @@ if (!empty($message)) : ?>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ((array)$listeImagesTropAffichees as $value) : ?>
+                    foreach ((array)$uneTable['values'] as $value) : ?>
                         <?php
                         $uneImage = new ImageObject($value); ?>
                         <tr>
@@ -99,78 +110,5 @@ if (!empty($message)) : ?>
             </table>
         </div>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <?= $listeImagesSignalees->count() ?> image<?= ($listeImagesSignalees->count() > 1) ? 's' : '' ?> signalée<?= ($listeImagesSignalees->count() > 1) ? 's' : '' ?>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Actions</th>
-                        <th>Nom originel</th>
-                        <th>Date d'envoi</th>
-                        <th>IP envoi</th>
-                        <th>Nb vues</th>
-                        <th>Dernier affichage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ((array)$listeImagesSignalees as $value) : ?>
-                        <?php $uneImage = new ImageObject($value); ?>
-                        <tr>
-                            <td><a href="<?= str_replace('http:', 'https:', $uneImage->getURL()) ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
-                            <td>
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                            </td>
-                            <td><?= $uneImage->getNomOriginalFormate() ?></td>
-                            <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                            <td><?= $uneImage->getIpEnvoi() ?></td>
-                            <td><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                            <td><?= $uneImage->getLastViewFormate() ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <?= $listeImagesBloquees->count() ?> image<?= ($listeImagesBloquees->count() > 1) ? 's' : '' ?> bloquée<?= ($listeImagesBloquees->count() > 1) ? 's' : '' ?>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Actions</th>
-                        <th>Nom originel</th>
-                        <th>Date d'envoi</th>
-                        <th>IP envoi</th>
-                        <th>Nb vues</th>
-                        <th>Dernier affichage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ((array)$listeImagesBloquees as $value) : ?>
-                        <?php $uneImage = new ImageObject($value); ?>
-                        <tr>
-                            <td><a href="<?= str_replace('http:', 'https:', $uneImage->getURL()) ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
-                            <td>
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                            </td>
-                            <td><?= $uneImage->getNomOriginalFormate() ?></td>
-                            <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                            <td><?= $uneImage->getIpEnvoi() ?></td>
-                            <td><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                            <td><?= $uneImage->getLastViewFormate() ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<?php endforeach; ?>
     <?php require _TPL_BOTTOM_; ?>
