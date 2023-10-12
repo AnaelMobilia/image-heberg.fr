@@ -61,19 +61,19 @@ if (isset($messageErreur)) :
         <?= $messageErreur ?>
     </div>
 <?php endif; ?>
-<h1 class="mb-3"><small>Connexion à mon compte</small></h1>
+    <h1 class="mb-3"><small>Connexion à mon compte</small></h1>
 
-<form method="post">
-    <div class="mb-3 row form-floating">
-        <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
-        <label for="userName">Identifiant</label>
-    </div>
-    <div class="mb-3 row form-floating">
-        <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
-        <label for="userPassword">Mot de passe</label>
-    </div>
-    <button type="submit" name="valider" class="btn btn-success"><span class="bi-box-arrow-in-right"></span>&nbsp;Se connecter</button>
-    <a class="btn btn-outline-warning" role="button" disabled>Mot de passe oublié (à venir)</a>
-    <a class="btn btn-info" href="<?= _URL_MEMBRE_ ?>creerCompte.php" role="button"><span class="bi-person-add"></span>&nbsp;S'inscrire</a>
-</form>
-<?php require _TPL_BOTTOM_ ?>
+    <form method="post">
+        <div class="mb-3 row form-floating">
+            <input type="text" class="form-control" name="userName" id="userName" placeholder="Identifiant" value="<?= $monUtilisateur->getUserName() ?>" required="required">
+            <label for="userName">Identifiant</label>
+        </div>
+        <div class="mb-3 row form-floating">
+            <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="Mot de passe" required="required">
+            <label for="userPassword">Mot de passe</label>
+        </div>
+        <button type="submit" name="valider" class="btn btn-success"><span class="bi-box-arrow-in-right"></span>&nbsp;Se connecter</button>
+        <a class="btn btn-outline-warning" role="button" disabled>Mot de passe oublié (à venir)</a>
+        <a class="btn btn-info" href="<?= _URL_MEMBRE_ ?>creerCompte.php" role="button"><span class="bi-person-add"></span>&nbsp;S'inscrire</a>
+    </form>
+    <?php require _TPL_BOTTOM_ ?>

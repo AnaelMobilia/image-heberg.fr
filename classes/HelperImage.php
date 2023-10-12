@@ -172,6 +172,6 @@ abstract class HelperImage
          */
         $dimMax = round(sqrt($memDispo / 4 / 2 / _FUDGE_FACTOR_));
 
-        return (int) $dimMax;
+        return (int)$dimMax;
     }
 }

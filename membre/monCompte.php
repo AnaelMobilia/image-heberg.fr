@@ -74,11 +74,11 @@ if (isset($_POST['modifierPwd'])) {
             ?>
             <div class="alert alert-success">
                 Votre compte a été supprimé !
-                <br />
+                <br/>
                 Les images liées à votre compte n'ont pas été supprimées.
-                <br />
+                <br/>
                 Cette action est irrévocable !
-                <br />
+                <br/>
                 Merci d'avoir utilisé <?= _SITE_NAME_ ?>.
             </div>
             <?php
@@ -95,106 +95,100 @@ if (isset($_POST['modifierPwd'])) {
     }
 }
 ?>
-<h1 class="mb-3"><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
+    <h1 class="mb-3"><small>Mon compte <?= _SITE_NAME_ ?></small></h1>
 
-<div class="card">
-    <div class="card-header">
-        <?= $monUtilisateur->getUserName() ?>
-    </div>
-    <div class="card-body">
-        Membre depuis le : <?= $monUtilisateur->getDateInscriptionFormate() ?>
-        <br />
-        Adresse courriel : <?= $monUtilisateur->getEmail() ?>
-        <br />
-        Images possédées : <?= count($monUtilisateur->getImages()) ?>
-    </div>
-</div>
-
-<!-- Modification du mot de passe -->
-<div class="card card-default">
-    <div class="card-header">
-        <a data-bs-toggle="collapse" href="#collapsePwd">
-            Changer de mot de passe <span class="bi-caret-down-fill"></span>
-        </a>
-    </div>
-    <div id="collapsePwd" class="card-collapse collapse">
+    <div class="card">
+        <div class="card-header">
+            <?= $monUtilisateur->getUserName() ?>
+        </div>
         <div class="card-body">
-            <form method="post">
-                <div class="mb-3">
-                    <label for="oldUserPassword" class="form-label">Mot de passe actuel</label>
-                    <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword"
-                           placeholder="Mot de passe actuel" required="required">
-                </div>
-                <div class="mb-3">
-                    <label for="newUserPassword" class="form-label">Nouveau mot de passe</label>
-                    <input type="password" class="form-control" name="newUserPassword" id="newUserPassword"
-                           placeholder="Nouveau mot de passe" required="required">
-                </div>
-                <button type="submit" name="modifierPwd" class="btn btn-success">Modifier le mot de passe</button>
-            </form>
+            Membre depuis le : <?= $monUtilisateur->getDateInscriptionFormate() ?>
+            <br/>
+            Adresse courriel : <?= $monUtilisateur->getEmail() ?>
+            <br/>
+            Images possédées : <?= count($monUtilisateur->getImages()) ?>
         </div>
     </div>
-</div>
 
-<!-- Changer l'adresse mail -->
-<div class="card card-default">
-    <div class="card-header">
-        <a data-bs-toggle="collapse" href="#collapseMail">
-            Changer d'adresse courriel <span class="bi-caret-down-fill"></span>
-        </a>
-    </div>
-    <div id="collapseMail" class="card-collapse collapse">
-        <div class="card-body">
-            <form method="post">
-                <div class="mb-3">
-                    <label for="userMail" class="form-label">Nouvelle adresse courriel</label>
-                    <input type="email" class="form-control" name="userMail" id="userMail"
-                           placeholder="Nouvelle adresse courriel" required="required">
-                </div>
-                <div class="mb-3">
-                    <label for="userPasswordMail" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail"
-                           placeholder="Mot de passe" required="required">
-                </div>
-
-                <button type="submit" name="modifierMail" class="btn btn-success">Modifier l'adresse courriel</button>
-            </form>
+    <!-- Modification du mot de passe -->
+    <div class="card card-default">
+        <div class="card-header">
+            <a data-bs-toggle="collapse" href="#collapsePwd">
+                Changer de mot de passe <span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="collapsePwd" class="card-collapse collapse">
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="oldUserPassword" class="form-label">Mot de passe actuel</label>
+                        <input type="password" class="form-control" name="oldUserPassword" id="oldUserPassword" placeholder="Mot de passe actuel" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newUserPassword" class="form-label">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" name="newUserPassword" id="newUserPassword" placeholder="Nouveau mot de passe" required="required">
+                    </div>
+                    <button type="submit" name="modifierPwd" class="btn btn-success">Modifier le mot de passe</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Supprimer le compte -->
-<div class="card card-default">
-    <div class="card-header">
-        <a data-bs-toggle="collapse" href="#collapseDelete">
-            Supprimer mon compte <span class="bi-caret-down-fill"></span>
-        </a>
-    </div>
-    <div id="collapseDelete" class="card-collapse collapse">
-        <div class="card-body">
-            <form method="post">
-                <label class="text-danger form-label">
-                    <input type="checkbox" value="" name="confirmeDelete">
-                    <span class="bi-exclamation-triangle-fill"></span>
-                    Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
-                    <br />
-                    <b>
-                        Les images rattachées à mon compte ne seront pas supprimées
-                        et ne seront plus supprimables avant leur expiration !
-                    </b>
-                    <br />
-                    Cette action est irrévocable !
-                </label>
+    <!-- Changer l'adresse mail -->
+    <div class="card card-default">
+        <div class="card-header">
+            <a data-bs-toggle="collapse" href="#collapseMail">
+                Changer d'adresse courriel <span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="collapseMail" class="card-collapse collapse">
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="userMail" class="form-label">Nouvelle adresse courriel</label>
+                        <input type="email" class="form-control" name="userMail" id="userMail"
+                               placeholder="Nouvelle adresse courriel" required="required">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userPasswordMail" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" name="userPasswordMail" id="userPasswordMail"
+                               placeholder="Mot de passe" required="required">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="userPasswordDelete" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete"
-                           placeholder="Mot de passe" required="required">
-                </div>
-
-                <button type="submit" name="supprimerCompte" class="btn btn-danger">Supprimer mon compte</button>
-            </form>
+                    <button type="submit" name="modifierMail" class="btn btn-success">Modifier l'adresse courriel</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<?php require _TPL_BOTTOM_ ?>
+
+    <!-- Supprimer le compte -->
+    <div class="card card-default">
+        <div class="card-header">
+            <a data-bs-toggle="collapse" href="#collapseDelete">
+                Supprimer mon compte <span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="collapseDelete" class="card-collapse collapse">
+            <div class="card-body">
+                <form method="post">
+                    <label class="text-danger form-label">
+                        <input type="checkbox" value="" name="confirmeDelete">
+                        <span class="bi-exclamation-triangle-fill"></span>
+                        Je confirme souhaiter supprimer mon compte <?= _SITE_NAME_ ?>.
+                        <br/>
+                        <b>Les images rattachées à mon compte ne seront pas supprimées et ne seront plus supprimables avant leur expiration !</b>
+                        <br/>
+                        Cette action est irrévocable !
+                    </label>
+
+                    <div class="mb-3">
+                        <label for="userPasswordDelete" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" name="userPasswordDelete" id="userPasswordDelete" placeholder="Mot de passe" required="required">
+                    </div>
+
+                    <button type="submit" name="supprimerCompte" class="btn btn-danger">Supprimer mon compte</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php require _TPL_BOTTOM_ ?>

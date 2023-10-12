@@ -35,8 +35,8 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         // Je complète le message avec l'IP de mon émeteur
         $message = $_POST['userMessage'];
         $message .= PHP_EOL . '---------------------------------------------';
-        $message .=  PHP_EOL . 'IP : ' . $_SERVER['REMOTE_ADDR'];
-        $message .=  PHP_EOL . 'BROWSER : ' . $_SERVER['HTTP_USER_AGENT'];
+        $message .= PHP_EOL . 'IP : ' . $_SERVER['REMOTE_ADDR'];
+        $message .= PHP_EOL . 'BROWSER : ' . $_SERVER['HTTP_USER_AGENT'];
 
         // Tout va bien, on envoit un mail
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Formulaire de contact', $message, 'From: ' . $_POST['userMail']);
@@ -53,7 +53,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     $maSession->setFlag();
 }
 ?>
-<?php if (!isset($_POST['Submit']) || $maSession->checkFlag()) : ?>
+    <?php if (!isset($_POST['Submit']) || $maSession->checkFlag()) : ?>
     <h1 class="mb-3"><small>Contacter l'administrateur du service - <?= _ADMINISTRATEUR_NOM_ ?></small></h1>
     <form method="post">
         <div class="mb-3 form-floating">
@@ -68,4 +68,4 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
     </form>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_ ?>
+    <?php require _TPL_BOTTOM_ ?>

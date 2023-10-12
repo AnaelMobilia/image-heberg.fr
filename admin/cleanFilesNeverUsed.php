@@ -27,7 +27,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1 class="mb-3"><small>Nettoyage des fichiers jamais utilisés</small></h1>
+    <h1 class="mb-3"><small>Nettoyage des fichiers jamais utilisés</small></h1>
 <?php
 
 $message = '';
@@ -57,7 +57,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeImages as $value) : ?>
+                <?php foreach ((array)$listeImages as $value) : ?>
                     <li>
                         <a href="<?= str_replace('http:', 'https:', _URL_IMAGES_) . $value ?>?forceDisplay=1" target="_blank"><?= $value ?></a>
                     </li>
@@ -73,4 +73,4 @@ if (isset($_POST['effacer'])) :
         </form>
     </div>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_; ?>
+    <?php require _TPL_BOTTOM_; ?>

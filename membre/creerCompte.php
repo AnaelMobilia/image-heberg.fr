@@ -100,25 +100,25 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
 }
 $maSession->setFlag();
 ?>
-<h1 class="mb-3"><small>Créer mon compte</small></h1>
+    <h1 class="mb-3"><small>Créer mon compte</small></h1>
 
-<form method="post">
-    <div class="mb-3 form-floating">
-        <input type="text" class="form-control" name="userName" id="userName" value="<?= $monUtilisateur->getUserName() ?>" required="required">
-        <label for="userName">Identifiant</label>
-    </div>
-    <div class="mb-3 form-floating">
-        <input type="password" class="form-control" name="userPassword" id="userPassword"  required="required">
-        <label for="userPassword">Mot de passe</label>
-    </div>
-    <div class="mb-3 form-floating">
-        <input type="email" class="form-control" name="userMail" id="userMail" value="<?= $monUtilisateur->getEmail() ?>" required="required">
-        <label for="userMail">Adresse courriel</label>
-        <div class="form-text">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</div>
-    </div>
-    <button type="submit" name="valider" class="btn btn-success">
-        <span class="bi-person-add"></span>&nbsp;
-        M'inscrire
-    </button>
-</form>
-<?php require _TPL_BOTTOM_ ?>
+    <form method="post">
+        <div class="mb-3 form-floating">
+            <input type="text" class="form-control" name="userName" id="userName" value="<?= $monUtilisateur->getUserName() ?>" required="required">
+            <label for="userName">Identifiant</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="password" class="form-control" name="userPassword" id="userPassword" required="required">
+            <label for="userPassword">Mot de passe</label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="email" class="form-control" name="userMail" id="userMail" value="<?= $monUtilisateur->getEmail() ?>" required="required">
+            <label for="userMail">Adresse courriel</label>
+            <div class="form-text">Utilisée uniquement en cas de réinitialisation de votre mot de passe.</div>
+        </div>
+        <button type="submit" name="valider" class="btn btn-success">
+            <span class="bi-person-add"></span>&nbsp;
+            M'inscrire
+        </button>
+    </form>
+    <?php require _TPL_BOTTOM_ ?>

@@ -221,7 +221,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $req->execute();
             $values = $req->fetch();
             if ($values !== false) {
-                $this->setBloquee((bool) $values->isBloquee);
+                $this->setBloquee((bool)$values->isBloquee);
             }
         }
 

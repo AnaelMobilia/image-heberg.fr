@@ -40,7 +40,7 @@ if (!isset($_GET['id'], $_GET['type'])) {
  * Chargement de l'image depuis la BDD
  */
 if (!$erreur) {
-    if ((int) $_GET['type'] === RessourceObject::TYPE_IMAGE) {
+    if ((int)$_GET['type'] === RessourceObject::TYPE_IMAGE) {
         $monImage = new ImageObject();
     } else {
         $monImage = new MiniatureObject();
@@ -81,8 +81,8 @@ if (empty($erreur)) {
         <span class="glyphicon glyphicon-remove"></span>
         &nbsp;
         <b>Une erreur a été rencontrée !</b>
-        <br />
-    <?= $msgErreur ?>
+        <br/>
+        <?= $msgErreur ?>
     </div>
     <?php
     require _TPL_BOTTOM_;

@@ -39,7 +39,7 @@ require __DIR__ . '/../config/config.php';
 function formatageMailListeImages(ArrayObject $listeImages): string
 {
     $monRetour = '';
-    foreach ((array) $listeImages as $value) {
+    foreach ((array)$listeImages as $value) {
         $monImage = new ImageObject($value);
         $monRetour .= '   -> ' . $monImage->getURL() . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
     }
@@ -72,7 +72,7 @@ $contenu .= '...done' . PHP_EOL;
 $contenu .= 'Blocage des images qui abusent (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '/jour):' . PHP_EOL;
 $listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_);
 // Blocage des images
-foreach ((array) $listeImages as $value) {
+foreach ((array)$listeImages as $value) {
     $monImage = new ImageObject($value);
     $monImage->setSignalee(true);
     $monImage->sauver();

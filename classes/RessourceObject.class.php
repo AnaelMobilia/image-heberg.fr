@@ -142,7 +142,7 @@ abstract class RessourceObject
         $req->execute();
         $values = $req->fetch();
         if ($values !== false) {
-            $monRetour = (int) $values->nb;
+            $monRetour = (int)$values->nb;
         }
         return $monRetour;
     }
@@ -238,7 +238,7 @@ abstract class RessourceObject
             $uneSession = new SessionObject();
 
             // Est-ce le propriétaire de l'image ?
-            if ((int) $values->membres_id === $uneSession->getId()) {
+            if ((int)$values->membres_id === $uneSession->getId()) {
                 // Si oui... on confirme !
                 $monRetour = true;
             }
@@ -294,7 +294,7 @@ abstract class RessourceObject
         // date_diff('2023-09-03 23:38:42', '2023-09-05 22:53:03') => 1
         // date_diff('2023-09-03', '2023-09-05 22:53:03') => 2
         // => substr() de la date d'envoi pour aligner sur les valeurs du SQL
-        $nbJours = (int) date_diff(date_create(substr($this->getDateEnvoiBrute(), 0, 10)), date_create())->format('%r%a');
+        $nbJours = (int)date_diff(date_create(substr($this->getDateEnvoiBrute(), 0, 10)), date_create())->format('%r%a');
 
         // Le premier jour, autoriser les xxx vues de la journée
         if ($nbJours === 0) {

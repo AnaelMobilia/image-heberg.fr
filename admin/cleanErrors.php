@@ -28,7 +28,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1 class="mb-3"><small>Nettoyage des incohérences</small></h1>
+    <h1 class="mb-3"><small>Nettoyage des incohérences</small></h1>
 <?php
 
 $message = '';
@@ -40,9 +40,9 @@ $listeImagesHDD = HelperAdmin::getAllImagesNameHDD(_PATH_IMAGES_);
 
 // Je recherche les erreurs sur les images
 // Pour chaque images en BDD
-$listeErreursImagesBDD = new ArrayObject(array_diff((array) $listeImagesBDD, (array) $listeImagesHDD));
+$listeErreursImagesBDD = new ArrayObject(array_diff((array)$listeImagesBDD, (array)$listeImagesHDD));
 // Pour chaque images en HDD
-$listeErreursImagesHDD = new ArrayObject(array_diff((array) $listeImagesHDD, (array) $listeImagesBDD));
+$listeErreursImagesHDD = new ArrayObject(array_diff((array)$listeImagesHDD, (array)$listeImagesBDD));
 
 
 // Je récupère la liste des miniatures en BDD
@@ -52,15 +52,15 @@ $listeMiniaturesHDD = HelperAdmin::getAllImagesNameHDD(_PATH_MINIATURES_);
 
 // Je recherche les erreurs sur les miniatures
 // Pour chaque miniatures en BDD
-$listeErreursMiniaturesBDD = new ArrayObject(array_diff((array) $listeMiniaturesBDD, (array) $listeMiniaturesHDD));
+$listeErreursMiniaturesBDD = new ArrayObject(array_diff((array)$listeMiniaturesBDD, (array)$listeMiniaturesHDD));
 // Pour chaque miniatures en HDD
-$listeErreursMiniaturesHDD = new ArrayObject(array_diff((array) $listeMiniaturesHDD, (array) $listeMiniaturesBDD));
+$listeErreursMiniaturesHDD = new ArrayObject(array_diff((array)$listeMiniaturesHDD, (array)$listeMiniaturesBDD));
 
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
     // Images uniquement en BDD
-    foreach ((array) $listeErreursImagesBDD as $value) {
+    foreach ((array)$listeErreursImagesBDD as $value) {
         $message .= '<br />Suppression de la BDD de l\'image ' . $value;
 
         // Je crée mon objet et lance la suppression
@@ -68,7 +68,7 @@ if (isset($_POST['effacer'])) :
         $monImage->supprimer();
     }
     // Images uniquement en HDD
-    foreach ((array) $listeErreursImagesHDD as $value) {
+    foreach ((array)$listeErreursImagesHDD as $value) {
         $message .= '<br />Suppression du disque de l\'image ' . $value;
 
         // Suppression du fichier
@@ -77,7 +77,7 @@ if (isset($_POST['effacer'])) :
         unlink($pathFinal);
     }
     // Miniatures uniquement en BDD
-    foreach ((array) $listeErreursMiniaturesBDD as $value) {
+    foreach ((array)$listeErreursMiniaturesBDD as $value) {
         $message .= '<br />Suppression de la BDD de la miniature ' . $value;
 
         // Je crée mon objet et lance la suppression
@@ -86,7 +86,7 @@ if (isset($_POST['effacer'])) :
     }
 
     // Miniatures uniquement en HDD
-    foreach ((array) $listeErreursMiniaturesHDD as $value) {
+    foreach ((array)$listeErreursMiniaturesHDD as $value) {
         $message .= '<br />Suppression du disque de la miniature ' . $value;
 
         // Suppression du fichier
@@ -107,7 +107,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeErreursImagesBDD as $value) : ?>
+                <?php foreach ((array)$listeErreursImagesBDD as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -119,7 +119,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeErreursImagesHDD as $value) : ?>
+                <?php foreach ((array)$listeErreursImagesHDD as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -131,7 +131,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeErreursMiniaturesBDD as $value) : ?>
+                <?php foreach ((array)$listeErreursMiniaturesBDD as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -143,7 +143,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeErreursMiniaturesHDD as $value) : ?>
+                <?php foreach ((array)$listeErreursMiniaturesHDD as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -156,4 +156,4 @@ if (isset($_POST['effacer'])) :
         </button>
     </form>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_; ?>
+    <?php require _TPL_BOTTOM_; ?>

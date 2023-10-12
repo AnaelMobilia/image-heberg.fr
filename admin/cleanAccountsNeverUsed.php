@@ -27,7 +27,7 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-<h1 class="mb-3"><small>Nettoyage des comptes jamais utilisés</small></h1>
+    <h1 class="mb-3"><small>Nettoyage des comptes jamais utilisés</small></h1>
 <?php
 
 $message = '';
@@ -38,7 +38,7 @@ $isPlural = ($listeComptes->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-    foreach ((array) $listeComptes as $value) {
+    foreach ((array)$listeComptes as $value) {
         $message .= '<br />Suppression du compte ' . $value;
 
         // Je crée mon objet et lance la suppression
@@ -47,7 +47,7 @@ if (isset($_POST['effacer'])) :
     }
     $message .= '<br />Effacement terminé !';
     ?>
-    <div class = "alert alert-success">
+    <div class="alert alert-success">
         <?= $message ?>
     </div>
 <?php else : ?>
@@ -57,7 +57,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array) $listeComptes as $value) : ?>
+                <?php foreach ((array)$listeComptes as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>
@@ -70,4 +70,4 @@ if (isset($_POST['effacer'])) :
         </form>
     </div>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_; ?>
+    <?php require _TPL_BOTTOM_; ?>

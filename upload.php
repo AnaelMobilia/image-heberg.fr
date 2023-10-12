@@ -189,7 +189,7 @@ else : ?>
             &nbsp;
             <b>Une erreur a été rencontrée, mais l'envoi de l'image a été effectué !</b>
             <br/>
-        <?= $msgWarning ?>
+            <?= $msgWarning ?>
         </div>
     <?php endif; ?>
     <div class="alert alert-success">
@@ -284,4 +284,4 @@ else : ?>
         </div>
     </div>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_; ?>
+    <?php require _TPL_BOTTOM_; ?>

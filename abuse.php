@@ -122,4 +122,4 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         <button type="submit" name="Submit" class="btn btn-success">Envoyer</button>
     </form>
 <?php endif; ?>
-<?php require _TPL_BOTTOM_ ?>
+    <?php require _TPL_BOTTOM_ ?>
