@@ -258,6 +258,27 @@ abstract class HelperAdmin
     }
 
     /**
+     * Toutes les images bloquées
+     * @return ArrayObject
+     */
+    public static function getImagesBloquees(): ArrayObject
+    {
+        // Images signalées
+        $req = 'SELECT new_name FROM images WHERE isBloquee = 1';
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        $monRetour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute le nom de l'image
+            $monRetour->append($value->new_name);
+        }
+
+        return $monRetour;
+    }
+
+    /**
      * Images dont les statistiques d'affichage sont incohérentes
      * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
      * @return ArrayObject
