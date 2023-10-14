@@ -53,20 +53,8 @@ abstract class HelperAdmin
                   FROM thumbnails th
                   WHERE th.images_id = im.id
                   AND th.last_view IS NOT NULL
-               )
-';
-
-        // Exécution de la requête
-        $resultat = MaBDD::getInstance()->query($req);
-
-        $monRetour = new ArrayObject();
-        // Pour chaque résultat retourné
-        foreach ($resultat->fetchAll() as $value) {
-            // J'ajoute le nom de l'image
-            $monRetour->append($value->new_name);
-        }
-
-        return $monRetour;
+               )';
+        return self::queryOnNewName($req);
     }
 
     /**
@@ -94,18 +82,7 @@ abstract class HelperAdmin
                   WHERE th.images_id = im.id
                   AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
                )';
-
-        // Exécution de la requête
-        $resultat = MaBDD::getInstance()->query($req);
-
-        $monRetour = new ArrayObject();
-        // Pour chaque résultat retourné
-        foreach ($resultat->fetchAll() as $value) {
-            // J'ajoute le nom de l'image
-            $monRetour->append($value->new_name);
-        }
-
-        return $monRetour;
+        return self::queryOnNewName($req);
     }
 
     /**
@@ -244,17 +221,7 @@ abstract class HelperAdmin
     {
         // Images signalées
         $req = 'SELECT new_name FROM images WHERE isSignalee = 1 and isBloquee = 0';
-        // Exécution de la requête
-        $resultat = MaBDD::getInstance()->query($req);
-
-        $monRetour = new ArrayObject();
-        // Pour chaque résultat retourné
-        foreach ($resultat->fetchAll() as $value) {
-            // J'ajoute le nom de l'image
-            $monRetour->append($value->new_name);
-        }
-
-        return $monRetour;
+        return self::queryOnNewName($req);
     }
 
     /**
@@ -266,17 +233,7 @@ abstract class HelperAdmin
     {
         // Images avec trop d'affichages
         $req = 'SELECT new_name, (nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), date_envoi) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > ' . $nbMax . ' ORDER BY nbViewPerDay DESC';
-        // Exécution de la requête
-        $resultat = MaBDD::getInstance()->query($req);
-
-        $monRetour = new ArrayObject();
-        // Pour chaque résultat retourné
-        foreach ($resultat->fetchAll() as $value) {
-            // J'ajoute le nom de l'image
-            $monRetour->append($value->new_name);
-        }
-
-        return $monRetour;
+        return self::queryOnNewName($req);
     }
 
     /**
@@ -299,6 +256,16 @@ abstract class HelperAdmin
                             po.membres_id IN (SELECT DISTINCT membres_id FROM possede WHERE images_id IN (SELECT id FROM images WHERE isBloquee = 1))
                         )
                     )';
+        return self::queryOnNewName($req);
+    }
+
+    /**
+     * Joue une requête SQL et retourne un tableau "new_name"
+     * @param string $req
+     * @return ArrayObject
+     */
+    public static function queryOnNewName(string $req): ArrayObject
+    {
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
