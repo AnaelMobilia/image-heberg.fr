@@ -48,6 +48,9 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
     }
 }
 
+/**
+ * Images à traiter
+ */
 $tabTables = [];
 // Liste des images avec un ratio d'affichage incohérent
 $tabTables[] = [
@@ -64,12 +67,47 @@ $tabTables[] = [
     'legende' => 'suspecte##',
     'values' => HelperAdmin::getImagesPotentiellementIndesirables()
 ];
+
+/**
+ * Recherche
+ */
+$tabSearch = [
+    'Adresse IP' => 'select new_name from images where ip_envoi like \'%##value##%\'',
+    'Nom originel' => 'select new_name from images where old_name like \'%##value##%\'',
+    'Utilisateur' => 'select new_name from images left join possede on possede.images_id = images.id where possede.membres_id = \'##value##\'',
+];
+if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
+    $reqValue = str_replace('\'', '_', $_POST['valeur']);
+    $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
+    array_unshift($tabTables, [
+        'legende' => 'trouvée## -> recherche sur le champ "' . $_POST['champ'] . '" = "' . $_POST['valeur'] . '"',
+        'values' => HelperAdmin::queryOnNewName($req)
+    ]);
+}
 ?>
     <?php if (!empty($message)) : ?>
     <div class="alert alert-success">
         <?= $message ?>
     </div>
     <?php endif; ?>
+    <div class="alert alert-info">
+        <form method="post">
+            <div class="mb-3 form-floating">
+                <select name="champ" id="champ" class="form-select" required="required">
+                    <option value="" selected>-- Sélectionner un champ --</option>
+                    <?php foreach (array_keys($tabSearch) as $key) : ?>
+                        <option value="<?=$key?>"><?=$key?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="champ">Champ à utiliser</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" name="valeur" id="valeur" required="required" value="">
+                <label for="valeur">Valeur recherchée</label>
+            </div>
+            <button type="submit" name="Submit" class="btn btn-success">Rechercher</button>
+        </form>
+    </div>
     <?php foreach ($tabTables as $uneTable) : ?>
     <div class="card">
         <div class="card-header">
@@ -112,5 +150,5 @@ $tabTables[] = [
             </table>
         </div>
     </div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
     <?php require _TPL_BOTTOM_; ?>
