@@ -133,7 +133,7 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
                         <?php
                         $uneImage = new ImageObject($value); ?>
                         <tr>
-                            <td><a href="<?= $uneImage->getURL() ?>?forceDisplay=1" target="_blank"><?= $uneImage->getNomNouveau() ?></a></td>
+                            <td><a href="<?= $uneImage->getURL() ?>?forceDisplay=1" target="_blank"<?= ($uneImage->isBloquee() ? ' style="text-decoration: line-through;"' : '') ?>><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>
                                 <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
                                 <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
