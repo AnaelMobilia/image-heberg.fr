@@ -242,13 +242,27 @@ abstract class HelperAdmin
      */
     public static function getImagesPotentiellementIndesirables(): ArrayObject
     {
+        // Compléter les données "abuse_network"
+        // IPv4 - Filtrer sur un /24
+        $req = 'UPDATE `images` SET abuse_network = SUBSTRING(ip_envoi, 1, (LENGTH(ip_envoi)-LOCATE(\'.\', REVERSE(ip_envoi))))
+                    WHERE abuse_network = \'\'
+                    AND LOCATE(\'.\', ip_envoi) != 0';
+        MaBDD::getInstance()->query($req);
+        // IPv6 - Filtrer sur un /64
+        $req = 'UPDATE `images` SET abuse_network = SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 16)
+                    WHERE abuse_network = \'\'
+                    AND LOCATE(\':\', ip_envoi) != 0';
+        MaBDD::getInstance()->query($req);
+
         // Images avec trop d'affichages
         $req = 'SELECT im.new_name
                     FROM images im
                     LEFT JOIN possede po ON po.images_id = im.id
-                    WHERE im.isBloquee = 0 AND (
-                        /* Même adresse IP */
-                        im.ip_envoi IN (SELECT DISTINCT ip_envoi FROM images WHERE isBloquee = 1)
+                    WHERE im.isBloquee = 0
+                      AND im.isApprouvee = 0
+                      AND (
+                        /* Même réseau IP */
+                        im.abuse_network IN (SELECT DISTINCT abuse_network FROM images WHERE isBloquee = 1)
                         OR (
                             /* Même propriétaire */
                             po.membres_id IS NOT NULL

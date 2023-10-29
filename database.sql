@@ -23,24 +23,26 @@
 
 CREATE TABLE IF NOT EXISTS `images`
 (
-    `id`          int(20)     NOT NULL AUTO_INCREMENT,
-    `ip_envoi`    varchar(45) NOT NULL,
-    `date_envoi`  datetime    NOT NULL,
-    `old_name`    text        NOT NULL,
-    `new_name`    text        NOT NULL,
-    `size`        int(11)     NOT NULL,
-    `height`      int(11)     NOT NULL,
-    `width`       int(11)     NOT NULL,
-    `last_view`   date        NOT NULL,
-    `nb_view_v4`  int(11)     NOT NULL,
-    `nb_view_v6`  int(11)     NOT NULL,
-    `md5`         varchar(32) NOT NULL,
-    `isBloquee`   tinyint(1)  NOT NULL,
-    `isSignalee`  tinyint(1)  NOT NULL,
-    `isApprouvee` tinyint(1)  NOT NULL,
+    `id`            int(20)     NOT NULL AUTO_INCREMENT,
+    `ip_envoi`      varchar(45) NOT NULL,
+    `date_envoi`    datetime    NOT NULL,
+    `old_name`      text        NOT NULL,
+    `new_name`      text        NOT NULL,
+    `size`          int(11)     NOT NULL,
+    `height`        int(11)     NOT NULL,
+    `width`         int(11)     NOT NULL,
+    `last_view`     date        NOT NULL,
+    `nb_view_v4`    int(11)     NOT NULL,
+    `nb_view_v6`    int(11)     NOT NULL,
+    `md5`           varchar(32) NOT NULL,
+    `isBloquee`     tinyint(1)  NOT NULL,
+    `isSignalee`    tinyint(1)  NOT NULL,
+    `isApprouvee`   tinyint(1)  NOT NULL,
+    `abuse_network` varchar(45) NOT NULL,
     PRIMARY KEY (`id`),
     KEY `id` (`id`),
-    KEY `isBloquee` (`isBloquee`)
+    KEY `isBloquee` (`isBloquee`),
+    KEY `abuse_network` (`abuse_network`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
 
@@ -134,11 +136,11 @@ VALUES (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo
 -- Images 404 & bannie
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`,
-                      `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`)
+                      `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`)
 VALUES (1, '127.0.0.1', '2008-01-01 00:00:00', '_image_404.png', '_image_404.png', 30703, 150, 640, '0000-00-00', 0, 0,
-        '6858ce6ddc171a0fd9640831a5e74dfd', 0, 0, 1),
+        '6858ce6ddc171a0fd9640831a5e74dfd', 0, 0, 1, '127.0.0'),
        (2, '127.0.0.1', '2008-01-01 00:00:00', '_image_banned.png', '_image_banned.png', 28713, 150, 640, '0000-00-00',
-        0, 0, '12c357976276091e7cd42e98debb7fb1', 0, 0, 1);
+        0, 0, '12c357976276091e7cd42e98debb7fb1', 0, 0, 1, '127.0.0');
 
 --
 -- Assignation à l'administrateur
