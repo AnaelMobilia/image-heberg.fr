@@ -74,6 +74,7 @@ $tabTables[] = [
 $tabSearch = [
     'Adresse IP' => 'select new_name from images where ip_envoi like \'%##value##%\'',
     'Nom originel' => 'select new_name from images where old_name like \'%##value##%\'',
+    'Nouveau nom' => 'select new_name from images where new_name like \'%##value##%\'',
     'Utilisateur' => 'select new_name from images left join possede on possede.images_id = images.id where possede.membres_id = \'##value##\'',
 ];
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
