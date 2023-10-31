@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `images`
     `abuse_network` varchar(45) NOT NULL,
     PRIMARY KEY (`id`),
     KEY `id` (`id`),
-    KEY `isBloquee` (`isBloquee`),
+    KEY `statutImage` (`isBloquee`,`isApprouvee`,`isSignalee`) USING BTREE,
     KEY `abuse_network` (`abuse_network`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
