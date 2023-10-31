@@ -27,8 +27,8 @@ use Exception;
 /*
  * Vérifier les images avec des comportements suspects
  */
-
-require __DIR__ . '/../config/config.php';
+// Peut être appelé par displayPics.php -> ne pas recharger la config
+require_once __DIR__ . '/../config/config.php';
 
 /**
  * Met en forme pour un mail une liste d'images
@@ -98,4 +98,3 @@ if ($envoiMail) {
     // Envoyer une notification à l'admin
     mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Gestion des abus', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
-echo $contenu;
