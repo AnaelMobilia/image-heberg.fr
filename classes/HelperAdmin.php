@@ -232,7 +232,12 @@ abstract class HelperAdmin
     public static function getImagesTropAffichees(int $nbMax): ArrayObject
     {
         // Images avec trop d'affichages
-        $req = 'SELECT new_name, (nb_view_v4 + nb_view_v6) / IF(DATEDIFF(NOW(), date_envoi) > 0, DATEDIFF(NOW(), date_envoi), 1) as nbViewPerDay FROM images WHERE isBloquee = 0 and isApprouvee = 0 HAVING nbViewPerDay > ' . $nbMax . ' ORDER BY nbViewPerDay DESC';
+        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT SUM(th.nb_view_v4 + th.nb_view_v6) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_envoi) > 0, DATEDIFF(NOW(), im.date_envoi), 1) as nbViewPerDay
+            FROM images im
+            WHERE im.isBloquee = 0
+            AND im.isApprouvee = 0
+            HAVING nbViewPerDay > ' . $nbMax . '
+            ORDER BY nbViewPerDay DESC';
         return self::queryOnNewName($req);
     }
 
@@ -254,7 +259,7 @@ abstract class HelperAdmin
                     AND LOCATE(\':\', ip_envoi) != 0';
         MaBDD::getInstance()->query($req);
 
-        // Images avec trop d'affichages
+        // Images potentiellement indésirables
         $req = 'SELECT im.new_name
                     FROM images im
                     LEFT JOIN possede po ON po.images_id = im.id
