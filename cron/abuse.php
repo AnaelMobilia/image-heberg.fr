@@ -47,6 +47,10 @@ function formatageMailListeImages(ArrayObject $listeImages): string
 }
 
 $contenu = '';
+// Tracer l'image ayant généré l'appel au cron
+if (!empty($_SERVER["REQUEST_URI"])) {
+    $contenu .= 'Requête ayant généré le cron : ' . $_SERVER["REQUEST_URI"] . PHP_EOL;
+}
 $envoiMail = false;
 // Liste des images signalées
 $contenu .= 'Images signalées :' . PHP_EOL;
