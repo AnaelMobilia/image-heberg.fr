@@ -172,7 +172,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
 ?>
     <h1 class="mb-3"><small>Envoi d'une image</small></h1>
     <?php
-if (!empty($msgErreur)) : ?>
+    if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="bi-x-circle"></span>
         &nbsp;
@@ -180,10 +180,8 @@ if (!empty($msgErreur)) : ?>
         <br/>
         <?= $msgErreur ?>
     </div>
-<?php
-else : ?>
-    <?php
-    if (!empty($msgWarning)) : ?>
+    <?php else : ?>
+        <?php if (!empty($msgWarning)) : ?>
         <div class="alert alert-warning">
             <span class="bi-x-circle"></span>
             &nbsp;
@@ -191,7 +189,7 @@ else : ?>
             <br/>
             <?= $msgWarning ?>
         </div>
-    <?php endif; ?>
+        <?php endif; ?>
     <div class="alert alert-success">
         <span class="bi-check"></span>
         &nbsp;
@@ -207,14 +205,14 @@ else : ?>
                         <a href="<?= $monImage->getURL() ?>" target="_blank"><?= $monImage->getURL() ?></a>
                     </div>
                 </div>
-    <?php if (isset($maMiniature)) : ?>
+        <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
                         <label class="col-sm-2 form-label">Lien direct miniature</label>
                         <div class="col-sm-10">
                             <a href="<?= $maMiniature->getURL() ?>" target="_blank"><?= $maMiniature->getURL() ?></a>
                         </div>
                     </div>
-    <?php endif; ?>
+        <?php endif; ?>
                 <div class="mb-3">
                     <label for="imgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em></label>
                     <div class="col-sm-10">
@@ -222,7 +220,7 @@ else : ?>
                                value="[img]<?= $monImage->getURL() ?>[/img]"/>
                     </div>
                 </div>
-    <?php if (isset($maMiniature)) : ?>
+        <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
                         <label for="MinImgBBcode" class="col-sm-2 form-label">Forum <em>(BBcode)</em> avec miniature</label>
                         <div class="col-sm-10">
@@ -230,7 +228,7 @@ else : ?>
                                    value="[url=<?= $monImage->getURL() ?>][img]<?= $maMiniature->getURL() ?>[/img][/url]"/>
                         </div>
                     </div>
-    <?php endif; ?>
+        <?php endif; ?>
                 <div class="mb-3">
                     <label for="html" class="col-sm-2 form-label">HTML</label>
                     <div class="col-sm-10">
@@ -238,7 +236,7 @@ else : ?>
                                value='<a href="<?= $monImage->getURL() ?>"><?= $monImage->getNomOriginalFormate() ?></a>'/>
                     </div>
                 </div>
-    <?php if (isset($maMiniature)) : ?>
+        <?php if (isset($maMiniature)) : ?>
                     <div class="mb-3">
                         <label for="htmlMin" class="col-sm-2 form-label">HTML avec miniature</label>
                         <div class="col-sm-10">
@@ -246,7 +244,7 @@ else : ?>
                                    value='<a href="<?= $monImage->getURL() ?>"><img src="<?= $maMiniature->getURL() ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" /><?= $monImage->getNomOriginalFormate() ?></a>'/>
                         </div>
                     </div>
-    <?php endif; ?>
+        <?php endif; ?>
             </div>
             <div class="clearfix"></div>
             <br/>
@@ -283,5 +281,5 @@ else : ?>
             </a>
         </div>
     </div>
-<?php endif; ?>
+    <?php endif; ?>
     <?php require _TPL_BOTTOM_; ?>

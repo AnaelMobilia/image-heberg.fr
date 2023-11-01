@@ -39,7 +39,7 @@ class AbuseTest extends TestCase
      * Signalement d'une image
      * @runInSeparateProcess
      */
-    public function testAbuse()
+    public function testAbuse(): void
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -66,7 +66,7 @@ class AbuseTest extends TestCase
      * Renvoi d'une image bloquée et demande de son affichage
      * @runInSeparateProcess
      */
-    public function testAbuseRenvoiImage()
+    public function testAbuseRenvoiImage(): void
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -99,7 +99,7 @@ class AbuseTest extends TestCase
      * Signalement d'une image approuvée
      * @runInSeparateProcess
      */
-    public function testAbuseImageApprouvee()
+    public function testAbuseImageApprouvee(): void
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -120,7 +120,7 @@ class AbuseTest extends TestCase
      * Signalement d'une image approuvée
      * @runInSeparateProcess
      */
-    public function testAbuseImageSignaleePuisApprouvee()
+    public function testAbuseImageSignaleePuisApprouvee(): void
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';

@@ -55,7 +55,7 @@ class MembreTest extends TestCase
         return new PHPUnit_Extensions_Database_DataSet_DefaultDataSet();
     }
 
-    public function testConnexionMembreExistant()
+    public function testConnexionMembreExistant(): void
     {
         // Chargement de la configuration
         require_once 'config/config.php';
@@ -86,7 +86,7 @@ class MembreTest extends TestCase
      * Création d'un compte membre avec un nom déjà existant
      * @depends testConnexionMembreExistant
      */
-    public function testMembreCreerCompteDoublon()
+    public function testMembreCreerCompteDoublon(): void
     {
         unset($_POST);
         /**
@@ -121,7 +121,7 @@ class MembreTest extends TestCase
      * Création d'un compte membre.
      * @depends testMembreCreerCompteDoublon
      */
-    public function testMembreCreerCompte()
+    public function testMembreCreerCompte(): void
     {
         unset($_POST);
         /**
@@ -166,7 +166,7 @@ class MembreTest extends TestCase
      * Modification du mail
      * @depends testMembreCreerCompte
      */
-    public function testMembreModifierMail()
+    public function testMembreModifierMail(): void
     {
         unset($_POST);
         /**
@@ -207,7 +207,7 @@ class MembreTest extends TestCase
      * Modification du mot de passe
      * @depends testMembreModifierMail
      */
-    public function testMembreModifierPassword()
+    public function testMembreModifierPassword(): void
     {
         unset($_POST);
         /**
@@ -247,7 +247,7 @@ class MembreTest extends TestCase
      * Suppression du compte sans cochage de la checkbox
      * @depends testMembreModifierPassword
      */
-    public function testMembreSupprimerCompteRequiertCheckbox()
+    public function testMembreSupprimerCompteRequiertCheckbox(): void
     {
         unset($_POST);
         /**
@@ -289,7 +289,7 @@ class MembreTest extends TestCase
      * Suppression du compte
      * @depends testMembreSupprimerCompteRequiertCheckbox
      */
-    public function testMembreSupprimerCompte()
+    public function testMembreSupprimerCompte(): void
     {
         unset($_POST);
         /**
@@ -332,7 +332,7 @@ class MembreTest extends TestCase
      * Connexion au compte créé lors de la création de la BDD
      * @depends testMembreSupprimerCompte
      */
-    public function testConnexionCompteHistorique()
+    public function testConnexionCompteHistorique(): void
     {
         unset($_POST);
         /**

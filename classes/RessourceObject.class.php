@@ -672,5 +672,4 @@ abstract class RessourceObject
     {
         $this->idProprietaire = $idProprietaire;
     }
-
 }

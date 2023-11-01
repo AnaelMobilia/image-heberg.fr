@@ -39,7 +39,7 @@ class DisplayPicsTest extends TestCase
      * Affichage d'une image inexistante
      * @runInSeparateProcess
      */
-    public function testImageInexistante()
+    public function testImageInexistante(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/fichierInexistant.jpg';
@@ -54,7 +54,7 @@ class DisplayPicsTest extends TestCase
      * Affichage d'une image inexistante
      * @runInSeparateProcess
      */
-    public function testMiniatureInexistante()
+    public function testMiniatureInexistante(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/thumbs/fichierInexistant.jpg';
@@ -69,7 +69,7 @@ class DisplayPicsTest extends TestCase
      * Affichage d'une image inexistante
      * @runInSeparateProcess
      */
-    public function testRepertoireInexistant()
+    public function testRepertoireInexistant(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/repertoireInexistant/fichierInexistant.jpg';
@@ -84,7 +84,7 @@ class DisplayPicsTest extends TestCase
      * Affichage d'une image bloquée
      * @runInSeparateProcess
      */
-    public function testImageBloquee()
+    public function testImageBloquee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/imageBloquee.jpg';
@@ -99,7 +99,7 @@ class DisplayPicsTest extends TestCase
      * Affichage d'une image signaléee
      * @runInSeparateProcess
      */
-    public function testImageSignalee()
+    public function testImageSignalee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/imageSignalee.png';
