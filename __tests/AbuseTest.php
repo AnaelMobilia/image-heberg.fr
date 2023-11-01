@@ -54,9 +54,8 @@ class AbuseTest extends TestCase
 
         $imageBloquee = new ImageObject('15.png');
         $imageMemeMd5 = new ImageObject('16.png');
-        $this->assertEquals(true, $imageBloquee->isSignalee(), 'Image signalée doit l\'être');
-        $this->assertEquals(
-            true,
+        $this->assertTrue($imageBloquee->isSignalee(), 'Image signalée doit l\'être');
+        $this->assertTrue(
             $imageMemeMd5->isSignalee(),
             'Image avec même MD5 qu\'une image signalée doit l\'être également'
         );
@@ -88,8 +87,7 @@ class AbuseTest extends TestCase
             $msgWarning,
             'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : ' . $msgWarning
         );
-        $this->assertEquals(
-            true,
+        $this->assertTrue(
             $monImage->isBloquee(),
             'Renvoi image déjà bloquée doit être isBloquée en BDD'
         );
@@ -113,11 +111,11 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $imageSignalee = new ImageObject('_image_404.png');
-        $this->assertEquals(false, $imageSignalee->isSignalee(), 'Image approuvée qui est signalée ne doit pas être bloquée');
+        $this->assertFalse($imageSignalee->isSignalee(), 'Image approuvée qui est signalée ne doit pas être bloquée');
     }
 
     /**
-     * Signalement d'une image approuvée
+     * Approbation d'une image signalée
      * @runInSeparateProcess
      */
     public function testAbuseImageSignaleePuisApprouvee(): void
@@ -143,6 +141,54 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $image = new ImageObject('_image_banned.png');
-        $this->assertEquals(false, $image->isSignalee(), 'Image signalée qui est approuvée ne doit plus être signalée');
+        $this->assertFalse($image->isSignalee(), 'Image signalée qui est approuvée ne doit plus être signalée');
+    }
+
+    /**
+     * Envoi d'une image depuis le même réseau qu'une image bloquée
+     * @runInSeparateProcess
+     */
+    public function testAbuseImageEnvoiDepuisReseauMalveillant(): void
+    {
+        $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
+
+        require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '10.10.10.11';
+        $_POST['Submit'] = 1;
+        $_SESSION['flag'] = true;
+        $_FILES['fichier']['size'] = 146;
+        $_FILES['fichier']['name'] = 'imageDejaBloquee.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+
+        $imagesApresEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
+
+        $this->assertEmpty(
+            $imagesAvantEnvoi,
+            'Aucune image ne doit être considérée comme potentiellement indésirable : ' . var_export($imagesAvantEnvoi, true)
+        );
+        $this->assertNotEmpty(
+            $imagesApresEnvoi,
+            'L\'image envoyée devrait être considérée comme potentiellement indésirable : ' . var_export($imagesApresEnvoi, true)
+        );
+    }
+
+    /**
+     * Image avec une miniature ENORMEMENT affichée
+     * @runInSeparateProcess
+     */
+    public function testAbuseImageMiniatureTropAffichee(): void
+    {
+        require 'config/config.php';
+
+        $images = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_);
+
+        $this->assertNotEmpty(
+            $images,
+            'Les affichages des miniatures doivent compter dans les affichages d\'une image pour la détection des abus : ' . var_export($images, true)
+        );
     }
 }

@@ -69,6 +69,11 @@ define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
 define('_DEBUG_', true);
 
+// Nombre d'affichage par jour à partir duquel une image est suspecte
+define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_', 1500);
+// Nombre d'affichage par jour à partir duquel une image est automatiquement bloquée
+define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_', 100000);
+
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 define('_TOR_DISABLE_UPLOAD_', true);
 /**
