@@ -86,6 +86,8 @@ if (
 ) {
     // Lancer un blocage de l'image si trop affichée
     require 'cron/abuse.php';
+    // Recharger mon objet courant pour ne pas écraser les flags mis par le cron
+    $monObjet->charger($fileName);
 }
 
 /**
