@@ -232,7 +232,7 @@ abstract class HelperAdmin
     public static function getImagesTropAffichees(int $nbMax): ArrayObject
     {
         // Images avec trop d'affichages
-        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT SUM(th.nb_view_v4 + th.nb_view_v6) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_envoi) > 0, DATEDIFF(NOW(), im.date_envoi), 1) as nbViewPerDay
+        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_envoi) > 0, DATEDIFF(NOW(), im.date_envoi), 1) as nbViewPerDay
             FROM images im
             WHERE im.isBloquee = 0
             AND im.isApprouvee = 0
