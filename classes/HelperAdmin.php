@@ -89,7 +89,7 @@ abstract class HelperAdmin
      * Liste des comptes sans images et créés depuis au moins xx jours
      * @return ArrayObject
      */
-    public static function getNeverUsedAccounts(): ArrayObject
+    public static function getUnusedAccounts(): ArrayObject
     {
         // Toutes les comptes créés et jamais utilisés depuis xx jours
         $req = 'SELECT m.id

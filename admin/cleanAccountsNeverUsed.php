@@ -33,7 +33,7 @@ require _TPL_TOP_;
 $message = '';
 
 // Je récupère la liste des comptes jamais utilisés
-$listeComptes = HelperAdmin::getNeverUsedAccounts();
+$listeComptes = HelperAdmin::getUnusedAccounts();
 $isPlural = ($listeComptes->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé

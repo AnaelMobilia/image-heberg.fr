@@ -29,7 +29,7 @@ require __DIR__ . '/../config/config.php';
 
 // Effacer les comptes jamais utilisés
 echo 'Suppression des comptes jamais utilisés ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' jours après leur création' . PHP_EOL;
-$listeComptes = HelperAdmin::getNeverUsedAccounts();
+$listeComptes = HelperAdmin::getUnusedAccounts();
 foreach ((array)$listeComptes as $value) {
     // Je crée mon objet et lance la suppression
     $monUtilisateur = new UtilisateurObject($value);
