@@ -75,6 +75,12 @@ abstract class RessourceObject
         // Timestamp d'envoi
         $timestamp = $_SERVER['REQUEST_TIME'];
 
+        // Taille max : 28 chr
+        //   - Timestamp : 1699048241 : 10 caractères jusqu'en 2286...
+        //   - $adresseIP -> CRC32 : 8 bits en hexa, soit 16^8 valeurs => 4 294 967 296 : 10 caractères
+        //   - Suffixe anti-doublon : hypothèse très haute 10k doublons : 4 caractères
+        //   - Extension : 1+3 caractères
+
         // Calcul du nom de l'image
         return $timestamp . $adresseIP . substr($random, 0, $nb) . '.' . HelperImage::getExtension($this->getPathTemp());
     }
