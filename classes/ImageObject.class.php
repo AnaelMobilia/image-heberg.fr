@@ -277,7 +277,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function bloquer(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1 WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1, isApprouvee = 0 WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
