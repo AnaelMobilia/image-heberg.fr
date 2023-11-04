@@ -72,10 +72,10 @@ $tabTables[] = [
  * Recherche
  */
 $tabSearch = [
-    'Adresse IP' => 'select new_name from images where ip_envoi like \'%##value##%\'',
-    'Nom originel' => 'select new_name from images where old_name like \'%##value##%\'',
-    'Nouveau nom' => 'select new_name from images where new_name like \'%##value##%\'',
-    'Utilisateur' => 'select new_name from images left join possede on possede.images_id = images.id where possede.membres_id = \'##value##\'',
+    'Adresse IP' => 'SELECT new_name FROM images WHERE ip_envoi LIKE \'%##value##%\' ORDER BY id DESC',
+    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\' ORDER BY id DESC',
+    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\' ORDER BY id DESC',
+    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\' ORDER BY im.id DESC',
 ];
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
     $reqValue = str_replace('\'', '_', $_POST['valeur']);
