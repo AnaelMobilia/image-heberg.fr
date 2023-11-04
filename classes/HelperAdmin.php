@@ -253,8 +253,8 @@ abstract class HelperAdmin
                     WHERE abuse_network = \'\'
                     AND LOCATE(\'.\', ip_envoi) != 0';
         MaBDD::getInstance()->query($req);
-        // IPv6 - Filtrer sur un /64
-        $req = 'UPDATE `images` SET abuse_network = SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 16)
+        // IPv6 - Filtrer sur un /56
+        $req = 'UPDATE `images` SET abuse_network = SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 14)
                     WHERE abuse_network = \'\'
                     AND LOCATE(\':\', ip_envoi) != 0';
         MaBDD::getInstance()->query($req);
