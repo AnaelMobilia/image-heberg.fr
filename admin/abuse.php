@@ -78,7 +78,7 @@ $tabSearch = [
     'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\' ORDER BY im.id DESC',
 ];
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
-    $reqValue = str_replace('\'', '_', $_POST['valeur']);
+    $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
     $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
     array_unshift($tabTables, [
         'legende' => 'trouvée## -> recherche sur le champ "' . $_POST['champ'] . '" = "' . $_POST['valeur'] . '"',
