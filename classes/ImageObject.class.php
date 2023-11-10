@@ -48,9 +48,6 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         // Retour
@@ -88,9 +85,6 @@ class ImageObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
@@ -142,9 +136,6 @@ class ImageObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supprimer(): void
     {
         /**
@@ -179,9 +170,6 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function creer(): bool
     {
         // Retour

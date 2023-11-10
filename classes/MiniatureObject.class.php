@@ -50,9 +50,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         $monRetour = false;
@@ -94,9 +91,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
@@ -118,9 +112,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->execute();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supprimer(): void
     {
         /**
@@ -137,9 +128,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function creer(): bool
     {
         // Retour
