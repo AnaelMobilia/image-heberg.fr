@@ -313,22 +313,33 @@ abstract class RessourceObject
     }
 
     /**
-     * Incrémente le nombre d'affichage IPv4
+     * Met à jour les statistiques (nb d'affichage et date) en BDD
      */
-    public function setNbViewIpv4PlusUn(): void
+    public function updateStatsAffichage(string $remoteAddr): void
     {
-        $this->nbViewIPv4 = $this->getNbViewIPv4() + 1;
-        $this->setLastView(date('Y-m-d'));
+        // Prendre la bonne table
+        if ($this->getType() === self::TYPE_IMAGE) {
+            // Image
+            $table = "images";
+        } else {
+            // Miniature
+            $table = "thumbnails";
+        }
+
+        // Prendre le bon type d'@ IP
+        if (filter_var($remoteAddr, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            // IPv4
+            $typeAcces = 'nb_view_v4';
+        } else {
+            // IPv6
+            $typeAcces = 'nb_view_v6';
+        }
+
+        $req = MaBDD::getInstance()->prepare('UPDATE ' . $table . ' SET last_view = NOW(), ' . $typeAcces . ' = ' . $typeAcces . ' + 1 WHERE id = :id');
+        $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+        $req->execute();
     }
 
-    /**
-     * Incrémente le nombre d'affichage IPv6
-     */
-    public function setNbViewIpv6PlusUn(): void
-    {
-        $this->nbViewIPv6 = $this->getNbViewIPv6() + 1;
-        $this->setLastView(date('Y-m-d'));
-    }
     /**
      * GETTERS ET SETTERS
      */

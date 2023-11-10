@@ -86,22 +86,13 @@ if (
 ) {
     // Lancer un blocage de l'image si trop affichée
     require 'cron/abuse.php';
-    // Recharger mon objet courant pour ne pas écraser les flags mis par le cron
-    $monObjet->charger($fileName);
 }
 
 /**
  * Mise à jour des stats d'affichage
  */
 if (!$adminForceAffichage) {
-    if (filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-        // IPv4
-        $monObjet->setNbViewIpv4PlusUn();
-    } else {
-        // IPv6
-        $monObjet->setNbViewIpv6PlusUn();
-    }
-    $monObjet->sauver();
+    $monObjet->updateStatsAffichage($_SERVER['REMOTE_ADDR']);
 }
 
 /**
