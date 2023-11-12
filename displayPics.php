@@ -81,7 +81,8 @@ if (
     // Envoi d'un header en 451 -> Unavailable For Legal Reasons
     header('HTTP/2 451 Unavailable For Legal Reasons');
 } elseif (
-    $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_
+    !$adminForceAffichage
+    && $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_
     && !$monObjet->isApprouvee()
 ) {
     // Lancer un blocage de l'image si trop affichée
