@@ -156,9 +156,10 @@ abstract class RessourceObject
 
     /**
      * URL de la ressource
+     * @param bool $forceHttps Forcer le HTTPS ?
      * @return string
      */
-    public function getURL(): string
+    public function getURL($forceHttps = false): string
     {
         // Path du type d'image
         if ($this->getType() === self::TYPE_IMAGE) {
@@ -167,6 +168,11 @@ abstract class RessourceObject
         } else {
             // Miniature
             $urlDuType = _URL_MINIATURES_;
+        }
+
+        // Forcer le HTTPS ?
+        if ($forceHttps) {
+            $urlDuType = str_replace('http:/', 'https:/', $urlDuType);
         }
 
         return $urlDuType . $this->getNomNouveau();
