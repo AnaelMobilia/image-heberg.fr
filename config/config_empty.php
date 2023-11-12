@@ -75,6 +75,8 @@ define('_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_', 30);
 define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_', 1500);
 // Nombre d'affichage par jour à partir duquel une image est automatiquement bloquée
 define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_', 100000);
+// Division des seuils d'abus si une image est considérée comme suspecte
+define('_ABUSE_DIVISION_SEUILS_SI_SUSPECT_', 2);
 
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 define('_TOR_DISABLE_UPLOAD_', true);

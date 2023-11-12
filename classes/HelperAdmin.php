@@ -21,9 +21,7 @@
 
 namespace ImageHeberg;
 
-use PDO;
 use ArrayObject;
-use Imagick;
 
 /**
  * Bibliothèque d'outils pour la gestion du site en tant qu'admin
@@ -227,16 +225,32 @@ abstract class HelperAdmin
     /**
      * Images dont les statistiques d'affichage sont incohérentes
      * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
+     * @param bool $onlyOnImagesSuspectes Filtrer sur les images suspectes ?
      * @return ArrayObject
      */
-    public static function getImagesTropAffichees(int $nbMax): ArrayObject
+    public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false): ArrayObject
     {
+        $monRetour = new ArrayObject();
+
+        if ($onlyOnImagesSuspectes) {
+            $listeImagesForIn = '';
+            foreach ((array)self::getImagesPotentiellementIndesirables() as $newName) {
+                $listeImagesForIn .= '\'' . str_replace('\'', '', $newName) . '\',';
+            }
+            // Avoir un placeholder vide à la fin si aucune image n'a été trouvée
+            $listeImagesForIn .= '\'\'';
+        }
+
         // Images avec trop d'affichages
         $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_envoi) > 0, DATEDIFF(NOW(), im.date_envoi), 1) as nbViewPerDay
             FROM images im
             WHERE im.isBloquee = 0
-            AND im.isApprouvee = 0
-            HAVING nbViewPerDay > ' . $nbMax . '
+            AND im.isApprouvee = 0';
+        // Filter sur certaines images
+        if ($onlyOnImagesSuspectes) {
+            $req .= ' AND im.new_name IN (' . $listeImagesForIn . ')';
+        }
+        $req .= ' HAVING nbViewPerDay > ' . $nbMax . '
             ORDER BY nbViewPerDay DESC';
         return self::queryOnNewName($req);
     }

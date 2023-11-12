@@ -32,6 +32,7 @@ use ImageHeberg\RessourceObject;
 use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
+use ArrayObject;
 
 class AbuseTest extends TestCase
 {
@@ -189,6 +190,31 @@ class AbuseTest extends TestCase
         $this->assertNotEmpty(
             $images,
             'Les affichages des miniatures doivent compter dans les affichages d\'une image pour la détection des abus : ' . var_export($images, true)
+        );
+    }
+
+
+    /**
+     * Division des seuils de détection pour une image envoyée du même réseau qu'une image déjà bloquée
+     * @runInSeparateProcess
+     */
+    public function testAbuseDivisionSeuilDetectionSiReseauMalveillant(): void
+    {
+        // Liste des images suspectes
+        $listeImagesSuspectes = HelperAdmin::getImagesPotentiellementIndesirables();
+
+        $imagesTropAffichees = HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true);
+
+        $this->assertSame(
+            $listeImagesSuspectes,
+            new ArrayObject(['12380025661369047607.gif']),
+            'L\'image 19 est suspecte car envoyée d\'un même réseau que l\'image 18'
+        );
+
+        $this->assertSame(
+            $imagesTropAffichees,
+            new ArrayObject(['12380025661369047607.gif']),
+            'L\'image 19 a été trop affichée -> WARNING (elle est suspecte)'
         );
     }
 }

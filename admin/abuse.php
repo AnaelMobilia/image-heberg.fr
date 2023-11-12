@@ -57,6 +57,11 @@ $tabTables[] = [
     'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
     'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_)
 ];
+// Liste des images avec un ratio d'affichage incohérent
+$tabTables[] = [
+    'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true)
+];
 // Liste des images signalées
 $tabTables[] = [
     'legende' => 'signalée##',
@@ -97,7 +102,7 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
                 <select name="champ" id="champ" class="form-select" required="required">
                     <option value="" selected>-- Sélectionner un champ --</option>
                     <?php foreach (array_keys($tabSearch) as $key) : ?>
-                        <option value="<?=$key?>"><?=$key?></option>
+                        <option value="<?= $key ?>"><?= $key ?></option>
                     <?php endforeach; ?>
                 </select>
                 <label for="champ">Champ à utiliser</label>

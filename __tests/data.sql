@@ -50,7 +50,7 @@ INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `s
 -- Image approuvée (même réseau que celle bloquée)
 --
 INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(19, '10.10.10.200', '2016-01-01 00:00:00', '12380025661369047607.gif', 'imageApprouveeMemeReseauQueDejaBloquee.gif', 146, 25, 37, '0000-00-00', 0, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 0, 0, 1);
+(19, '10.10.10.200', '2016-01-01 00:00:00', '12380025661369047607.gif', 'imageApprouveeMemeReseauQueDejaBloquee.gif', 146, 25, 37, '0000-00-00', 751, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 0, 0, 1);
 
 --
 -- Miniatures à supprimer
