@@ -118,7 +118,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $monRetour = new ArrayObject();
 
         // Chargement des miniatures
-        $query = 'SELECT new_name FROM thumbnails where images_id = :imagesId';
+        $query = 'SELECT new_name FROM thumbnails WHERE images_id = :imagesId';
         if ($onlyPreview) {
             $query .= ' AND is_preview = 1';
         }
@@ -281,5 +281,38 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
+    }
+
+    /**
+     * Nombre d'appels IPv4 & IPv6
+     * @return int
+     */
+    public function getNbViewTotal(): int
+    {
+        return parent::getNbViewTotal() + $this->getNbViewMiniatures();
+    }
+
+    /**
+     * Récupérer le total d'affichage des miniatures
+     * @return int
+     */
+    public function getNbViewMiniatures(): int
+    {
+        $monRetour = 0;
+
+        // Chargement des miniatures
+        $query = 'SELECT SUM(nb_view_v4 + nb_view_v6) as total FROM thumbnails WHERE images_id = :imagesId';
+        $req = MaBDD::getInstance()->prepare($query);
+        $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
+        $req->execute();
+
+        // Je passe toutes les lignes de résultat
+        foreach ($req->fetchAll() as $value) {
+            if (!is_null($value->total)) {
+                $monRetour = $value->total;
+            }
+        }
+
+        return $monRetour;
     }
 }
