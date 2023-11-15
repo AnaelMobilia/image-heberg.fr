@@ -315,7 +315,7 @@ abstract class RessourceObject
      */
     public function getNomOriginalFormate(): string
     {
-        return htmlentities($this->nomOriginal);
+        return htmlentities($this->nomOriginal, ENT_SUBSTITUTE);
     }
 
     /**
