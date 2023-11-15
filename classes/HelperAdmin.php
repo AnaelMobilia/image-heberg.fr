@@ -288,6 +288,10 @@ abstract class HelperAdmin
                             AND
                             po.membres_id IN (SELECT DISTINCT membres_id FROM possede WHERE images_id IN (SELECT id FROM images WHERE isBloquee = 1))
                         )
+                        OR (
+                            /* Même MD5 */
+                            im.md5 IN (SELECT DISTINCT md5 FROM images WHERE isBloquee = 1)
+                        )
                     )
                     ORDER BY im.id DESC';
         return self::queryOnNewName($req);
