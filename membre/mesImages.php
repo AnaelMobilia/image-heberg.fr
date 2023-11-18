@@ -69,16 +69,26 @@ require _TPL_TOP_;
                         </p>
                     </div>
                     <div class="text-center">
-                        <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>" loading="lazy">
+                        <a href="<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>" title="<?= $uneImage->getNomOriginalFormate() ?>" target="_blank">
+                            <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>" loading="lazy">
+                        </a>
                     </div>
                     <div class="card-footer text-muted text-end">
-                        <span class="bi-pencil"></span>
-                        <span class="bi-link-45deg"></span>
-                        <a href='<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>' title="Afficher" target="_blank">
-                            <span class="bi-box-arrow-up-right"></span>
+                        <a href="<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>" title="Afficher" target="_blank">
+                            <button type="button" class="btn btn-sm btn-outline-primary">
+                                <span class="bi-box-arrow-up-right"></span>
+                            </button>
                         </a>
-                        <a href='<?= _URL_HTTPS_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>' title="Effacer" class="link-danger" target="_blank">
-                            <span class="bi-trash"></span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#linksModal">
+                            <span class="bi-link-45deg"></span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#renameModal">
+                            <span class="bi-pencil"></span>
+                        </button>
+                        <a href="<?= _URL_HTTPS_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>" title="Effacer" target="_blank">
+                            <button type="button" class="btn btn-sm btn-outline-danger">
+                                <span class="bi-trash"></span>
+                            </button>
                         </a>
                     </div>
                 </div>
