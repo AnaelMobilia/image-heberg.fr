@@ -44,6 +44,12 @@ require _TPL_TOP_;
             </a>
             <div class="clearfix"></div>
             <br/>
+            <a href="<?= _URL_ADMIN_ ?>nsfwjs.php" class="btn btn-success">
+                <span class="bi-file-earmark-bar-graph"></span>
+                &nbsp;IA - Catégorisation nsfwjs
+            </a>
+            <div class="clearfix"></div>
+            <br/>
             <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
                 <span class="bi-cloud-check"></span>
                 &nbsp;Vérifier la configuration

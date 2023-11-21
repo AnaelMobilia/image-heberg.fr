@@ -35,6 +35,7 @@ require _TPL_TOP_;
         <div id="v2x" class="card-collapse">
             <div class="card-body">
                 <ul>
+                    <li>Classification des images via IA.</li>
                     <li>Envoi de plusieurs images simultanément.</li>
                     <li>Glisser - déposer pour le choix des fichiers.</li>
                     <li>Membres : Albums photos (création, affichage, partage).</li>

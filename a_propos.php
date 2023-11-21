@@ -48,6 +48,8 @@ require _TPL_TOP_;
             <br/>
             Logos : <a href="//icons.getbootstrap.com/">Bootstrap Icons</a>
             <br/>
+            IA de classification : <a href="//github.com/infinitered/nsfwjs">nsfwjs</a>
+            <br />
             Technologies : PHP, MySQL, HTML5, CSS3
         </div>
     </div>

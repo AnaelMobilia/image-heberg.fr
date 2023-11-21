@@ -36,6 +36,7 @@ RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
 # Protection des répertoires classes, config, cron, __tests
+RewriteCond %{REQUEST_URI} ^/admin/nsfwjs_model_quant_mid/ [OR]
 RewriteCond %{REQUEST_URI} ^/classes/ [OR]
 RewriteCond %{REQUEST_URI} ^/config/ [OR]
 RewriteCond %{REQUEST_URI} ^/cron/ [OR]
