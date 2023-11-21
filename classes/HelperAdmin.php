@@ -37,7 +37,7 @@ abstract class HelperAdmin
         // Toutes les images jamais affichées & envoyées il y a plus de xx jours
         $req = 'SELECT im.new_name
                FROM images im
-               WHERE im.last_view IS NULL
+               WHERE im.last_view = \'0000-00-00\'
                AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' DAY)
                /* Préservation des fichiers des membres */
                AND 0 = (
@@ -50,7 +50,7 @@ abstract class HelperAdmin
                   SELECT COUNT(*)
                   FROM thumbnails th
                   WHERE th.images_id = im.id
-                  AND th.last_view IS NOT NULL
+                  AND th.last_view <> \'0000-00-00\'
                )';
         return self::queryOnNewName($req);
     }
@@ -66,7 +66,7 @@ abstract class HelperAdmin
                FROM images im
                WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
                /* Non prise en compte des images jamais affichées */
-               AND im.last_view IS NOT NULL
+               AND im.last_view <> \'0000-00-00\'
                /* Préservation des images membres */
                AND 0 = (
                   SELECT COUNT(*)
