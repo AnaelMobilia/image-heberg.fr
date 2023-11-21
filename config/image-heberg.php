@@ -115,6 +115,8 @@ spl_autoload_register(static function ($class) {
     // Si le fichier existe...
     if (file_exists($file)) {
         require $file;
+    } elseif (_PHPUNIT_) {
+        echo "Impossible de charger : " . $file . " (" . $class . ")";
     }
 });
 
