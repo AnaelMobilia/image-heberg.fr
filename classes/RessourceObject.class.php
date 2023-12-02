@@ -193,7 +193,15 @@ abstract class RessourceObject
         $resImg = HelperImage::getImage($pathSrc);
 
         // Rotation (Imagick est dans le sens horaire, imagerotate dans le sens anti-horaire)
-        $resImg->rotateImage('rgb(0,0,0)', $angle);
+        if (HelperImage::getType($pathSrc) === IMAGETYPE_GIF) {
+            // Image animée (GIF) : c'est une succession d'images !
+            foreach ($resImg as $frame) {
+                $frame->rotateImage('rgb(0,0,0)', $angle);
+            }
+        } else {
+            // Cas standard (image non animée)
+            $resImg->rotateImage('rgb(0,0,0)', $angle);
+        }
 
         // J'enregistre l'image
         return HelperImage::setImage($resImg, HelperImage::getType($pathSrc), $pathDst);
@@ -223,7 +231,15 @@ abstract class RessourceObject
         }
 
         // Redimensionnement par Imagick
-        $monImage->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
+        if (HelperImage::getType($pathSrc) === IMAGETYPE_GIF) {
+            // Cas image animée (GIF) : c'est une succession d'images !
+            foreach ($monImage as $frame) {
+                $frame->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
+            }
+        } else {
+            // Cas standard (image non animée)
+            $monImage->thumbnailImage($largeurDemandee, $hauteurDemandee, true);
+        }
 
         // Ecriture de l'image
         return HelperImage::setImage($monImage, HelperImage::getType($pathSrc), $pathDst);

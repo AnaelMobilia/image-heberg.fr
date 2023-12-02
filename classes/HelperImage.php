@@ -51,9 +51,6 @@ abstract class HelperImage
 
     /**
      * Chargement ressource PHP image
-     * @return Imagick
-     */
-    /**
      * @param string $path
      * @return Imagick
      * @throws ImagickException
@@ -62,6 +59,11 @@ abstract class HelperImage
     {
         $monImage = new Imagick();
         $monImage->readImage($path);
+
+        // Pour les images animeés (GIF), générer une image pour chaque frame la composant
+        if (self::getType($path) === IMAGETYPE_GIF) {
+            $monImage = $monImage->coalesceImages();
+        }
 
         return $monImage;
     }
@@ -76,26 +78,34 @@ abstract class HelperImage
      */
     public static function setImage(Imagick $uneImage, int $imageType, string $path): bool
     {
-        switch ($imageType) {
-            case IMAGETYPE_GIF:
-                $uneImage->setInterlaceScheme(Imagick::INTERLACE_GIF);
-                break;
-            case IMAGETYPE_JPEG:
+        $monRetour = false;
+
+        // Image animée (GIF)
+        if ($imageType === IMAGETYPE_GIF) {
+            $uneImage->setInterlaceScheme(Imagick::INTERLACE_GIF);
+            // Pour la génération du GIF, on ne veut que les différences entre les images
+            $uneImage = $uneImage->deconstructImages();
+            // Suppression des commentaires & co
+            $uneImage->stripImage();
+            // Enregistrement de l'ensemble des images
+            $monRetour = $uneImage->writeImages($path, true);
+        } else {
+            // Image non animée
+            if ($imageType === IMAGETYPE_JPEG) {
                 $uneImage->setInterlaceScheme(Imagick::INTERLACE_JPEG);
                 // Pas de destruction de l'image
                 $uneImage->setImageCompression(Imagick::COMPRESSION_JPEG);
                 $uneImage->setImageCompressionQuality(100);
-                break;
-            case IMAGETYPE_PNG:
+            } elseif ($imageType === IMAGETYPE_PNG) {
                 $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
                 $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
                 $uneImage->setImageCompressionQuality(9);
-                break;
+            }
+            // Suppression des commentaires & co
+            $uneImage->stripImage();
+            $monRetour = $uneImage->writeImage($path);
         }
-
-        // Suppression des commentaires & co
-        $uneImage->stripImage();
-        return $uneImage->writeImage($path);
+        return $monRetour;
     }
 
     /**
