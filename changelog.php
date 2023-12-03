@@ -35,7 +35,6 @@ require _TPL_TOP_;
         <div id="v2x" class="card-collapse">
             <div class="card-body">
                 <ul>
-                    <li>Classification des images via IA.</li>
                     <li>Envoi de plusieurs images simultanément.</li>
                     <li>Glisser - déposer pour le choix des fichiers.</li>
                     <li>Membres : Albums photos (création, affichage, partage).</li>
@@ -47,12 +46,30 @@ require _TPL_TOP_;
     </div>
     <div class="card">
         <div class="card-header">
+            <a data-bs-toggle="collapse" href="#v24">
+                v2.4 - Décembre 2023
+                &nbsp;<span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="v24" class="card-collapse">
+            <div class="card-body">
+                <ul>
+                    <li>Espace admin : renforcement des systèmes anti-abus.</li>
+                    <li>Meilleure gestion des GIF animés.</li>
+                    <li>Classification des images via IA avec nsfwjs.</li>
+                    <li>Amélioration des performances des requêtes dans la base de données.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
             <a data-bs-toggle="collapse" href="#v23">
                 v2.3 - Août 2023
                 &nbsp;<span class="bi-caret-down-fill"></span>
             </a>
         </div>
-        <div id="v23" class="card-collapse">
+        <div id="v23" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
                     <li>Espace admin : ajout d'une interface pour gérer les abus.</li>
