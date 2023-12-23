@@ -29,17 +29,6 @@ html {
     width: 100%;
 }
 
-/* Lien vers le code source sur GitHub */
-.forkMeOnGitHub:after {
-    content: " ";
-    display: inline-block;
-    vertical-align: baseline;
-    width: 16px;
-    height: 16px;
-    background-image: url("../images/GitHub-Mark-32px.png");
-    background-size: contain;
-}
-
 /* couleur par défaut */
 .navbar, .footer {
     background-color: #f5f5f5;
