@@ -231,13 +231,15 @@ abstract class HelperAdmin
     public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false): ArrayObject
     {
         if ($onlyOnImagesSuspectes) {
-            $listeImagesForIn = '';
+            $tabNewName = [];
             foreach ((array)self::getImagesPotentiellementIndesirables() as $newName) {
-                $listeImagesForIn .= '\'' . str_replace('\'', '', $newName) . '\',';
+                $tabNewName[] = '\'' . str_replace('\'', '', $newName) . '\'';
             }
-            if (empty($listeImagesForIn)) {
+            if (empty($tabNewName)) {
                 // Mettre un placeholder vide
-                $listeImagesForIn .= '\'\'';
+                $listeImagesForIn = '\'\'';
+            } else {
+                $listeImagesForIn = implode(',', $tabNewName);
             }
         }
 
