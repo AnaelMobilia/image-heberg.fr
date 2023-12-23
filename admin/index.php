@@ -51,7 +51,7 @@ require _TPL_TOP_;
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>abuse-network.php" class="btn btn-success">
-                <span class="bi-file-earmark-bar-graph"></span>
+                <span class="bi-cpu"></span>
                 &nbsp;Réseaux suspects
             </a>
             <div class="clearfix"></div>
