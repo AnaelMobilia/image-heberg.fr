@@ -55,6 +55,7 @@ abstract class RessourceObject
     private bool $isBloquee = false;
     private bool $isSignalee = false;
     private bool $isApprouvee = false;
+    private bool $isSuspecte = false;
     private string $pathTemp = '';
     private int $type = self::TYPE_IMAGE;
     private string $nomTemp = '';
@@ -502,6 +503,15 @@ abstract class RessourceObject
     }
 
     /**
+     * Image envoyée depuis un réseau suspect
+     * @return bool
+     */
+    public function isSuspecte(): bool
+    {
+        return $this->isSuspecte;
+    }
+
+    /**
      * Path temporaire (upload d'image)
      * @return string
      */
@@ -580,6 +590,15 @@ abstract class RessourceObject
     public function setApprouvee(bool $isApprouvee): void
     {
         $this->isApprouvee = $isApprouvee;
+    }
+
+    /**
+     * Image envoyée depuis un réseau suspect
+     * @param bool $isSuspecte
+     */
+    public function setSuspecte(bool $isSuspecte): void
+    {
+        $this->isSuspecte = $isSuspecte;
     }
 
     /**

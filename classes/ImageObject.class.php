@@ -54,7 +54,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $monRetour = false;
 
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare('SELECT * FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' = :value');
+        $req = MaBDD::getInstance()->prepare('SELECT *, (SELECT COUNT(*) FROM images im2 WHERE im2.isBloquee = 1 AND im2.abuse_network = images.abuse_network) AS reputation FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' = :value');
         $req->bindValue(':value', $value);
         $req->execute();
 
@@ -77,6 +77,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $this->setSignalee($resultat->isSignalee);
             $this->setApprouvee($resultat->isApprouvee);
             $this->setIdProprietaire($resultat->membres_id);
+            $this->setSuspecte(($resultat->reputation > 0));
 
             // Gestion du retour
             $monRetour = true;
