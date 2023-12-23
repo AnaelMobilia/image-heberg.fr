@@ -24,15 +24,12 @@ Options -Indexes
 RewriteEngine On
 
 # Redirection systématique - si requise - vers www.image-heberg.fr
-# HTTPS
-RewriteCond %{HTTPS} on
-RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
-RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
+RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC]
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
-# HTTP
+
+# HTTPS obligatoire pour le site (hors affichage image)
 RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
-RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
+RewriteCond %{REQUEST_URI} !^/files/
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
 # Protection des répertoires classes, config, cron, __tests
@@ -49,8 +46,3 @@ RewriteRule .*/(fonts/.*) https://www.image-heberg.fr/template/$1 [L,NE]
 # Images : redirection pour affichage
 RewriteCond %{REQUEST_URI} ^/files/
 RewriteRule .* displayPics.php [END]
-
-# HTTPS obligatoire pour le site (hors affichage image)
-RewriteCond %{HTTPS} off
-RewriteCond %{REQUEST_URI} !^/files/
-RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
