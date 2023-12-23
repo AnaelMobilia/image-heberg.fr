@@ -230,15 +230,15 @@ abstract class HelperAdmin
      */
     public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false): ArrayObject
     {
-        $monRetour = new ArrayObject();
-
         if ($onlyOnImagesSuspectes) {
             $listeImagesForIn = '';
             foreach ((array)self::getImagesPotentiellementIndesirables() as $newName) {
                 $listeImagesForIn .= '\'' . str_replace('\'', '', $newName) . '\',';
             }
-            // Avoir un placeholder vide à la fin si aucune image n'a été trouvée
-            $listeImagesForIn .= '\'\'';
+            if (empty($listeImagesForIn)) {
+                // Mettre un placeholder vide
+                $listeImagesForIn .= '\'\'';
+            }
         }
 
         // Images avec trop d'affichages
