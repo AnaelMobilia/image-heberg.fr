@@ -43,7 +43,7 @@
                     </span>
                     -
                     Outil développé par <a href="//www.anael.eu">Anael MOBILIA</a>
-                    <a class="forkMeOnGitHub" href="https://github.com/AnaelMobilia/image-heberg.fr" title="Voir le code source sur GitHub"></a>
+                    <a href="https://github.com/AnaelMobilia/image-heberg.fr" title="Voir le code source sur GitHub"><span class="bi-github"></span></a>
                 </span>
             </span>
         </div>
