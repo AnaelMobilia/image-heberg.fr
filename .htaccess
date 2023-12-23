@@ -42,6 +42,10 @@ RewriteCond %{REQUEST_URI} ^/cron/ [OR]
 RewriteCond %{REQUEST_URI} ^/__tests/
 RewriteRule .* - [F]
 
+# Bootstrap icons - fichiers de fonts
+RewriteCond %{REQUEST_URI} ^/template/css/fonts/
+RewriteRule .*/(fonts/.*) https://www.image-heberg.fr/template/$1 [L,NE]
+
 # Images : redirection pour affichage
 RewriteCond %{REQUEST_URI} ^/files/
 RewriteRule .* displayPics.php [END]
