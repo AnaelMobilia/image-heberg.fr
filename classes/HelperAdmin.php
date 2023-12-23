@@ -299,6 +299,36 @@ abstract class HelperAdmin
     }
 
     /**
+     * Liste des réseaux avec mauvaise réputation
+     * @return ArrayObject ["IP" => "count()"]
+     */
+    public static function getBadNetworks(): ArrayObject
+    {
+        $monRetour = new ArrayObject();
+
+        $req = 'SELECT COUNT(*) AS nb, abuse_network FROM images WHERE isBloquee = 1 GROUP BY abuse_network';
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            $ip = $value->abuse_network;
+            // Formatter les IPv6
+            if (!str_contains($ip, ".")) {
+                $ip = implode(":", str_split($ip, 4));
+                $ip .= "::/56";
+            } else {
+                $ip .= ".0/24";
+            }
+            $monRetour->offsetSet($ip, $value->nb);
+        }
+        // Tri "humain"
+        $monRetour->ksort(SORT_NATURAL);
+
+        return $monRetour;
+    }
+
+    /**
      * Joue une requête SQL et retourne un tableau "new_name"
      * @param string $req
      * @return ArrayObject

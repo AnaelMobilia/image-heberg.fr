@@ -50,6 +50,12 @@ require _TPL_TOP_;
             </a>
             <div class="clearfix"></div>
             <br/>
+            <a href="<?= _URL_ADMIN_ ?>abuse-network.php" class="btn btn-success">
+                <span class="bi-file-earmark-bar-graph"></span>
+                &nbsp;Réseaux suspects
+            </a>
+            <div class="clearfix"></div>
+            <br/>
             <a href="<?= _URL_ADMIN_ ?>validate.php" class="btn btn-success">
                 <span class="bi-cloud-check"></span>
                 &nbsp;Vérifier la configuration
