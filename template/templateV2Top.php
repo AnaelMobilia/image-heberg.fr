@@ -42,7 +42,7 @@ $visiteur = new SessionObject();
     <!-- Bootstrap core CSS -->
     <link href="template/css/bootstrap-5.3.1.min.css" rel="stylesheet" type="text/css">
     <link href="template/css/image-heberg.css" rel="stylesheet">
-    <link href="template/css/bootstrap-icons-1.10.5.min.css" rel="stylesheet">
+    <link href="template/css/bootstrap-icons-1.11.2.min.css" rel="stylesheet">
     <link href="template/css/monSite.css" rel="stylesheet">
 </head>
 
