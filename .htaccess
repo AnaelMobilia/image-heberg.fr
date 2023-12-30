@@ -23,8 +23,9 @@ Options -Indexes
 # Ré-écriture d'URL
 RewriteEngine On
 
-# Redirection systématique - si requise - vers www.image-heberg.fr
-RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC]
+# Redirection systématique - si requise - vers **www**.image-heberg.fr
+RewriteCond %{HTTP_HOST} image-heberg\.fr\.cr [NC,OR]
+RewriteCond %{HTTP_HOST} ^image-heberg\.fr [NC]
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
 # HTTPS obligatoire pour le site (hors affichage image)
