@@ -254,6 +254,18 @@ class ImageObject extends RessourceObject implements RessourceInterface
                  */
                 $idEnregistrement = MaBDD::getInstance()->lastInsertId();
                 $this->setId($idEnregistrement);
+                /**
+                 * Définir les informations relatives au réseau utilisé (anti abus)
+                 */
+                // IPv4 - Filtrer sur un /24 || IPv6 - Filtrer sur un /56
+                $req = MaBDD::getInstance()->prepare('UPDATE images SET abuse_network =
+                    IF(LOCATE(\'.\', ip_envoi) != 0,
+                        SUBSTRING(ip_envoi, 1, (LENGTH(ip_envoi) - LOCATE(\'.\', REVERSE(ip_envoi)))),
+                        SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 14)
+                    )
+                    WHERE id = :id');
+                $req->bindValue(':id', $this->getId());
+                $req->execute();
             }
         }
 
