@@ -24,8 +24,8 @@
 CREATE TABLE IF NOT EXISTS `images`
 (
     `id`            int(20)      NOT NULL AUTO_INCREMENT,
-    `ip_envoi`      varchar(45)  NOT NULL,
-    `date_envoi`    datetime     NOT NULL,
+    `remote_addr`   varchar(45)  NOT NULL,
+    `date_action`   datetime     NOT NULL,
     `old_name`      varchar(255) NOT NULL,
     `new_name`      varchar(30)  NOT NULL,
     `size`          int(11)      NOT NULL,
@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS `images`
 
 CREATE TABLE IF NOT EXISTS `login`
 (
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `ip_login`   varchar(45) NOT NULL,
-    `date_login` datetime    NOT NULL,
-    `membres_id` int(11)     NOT NULL,
+    `id`          int(11)     NOT NULL AUTO_INCREMENT,
+    `remote_addr` varchar(45) NOT NULL,
+    `date_action` datetime    NOT NULL,
+    `membres_id`  int(11)     NOT NULL,
     PRIMARY KEY (`id`),
     KEY `membres_id` (`membres_id`)
 ) ENGINE = MyISAM
@@ -70,15 +70,15 @@ CREATE TABLE IF NOT EXISTS `login`
 
 CREATE TABLE IF NOT EXISTS `membres`
 (
-    `id`               int(11)     NOT NULL AUTO_INCREMENT,
-    `email`            text        NOT NULL,
-    `login`            text        NOT NULL,
-    `password`         text        NOT NULL,
-    `date_inscription` date        NOT NULL,
-    `ip_inscription`   varchar(45) NOT NULL,
-    `lvl`              tinyint(1)  NOT NULL,
-    `isActif`          tinyint(1)  NOT NULL,
-    `token`            text        NOT NULL,
+    `id`          int(11)     NOT NULL AUTO_INCREMENT,
+    `email`       text        NOT NULL,
+    `login`       text        NOT NULL,
+    `password`    text        NOT NULL,
+    `date_action` date        NOT NULL,
+    `remote_addr` varchar(45) NOT NULL,
+    `lvl`         tinyint(1)  NOT NULL,
+    `isActif`     tinyint(1)  NOT NULL,
+    `token`       text        NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
@@ -106,18 +106,18 @@ CREATE TABLE IF NOT EXISTS `possede`
 
 CREATE TABLE IF NOT EXISTS `thumbnails`
 (
-    `id`            int(11)     NOT NULL AUTO_INCREMENT,
-    `images_id`     int(11)     NOT NULL,
-    `is_preview`    tinyint(1)  NOT NULL,
-    `date_creation` date        NOT NULL,
-    `new_name`      varchar(30) NOT NULL,
-    `size`          int(11)     NOT NULL,
-    `height`        int(11)     NOT NULL,
-    `width`         int(11)     NOT NULL,
-    `last_view`     date        NOT NULL,
-    `nb_view_v4`    int(11)     NOT NULL,
-    `nb_view_v6`    int(11)     NOT NULL,
-    `md5`           varchar(32) NOT NULL,
+    `id`          int(11)     NOT NULL AUTO_INCREMENT,
+    `images_id`   int(11)     NOT NULL,
+    `is_preview`  tinyint(1)  NOT NULL,
+    `date_action` date        NOT NULL,
+    `new_name`    varchar(30) NOT NULL,
+    `size`        int(11)     NOT NULL,
+    `height`      int(11)     NOT NULL,
+    `width`       int(11)     NOT NULL,
+    `last_view`   date        NOT NULL,
+    `nb_view_v4`  int(11)     NOT NULL,
+    `nb_view_v6`  int(11)     NOT NULL,
+    `md5`         varchar(32) NOT NULL,
     PRIMARY KEY (`id`),
     KEY `images_id` (`images_id`) USING BTREE
 ) ENGINE = MyISAM
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails`
 --
 -- Création du compte administrateur
 --
-INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_inscription`, `ip_inscription`, `lvl`, `isActif`,
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `lvl`, `isActif`,
                        `token`)
 VALUES (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', DATE(NOW()),
         '127.0.0.1', 2, 1, '');
@@ -134,7 +134,7 @@ VALUES (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo
 --
 -- Images 404 & bannie
 --
-INSERT INTO `images` (`id`, `ip_envoi`, `date_envoi`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`,
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`,
                       `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`)
 VALUES (1, '127.0.0.1', '2008-01-01 00:00:00', '_image_404.png', '_image_404.png', 30703, 150, 640, '0000-00-00', 0, 0,
         '6858ce6ddc171a0fd9640831a5e74dfd', 0, 0, 1, '127.0.0'),

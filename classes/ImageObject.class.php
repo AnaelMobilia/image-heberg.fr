@@ -62,8 +62,8 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $resultat = $req->fetch();
         if ($resultat !== false) {
             $this->setId($resultat->id);
-            $this->setIpEnvoi($resultat->ip_envoi);
-            $this->setDateEnvoi($resultat->date_envoi);
+            $this->setIpEnvoi($resultat->remote_addr);
+            $this->setDateEnvoi($resultat->date_action);
             $this->setNomOriginal($resultat->old_name);
             $this->setNomNouveau($resultat->new_name);
             $this->setPoids($resultat->size);
@@ -89,7 +89,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET ip_envoi = :ipEnvoi, date_envoi = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET remote_addr = :ipEnvoi, date_action = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id');
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal());
@@ -234,7 +234,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare('INSERT INTO images (ip_envoi, date_envoi, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO images (remote_addr, date_action, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)');
             $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
             // Date : NOW()
             $req->bindValue(':oldName', $this->getNomOriginal());
@@ -259,9 +259,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
                  */
                 // IPv4 - Filtrer sur un /24 || IPv6 - Filtrer sur un /56
                 $req = MaBDD::getInstance()->prepare('UPDATE images SET abuse_network =
-                    IF(LOCATE(\'.\', ip_envoi) != 0,
-                        SUBSTRING(ip_envoi, 1, (LENGTH(ip_envoi) - LOCATE(\'.\', REVERSE(ip_envoi)))),
-                        SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 14)
+                    IF(LOCATE(\'.\', remote_addr) != 0,
+                        SUBSTRING(remote_addr, 1, (LENGTH(remote_addr) - LOCATE(\'.\', REVERSE(remote_addr)))),
+                        SUBSTRING(HEX(INET6_ATON(remote_addr)), 1, 14)
                     )
                     WHERE id = :id');
                 $req->bindValue(':id', $this->getId());

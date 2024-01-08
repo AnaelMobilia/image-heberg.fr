@@ -330,7 +330,7 @@ class UtilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
-            $req = MaBDD::getInstance()->prepare('INSERT INTO login (ip_login, date_login, membres_id) VALUES (:ipLogin, NOW(), :membresId)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO login (remote_addr, date_action, membres_id) VALUES (:ipLogin, NOW(), :membresId)');
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
             $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
 
@@ -364,8 +364,8 @@ class UtilisateurObject
             $this->setId($userID);
             $this->setEmail($values->email);
             $this->setUserName($values->login);
-            $this->setDateInscription($values->date_inscription);
-            $this->setIpInscription($values->ip_inscription);
+            $this->setDateInscription($values->date_action);
+            $this->setIpInscription($values->remote_addr);
             $this->setLevel($values->lvl);
             $this->setPassword($values->password);
             $this->setIsActif($values->isActif);
@@ -383,7 +383,7 @@ class UtilisateurObject
      */
     public function enregistrer(): void
     {
-        $req = MaBDD::getInstance()->prepare('INSERT INTO membres (email, login, password, date_inscription, ip_inscription, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)');
+        $req = MaBDD::getInstance()->prepare('INSERT INTO membres (email, login, password, date_action, remote_addr, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)');
         $req->bindValue(':email', $this->getEmail());
         $req->bindValue(':login', $this->getUserNameBDD());
         $req->bindValue(':password', $this->getPassword());

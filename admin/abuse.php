@@ -77,7 +77,7 @@ $tabTables[] = [
  * Recherche
  */
 $tabSearch = [
-    'Adresse IP' => 'SELECT new_name FROM images WHERE ip_envoi LIKE \'%##value##%\' ORDER BY id DESC',
+    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\' ORDER BY id DESC',
     'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\' ORDER BY id DESC',
     'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\' ORDER BY id DESC',
     'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\' ORDER BY im.id DESC',

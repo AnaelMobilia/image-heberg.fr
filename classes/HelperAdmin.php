@@ -38,7 +38,7 @@ abstract class HelperAdmin
         $req = 'SELECT im.new_name
                FROM images im
                WHERE im.last_view = \'0000-00-00\'
-               AND im.date_envoi < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' DAY)
+               AND im.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' DAY)
                /* Préservation des fichiers des membres */
                AND 0 = (
                   SELECT COUNT(*)
@@ -92,7 +92,7 @@ abstract class HelperAdmin
         // Toutes les comptes créés et jamais utilisés depuis xx jours
         $req = 'SELECT m.id
                FROM membres m
-               WHERE m.date_inscription < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' DAY)
+               WHERE m.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' DAY)
                /* Préservation des comptes possédant des images */
                AND 0 = (
                   SELECT COUNT(*)
@@ -244,7 +244,7 @@ abstract class HelperAdmin
         }
 
         // Images avec trop d'affichages
-        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_envoi) > 0, DATEDIFF(NOW(), im.date_envoi), 1) as nbViewPerDay
+        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_action) > 0, DATEDIFF(NOW(), im.date_action), 1) as nbViewPerDay
             FROM images im
             WHERE im.isBloquee = 0
             AND im.isSignalee = 0
@@ -267,9 +267,9 @@ abstract class HelperAdmin
         // Compléter les données "abuse_network" (normalement déjà fait dans ImageObject::creer())
         // IPv4 - Filtrer sur un /24 || IPv6 - Filtrer sur un /56
         $req = 'UPDATE images SET abuse_network =
-                    IF(LOCATE(\'.\', ip_envoi) != 0,
-                        SUBSTRING(ip_envoi, 1, (LENGTH(ip_envoi) - LOCATE(\'.\', REVERSE(ip_envoi)))),
-                        SUBSTRING(HEX(INET6_ATON(ip_envoi)), 1, 14)
+                    IF(LOCATE(\'.\', remote_addr) != 0,
+                        SUBSTRING(remote_addr, 1, (LENGTH(remote_addr) - LOCATE(\'.\', REVERSE(remote_addr)))),
+                        SUBSTRING(HEX(INET6_ATON(remote_addr)), 1, 14)
                     )
                     WHERE abuse_network = \'\'';
         MaBDD::getInstance()->query($req);

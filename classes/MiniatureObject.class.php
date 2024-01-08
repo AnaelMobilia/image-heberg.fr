@@ -70,7 +70,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setNbViewIPv6($resultat->nb_view_v6);
             $this->setMd5($resultat->md5);
             $this->setId($resultat->id);
-            $this->setDateEnvoi($resultat->date_creation);
+            $this->setDateEnvoi($resultat->date_action);
             $this->setNomNouveau($resultat->new_name);
             $this->setIdImage($resultat->images_id);
             $this->setIsPreview($resultat->is_preview);
@@ -95,7 +95,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_creation = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_action = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id');
 
         $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(':isPreview', $this->getIsPreview(), PDO::PARAM_INT);
@@ -175,7 +175,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare('INSERT INTO thumbnails (images_id, date_creation, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO thumbnails (images_id, date_action, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)');
             $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(':newName', $this->getNomNouveau());
