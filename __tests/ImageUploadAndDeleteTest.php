@@ -24,6 +24,7 @@ namespace ImageHebergTests;
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
 use ImageHeberg\HelperAdmin;
+use ImageHeberg\HelperAbuse;
 use ImageHeberg\MiniatureObject;
 use ImageHeberg\HelperImage;
 use ImageHeberg\HelperSysteme;
@@ -1326,6 +1327,29 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertFileNotExists(
             _PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f',
             'Suppression image doit effacer toutes les miniatures du HDD'
+        );
+    }
+
+
+    /**
+     * Blocage de l'envoi de fichiers lorsqu'une adresse IP dépasse le seuil de tolérance
+     * @runInSeparateProcess
+     */
+    public function testAbuseReputationIpBlocageUpload(): void
+    {
+        self::prepareTest(true);
+        $_SERVER['REMOTE_ADDR'] = '192.168.0.1'; // IP avec trop d'images déjà bloquées
+        $_FILES['fichier']['size'] = 104857;
+        $_FILES['fichier']['name'] = 'image_banned.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+
+        $this->assertNotEmpty(
+            $msgErreur,
+            'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
         );
     }
 }

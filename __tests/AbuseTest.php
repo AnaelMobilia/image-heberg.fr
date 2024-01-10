@@ -21,6 +21,7 @@
 
 namespace ImageHebergTests;
 
+use ImageHeberg\HelperAbuse;
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
 use ImageHeberg\HelperAdmin;
@@ -215,6 +216,32 @@ class AbuseTest extends TestCase
             $imagesTropAffichees,
             new ArrayObject(['12380025661369047607.gif']),
             'L\'image 19 a été trop affichée -> WARNING (elle est suspecte)'
+        );
+    }
+
+    /**
+     * Réputation des adresses IP basées sur les images déjà bloquées pour leur réseau
+     * @runInSeparateProcess
+     */
+    public function testAbuseReputationIp(): void
+    {
+        // Adresse IP ayant envoyé les fichiers bloqués
+        $this->assertSame(
+            HelperAbuse::checkIpReputation('192.168.0.1'),
+            5,
+            'Le réseau 192.168.0.0/24 a 5 images bloquées'
+        );
+        // Adresse IP du même réseau que celle ayant envoyé les fichiers bloqués
+        $this->assertSame(
+            HelperAbuse::checkIpReputation('192.168.0.100'),
+            5,
+            'Le réseau 192.168.0.0/24 a 5 images bloquées'
+        );
+        // Adresse IP random qui n'a pas d'images bloqués
+        $this->assertSame(
+            HelperAbuse::checkIpReputation('2a01:ab51:8880:e010:1da5:be67:6a52:a5bf'),
+            0,
+            'Aucune image bloquée dans le réseau de cette adresse IP'
         );
     }
 }

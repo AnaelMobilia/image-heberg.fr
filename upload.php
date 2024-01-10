@@ -49,6 +49,14 @@ if (empty($msgErreur) && _TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER['REMOTE_A
     $msgErreur .= 'Suite à un abus d\'utilisation de ' . _SITE_NAME_ . ', l\'envoi d\'image est impossible depuis le réseau Tor.<br />';
 }
 
+
+/**
+ * Vérification de la réputation de l'adresse IP
+ */
+if (empty($msgErreur) && _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ > 0 && HelperAbuse::checkIpReputation($_SERVER['REMOTE_ADDR']) >= _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_) {
+    $msgErreur .= 'Suite à un abus d\'utilisation de ' . _SITE_NAME_ . ' depuis votre plage d\'adresse IP (' . $_SERVER['REMOTE_ADDR'] . '), l\'envoi d\'image ne vous est plus accessible.<br />';
+}
+
 /**
  * Vérification de la présence d'un fichier
  */

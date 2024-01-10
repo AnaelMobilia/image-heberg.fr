@@ -32,6 +32,7 @@ define('_BDD_PASS_', 'root');
 // Nom de la base de données
 define('_BDD_NAME_', 'imageheberg');
 
+
 /* Système de fichiers */
 // Emplacement de votre site sur le système de fichiers de votre hébergeur
 define('_PATH_', '/home/runner/work/image-heberg.fr/image-heberg.fr/');
@@ -69,6 +70,8 @@ define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
 // Affichage des messages d'erreur
 define('_DEBUG_', true);
 
+
+/* Gestion des abus */
 // Nombre d'affichage par jour à partir duquel une image est suspecte
 define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_', 1500);
 // Nombre d'affichage par jour à partir duquel une image est automatiquement bloquée
@@ -78,6 +81,9 @@ define('_ABUSE_DIVISION_SEUILS_SI_SUSPECT_', 2);
 
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 define('_TOR_DISABLE_UPLOAD_', true);
+// Désactiver l'envoi d'images au bout de x images bloquées (mettre 0 pour ne pas l'activer)
+define('_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_', 5);
+
 /**
  * FIN DES CHAMPS A CONFIGURER
  */
