@@ -19,38 +19,38 @@
 --
 -- Image bloquée
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0, 0);
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(10, '127.0.0.1', '2008-01-01 00:00:00', 'imageBloquee.jpg', 'imageBloquee.jpg', 10, 10, 10, '0000-00-00', 0, 0, '6858ce6ddc171a0fd9640831a5e74dfd', 1, 0, 0, '127.0.0.0');
 
 --
 -- Images à supprimer
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(11, '127.0.0.1', '2008-01-01 00:00:00', 'image_a_supprimer.png', '100000019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0, 0, 0),
-(12, '127.0.0.10', NOW(), 'image_a_supprimer.png', '147834019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0, 0, 0),
-(13, '127.0.0.1', '2016-01-01 00:00:00', 'image.png', '146734019451334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'a876d1b6582a15f0f458006898b40e29', 0, 0, 0),
-(14, '127.0.0.1', '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', '14777777.png', 4239, 400, 640, '0000-00-00', 0, 0, 'aec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0),
-(15, '127.0.0.1', '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', '15.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0),
-(16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', '16.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0),
-(20, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', '16.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0);
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(11, '127.0.0.1', '2008-01-01 00:00:00', 'image_a_supprimer.png', '100000019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0, 0, 0, '127.0.0.0'),
+(12, '127.0.0.10', NOW(), 'image_a_supprimer.png', '147834019001334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'e656d1b6582a15f0f458006898b40e29', 0, 0, 0, '127.0.0.0'),
+(13, '127.0.0.1', '2016-01-01 00:00:00', 'image.png', '146734019451334055750.png', 4239, 400, 640, '0000-00-00', 0, 0, 'a876d1b6582a15f0f458006898b40e29', 0, 0, 0, '127.0.0.0'),
+(14, '127.0.0.1', '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', '14777777.png', 4239, 400, 640, '0000-00-00', 0, 0, 'aec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0, '127.0.0.0'),
+(15, '127.0.0.1', '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', '15.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0, '127.0.0.0'),
+(16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', '16.png', 4239, 400, 640, '0000-00-00', 0, 0, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0, '127.0.0.0'),
+(20, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', '16.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'bec65c6b4469bb7267d2d55af5fbd87b', 0, 0, 0, '127.0.0.0');
 
 --
 -- Image signalée
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(17, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, '0000-00-00', 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1, 0);
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(17, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'imageSignalee.png', 4239, 400, 640, '0000-00-00', 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1, 0, '127.0.0.0');
 
 --
 -- Image bloquée
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(18, '10.10.10.10', '2016-01-01 00:00:00', '15180025661369047607.gif', 'imageDejaBloquee.gif', 146, 25, 37, '0000-00-00', 0, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 1, 0, 0);
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(18, '10.10.10.10', '2016-01-01 00:00:00', '15180025661369047607.gif', 'imageDejaBloquee.gif', 146, 25, 37, '0000-00-00', 0, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 1, 0, 0, '10.10.10.0');
 
 --
 -- Image approuvée (même réseau que celle bloquée)
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`) VALUES
-(19, '10.10.10.200', '2016-01-01 00:00:00', '12380025661369047607.gif', 'imageApprouveeMemeReseauQueDejaBloquee.gif', 146, 25, 37, '0000-00-00', 751, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 0, 0, 1);
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(19, '10.10.10.200', '2016-01-01 00:00:00', '12380025661369047607.gif', 'imageApprouveeMemeReseauQueDejaBloquee.gif', 146, 25, 37, '0000-00-00', 751, 0, 'f7a498af28acb8a3bbc20ddc95da4c2a', 0, 0, 1, '10.10.10.0');
 
 --
 -- Miniatures à supprimer
