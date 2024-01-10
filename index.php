@@ -27,6 +27,9 @@ require 'config/config.php';
 $maSession = new SessionObject();
 $maSession->setFlag();
 
+// Désactiver l'envoi d'images
+$uploadDisabled = false;
+
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Envoyer une image</small></h1>
@@ -38,6 +41,7 @@ require _TPL_TOP_;
     </div>
 <?php endif; ?>
 <?php if (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
+    <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
         <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées
         et tout l'espace disque acheté est utilisé !
@@ -46,6 +50,7 @@ require _TPL_TOP_;
     </div>
 <?php endif; ?>
 <?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER['REMOTE_ADDR'])) : ?>
+    <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
         Suite à un abus d'utilisation de <?= _SITE_NAME_ ?>, l'envoi d'image est impossible depuis le réseau Tor.
     </div>
@@ -72,7 +77,7 @@ require _TPL_TOP_;
                 <div class="mb-3">
                     <label for="fichier" class="col-mb-3 form-label">Fichier à envoyer</label>
                     <div class="col-md-9">
-                        <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) ? 'disabled="disabled"' : '' ?> class="form-control">
+                        <input type="file" accept="image/*" name="fichier" id="fichier" required="required" <?= ($uploadDisabled ? 'disabled="disabled"' : '') ?> class="form-control">
                     </div>
                     <div class="help-block">
                         Tout envoi de fichier implique l'acceptation des
@@ -118,7 +123,7 @@ require _TPL_TOP_;
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-success" name="Submit" type="submit"><span class="bi-cloud-arrow-up-fill"></span>&nbsp;Envoyer</button>
+                <button class="btn btn-success" name="Submit" type="submit" <?= ($uploadDisabled ? 'disabled="disabled"' : '') ?>><span class="bi-cloud-arrow-up-fill"></span>&nbsp;Envoyer</button>
             </form>
         </div>
     </div>
