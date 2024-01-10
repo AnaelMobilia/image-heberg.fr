@@ -264,37 +264,37 @@ class UtilisateurObject
         $req->execute();
 
         // Je récupère les potentielles valeurs
-        $values = $req->fetch();
+        $resultat = $req->fetch();
 
         // Si l'utilisateur existe
-        if ($values !== false) {
+        if ($resultat !== false) {
             // Faut-il mettre à jour le hash du mot de passe ?
             $updateHash = false;
 
             // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-            if (!str_starts_with($values->password, '$')) {
+            if (!str_starts_with($resultat->password, '$')) {
                 // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
                 // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
-                if (hash_equals($values->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
+                if (hash_equals($resultat->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
                     // Ancien mot de passe => update hash du password ;-)
                     $updateHash = true;
                     // Identifiants matchent !
-                    $monRetour = $values->id;
+                    $monRetour = $resultat->id;
                 }
-            } elseif (password_verify($pwd, $values->password)) {
+            } elseif (password_verify($pwd, $resultat->password)) {
                 // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
                 // => Faut-il mettre à jour le chiffrement utilisé ?
-                if (password_needs_rehash($values->password, PASSWORD_DEFAULT)) {
+                if (password_needs_rehash($resultat->password, PASSWORD_DEFAULT)) {
                     $updateHash = true;
                 }
                 // Identifiants matchent !
-                $monRetour = $values->id;
+                $monRetour = $resultat->id;
             }
 
             // Mise à jour du hash si requis
             if ($updateHash) {
                 $monUtilisateur = new UtilisateurObject();
-                $monUtilisateur->charger($values->id);
+                $monUtilisateur->charger($resultat->id);
                 $monUtilisateur->setPasswordToCrypt($pwd);
                 $monUtilisateur->modifier();
             }
@@ -356,20 +356,20 @@ class UtilisateurObject
         $req->execute();
 
         // Je récupère les potentielles valeurs
-        $values = $req->fetch();
+        $resultat = $req->fetch();
 
         // Si l'utilisateur n'existe pas... on retourne un UtilisateurObject vide
-        if ($values !== false) {
+        if ($resultat !== false) {
             // Je charge les informations de l'utilisateur (sauf password)
             $this->setId($userID);
-            $this->setEmail($values->email);
-            $this->setUserName($values->login);
-            $this->setDateInscription($values->date_action);
-            $this->setIpInscription($values->remote_addr);
-            $this->setLevel($values->lvl);
-            $this->setPassword($values->password);
-            $this->setIsActif($values->isActif);
-            $this->setToken($values->token);
+            $this->setEmail($resultat->email);
+            $this->setUserName($resultat->login);
+            $this->setDateInscription($resultat->date_action);
+            $this->setIpInscription($resultat->remote_addr);
+            $this->setLevel($resultat->lvl);
+            $this->setPassword($resultat->password);
+            $this->setIsActif($resultat->isActif);
+            $this->setToken($resultat->token);
 
             // Gestion du retour
             $monRetour = true;

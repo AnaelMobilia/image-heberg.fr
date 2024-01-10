@@ -148,9 +148,9 @@ abstract class RessourceObject
         }
         $req->bindValue(':md5', $this->getMd5());
         $req->execute();
-        $values = $req->fetch();
-        if ($values !== false) {
-            $monRetour = (int)$values->nb;
+        $resultat = $req->fetch();
+        if ($resultat !== false) {
+            $monRetour = (int)$resultat->nb;
         }
         return $monRetour;
     }
