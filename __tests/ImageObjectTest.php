@@ -169,6 +169,33 @@ class ImageObjectTest extends TestCase
         }
     }
 
+
+    /**
+     * Rotation des images WEBP
+     * Pas de changement en fonction des versions de PHP
+     * @runInSeparateProcess
+     */
+    public function testRotationImagesWEBP(): void
+    {
+        require 'config/config.php';
+        $monImage = new ImageObject();
+
+        foreach (self::VALEURS_ANGLE as $angle) {
+            $monImage->rotation(
+                $angle,
+                _PATH_TESTS_IMAGES_ . 'test.webp',
+                _PATH_TESTS_OUTPUT_ . 'test.webp-' . $angle
+            );
+            $this->assertTrue(
+                $this->compareImages(
+                    _PATH_TESTS_IMAGES_ . 'test' . $angle . '.webp',
+                    _PATH_TESTS_OUTPUT_ . 'test.webp-' . $angle
+                ),
+                'Rotation WEBP ' . $angle
+            );
+        }
+    }
+
     /**
      * Redimensionnement des images
      * @runInSeparateProcess

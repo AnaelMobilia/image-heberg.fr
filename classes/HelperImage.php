@@ -100,6 +100,10 @@ abstract class HelperImage
                 $uneImage->setInterlaceScheme(Imagick::INTERLACE_PNG);
                 $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
                 $uneImage->setImageCompressionQuality(9);
+            } elseif ($imageType === IMAGETYPE_WEBP) {
+                $uneImage->setImageFormat('webp');
+                $uneImage->setImageCompression(Imagick::COMPRESSION_LZW);
+                $uneImage->setImageCompressionQuality(100);
             }
             // Suppression des commentaires & co
             $uneImage->stripImage();

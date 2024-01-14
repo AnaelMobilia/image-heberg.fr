@@ -135,8 +135,8 @@ define('_IMAGE_BAN_', '_image_banned.png');
 define('_SIZE_PREVIEW_', 256);
 
 // Types d'images gérés
-define('_ACCEPTED_EXTENSIONS_', ['JPG', 'PNG', 'GIF']);
-define('_ACCEPTED_MIME_TYPE_', [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF]);
+define('_ACCEPTED_EXTENSIONS_', ['JPG', 'PNG', 'GIF', 'WEBP']);
+define('_ACCEPTED_MIME_TYPE_', [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP]);
 
 /**
  * Tor
