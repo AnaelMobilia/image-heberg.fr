@@ -69,7 +69,7 @@ require _TPL_TOP_;
         <?= _SITE_NAME_ ?> est un service gratuit vous permettant d'héberger vos images sur internet.
         <ul>
             <li>
-                Image de type JPG, PNG, GIF
+                Image de type <?= implode(', ', _ACCEPTED_EXTENSIONS_) ?>
             </li>
             <li>
                 Taille maximale : <?= round(_IMAGE_POIDS_MAX_ / 1048576, 1) ?> Mo

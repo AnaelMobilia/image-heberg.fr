@@ -38,7 +38,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
     if (filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL) !== false) {
         // On essaie de matcher l'image - nettoyage des pramètres
         $fileName = basename(parse_url(trim($_POST['urlImage']), PHP_URL_PATH));
-        if (preg_match('#^[\d]+\.(?:png|jpg|gif)$#', $fileName)) {
+        if (preg_match('#^[\d]+\.(?:' . strtolower(implode('|', _ACCEPTED_EXTENSIONS_)) . ')$#', $fileName)) {
             // Suivi du traitement
             $isTraitee = true;
             // On flaggue l'image en signalée en BDD

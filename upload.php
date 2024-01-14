@@ -85,9 +85,7 @@ if (empty($msgErreur)) {
  */
 if (empty($msgErreur)) {
     $pathTmp = $_FILES['fichier']['tmp_name'];
-    // Type mime autorisés
-    $mimeType = [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF];
-    if (!in_array(HelperImage::getType($pathTmp), $mimeType, true)) {
+    if (!in_array(HelperImage::getType($pathTmp), _ACCEPTED_MIME_TYPE_, true)) {
         $msgErreur .= 'Le fichier ' . $_FILES['fichier']['name'] . ' n\'est pas une image valide.<br />';
     }
 }
