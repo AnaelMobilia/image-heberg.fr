@@ -27,7 +27,7 @@
             <span class="text-muted">
                 <?= _SITE_NAME_ ?>
                 -
-                <a href="<?= _URL_HTTPS_ ?>changelog.php">v2.4 (2023) <span class="bi-award"></span></a>
+                <a href="<?= _URL_HTTPS_ ?>changelog.php">v2.5 (2024) <span class="bi-award"></span></a>
                 -
                 <a href="<?= _URL_HTTPS_ ?>stats.php">Statistiques <span class="bi-graph-up"></span></a>
                 -

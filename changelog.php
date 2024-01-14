@@ -46,12 +46,28 @@ require _TPL_TOP_;
     </div>
     <div class="card">
         <div class="card-header">
+            <a data-bs-toggle="collapse" href="#v25">
+                v2.5 - Janvier 2024
+                &nbsp;<span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="v25" class="card-collapse">
+            <div class="card-body">
+                <ul>
+                    <li>Prise en charge du format WEBP.</li>
+                    <li>Blocage d'accès au site pour les personnes ayant envoyé trop d'images qui ont été bloquées.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
             <a data-bs-toggle="collapse" href="#v24">
                 v2.4 - Décembre 2023
                 &nbsp;<span class="bi-caret-down-fill"></span>
             </a>
         </div>
-        <div id="v24" class="card-collapse">
+        <div id="v24" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
                     <li>Espace admin : renforcement des systèmes anti-abus.</li>
