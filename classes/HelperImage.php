@@ -188,4 +188,27 @@ abstract class HelperImage
 
         return (int)$dimMax;
     }
+
+    /**
+     *  Est-ce une image WEBP animée ?
+     * @param string $path fichier à tester
+     * @return bool
+     */
+    public static function isAnimatedWebp(string $path): bool
+    {
+        $monRetour = false;
+
+        // "Note that animated WebP files cannot be read."
+        // https://www.php.net/manual/en/function.imagecreatefromwebp.php
+        if (self::getType($path) === IMAGETYPE_WEBP) {
+            // "An animation is controlled by 'ANIM' and 'ANMF' Chunks."
+            // https://developers.google.com/speed/webp/docs/riff_container?hl=en
+            $headerFile = file_get_contents($path, false, null, 0, 100);
+            if (stripos($headerFile, "ANIM") !== false || stripos($headerFile, "ANMF") !== false) {
+                $monRetour = true;
+            }
+        }
+
+        return $monRetour;
+    }
 }

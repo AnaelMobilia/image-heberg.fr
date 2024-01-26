@@ -107,6 +107,14 @@ if (empty($msgErreur)) {
 }
 
 /**
+ * PHP ne gère pas les images WebP animée -> ne pas faire de traitements
+ */
+if (isset($_POST['redimImage'], $_POST['angleRotation'], $_POST['dimMiniature']) && HelperImage::isAnimatedWebp($monImage->getPathTemp())) {
+    $msgWarning .= 'Il n\'est pas possible d\'effectuer de traitement sur les images WEBP animées.<br />';
+    unset($_POST['redimImage'], $_POST['angleRotation'], $_POST['dimMiniature']);
+}
+
+/**
  * Traitement du redimensionnement
  */
 if (empty($msgErreur) && !empty($_POST['redimImage'])) {

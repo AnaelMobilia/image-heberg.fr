@@ -1250,8 +1250,46 @@ class ImageUploadAndDeleteTest extends TestCase
     }
 
     /**
-     * Test de la suppression d'une image avec plusieurs miniatures
+     * Test de l'envoi d'une image WebP animée avec redimensionnement
      * @depends testEnvoiRedim
+     */
+    public function testEnvoiModifWebP(): void
+    {
+        self::prepareTest();
+        $_FILES['fichier']['size'] = 37342;
+        $_FILES['fichier']['name'] = 'animated-image.webp';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+        $_POST['redimImage'] = '400x200';
+        $_POST['angleRotation'] = '90';
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+
+        $this->assertEmpty(
+            $msgErreur,
+            'Envoi image webp avec modif ne pas pas faire d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertNotEmpty(
+            $msgWarning,
+            'Envoi image webp avec modif doit lever un warning'
+        );
+        self::setNbPlus(self::FICHIER_IMAGE);
+        $this->assertEquals(
+            self::countImagesEnBdd(),
+            self::getNb(self::FICHIER_IMAGE),
+            'Envoi image webp avec modif doit créer une image en BDD'
+        );
+        $this->assertFileEquals(
+            $monImage->getPath(),
+            $_FILES['fichier']['tmp_name'],
+            'Envoi image webp avec modif ne doit pas faire de modif du fichier source'
+        );
+    }
+
+    /**
+     * Test de la suppression d'une image avec plusieurs miniatures
+     * @depends testEnvoiModifWebP
      */
     public function testSuppressionImagePlusieursMiniatures(): void
     {
@@ -1350,6 +1388,22 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertNotEmpty(
             $msgErreur,
             'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
+        );
+    }
+
+    /**
+     * Détection du caractère animé ou non d'une image WebP
+     * @runInSeparateProcess
+     */
+    public function testWebPDetection(): void
+    {
+        $this->assertTrue(
+            HelperImage::isAnimatedWebp(_PATH_TESTS_IMAGES_ . 'animated-image.webp'),
+            'Image webp animée mal détectée.'
+        );
+        $this->assertFalse(
+            HelperImage::isAnimatedWebp(_PATH_TESTS_IMAGES_ . 'test.webp'),
+            'Image webp non animée mal détectée.'
         );
     }
 }

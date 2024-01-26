@@ -199,8 +199,11 @@ class ImageObject extends RessourceObject implements RessourceInterface
          */
         // Vérification de la non existence du fichier
         if ($this->getNbDoublons() === 0) {
-            // Image inconnue : optimisation de sa taille
-            $monRetour = HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
+            // PHP ne gère pas les images WebP animée -> ne pas faire de traitements
+            if (!HelperImage::isAnimatedWebp($this->getPathTemp())) {
+                // Image inconnue : optimisation de sa taille
+                $monRetour = HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
+            }
             // Copie du fichier vers l'emplacement de stockage
             // Ne peut pas être fait avant car le MD5 n'est pas encore connu
             copy($this->getPathTemp(), $this->getPathMd5());
