@@ -32,17 +32,17 @@ $listeIp = HelperAdmin::getBadNetworks();
 
 require _TPL_TOP_;
 ?>
-    <h1 class="mb-3"><small>Critères d'image suspecte</small></h1>
+    <h1 class="mb-3"><small>Réseaux IP suspects</small></h1>
     <div class="card">
         <div class="card-header">
-            <?= count($listeIp) ?> addresse<?= (count($listeIp) > 1 ? 's' : '') ?> IP
+            <?= count($listeIp) ?> réseau<?= (count($listeIp) > 1 ? 'x' : '') ?> d'addresses IP
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
                         <th>Réseau</th>
-                        <th>Nombre d'images</th>
+                        <th>Nombre d'images bloquées</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
