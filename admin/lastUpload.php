@@ -76,12 +76,12 @@ $table = [
                     <tr>
                         <th>Image</th>
                         <th>Actions</th>
-                        <th>Nom originel</th>
-                        <th>Date d'envoi</th>
-                        <th>IP envoi</th>
-                        <th>Nb vues</th>
-                        <th>Dernier affichage</th>
-                        <th>Utilisateur</th>
+                        <th class="text-break">Nom originel</th>
+                        <th class="text-break">Date d'envoi</th>
+                        <th class="text-break">IP envoi</th>
+                        <th class="text-break">Nb vues</th>
+                        <th class="text-break">Dernier affichage</th>
+                        <th class="text-break">Utilisateur</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,12 +95,12 @@ $table = [
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
                             </td>
-                            <td><?= $uneImage->getNomOriginalFormate() ?></td>
-                            <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                            <td><?= $uneImage->getIpEnvoi() ?></td>
+                            <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                            <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
                             <td><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                            <td><?= $uneImage->getLastViewFormate() ?></td>
-                            <td><?= $uneImage->getIdProprietaire() ?></td>
+                            <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

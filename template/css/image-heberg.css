@@ -35,7 +35,7 @@ html {
 }
 
 /* affichage du container */
-main.container {
+main.container-lg {
     /* Pour éviter que le contenu ne commence dans le header */
     padding: 60px 15px 0;
     /* Pour éviter que les contenus longs ne finissent dans le footer */

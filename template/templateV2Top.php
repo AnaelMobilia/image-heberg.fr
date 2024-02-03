@@ -142,6 +142,6 @@ $visiteur = new SessionObject();
     </div>
 </nav>
 <!-- Wrap all page content here -->
-<main class="flex-shrink-0 container">
+<main class="flex-shrink-0 container-lg">
     <!-- Réduction du padding top -->
     <div class="bg-light p-5 pt-3 rounded">
