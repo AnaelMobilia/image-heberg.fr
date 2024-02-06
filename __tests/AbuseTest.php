@@ -48,8 +48,8 @@ class AbuseTest extends TestCase
         require 'abuse.php';
         ob_end_clean();
 
-        $imageBloquee = new ImageObject('15.png');
-        $imageMemeMd5 = new ImageObject('16.png');
+        $imageBloquee = new ImageObject('image_15.png');
+        $imageMemeMd5 = new ImageObject('image_16.png');
         $this->assertTrue($imageBloquee->isSignalee(), 'Image signalée doit l\'être');
         $this->assertTrue(
             $imageMemeMd5->isSignalee(),

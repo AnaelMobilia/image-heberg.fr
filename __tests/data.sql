@@ -38,7 +38,7 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 -- Image signalée
 --
 INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
-(18, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'image_18.png', 4239, 400, 640, '0000-00-00', 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1, 0, '127.0.0.0');
+(18, '127.0.0.1', '2008-01-01 00:00:00', 'imageSignalee.png', 'image_18.png', 4239, 400, 640, '0000-00-00', 0, 0, 'd456d1b6582a15f0f458006898b40e29', 0, 1, 0, '127.0.1.0');
 
 --
 -- Image bloquée

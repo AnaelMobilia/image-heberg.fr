@@ -1030,8 +1030,8 @@ class ImageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
 
-        $uneImageDoublon = new ImageObject('100000019001334055750.png');
-        $uneAutreImage = new ImageObject('146734019451334055750.png');
+        $uneImageDoublon = new ImageObject('image_11.png');
+        $uneAutreImage = new ImageObject('image_13.png');
         $uneImageInexistante = new ImageObject();
 
         $this->assertEquals(2, $uneImageDoublon->getNbDoublons(), 'L\'image est présente en id 11 & 12');
