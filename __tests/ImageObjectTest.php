@@ -74,7 +74,7 @@ class ImageObjectTest extends TestCase
 
         // https://www.php.net/manual/en/imagick.compareimages.php#114944
         // compare the images using METRIC=1 (Absolute Error)
-        $result = $img1->compareImages($img2, Imagick::METRIC_STRUCTURAL_DISSIMILARITY_ERROR);
+        $result = $img1->compareImages($img2, 1);
 
         // Afficher le détail des incohérences
         if ($result[1] !== 0) {
@@ -180,7 +180,7 @@ class ImageObjectTest extends TestCase
             );
             $this->assertTrue(
                 $this->compareImages(
-                    _PATH_TESTS_IMAGES_ . 'test' . $angle . '.webp',
+                    _PATH_TESTS_IMAGES_ . 'test-' . $angle . '.webp',
                     _PATH_TESTS_OUTPUT_ . 'test.webp-' . $angle
                 ),
                 'Rotation WEBP ' . $angle

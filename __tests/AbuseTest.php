@@ -146,6 +146,8 @@ class AbuseTest extends TestCase
     #[RunInSeparateProcess]
     public function testAbuseImageEnvoiDepuisReseauMalveillant(): void
     {
+        require 'config/config.php';
+
         $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
 
         require 'config/config.php';
@@ -195,6 +197,8 @@ class AbuseTest extends TestCase
     #[RunInSeparateProcess]
     public function testAbuseDivisionSeuilDetectionSiReseauMalveillant(): void
     {
+        require 'config/config.php';
+
         // Liste des images suspectes
         $listeImagesSuspectes = HelperAdmin::getImagesPotentiellementIndesirables();
 
@@ -219,6 +223,8 @@ class AbuseTest extends TestCase
     #[RunInSeparateProcess]
     public function testAbuseReputationIp(): void
     {
+        require 'config/config.php';
+
         // Adresse IP ayant envoyé les fichiers bloqués
         $this->assertSame(
             5,

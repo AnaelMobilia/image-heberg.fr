@@ -1393,6 +1393,8 @@ class ImageUploadAndDeleteTest extends TestCase
     #[RunInSeparateProcess]
     public function testWebPDetection(): void
     {
+        require 'config/config.php';
+
         $this->assertTrue(
             HelperImage::isAnimatedWebp(_PATH_TESTS_IMAGES_ . 'animated-image.webp'),
             'Image webp animée mal détectée.'
