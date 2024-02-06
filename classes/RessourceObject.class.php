@@ -323,7 +323,7 @@ abstract class RessourceObject
             $nbJours = 1;
         }
 
-        return $this->getNbViewTotal() / $nbJours;
+        return (int)($this->getNbViewTotal() / $nbJours);
     }
 
     /**
