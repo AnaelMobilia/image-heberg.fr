@@ -314,11 +314,11 @@ abstract class HelperAdmin
         foreach ($resultat->fetchAll() as $value) {
             $ip = $value->abuse_network;
             // Formatter les IPv6
-            if (!str_contains($ip, ".")) {
-                $ip = implode(":", str_split($ip, 4));
-                $ip .= "::/56";
+            if (!str_contains($ip, '.')) {
+                $ip = implode(':', str_split($ip, 4));
+                $ip .= '::/56';
             } else {
-                $ip .= ".0/24";
+                $ip .= '.0/24';
             }
             $monRetour->offsetSet($ip, $value->nb);
         }
