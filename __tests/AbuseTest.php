@@ -150,7 +150,6 @@ class AbuseTest extends TestCase
 
         $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
 
-        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '10.10.10.11';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;

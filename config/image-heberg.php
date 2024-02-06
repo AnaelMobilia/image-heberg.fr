@@ -113,6 +113,11 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(static function ($class) {
+    // Ne pas faire d'erreur pour les classes gérées par l'autoloade de PHPUnit
+    if (_PHPUNIT_ && str_starts_with($class, 'PHPUnit\\')) {
+        return;
+    }
+
     // Suppression du namespace
     $class = str_replace('ImageHeberg\\', '', $class);
     if (str_contains($class, 'Helper')) {
@@ -127,10 +132,7 @@ spl_autoload_register(static function ($class) {
     if (file_exists($file)) {
         require $file;
     } elseif (_PHPUNIT_) {
-        // Ne pas faire d'erreur pour les classes gérées par l'autoloade de PHPUnit
-        if (!str_starts_with($file, 'PHPUnit\\')) {
-            echo 'spl_autoload_register() - Impossible de charger : ' . $file . ' (' . $class . ')' . PHP_EOL;
-        }
+        echo 'spl_autoload_register() - Impossible de charger : ' . $file . ' (' . $class . ')' . PHP_EOL;
     }
 });
 
