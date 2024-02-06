@@ -10,7 +10,7 @@ jobs:
     name: PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configuration PHP
         uses: shivammathur/setup-php@v2
