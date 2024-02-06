@@ -82,7 +82,6 @@ const _ABUSE_DIVISION_SEUILS_SI_SUSPECT_ = 2;
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
 const _TOR_DISABLE_UPLOAD_ = true;
 // Désactiver l'envoi d'images au bout de x images bloquées (mettre 0 pour ne pas l'activer)
-define('_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_', 5);
 const _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ = 5;
 
 /**

@@ -60,7 +60,7 @@ require _TPL_TOP_;
 <?php if (_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ > 0 && HelperAbuse::checkIpReputation($_SERVER['REMOTE_ADDR']) >= _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_) : ?>
     <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
-        Suite à un abus d'utilisation de <?= _SITE_NAME_ ?> depuis votre plage adresse IP (<?= $_SERVER["REMOTE_ADDR"] ?>), l'envoi d'image ne vous est plus accessible.
+        Suite à un abus d'utilisation de <?= _SITE_NAME_ ?> depuis votre plage adresse IP (<?= $_SERVER['REMOTE_ADDR'] ?>), l'envoi d'image ne vous est plus accessible.
         <br>
         Si vous le souhaitez contacter l'administrateur du site, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>

@@ -23,14 +23,8 @@ namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
-use ImageHeberg\HelperAdmin;
-use ImageHeberg\HelperAbuse;
-use ImageHeberg\MiniatureObject;
 use ImageHeberg\HelperImage;
-use ImageHeberg\HelperSysteme;
-use ImageHeberg\RessourceInterface;
 use ImageHeberg\RessourceObject;
-use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
 
@@ -647,8 +641,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             1,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -739,8 +733,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             1,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -831,8 +825,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             1,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -883,8 +877,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             2,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -1002,8 +996,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             2,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertNotEmpty(
@@ -1038,9 +1032,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $uneAutreImage = new ImageObject('146734019451334055750.png');
         $uneImageInexistante = new ImageObject();
 
-        $this->assertEquals($uneImageDoublon->getNbDoublons(), 2, 'L\'image est présente en id 11 & 12');
-        $this->assertEquals($uneAutreImage->getNbDoublons(), 1, 'L\'image est présente en id 13');
-        $this->assertEquals($uneImageInexistante->getNbDoublons(), 0, 'L\'image n\'existe pas...');
+        $this->assertEquals(2, $uneImageDoublon->getNbDoublons(), 'L\'image est présente en id 11 & 12');
+        $this->assertEquals(1, $uneAutreImage->getNbDoublons(), 'L\'image est présente en id 13');
+        $this->assertEquals(0, $uneImageInexistante->getNbDoublons(), 'L\'image n\'existe pas...');
     }
 
     /**
@@ -1068,8 +1062,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             2,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -1239,7 +1233,7 @@ class ImageUploadAndDeleteTest extends TestCase
             self::getNb(self::FICHIER_IMAGE),
             'Envoi image avec redim doit créer d\'image en BDD'
         );
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             _PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6',
             'Envoi image avec redim ne doit pas créer d\'image originale sur HDD'
         );
@@ -1323,8 +1317,8 @@ class ImageUploadAndDeleteTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals(
-            $unMembre->getId(),
             1,
+            $unMembre->getId(),
             'Le membre doit être connecté'
         );
         $this->assertEmpty(
@@ -1347,7 +1341,7 @@ class ImageUploadAndDeleteTest extends TestCase
             self::getNb(self::FICHIER_POSSEDE),
             'Suppression possession ne doit pas être bloqué en BDD'
         );
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             _PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b',
             'Suppression image doit être effacé du HDD'
         );
@@ -1358,11 +1352,11 @@ class ImageUploadAndDeleteTest extends TestCase
             self::getNb(self::FICHIER_MINIATURE),
             'Suppression miniatureS ne doit pas être bloqué en BDD'
         );
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             _PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63',
             'Suppression image doit effacer toutes les miniatures du HDD'
         );
-        $this->assertFileNotExists(
+        $this->assertFileDoesNotExist(
             _PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f',
             'Suppression image doit effacer toutes les miniatures du HDD'
         );

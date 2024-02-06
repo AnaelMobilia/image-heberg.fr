@@ -437,7 +437,7 @@ class UtilisateurObject
     /**
      * Assigne une image à un utilisateur en BDD
      * @param ImageObject $imageObject
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function assignerImage(ImageObject $imageObject): void
     {

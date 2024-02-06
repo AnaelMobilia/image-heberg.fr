@@ -23,14 +23,7 @@ namespace ImageHebergTests;
 
 use ImageHeberg\HelperAbuse;
 use ImageHeberg\ImageObject;
-use ImageHeberg\MaBDD;
 use ImageHeberg\HelperAdmin;
-use ImageHeberg\MiniatureObject;
-use ImageHeberg\HelperImage;
-use ImageHeberg\HelperSysteme;
-use ImageHeberg\RessourceInterface;
-use ImageHeberg\RessourceObject;
-use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
 use ArrayObject;
@@ -227,20 +220,20 @@ class AbuseTest extends TestCase
     {
         // Adresse IP ayant envoyé les fichiers bloqués
         $this->assertSame(
-            HelperAbuse::checkIpReputation('192.168.0.1'),
             5,
+            HelperAbuse::checkIpReputation('192.168.0.1'),
             'Le réseau 192.168.0.0/24 a 5 images bloquées'
         );
         // Adresse IP du même réseau que celle ayant envoyé les fichiers bloqués
         $this->assertSame(
-            HelperAbuse::checkIpReputation('192.168.0.100'),
             5,
+            HelperAbuse::checkIpReputation('192.168.0.100'),
             'Le réseau 192.168.0.0/24 a 5 images bloquées'
         );
         // Adresse IP random qui n'a pas d'images bloqués
         $this->assertSame(
-            HelperAbuse::checkIpReputation('2a01:ab51:8880:e010:1da5:be67:6a52:a5bf'),
             0,
+            HelperAbuse::checkIpReputation('2a01:ab51:8880:e010:1da5:be67:6a52:a5bf'),
             'Aucune image bloquée dans le réseau de cette adresse IP'
         );
     }

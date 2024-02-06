@@ -22,15 +22,6 @@
 namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
-use ImageHeberg\MaBDD;
-use ImageHeberg\HelperAdmin;
-use ImageHeberg\MiniatureObject;
-use ImageHeberg\HelperImage;
-use ImageHeberg\HelperSysteme;
-use ImageHeberg\RessourceInterface;
-use ImageHeberg\RessourceObject;
-use ImageHeberg\SessionObject;
-use ImageHeberg\UtilisateurObject;
 use ImagickException;
 use PHPUnit\Framework\TestCase;
 use Imagick;
@@ -61,7 +52,7 @@ class ImageObjectTest extends TestCase
         $uneImage = new Imagick();
         // Tolérance pour la comparaison des couleurs
         // https://imagemagick.org/script/command-line-options.php#fuzz
-        $uneImage->SetOption('fuzz', self::FUZZ . '%');
+        $uneImage->setOption('fuzz', self::FUZZ . '%');
         // Chargement de l'image
         $uneImage->readImage($path);
 

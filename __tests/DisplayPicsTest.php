@@ -21,16 +21,7 @@
 
 namespace ImageHebergTests;
 
-use ImageHeberg\ImageObject;
-use ImageHeberg\MaBDD;
-use ImageHeberg\HelperAdmin;
-use ImageHeberg\MiniatureObject;
-use ImageHeberg\HelperImage;
-use ImageHeberg\HelperSysteme;
-use ImageHeberg\RessourceInterface;
 use ImageHeberg\RessourceObject;
-use ImageHeberg\SessionObject;
-use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\TestCase;
 
 class DisplayPicsTest extends TestCase

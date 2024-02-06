@@ -70,7 +70,7 @@ require _TPL_TOP_;
                     </div>
                     <div class="text-center">
                         <a href="<?= _URL_IMAGES_ ?><?= $uneImage->getNomNouveau() ?>" title="<?= $uneImage->getNomOriginalFormate() ?>" target="_blank">
-                            <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? "max-height: " . _SIZE_PREVIEW_ . "px; width: auto;" : "height: auto; max-width: " . _SIZE_PREVIEW_ . "px;") ?>" loading="lazy">
+                            <img src="<?= $maMiniature->getURL() ?>" class="card-img-bottom rounded-3" alt="<?= $uneImage->getNomOriginalFormate() ?>" style="<?= ($maMiniature->getLargeur() < 256 ? 'max-height: ' . _SIZE_PREVIEW_ . 'px; width: auto;' : 'height: auto; max-width: ' . _SIZE_PREVIEW_ . 'px;') ?>" loading="lazy">
                         </a>
                     </div>
                     <div class="card-footer text-muted text-end">

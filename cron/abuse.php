@@ -68,8 +68,8 @@ function bloquerImage(ArrayObject $listeImages): void
 
 $contenu = '';
 // Tracer l'image ayant généré l'appel au cron
-if (!empty($_SERVER["REQUEST_URI"])) {
-    $contenu .= 'Requête ayant généré le cron : ' . $_SERVER["REQUEST_URI"] . PHP_EOL;
+if (!empty($_SERVER['REQUEST_URI'])) {
+    $contenu .= 'Requête ayant généré le cron : ' . $_SERVER['REQUEST_URI'] . PHP_EOL;
 }
 // Liste des images signalées
 $listeImages = HelperAdmin::getImagesSignalees();

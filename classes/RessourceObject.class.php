@@ -343,10 +343,10 @@ abstract class RessourceObject
         // Prendre la bonne table
         if ($this->getType() === self::TYPE_IMAGE) {
             // Image
-            $table = "images";
+            $table = 'images';
         } else {
             // Miniature
-            $table = "thumbnails";
+            $table = 'thumbnails';
         }
 
         // Prendre le bon type d'@ IP
