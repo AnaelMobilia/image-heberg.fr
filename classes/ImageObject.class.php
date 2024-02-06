@@ -44,7 +44,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         // Faut-il charger l'objet ?
         if ($value !== '' && !$this->charger($value, $fromField)) {
             // Envoi d'une exception si l'image n'existe pas
-            throw new InvalidArgumentException('Image ' . $value . ' inexistante' . $fromField);
+            throw new InvalidArgumentException('Image ' . $value . ' inexistante (' . $fromField . ')');
         }
     }
 
