@@ -28,6 +28,16 @@ if (_DEBUG_) {
 }
 if (!_PHPUNIT_) {
     /**
+     * Supprime des informations sensibles du log d'erreur
+     * @param string $value
+     * @return string
+     */
+    function exception_handler_cleaner(string $value): string
+    {
+        return str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], 'xxx', $value);
+    }
+
+    /**
      * Gestion des exceptions de l'application
      * @param Throwable $exception
      */
@@ -36,9 +46,9 @@ if (!_PHPUNIT_) {
         if (_DEBUG_) {
             // Afficher l'erreur en masquant les informations sensibles
             echo '<pre>';
-            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], 'xxx', $exception->getMessage()));
+            print_r(exception_handler_cleaner($exception->getMessage()));
             echo '<br /><br /><hr /><br />';
-            print_r(str_replace([_BDD_HOST_, _BDD_NAME_, _BDD_USER_, _BDD_PASS_, _PATH_], 'xxx', $exception->getTraceAsString()));
+            print_r(exception_handler_cleaner($exception->getTraceAsString()));
             echo '</pre>';
         } else {
             echo 'Une erreur a été rencontrée';
@@ -55,7 +65,7 @@ if (!_PHPUNIT_) {
         $headers .= PHP_EOL . 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_;
         // Date
         $headers .= PHP_EOL . 'Date: ' . date('D, j M Y H:i:s +0200');
-        $message = PHP_EOL . $exception->getMessage() . PHP_EOL . $exception->getTraceAsString();
+        $message = PHP_EOL . exception_handler_cleaner($exception->getMessage()) . PHP_EOL . exception_handler_cleaner($exception->getTraceAsString());
         $message .= PHP_EOL . 'URL : ' . $_SERVER['REQUEST_URI'];
         if (isset($_SERVER['HTTP_REFERER'])) {
             $message .= PHP_EOL . 'HTTP REFERER : ' . $_SERVER['HTTP_REFERER'];
@@ -67,6 +77,7 @@ if (!_PHPUNIT_) {
     }
 
     set_exception_handler('ImageHeberg\exception_handler');
+    set_error_handler('ImageHeberg\exception_handler');
 }
 
 /**
