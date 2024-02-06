@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.0', '8.1', '8.2' ]
+        php-versions: [ '8.3' ]
     name: PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
@@ -44,11 +44,6 @@ jobs:
           sh -c "cp __tests/images/imageDejaBloquee.gif files/f/f7a498af28acb8a3bbc20ddc95da4c2a"
           mysql -u root -proot imageheberg < __tests/data.sql
 
-      - name: Test de l'application - phpunit v9
-        if: ${{ matrix.php-versions == '8.0' }}
-        run: phpunit --colors --debug __tests/
-
       - name: Test de l'application - phpunit v10
         if: ${{ matrix.php-versions != '8.0' }}
         run: phpunit --colors --display-warnings --display-errors __tests/
-

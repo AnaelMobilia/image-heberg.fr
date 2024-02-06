@@ -31,10 +31,9 @@ echo 'PHP v' . PHP_VERSION . '<br />';
 $conf = file_exists(__DIR__ . '/config/config.php');
 if (!$conf) {
     $msg = 'Le fichier de configuration n\'existe pas dans config/config.php !';
+    echo $msg;
     if (!_PHPUNIT_) {
-        die($msg);
-    } else {
-        echo $msg;
+        die();
     }
 }
 
@@ -45,29 +44,26 @@ if (!defined('_PHPUNIT_')) {
 $res = MaBDD::getInstance()->query('SELECT COUNT(*) AS nbImages FROM images');
 if (!$res) {
     $msg = 'Erreur de connexion à la base de données, vérifiez les identifiants dans le fichier config/config.php !';
+    echo $msg;
     if (!_PHPUNIT_) {
-        die($msg);
-    } else {
-        echo $msg;
+        die();
     }
 }
 $resultat = $res->fetch()->nbImages;
 if ($resultat < 2) { // 404 & banned par défaut
     $msg = 'La base de données n\'a pas été initialisée correctement avec le fichier database.sql !';
+    echo $msg;
     if (!_PHPUNIT_) {
-        die($msg);
-    } else {
-        echo $msg;
+        die();
     }
 }
 
 /* 3 - droits sur répertoire des images */
 if (!is_writable(_PATH_IMAGES_ . '_image_404.png')) {
     $msg = 'PHP doit pouvoir écrire dans les répertoires ' . _REPERTOIRE_IMAGE_ . '* !';
+    echo $msg;
     if (!_PHPUNIT_) {
-        die($msg);
-    } else {
-        echo $msg;
+        die();
     }
 }
 
@@ -83,10 +79,9 @@ if (headers_sent()) {
 /* Configuration */
 if (_PATH_ !== __DIR__ . '/') {
     $msg = 'La variable _PATH_ (' . _PATH_ . ') n\'est pas cohérente avec l\'emplacement de l\'application (' . __DIR__ . ')';
+    echo $msg;
     if (!_PHPUNIT_) {
-        die($msg);
-    } else {
-        echo $msg;
+        die();
     }
 }
 echo 'L\'installation est OK !';

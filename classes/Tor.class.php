@@ -28,8 +28,8 @@ use JsonException;
  */
 class Tor
 {
-    private const IPV4 = 'IPv4';
-    private const IPV6 = 'IPv6';
+    private const string IPV4 = 'IPv4';
+    private const string IPV6 = 'IPv6';
 
     /**
      * Mettre à jour la liste des adresses IP des noeuds de sortie Tor

@@ -21,7 +21,7 @@
 
 namespace ImageHeberg;
 
-use Exception;
+use InvalidArgumentException;
 use PDO;
 use ArrayObject;
 
@@ -41,19 +41,19 @@ class UtilisateurObject
     private string $token = '';
 
     // Niveaux de droits
-    public const LEVEL_GUEST = 0;
-    public const LEVEL_USER = 1;
-    public const LEVEL_ADMIN = 2;
+    final public const int LEVEL_GUEST = 0;
+    final public const int LEVEL_USER = 1;
+    final public const int LEVEL_ADMIN = 2;
 
     /**
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function __construct($userID = false)
     {
         // Utilisateur à charger
         if ($userID && !$this->charger($userID)) {
             // Envoi d'une exception si l'utilisateur n'existe pas
-            throw new Exception('Utilisateur ' . $userID . ' inexistant.');
+            throw new InvalidArgumentException('Utilisateur ' . $userID . ' inexistant.');
         }
     }
 
@@ -442,7 +442,7 @@ class UtilisateurObject
     public function assignerImage(ImageObject $imageObject): void
     {
         if ($this->getId() === 0) {
-            throw new Exception('Aucun utilisateur n\'est défini !');
+            throw new InvalidArgumentException('Aucun utilisateur n\'est défini !');
         }
 
         // Les images possédées

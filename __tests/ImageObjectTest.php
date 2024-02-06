@@ -45,9 +45,9 @@ use Imagick;
 class ImageObjectTest extends TestCase
 {
     // Rotation pour les images
-    private const VALEURS_ANGLE = [90, 180, 270];
+    private const array VALEURS_ANGLE = [90, 180, 270];
     // Tolérance pour la comparaison des couleurs
-    private const FUZZ = 10;
+    private const int FUZZ = 10;
 
     /**
      * Charge en mémoire une image via Imagick

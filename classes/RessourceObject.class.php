@@ -31,13 +31,13 @@ use PDO;
 abstract class RessourceObject
 {
     // Types de ressources
-    public const TYPE_IMAGE = 1;
-    public const TYPE_MINIATURE = 2;
+    final public const int TYPE_IMAGE = 1;
+    final public const int TYPE_MINIATURE = 2;
 
     // Champ à utiliser en BDD pour charger la ressource
-    public const SEARCH_BY_MD5 = 'md5';
-    public const SEARCH_BY_NAME = 'new_name';
-    public const SEARCH_BY_ID = 'id';
+    final public const string SEARCH_BY_MD5 = 'md5';
+    final public const string SEARCH_BY_NAME = 'new_name';
+    final public const string SEARCH_BY_ID = 'id';
 
     // Attributs de la classe
     private int $id = 0;
@@ -160,7 +160,7 @@ abstract class RessourceObject
      * @param bool $forceHttps Forcer le HTTPS ?
      * @return string
      */
-    public function getURL($forceHttps = false): string
+    public function getURL(bool $forceHttps = false): string
     {
         // Path du type d'image
         if ($this->getType() === self::TYPE_IMAGE) {

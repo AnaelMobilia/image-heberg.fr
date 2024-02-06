@@ -41,9 +41,9 @@ class ImageUploadAndDeleteTest extends TestCase
      * Les miniatures travaillent sur le fichier uploadé => faire une copie du fichier original
      */
     // Fichiers pour le nombre d'images / possessions attendues
-    private const FICHIER_IMAGE = '../_nbImages';
-    private const FICHIER_MINIATURE = '../_nbThumbnails';
-    private const FICHIER_POSSEDE = '../_nbPossede';
+    private const string FICHIER_IMAGE = '../_nbImages';
+    private const string FICHIER_MINIATURE = '../_nbThumbnails';
+    private const string FICHIER_POSSEDE = '../_nbPossede';
 
     /**
      * Nombre d'images en BDD

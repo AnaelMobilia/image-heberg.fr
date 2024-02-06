@@ -22,7 +22,7 @@
 namespace ImageHeberg;
 
 use ArrayObject;
-use Exception;
+use InvalidArgumentException;
 use PDO;
 
 /**
@@ -34,7 +34,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * Constructeur
      * @param string $value Identifiant image-heberg
      * @param string $fromField Champ à utiliser en BDD
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(string $value = '', string $fromField = RessourceObject::SEARCH_BY_NAME)
     {
@@ -44,7 +44,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         // Faut-il charger l'objet ?
         if ($value !== '' && !$this->charger($value, $fromField)) {
             // Envoi d'une exception si l'image n'existe pas
-            throw new Exception('Image ' . $value . ' inexistante' . $fromField);
+            throw new InvalidArgumentException('Image ' . $value . ' inexistante' . $fromField);
         }
     }
 

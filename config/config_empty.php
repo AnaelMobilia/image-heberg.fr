@@ -24,67 +24,67 @@
  */
 /* Base de données */
 // Serveur de base de données
-define('_BDD_HOST_', 'xxx');
+const _BDD_HOST_ = 'xxx';
 // Utilisateur SQL
-define('_BDD_USER_', 'xxx');
+const _BDD_USER_ = 'xxx';
 // Mot de passe SQL
-define('_BDD_PASS_', 'xxx');
+const _BDD_PASS_ = 'xxx';
 // Nom de la base de données
-define('_BDD_NAME_', 'xxx');
+const _BDD_NAME_ = 'xxx';
 
 
 /* Système de fichiers */
 // Emplacement de votre site sur le système de fichiers de votre hébergeur
-define('_PATH_', '/path/to/example.com/');
+const _PATH_ = '/path/to/example.com/';
 
 
 /* A propos de l'outil */
 // Nom affiché du service
-define('_SITE_NAME_', 'monSite');
+const _SITE_NAME_ = 'monSite';
 // URL du site
-define('_BASE_URL_', 'www.example.com/');
+const _BASE_URL_ = 'www.example.com/';
 // Administrateur du site
-define('_ADMINISTRATEUR_NOM_', 'John DOE');
+const _ADMINISTRATEUR_NOM_ = 'John DOE';
 // Site web de l'administrateur
-define('_ADMINISTRATEUR_SITE_', '//www.example.com/');
+const _ADMINISTRATEUR_SITE_ = '//www.example.com/';
 // Mail de l'administrateur (non affiché)
-define('_ADMINISTRATEUR_EMAIL_', 'john.doe@example.com');
+const _ADMINISTRATEUR_EMAIL_ = 'john.doe@example.com';
 
 
 /* Informations légales */
 // Hébergeur du site
-define('_HEBERGEUR_NOM_', 'HOSTING');
+const _HEBERGEUR_NOM_ = 'HOSTING';
 // Site web de l'hébergeur
-define('_HEBERGEUR_SITE_', '//www.example.com');
+const _HEBERGEUR_SITE_ = '//www.example.com';
 
 
 /* Configurations spécifiques de l'outil */
 // Poids maximal des fichiers
-define('_IMAGE_POIDS_MAX_', 5242880);
+const _IMAGE_POIDS_MAX_ = 5242880;
 // Délai de conservation d'une image jamais affichée (en jours)
-define('_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_', 7);
+const _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ = 7;
 // Délai depuis le dernier affichage d'une image avant de la supprimer (en jours)
-define('_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_', 365);
+const _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ = 365;
 // Volume maximal de stockage d'images (en Go)
-define('_QUOTA_MAXIMAL_IMAGES_GO_', 90);
+const _QUOTA_MAXIMAL_IMAGES_GO_ = 90;
 // Affichage des messages d'erreur
-define('_DEBUG_', false);
+const _DEBUG_ = false;
 // Délai de conservation des comptes jamais utilisés (en jours)
-define('_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_', 30);
+const _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ = 30;
 
 
 /* Gestion des abus */
 // Nombre d'affichage par jour à partir duquel une image est suspecte
-define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_', 1500);
+const _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ = 1500;
 // Nombre d'affichage par jour à partir duquel une image est automatiquement bloquée
-define('_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_', 100000);
+const _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ = 100000;
 // Division des seuils d'abus si une image est considérée comme suspecte
-define('_ABUSE_DIVISION_SEUILS_SI_SUSPECT_', 2);
+const _ABUSE_DIVISION_SEUILS_SI_SUSPECT_ = 2;
 
 // Désactiver l'envoi d'images depuis un noeud de sortie Tor
-define('_TOR_DISABLE_UPLOAD_', true);
+const _TOR_DISABLE_UPLOAD_ = true;
 // Désactiver l'envoi d'images au bout de x images bloquées (mettre 0 pour ne pas l'activer)
-define('_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_', 100);
+const _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ = 100;
 
 
 /**
@@ -95,11 +95,11 @@ define('_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_', 100);
  */
 // Salt pour les mots de passe
 // Legacy - n'est plus requis !!
-define('_GRAIN_DE_SEL_', 'xxx');
+const _GRAIN_DE_SEL_ = 'xxx';
 /**
  * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
  */
 // Désactivation des tests Tests TRAVIS-CI
-define('_PHPUNIT_', false);
+const _PHPUNIT_ = false;
 
 require _PATH_ . 'config/image-heberg.php';
