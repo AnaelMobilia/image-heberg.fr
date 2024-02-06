@@ -44,6 +44,6 @@ jobs:
           sh -c "cp __tests/images/imageDejaBloquee.gif files/f/f7a498af28acb8a3bbc20ddc95da4c2a"
           mysql -u root -proot imageheberg < __tests/data.sql
 
-      - name: Test de l'application - phpunit v10
+      - name: Test de l'application - phpunit v11
         if: ${{ matrix.php-versions != '8.0' }}
         run: phpunit --colors --display-warnings --display-errors __tests/

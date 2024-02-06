@@ -24,6 +24,7 @@ namespace ImageHebergTests;
 use ImageHeberg\SessionObject;
 use ImageHeberg\UtilisateurObject;
 use PDO;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 class MembreTest extends TestCase
@@ -76,8 +77,8 @@ class MembreTest extends TestCase
 
     /**
      * Création d'un compte membre avec un nom déjà existant
-     * @depends testConnexionMembreExistant
      */
+    #[Depends('testConnexionMembreExistant')]
     public function testMembreCreerCompteDoublon(): void
     {
         unset($_POST);
@@ -110,8 +111,8 @@ class MembreTest extends TestCase
 
     /**
      * Création d'un compte membre.
-     * @depends testMembreCreerCompteDoublon
      */
+    #[Depends('testMembreCreerCompteDoublon')]
     public function testMembreCreerCompte(): void
     {
         unset($_POST);
@@ -155,8 +156,8 @@ class MembreTest extends TestCase
 
     /**
      * Modification du mail
-     * @depends testMembreCreerCompte
      */
+    #[Depends('testMembreCreerCompte')]
     public function testMembreModifierMail(): void
     {
         unset($_POST);
@@ -196,8 +197,8 @@ class MembreTest extends TestCase
 
     /**
      * Modification du mot de passe
-     * @depends testMembreModifierMail
      */
+    #[Depends('testMembreModifierMail')]
     public function testMembreModifierPassword(): void
     {
         unset($_POST);
@@ -236,8 +237,8 @@ class MembreTest extends TestCase
 
     /**
      * Suppression du compte sans cochage de la checkbox
-     * @depends testMembreModifierPassword
      */
+    #[Depends('testMembreModifierPassword')]
     public function testMembreSupprimerCompteRequiertCheckbox(): void
     {
         unset($_POST);
@@ -277,8 +278,8 @@ class MembreTest extends TestCase
 
     /**
      * Suppression du compte
-     * @depends testMembreSupprimerCompteRequiertCheckbox
      */
+    #[Depends('testMembreSupprimerCompteRequiertCheckbox')]
     public function testMembreSupprimerCompte(): void
     {
         unset($_POST);
@@ -319,8 +320,8 @@ class MembreTest extends TestCase
 
     /**
      * Connexion au compte créé lors de la création de la BDD
-     * @depends testMembreSupprimerCompte
      */
+    #[Depends('testMembreSupprimerCompte')]
     public function testConnexionCompteHistorique(): void
     {
         unset($_POST);

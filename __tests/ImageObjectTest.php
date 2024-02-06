@@ -23,6 +23,7 @@ namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
 use ImagickException;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 use Imagick;
 
@@ -85,8 +86,8 @@ class ImageObjectTest extends TestCase
 
     /**
      * Rotation des images PNG
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRotationImagesPNG(): void
     {
         require 'config/config.php';
@@ -111,8 +112,8 @@ class ImageObjectTest extends TestCase
 
     /**
      * Rotation des images JPG
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRotationImagesJPG(): void
     {
         require 'config/config.php';
@@ -137,8 +138,8 @@ class ImageObjectTest extends TestCase
     /**
      * Rotation des images GIF
      * Pas de changement en fonction des versions de PHP
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRotationImagesGIF(): void
     {
         require 'config/config.php';
@@ -164,8 +165,8 @@ class ImageObjectTest extends TestCase
     /**
      * Rotation des images WEBP
      * Pas de changement en fonction des versions de PHP
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRotationImagesWEBP(): void
     {
         require 'config/config.php';
@@ -189,8 +190,8 @@ class ImageObjectTest extends TestCase
 
     /**
      * Redimensionnement des images
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRedimensionnementImages(): void
     {
         require 'config/config.php';

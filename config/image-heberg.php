@@ -127,7 +127,10 @@ spl_autoload_register(static function ($class) {
     if (file_exists($file)) {
         require $file;
     } elseif (_PHPUNIT_) {
-        echo 'Impossible de charger : ' . $file . ' (' . $class . ')';
+        // Ne pas faire d'erreur pour les classes gérées par l'autoloade de PHPUnit
+        if (!str_starts_with($file, 'PHPUnit\\')) {
+            echo 'spl_autoload_register() - Impossible de charger : ' . $file . ' (' . $class . ')' . PHP_EOL;
+        }
     }
 });
 

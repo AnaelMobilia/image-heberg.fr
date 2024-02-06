@@ -25,6 +25,7 @@ use ImageHeberg\HelperAbuse;
 use ImageHeberg\ImageObject;
 use ImageHeberg\HelperAdmin;
 use ImageHeberg\UtilisateurObject;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 use ArrayObject;
 
@@ -32,8 +33,8 @@ class AbuseTest extends TestCase
 {
     /**
      * Signalement d'une image
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuse(): void
     {
         require 'config/config.php';
@@ -58,8 +59,8 @@ class AbuseTest extends TestCase
 
     /**
      * Renvoi d'une image bloquée et demande de son affichage
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseRenvoiImage(): void
     {
         require 'config/config.php';
@@ -90,8 +91,8 @@ class AbuseTest extends TestCase
 
     /**
      * Signalement d'une image approuvée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseImageApprouvee(): void
     {
         require 'config/config.php';
@@ -111,8 +112,8 @@ class AbuseTest extends TestCase
 
     /**
      * Approbation d'une image signalée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseImageSignaleePuisApprouvee(): void
     {
         require 'config/config.php';
@@ -141,8 +142,8 @@ class AbuseTest extends TestCase
 
     /**
      * Envoi d'une image depuis le même réseau qu'une image bloquée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseImageEnvoiDepuisReseauMalveillant(): void
     {
         $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
@@ -173,8 +174,8 @@ class AbuseTest extends TestCase
 
     /**
      * Image avec une miniature ENORMEMENT affichée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseImageMiniatureTropAffichee(): void
     {
         require 'config/config.php';
@@ -190,8 +191,8 @@ class AbuseTest extends TestCase
 
     /**
      * Division des seuils de détection pour une image envoyée du même réseau qu'une image déjà bloquée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseDivisionSeuilDetectionSiReseauMalveillant(): void
     {
         // Liste des images suspectes
@@ -214,8 +215,8 @@ class AbuseTest extends TestCase
 
     /**
      * Réputation des adresses IP basées sur les images déjà bloquées pour leur réseau
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseReputationIp(): void
     {
         // Adresse IP ayant envoyé les fichiers bloqués

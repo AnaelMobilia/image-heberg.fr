@@ -22,14 +22,15 @@
 namespace ImageHebergTests;
 
 use ImageHeberg\RessourceObject;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
 class DisplayPicsTest extends TestCase
 {
     /**
      * Affichage d'une image inexistante
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testImageInexistante(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -43,8 +44,8 @@ class DisplayPicsTest extends TestCase
 
     /**
      * Affichage d'une image inexistante
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testMiniatureInexistante(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -58,8 +59,8 @@ class DisplayPicsTest extends TestCase
 
     /**
      * Affichage d'une image inexistante
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testRepertoireInexistant(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -73,8 +74,8 @@ class DisplayPicsTest extends TestCase
 
     /**
      * Affichage d'une image bloquée
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testImageBloquee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -88,8 +89,8 @@ class DisplayPicsTest extends TestCase
 
     /**
      * Affichage d'une image signaléee
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testImageSignalee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';

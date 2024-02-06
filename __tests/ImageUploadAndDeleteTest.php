@@ -26,6 +26,8 @@ use ImageHeberg\MaBDD;
 use ImageHeberg\HelperImage;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\UtilisateurObject;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
 class ImageUploadAndDeleteTest extends TestCase
@@ -161,8 +163,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test de l'envoi avec miniature : présence BDD et HDD
-     * @depends testEnvoi
      */
+    #[Depends('testEnvoi')]
     public function testEnvoiMiniature(): void
     {
         self::prepareTest();
@@ -210,8 +212,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test de l'envoi avec miniature ET rotation : présence BDD et HDD
-     * @depends testEnvoiMiniature
      */
+    #[Depends('testEnvoiMiniature')]
     public function testEnvoiMiniatureRotation(): void
     {
         self::prepareTest();
@@ -257,8 +259,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test du renvoi d'une image mais avec demande de création d'une miniature
-     * @depends testEnvoiMiniatureRotation
      */
+    #[Depends('testEnvoiMiniatureRotation')]
     public function testRenvoiImageDemandeMiniature(): void
     {
         self::prepareTest();
@@ -305,8 +307,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test du renvoi d'une image avec miniature mais demande demande de création d'une autre miniature
-     * @depends testRenvoiImageDemandeMiniature
      */
+    #[Depends('testRenvoiImageDemandeMiniature')]
     public function testRenvoiImageDemandeNouvelleMiniature(): void
     {
         self::prepareTest();
@@ -353,8 +355,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Envoi sans affichage page index.php
-     * @depends testRenvoiImageDemandeNouvelleMiniature
      */
+    #[Depends('testRenvoiImageDemandeNouvelleMiniature')]
     public function testEnvoiBrut(): void
     {
         self::prepareTest();
@@ -382,8 +384,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Envoi sans fichier
-     * @depends testEnvoiBrut
      */
+    #[Depends('testEnvoiBrut')]
     public function testEnvoiSansFichier(): void
     {
         self::prepareTest();
@@ -409,8 +411,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Fichier trop lourd
-     * @depends testEnvoiSansFichier
      */
+    #[Depends('testEnvoiSansFichier')]
     public function testEnvoiGrosFichier(): void
     {
         self::prepareTest();
@@ -438,8 +440,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Type Mime : envoi d'un fichier doc
-     * @depends testEnvoiGrosFichier
      */
+    #[Depends('testEnvoiGrosFichier')]
     public function testTypeMimePasUneImage(): void
     {
         self::prepareTest();
@@ -468,8 +470,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Type Mime : mauvais type de fichier (DOC).jpg
-     * @depends testTypeMimePasUneImage
      */
+    #[Depends('testTypeMimePasUneImage')]
     public function testTypeMimeMauvaisTypeFichier(): void
     {
         self::prepareTest();
@@ -498,8 +500,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Type Mime : mauvaise extension (JPG).png
-     * @depends testTypeMimeMauvaisTypeFichier
      */
+    #[Depends('testTypeMimeMauvaisTypeFichier')]
     public function testTypeMimeMauvaiseExtension(): void
     {
         self::prepareTest();
@@ -529,8 +531,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Dimensions de l'image - Très large
-     * @depends testTypeMimeMauvaiseExtension
      */
+    #[Depends('testTypeMimeMauvaiseExtension')]
     public function testTresLarge(): void
     {
         self::prepareTest();
@@ -560,8 +562,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Dimensions de l'image - Très haute
-     * @depends testTresLarge
      */
+    #[Depends('testTresLarge')]
     public function testTresHaute(): void
     {
         self::prepareTest();
@@ -591,8 +593,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Dimensions de l'image - Trop grande
-     * @depends testTresHaute
      */
+    #[Depends('testTresHaute')]
     public function testTropGrande(): void
     {
         self::prepareTest();
@@ -621,8 +623,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Envoi d'une image authentifié
-     * @depends testTropGrande
      */
+    #[Depends('testTropGrande')]
     public function testEnvoiImageAuthentifie(): void
     {
         self::prepareTest();
@@ -673,8 +675,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Renvoi d'une image - Anonyme / Anonyme
-     * @depends testEnvoiImageAuthentifie
      */
+    #[Depends('testEnvoiImageAuthentifie')]
     public function testRenvoiImageAnonymeAnonyme(): void
     {
         self::prepareTest();
@@ -713,8 +715,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Renvoi d'une image - Anonyme / Authentifié
-     * @depends testRenvoiImageAnonymeAnonyme
      */
+    #[Depends('testRenvoiImageAnonymeAnonyme')]
     public function testRenvoiImageAnonymeAuthentifie(): void
     {
         self::prepareTest();
@@ -765,8 +767,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Renvoi d'une image - Authentifié / Anonyme
-     * @depends testRenvoiImageAnonymeAuthentifie
      */
+    #[Depends('testRenvoiImageAnonymeAuthentifie')]
     public function testRenvoiImageAuthentifieAnonyme(): void
     {
         self::prepareTest();
@@ -805,8 +807,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Renvoi d'une image - Authentifié / Authentifié
-     * @depends testRenvoiImageAuthentifieAnonyme
      */
+    #[Depends('testRenvoiImageAuthentifieAnonyme')]
     public function testRenvoiImageAuthentifieAuthentifie(): void
     {
         self::prepareTest();
@@ -857,8 +859,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Renvoi d'une image - Authentifié / Authentifié Autrement
-     * @depends testRenvoiImageAuthentifieAuthentifie
      */
+    #[Depends('testRenvoiImageAuthentifieAuthentifie')]
     public function testRenvoiImageAuthentifieAuthentifie2(): void
     {
         self::prepareTest();
@@ -909,8 +911,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image inexistante
-     * @depends testRenvoiImageAuthentifieAuthentifie2
      */
+    #[Depends('testRenvoiImageAuthentifieAuthentifie2')]
     public function testSuppressionImageInexistante(): void
     {
         self::prepareTest();
@@ -943,8 +945,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Propriétaire en étant Anonyme
-     * @depends testSuppressionImageInexistante
      */
+    #[Depends('testSuppressionImageInexistante')]
     public function testSuppressionImageProprietaireAnonyme(): void
     {
         self::prepareTest();
@@ -977,8 +979,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Propriétaire en étant Authentifié mais Autre
-     * @depends testSuppressionImageProprietaireAnonyme
      */
+    #[Depends('testSuppressionImageProprietaireAnonyme')]
     public function testSuppressionImageProprietaireAuthentifie2(): void
     {
         self::prepareTest();
@@ -1022,8 +1024,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Vérification du bon fonctionnement du mécanisme de détection des doublons en BDD
-     * @depends testSuppressionImageProprietaireAuthentifie2
      */
+    #[Depends('testSuppressionImageProprietaireAuthentifie2')]
     public function testVerificationCalculsDoublonsBDD(): void
     {
         self::prepareTest();
@@ -1039,8 +1041,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Propriétaire en étant Authentifié
-     * @depends testVerificationCalculsDoublonsBDD
      */
+    #[Depends('testVerificationCalculsDoublonsBDD')]
     public function testSuppressionImageProprietaireAuthentifie(): void
     {
         self::prepareTest();
@@ -1094,8 +1096,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Anonyme en étant hors délai
-     * @depends testSuppressionImageProprietaireAuthentifie
      */
+    #[Depends('testSuppressionImageProprietaireAuthentifie')]
     public function testSuppressionImageAnonymeHorsDelai(): void
     {
         self::prepareTest();
@@ -1128,8 +1130,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Anonyme en étant dans délai mais pas la bonne IP
-     * @depends testSuppressionImageProprietaireAuthentifie
      */
+    #[Depends('testSuppressionImageProprietaireAuthentifie')]
     public function testSuppressionImageAnonymeDansDelaiMauvaiseIP(): void
     {
         self::prepareTest();
@@ -1164,8 +1166,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Suppression d'une image - Anonyme en étant dans le délai
-     * @depends testSuppressionImageAnonymeDansDelaiMauvaiseIP
      */
+    #[Depends('testSuppressionImageAnonymeDansDelaiMauvaiseIP')]
     public function testSuppressionImageAnonymeDansDelai(): void
     {
         self::prepareTest();
@@ -1205,8 +1207,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test de l'envoi simple avec redimensionnement : présence BDD et HDD
-     * @depends testSuppressionImageAnonymeDansDelai
      */
+    #[Depends('testSuppressionImageAnonymeDansDelai')]
     public function testEnvoiRedim(): void
     {
         self::prepareTest();
@@ -1245,8 +1247,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test de l'envoi d'une image WebP animée avec redimensionnement
-     * @depends testEnvoiRedim
      */
+    #[Depends('testEnvoiRedim')]
     public function testEnvoiModifWebP(): void
     {
         self::prepareTest();
@@ -1283,8 +1285,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Test de la suppression d'une image avec plusieurs miniatures
-     * @depends testEnvoiModifWebP
      */
+    #[Depends('testEnvoiModifWebP')]
     public function testSuppressionImagePlusieursMiniatures(): void
     {
         self::prepareTest();
@@ -1365,8 +1367,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Blocage de l'envoi de fichiers lorsqu'une adresse IP dépasse le seuil de tolérance
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testAbuseReputationIpBlocageUpload(): void
     {
         self::prepareTest(true);
@@ -1387,8 +1389,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
     /**
      * Détection du caractère animé ou non d'une image WebP
-     * @runInSeparateProcess
      */
+    #[RunInSeparateProcess]
     public function testWebPDetection(): void
     {
         $this->assertTrue(
