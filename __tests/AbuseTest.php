@@ -204,14 +204,14 @@ class AbuseTest extends TestCase
         $imagesTropAffichees = HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true);
 
         $this->assertSame(
-            $listeImagesSuspectes,
             new ArrayObject(['12380025661369047607.gif']),
+            $listeImagesSuspectes,
             'L\'image 19 est suspecte car envoyée d\'un même réseau que l\'image 18'
         );
 
         $this->assertSame(
-            $imagesTropAffichees,
             new ArrayObject(['12380025661369047607.gif']),
+            $imagesTropAffichees,
             'L\'image 19 a été trop affichée -> WARNING (elle est suspecte)'
         );
     }
