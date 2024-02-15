@@ -97,7 +97,7 @@ require _TPL_TOP_;
 $maSession->setFlag();
 ?>
     <h1 class="mb-3"><small>Créer mon compte</small></h1>
-    <?php if (!empty($messageErreur)): ?>
+    <?php if (!empty($messageErreur)) : ?>
     <div class="alert alert-danger"><strong>La création de votre compte n'est pas possible :</strong>
         <?= $messageErreur ?>
     </div>

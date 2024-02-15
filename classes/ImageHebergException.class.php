@@ -1,4 +1,5 @@
 <?php
+
 /*
 * Copyright 2008-2024 Anael MOBILIA
 *
