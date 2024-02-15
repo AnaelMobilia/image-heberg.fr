@@ -76,8 +76,24 @@ if (!_PHPUNIT_) {
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] -  Erreur rencontrée', $message, $headers);
     }
 
+    /**
+     * Gestions des erreurs dans l'application
+     * @param int $errno Niveau d'erreur
+     * @param string $errstr Message d'erreur
+     * @param string $errfile Fichier où à lieu l'erreur
+     * @param int $errline Ligne concernée
+     * @return void
+     */
+    function error_handler(int $errno, string $errstr, string $errfile, int $errline): void
+    {
+        $monException = new ImageHebergException();
+        $monException->define($errstr, $errno, $errfile, $errline);
+
+        exception_handler($monException);
+    }
+
     set_exception_handler('ImageHeberg\exception_handler');
-    set_error_handler('ImageHeberg\exception_handler');
+    set_error_handler('ImageHeberg\error_handler');
 }
 
 /**
