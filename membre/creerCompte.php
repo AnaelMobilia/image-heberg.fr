@@ -31,7 +31,6 @@ $maSession = new SessionObject();
 // Un utilisateur...
 $monUtilisateur = new UtilisateurObject();
 
-require _TPL_TOP_;
 // En cas de validation du formulaire
 if (isset($_POST['valider']) && $maSession->checkFlag()) {
     // Flag pour la création de l'utilisateur
@@ -92,16 +91,17 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
             header('Location: ' . _URL_HTTPS_);
             die();
         }
-    } else {
-        echo '<div class="alert alert-danger"><strong>La création de votre compte n\'est pas possible :</strong>';
-        echo $messageErreur;
-        echo '</div>';
     }
 }
+require _TPL_TOP_;
 $maSession->setFlag();
 ?>
     <h1 class="mb-3"><small>Créer mon compte</small></h1>
-
+    <?php if (!empty($messageErreur)): ?>
+    <div class="alert alert-danger"><strong>La création de votre compte n'est pas possible :</strong>
+        <?= $messageErreur ?>
+    </div>
+    <?php endif; ?>
     <form method="post">
         <div class="mb-3 form-floating">
             <input type="text" class="form-control" name="userName" id="userName" value="<?= $monUtilisateur->getUserName() ?>" required="required">
