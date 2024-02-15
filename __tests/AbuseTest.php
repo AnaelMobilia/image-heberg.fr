@@ -243,4 +243,28 @@ class AbuseTest extends TestCase
             'Aucune image bloquée dans le réseau de cette adresse IP'
         );
     }
+
+    /**
+     * Projection du nombre d'affichage d'une image pour détecter une atteinte de limite ultérieure
+     */
+    #[RunInSeparateProcess]
+    public function testAbuseProjectionAffichages(): void
+    {
+        require 'config/config.php';
+
+        $images = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_, false, true);
+
+        $this->assertNotEmpty(
+            $images,
+            'L\'image 27 doit être détectée comme dépassant le nombre d\'affichage en projection : ' . var_export($images, true)
+        );
+        // Ne faire que si on est sur d'avoir des datas
+        if ($images->count() >= 1) {
+            $this->assertSame(
+                'image_27.png',
+                $images->offsetGet(0),
+                'L\'image 27 doit être détectée comme dépassant le nombre d\'affichage en projection : ' . var_export($images, true)
+            );
+        }
+    }
 }

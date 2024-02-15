@@ -226,9 +226,10 @@ abstract class HelperAdmin
      * Images dont les statistiques d'affichage sont incohérentes
      * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
      * @param bool $onlyOnImagesSuspectes Filtrer sur les images suspectes ?
+     * @param bool $useProjection Projeter l'utilisation actuelle de l'image (potentialité de dépassement de limite ultérieur)
      * @return ArrayObject
      */
-    public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false): ArrayObject
+    public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false, bool $useProjection = false): ArrayObject
     {
         if ($onlyOnImagesSuspectes) {
             $tabNewName = [];
@@ -244,8 +245,13 @@ abstract class HelperAdmin
         }
 
         // Images avec trop d'affichages
-        $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_action) > 0, DATEDIFF(NOW(), im.date_action), 1) as nbViewPerDay
-            FROM images im
+        if ($useProjection) {
+            // Ne prendre que les images qui sont présentes depuis plus d'une heure pour limiter les faux positifs
+            $req = 'SELECT im.new_name, ( ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(im.date_action < (NOW() - INTERVAL 1 HOUR), ( UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(im.date_action) ), -1) ) * (60 * 60 * 24 ) as nbViewPerDay';
+        } else {
+            $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_action) > 0, DATEDIFF(NOW(), im.date_action), 1) as nbViewPerDay';
+        }
+        $req .= ' FROM images im
             WHERE im.isBloquee = 0
             AND im.isSignalee = 0
             AND im.isApprouvee = 0';

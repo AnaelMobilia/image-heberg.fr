@@ -63,6 +63,11 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
     (25, '192.168.0.1', '2024-01-01 00:00:00', 'Capture.jpg', 'image_25.jpg', 1, 1, 1, '0000-00-00', 0, 0, 'n0gi96gc0kgpnc43wbfu58y6l0evfj6q', 1, 0, 0, '192.168.0.0'),
     (26, '192.168.100.1', '2024-01-01 00:00:00', 'Capture.jpg', 'image_26.jpg', 1, 1, 1, '0000-00-00', 0, 0, 'n0gi96gc0kgpnc43wbfu58y6l0evfj6q', 1, 0, 0, '192.168.100.0');
 
+--
+-- Image qui sera trop affichée EN PROJECTION
+--
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+(27, '127.0.0.1', (NOW() - INTERVAL 2 HOUR), 'image_trop_affichee_en_projection.png', 'image_27.png', 1, 1, 1, NOW(), 50, 50, 'e56133dbdc6d8829a7ad7942e9cd0283', 0, 0, 0, '127.0.0.0');
 
 --
 -- Miniatures à supprimer
