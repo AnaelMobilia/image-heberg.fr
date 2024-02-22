@@ -37,35 +37,44 @@ class Tor
      */
     public function updateListeExitNodes(): void
     {
-        // Récupération du dernier fichier
-        $objJson = json_decode(file_get_contents(_TOR_EXIT_NODE_LIST_URL_), false, 512, JSON_THROW_ON_ERROR);
+        $torNodeList = file_get_contents(_TOR_EXIT_NODE_LIST_URL_);
 
-        $tabIP = [];
-        $tabIP[self::IPV4] = [];
-        $tabIP[self::IPV6] = [];
+        // Ne mettre à jour que si on a des données
+        if (!empty($torNodeList)) {
+            // Récupération du dernier fichier
+            $objJson = json_decode($torNodeList, false, 512, JSON_THROW_ON_ERROR);
 
-        foreach ($objJson->relays as $unRelay) {
-            // Adresse IP de sortie (IPv4 uniquement)
-            // https://metrics.torproject.org/onionoo.html#details_relay_exit_addresses
-            if (isset($unRelay->exit_addresses)) {
-                foreach ($unRelay->exit_addresses as $uneIp) {
-                    $this->addToTab($uneIp, $tabIP);
+            $tabIP = [];
+            $tabIP[self::IPV4] = [];
+            $tabIP[self::IPV6] = [];
+
+            foreach ($objJson->relays as $unRelay) {
+                // Adresse IP de sortie (IPv4 uniquement)
+                // https://metrics.torproject.org/onionoo.html#details_relay_exit_addresses
+                if (isset($unRelay->exit_addresses)) {
+                    foreach ($unRelay->exit_addresses as $uneIp) {
+                        $this->addToTab($uneIp, $tabIP);
+                    }
+                }
+                // Adresse IP sur lequel le noeud écoute (IPv4 + IPv6)
+                // Lorsque exit_addresses incluera les IPv6, plus besoin de cette partie qui surbloque...
+                if (isset($unRelay->or_addresses)) {
+                    foreach ($unRelay->or_addresses as $uneIp) {
+                        $this->addToTab($uneIp, $tabIP, true);
+                    }
                 }
             }
-            // Adresse IP sur lequel le noeud écoute (IPv4 + IPv6)
-            // Lorsque exit_addresses incluera les IPv6, plus besoin de cette partie qui surbloque...
-            if (isset($unRelay->or_addresses)) {
-                foreach ($unRelay->or_addresses as $uneIp) {
-                    $this->addToTab($uneIp, $tabIP, true);
-                }
-            }
+
+            // Enregister le résultat sur le disque
+            $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4], JSON_THROW_ON_ERROR));
+            echo 'IPv4 : ' . $retour;
+            $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6], JSON_THROW_ON_ERROR));
+            echo '<br />IPv6 : ' . $retour;
+        } else {
+            // Envoyer un mail d'avertissement
+            mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Actualisation des noeuds Tor en erreur', 'Liste de noeuds récupérée : ' . var_export($torNodeList, true), 'From: ' . _ADMINISTRATEUR_EMAIL_);
+            die();
         }
-
-        // Enregister le résultat sur le disque
-        $retour = file_put_contents(_TOR_LISTE_IPV4_, json_encode($tabIP[self::IPV4], JSON_THROW_ON_ERROR));
-        echo 'IPv4 : ' . $retour;
-        $retour = file_put_contents(_TOR_LISTE_IPV6_, json_encode($tabIP[self::IPV6], JSON_THROW_ON_ERROR));
-        echo '<br />IPv6 : ' . $retour;
     }
 
     /**
