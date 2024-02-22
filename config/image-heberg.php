@@ -23,11 +23,10 @@ namespace ImageHeberg;
 
 use Throwable;
 
-if (_DEBUG_) {
-    error_reporting(E_ALL | E_STRICT);
-    // Avoir le détail des paramètres des méthodes dans les stack traces
-    ini_set('zend.exception_string_param_max_len', 1000000);
-}
+error_reporting(E_ALL | E_STRICT);
+// Avoir le détail des paramètres des méthodes dans les stack traces
+ini_set('zend.exception_string_param_max_len', 1000000);
+
 if (!_PHPUNIT_) {
     /**
      * Supprime des informations sensibles du log d'erreur
@@ -68,11 +67,9 @@ if (!_PHPUNIT_) {
         // Date
         $headers .= PHP_EOL . 'Date: ' . date('D, j M Y H:i:s +0200');
         $message = PHP_EOL . exception_handler_cleaner($exception->getMessage()) . PHP_EOL . exception_handler_cleaner($exception->getTraceAsString());
-        $message .= PHP_EOL . 'URL : ' . $_SERVER['REQUEST_URI'];
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $message .= PHP_EOL . 'HTTP REFERER : ' . $_SERVER['HTTP_REFERER'];
-        }
-        $message .= PHP_EOL . 'HTTP USER AGENT : ' . $_SERVER['HTTP_USER_AGENT'];
+        $message .= PHP_EOL . 'URL : ' . ($_SERVER['REQUEST_URI'] ?? '');
+        $message .= PHP_EOL . 'HTTP REFERER : ' . ($_SERVER['HTTP_REFERER'] ?? '');
+        $message .= PHP_EOL . 'HTTP USER AGENT : ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
         $message .= PHP_EOL . 'REMOTE ADDR : ' . $_SERVER['REMOTE_ADDR'];
 
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] -  Erreur rencontrée', $message, $headers);
