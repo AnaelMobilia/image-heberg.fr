@@ -21,7 +21,6 @@
 
 namespace ImageHeberg;
 
-
 use Exception;
 
 /**
