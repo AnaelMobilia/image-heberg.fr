@@ -278,24 +278,26 @@ class ImageObject extends RessourceObject implements RessourceInterface
 
     /**
      * Bloquer une image en BDD
+     * Effet contaminant sur les autres images partagant le même MD5
      */
     public function bloquer(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1, isApprouvee = 0 WHERE id = :id');
-        $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1, isApprouvee = 0 WHERE md5 = :md5');
+        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
 
         $req->execute();
     }
 
     /**
      * Approuver une image en BDD
+     * Effet contaminant sur les autres images partagant le même MD5
      */
     public function approuver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE id = :id');
-        $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE md5 = :md5');
+        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
 
         $req->execute();
     }

@@ -70,6 +70,22 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 (27, '127.0.0.1', (NOW() - INTERVAL 2 HOUR), 'image_trop_affichee_en_projection.png', 'image_27.png', 1, 1, 1, NOW(), 50, 50, 'e56133dbdc6d8829a7ad7942e9cd0283', 0, 0, 0, '127.0.0.0');
 
 --
+-- Images qui seront bloquées
+--
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+    (28, '127.0.0.1', NOW(), 'image_a_bloquer_en_prog.png', 'image_28.png', 1, 1, 1, NOW(), 50, 50, '123456789--md5--123456789', 0, 0, 0, '127.0.0.0'),
+    (29, '127.0.0.1', NOW(), 'image_qui_sera_aussi_bloquee_car_md5_identique.png', 'image_29.png', 1, 1, 1, NOW(), 50, 50, '123456789--md5--123456789', 0, 0, 1, '127.0.0.0');
+
+--
+-- Images qui seront validées
+--
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+    (30, '127.0.0.1', NOW(), 'image_a_valider_prog.png', 'image_30.png', 1, 1, 1, NOW(), 50, 50, '987654321--md5--987654321', 0, 0, 0, '127.0.0.0'),
+    (31, '127.0.0.1', NOW(), 'image_a_valider_prog.png', 'image_31.png', 1, 1, 1, NOW(), 50, 50, '987654321--md5--987654321', 0, 1, 0, '127.0.0.0'),
+    (32, '127.0.0.1', NOW(), 'image_a_valider_prog.png', 'image_32.png', 1, 1, 1, NOW(), 50, 50, '987654321--md5--987654321', 0, 0, 1, '127.0.0.0');
+
+
+--
 -- Miniatures à supprimer
 --
 INSERT INTO `thumbnails` (`id`, `images_id`, `date_action`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`) VALUES
