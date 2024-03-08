@@ -89,6 +89,12 @@ abstract class HelperAdmin
      */
     public static function getUnusedAccounts(): ArrayObject
     {
+        // Effacer les logs de connexion > 1 an
+        $req = 'DELETE
+               FROM login
+               WHERE date_action < (NOW() - INTERVAL 1 YEAR)';
+        MaBDD::getInstance()->query($req);
+
         // Toutes les comptes créés et jamais utilisés depuis xx jours
         $req = 'SELECT m.id
                FROM membres m
