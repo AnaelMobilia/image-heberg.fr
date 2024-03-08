@@ -76,7 +76,7 @@ require _TPL_TOP_;
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanAccountsNeverUsed.php" class="btn btn-warning">
                 <span class="bi-person-x"></span>
-                &nbsp;Supprimer les comptes créés il y a plus de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?> et jamais utilisés
+                &nbsp;Supprimer les comptes créés il y a plus de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?> et sans images associées
             </a>
         </div>
     </div>

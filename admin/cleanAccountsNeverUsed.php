@@ -53,7 +53,7 @@ if (isset($_POST['effacer'])) :
 <?php else : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeComptes->count() ?> compte<?= $isPlural ?> créé<?= $isPlural ?> il y a au moins <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1 ? 's' : '' ?> et jamais utilisé<?= $isPlural ?>
+            <?= $listeComptes->count() ?> compte<?= $isPlural ?> créé<?= $isPlural ?> il y a au moins <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1 ? 's' : '' ?> et sans images associées
         </div>
         <div class="card-body">
             <ul>
