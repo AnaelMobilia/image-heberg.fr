@@ -43,7 +43,7 @@ class AbuseTest extends TestCase
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_POST['userMail'] = 'john.doe@example.com';
-        $_POST['urlImage'] = 'https://www.example.com/files/15.png';
+        $_POST['urlImage'] = 'https://www.example.com/files/image_15.png';
 
         ob_start();
         require 'abuse.php';
