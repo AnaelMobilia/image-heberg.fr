@@ -55,7 +55,7 @@ $idStart = 0;
 if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
     $idStart = (int) $_GET['nextId'];
 }
-$req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
+$req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
 $table = [
     'legende' => 'trouvée##',
     'values' => HelperAdmin::queryOnNewName($req)
