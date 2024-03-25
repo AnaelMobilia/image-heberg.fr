@@ -52,8 +52,8 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
  * Images à traiter
  */
 $idStart = 0;
-if (!empty($_GET['nextId']) && is_numeric($_GET['nextId'])) {
-    $idStart = trim(str_replace('\'', '_', $_GET['nextId']));
+if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
+    $idStart = (int) $_GET['nextId'];
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
 $table = [
