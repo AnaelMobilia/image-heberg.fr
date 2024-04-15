@@ -23,6 +23,7 @@ namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
 use ImagickException;
+use ImagickPixelException;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 use Imagick;
@@ -30,161 +31,120 @@ use Imagick;
 /**
  * L'entête des fichiers contient des informations sur la bibliothéque système les ayant produit
  * <CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100
- * Il faut que l'image de référence et celle générée soit avec la même version de l'outil...
- * => Passage des fonction PHP à Imagick qui est un peu plus portable
- * ==> Pour éviter les petites différences liées à la stack de ImageMagick, utilisation d'un fuzz
  */
 class ImageObjectTest extends TestCase
 {
     // Rotation pour les images
-    private const array VALEURS_ANGLE = [90, 180, 270];
-    // Tolérance pour la comparaison des couleurs
-    private const int FUZZ = 10;
+    private const array ROTATION_ANGLES = [0, 90, 180, 270];
+    // Couleurs des 4 coins : HG / BG / BD / HD
+    private const array ROTATION_COULEURS = [
+        0 => [
+            'r' => 255,
+            'g' => 0,
+            'b' => 0,
+        ],
+        1 => [
+            'r' => 0,
+            'g' => 255,
+            'b' => 0,
+        ],
+        2 => [
+            'r' => 0,
+            'g' => 0,
+            'b' => 255,
+        ],
+        3 => [
+            'r' => 255,
+            'g' => 255,
+            'b' => 255,
+        ],
+    ];
+    // Dimensions d'origine de l'image
+    private const array ROTATION_DIM_ORIGINE = [640, 150];
 
     /**
-     * Charge en mémoire une image via Imagick
-     * Intégre un fuzz sur l'image pour avoir une tolérance sur la comparaison des couleurs
-     * @param $path string chemin du fichier
-     * @return Imagick
+     * Les couleurs des images sont conservées à +/- 1 point de valeur
+     * @param array $reference Couleur de référence
+     * @param array $valeur Couleur à comparer
+     * @return bool
+     */
+    private function compareColor(array $reference, array $valeur): bool
+    {
+        $monRetour = true;
+        foreach ($reference as $key => $value) {
+            if (
+                $valeur[$key] !== $value
+                && $valeur[$key] !== ($value - 1)
+                && $valeur[$key] !== ($value + 1)
+            ) {
+                $monRetour = false;
+                break;
+            }
+        }
+        // Debug
+        if (!$monRetour) {
+            echo PHP_EOL . 'Expected : ' . var_export($reference, true) . PHP_EOL . 'Actual : ' . var_export($valeur, true) . PHP_EOL;
+        }
+
+        return $monRetour;
+    }
+
+    /**
+     * Rotation des images
+     * @throws ImagickPixelException
      * @throws ImagickException
      */
-    private function chargeImage(string $path): Imagick
-    {
-        $uneImage = new Imagick();
-        // Tolérance pour la comparaison des couleurs
-        // https://imagemagick.org/script/command-line-options.php#fuzz
-        $uneImage->setOption('fuzz', self::FUZZ . '%');
-        // Chargement de l'image
-        $uneImage->readImage($path);
-
-        return $uneImage;
-    }
-
-    /**
-     * Compare deux images
-     * @param $imgReference string Path de l'image de référence
-     * @param $img string Path de l'mage à comparer
-     * @return bool Identiques ?
-     * @throws ImagickException
-     */
-    private function compareImages(string $imgReference, string $img): bool
-    {
-        $img1 = $this->chargeImage($imgReference);
-        $img2 = $this->chargeImage($img);
-
-        // https://www.php.net/manual/en/imagick.compareimages.php#114944
-        // compare the images using METRIC=1 (Absolute Error)
-        $result = $img1->compareImages($img2, 1);
-
-        // Afficher le détail des incohérences
-        if ($result[1] !== 0) {
-            echo 'compareImages - ' . $imgReference . ' VS ' . $img . ' => ' . $result[1] . ' (Fuzz factor : ' . self::FUZZ . ')' . PHP_EOL;
-        }
-
-        return ($result[1] === 0);
-    }
-
-    /**
-     * Rotation des images PNG
-     */
     #[RunInSeparateProcess]
-    public function testRotationImagesPNG(): void
+    public function testRotationImages(): void
     {
         require 'config/config.php';
 
         $monImage = new ImageObject();
 
-        foreach (self::VALEURS_ANGLE as $angle) {
-            $monImage->rotation(
-                $angle,
-                _PATH_TESTS_IMAGES_ . 'image_banned.png',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle
-            );
-            $this->assertTrue(
-                $this->compareImages(
-                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.png',
-                    _PATH_TESTS_OUTPUT_ . 'image_banned.png-' . $angle,
-                ),
-                'Rotation PNG ' . $angle
-            );
-        }
-    }
+        foreach (_ACCEPTED_EXTENSIONS_ as $uneExtension) {
+            foreach (self::ROTATION_ANGLES as $unAngle) {
+                $monImage->rotation(
+                    $unAngle,
+                    _PATH_TESTS_IMAGES_ . 'rotation_original.' . strtolower($uneExtension),
+                    _PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension)
+                );
 
-    /**
-     * Rotation des images JPG
-     */
-    #[RunInSeparateProcess]
-    public function testRotationImagesJPG(): void
-    {
-        require 'config/config.php';
-        $monImage = new ImageObject();
+                // Calcul des dimensions théoriques
+                $indiceLargeur = (($unAngle % 180) === 0 ? 0 : 1);
+                $indiceHauteur = (($unAngle % 180) === 0 ? 1 : 0);
 
-        foreach (self::VALEURS_ANGLE as $angle) {
-            $monImage->rotation(
-                $angle,
-                _PATH_TESTS_IMAGES_ . 'image_banned.jpg',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
-            );
-            $this->assertTrue(
-                $this->compareImages(
-                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.jpg',
-                    _PATH_TESTS_OUTPUT_ . 'image_banned.jpg-' . $angle
-                ),
-                'Rotation JPG ' . $angle
-            );
-        }
-    }
+                // Vérifier les dimensions des images
+                $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension));
+                $this->assertEquals(
+                    self::ROTATION_DIM_ORIGINE[$indiceLargeur],
+                    $imageInfo[0],
+                    'Largeur d\'image - Rotation ' . $uneExtension . ' ' . $unAngle
+                );
+                $this->assertEquals(
+                    self::ROTATION_DIM_ORIGINE[$indiceHauteur],
+                    $imageInfo[1],
+                    'Hauteur d\'image - Rotation ' . $uneExtension . ' ' . $unAngle
+                );
 
-    /**
-     * Rotation des images GIF
-     * Pas de changement en fonction des versions de PHP
-     */
-    #[RunInSeparateProcess]
-    public function testRotationImagesGIF(): void
-    {
-        require 'config/config.php';
-        $monImage = new ImageObject();
-
-        foreach (self::VALEURS_ANGLE as $angle) {
-            $monImage->rotation(
-                $angle,
-                _PATH_TESTS_IMAGES_ . 'image_banned.gif',
-                _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
-            );
-            $this->assertTrue(
-                $this->compareImages(
-                    _PATH_TESTS_IMAGES_ . 'image_banned-' . $angle . '.gif',
-                    _PATH_TESTS_OUTPUT_ . 'image_banned.gif-' . $angle
-                ),
-                'Rotation GIF ' . $angle
-            );
-        }
-    }
-
-
-    /**
-     * Rotation des images WEBP
-     * Pas de changement en fonction des versions de PHP
-     */
-    #[RunInSeparateProcess]
-    public function testRotationImagesWEBP(): void
-    {
-        require 'config/config.php';
-        $monImage = new ImageObject();
-
-        foreach (self::VALEURS_ANGLE as $angle) {
-            $monImage->rotation(
-                $angle,
-                _PATH_TESTS_IMAGES_ . 'test.webp',
-                _PATH_TESTS_OUTPUT_ . 'test.webp-' . $angle
-            );
-            $this->assertTrue(
-                $this->compareImages(
-                    _PATH_TESTS_IMAGES_ . 'test-' . $angle . '.webp',
-                    _PATH_TESTS_OUTPUT_ . 'test.webp-' . $angle
-                ),
-                'Rotation WEBP ' . $angle
-            );
+                // Vérifier les couleurs
+                $image = new Imagick(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension));
+                $this->assertTrue(
+                    $this->compareColor(self::ROTATION_COULEURS[round($unAngle / 90)], $image->getImagePixelColor(0, 0)->getColor()),
+                    'Pixel (0,0) - Couleur ' . $uneExtension . ' - Rotation ' . $unAngle
+                );
+                $this->assertEquals(
+                    $this->compareColor(self::ROTATION_COULEURS[(round($unAngle / 90) + 1) % 4], $image->getImagePixelColor(0, self::ROTATION_DIM_ORIGINE[$indiceHauteur])->getColor()),
+                    'Pixel (0,' . self::ROTATION_DIM_ORIGINE[$indiceHauteur] . ') - Couleur ' . $uneExtension . ' - Rotation ' . $unAngle
+                );
+                $this->assertEquals(
+                    $this->compareColor(self::ROTATION_COULEURS[(round($unAngle / 90) + 2) % 4], $image->getImagePixelColor(self::ROTATION_DIM_ORIGINE[$indiceLargeur], self::ROTATION_DIM_ORIGINE[$indiceHauteur])->getColor()),
+                    'Pixel (' . self::ROTATION_DIM_ORIGINE[$indiceLargeur] . ',' . self::ROTATION_DIM_ORIGINE[$indiceHauteur] . ') - Couleur ' . $uneExtension . ' - Rotation ' . $unAngle
+                );
+                $this->assertEquals(
+                    $this->compareColor(self::ROTATION_COULEURS[(round($unAngle / 90) + 3) % 4], $image->getImagePixelColor(self::ROTATION_DIM_ORIGINE[$indiceLargeur], 0)->getColor()),
+                    'Pixel (' . self::ROTATION_DIM_ORIGINE[$indiceLargeur] . ',0) - Couleur ' . $uneExtension . ' - Rotation ' . $unAngle
+                );
+            }
         }
     }
 
@@ -243,12 +203,16 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        $this->assertTrue(
-            $this->compareImages(
-                _PATH_TESTS_IMAGES_ . 'image_portrait_200x400.png',
-                _PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png'
-            ),
-            'Redimensionnement portrait 200x400'
+        $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'image_portrait_200x400.png');
+        $this->assertEquals(
+            200,
+            $imageInfo[0],
+            'Redimensionnement 600x800 -> 200x400'
+        );
+        $this->assertEquals(
+            267,
+            $imageInfo[1],
+            'Redimensionnement 600x800 -> 200x400'
         );
 
         // Doit être 150x200
@@ -258,12 +222,16 @@ class ImageObjectTest extends TestCase
             400,
             200
         );
-        $this->assertTrue(
-            $this->compareImages(
-                _PATH_TESTS_IMAGES_ . 'image_portrait_400x200.png',
-                _PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png'
-            ),
-            'Redimensionnement portrait 400x200'
+        $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'image_portrait_400x200.png');
+        $this->assertEquals(
+            150,
+            $imageInfo[0],
+            'Redimensionnement 600x800 -> 400x200'
+        );
+        $this->assertEquals(
+            200,
+            $imageInfo[1],
+            'Redimensionnement 600x800 -> 400x200'
         );
 
         /*
@@ -276,12 +244,16 @@ class ImageObjectTest extends TestCase
             400,
             200
         );
-        $this->assertTrue(
-            $this->compareImages(
-                _PATH_TESTS_IMAGES_ . 'image_paysage_400x200.png',
-                _PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png'
-            ),
-            'Redimensionnement paysage 400x200'
+        $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'image_paysage_400x200.png');
+        $this->assertEquals(
+            267,
+            $imageInfo[0],
+            'Redimensionnement 800x600 -> 400x200'
+        );
+        $this->assertEquals(
+            200,
+            $imageInfo[1],
+            'Redimensionnement 800x600 -> 400x200'
         );
 
         // Doit être 200x150
@@ -291,12 +263,16 @@ class ImageObjectTest extends TestCase
             200,
             400
         );
-        $this->assertTrue(
-            $this->compareImages(
-                _PATH_TESTS_IMAGES_ . 'image_paysage_200x400.png',
-                _PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png'
-            ),
-            'Redimensionnement paysage 200x400'
+        $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'image_paysage_200x400.png');
+        $this->assertEquals(
+            200,
+            $imageInfo[0],
+            'Redimensionnement 800x600 -> 200x400'
+        );
+        $this->assertEquals(
+            150,
+            $imageInfo[1],
+            'Redimensionnement 800x600 -> 200x400'
         );
     }
 }

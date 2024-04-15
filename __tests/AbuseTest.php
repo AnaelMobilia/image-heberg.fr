@@ -28,7 +28,6 @@ use ImageHeberg\RessourceObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
-use ArrayObject;
 
 class AbuseTest extends TestCase
 {
@@ -51,7 +50,16 @@ class AbuseTest extends TestCase
 
         $imageBloquee = new ImageObject('image_15.png');
         $imageMemeMd5 = new ImageObject('image_16.png');
-        $this->assertTrue($imageBloquee->isSignalee(), 'Image signalée doit l\'être');
+
+
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertTrue(
+            $imageBloquee->isSignalee(),
+            'Image signalée doit l\'être'
+        );
         $this->assertTrue(
             $imageMemeMd5->isSignalee(),
             'Image avec même MD5 qu\'une image signalée doit l\'être également'
@@ -78,11 +86,11 @@ class AbuseTest extends TestCase
 
         $this->assertEmpty(
             $msgErreur,
-            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : ' . $msgErreur
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
         );
         $this->assertEmpty(
             $msgWarning,
-            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : ' . $msgWarning
+            __FUNCTION__ . ' ne devrait pas lever de message de warning - Warning : ' . $msgWarning
         );
         $this->assertTrue(
             $monImage->isBloquee(),
@@ -108,7 +116,14 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $imageSignalee = new ImageObject('_image_404.png');
-        $this->assertFalse($imageSignalee->isSignalee(), 'Image approuvée qui est signalée ne doit pas être bloquée');
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertFalse(
+            $imageSignalee->isSignalee(),
+            'Image approuvée qui est signalée ne doit pas être bloquée'
+        );
     }
 
     /**
@@ -138,14 +153,17 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $image = new ImageObject('_image_banned.png');
-        $this->assertFalse($image->isSignalee(), 'Image signalée qui est approuvée ne doit plus être signalée');
+        $this->assertFalse(
+            $image->isSignalee(),
+            'Image signalée qui est approuvée ne doit plus être signalée'
+        );
     }
 
     /**
-     * Envoi d'une image depuis le même réseau qu'une image bloquée
+     * Renvoi d'une image déjà bloquée
      */
     #[RunInSeparateProcess]
-    public function testAbuseImageEnvoiDepuisReseauMalveillant(): void
+    public function testAbuseImageRenvoiImageBloqueeDepuisReseauMalveillant(): void
     {
         require 'config/config.php';
 
@@ -165,11 +183,54 @@ class AbuseTest extends TestCase
         $imagesApresEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
 
         $this->assertEmpty(
-            $imagesAvantEnvoi,
-            'Aucune image ne doit être considérée comme potentiellement indésirable : ' . var_export($imagesAvantEnvoi, true)
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
         );
-        $this->assertNotEmpty(
-            $imagesApresEnvoi,
+        $this->assertEmpty(
+            $msgWarning,
+            __FUNCTION__ . ' ne devrait pas lever de message de warning - Warning : ' . $msgWarning
+        );
+        $this->assertEquals(
+            $imagesAvantEnvoi->count(),
+            $imagesApresEnvoi->count(),
+            'Le renvoi d\'une image bloquée doit être bloqué'
+        );
+    }
+
+    /**
+     * Envoi d'une image depuis le même réseau qu'une image bloquée
+     */
+    #[RunInSeparateProcess]
+    public function testAbuseImageEnvoiDepuisReseauMalveillant(): void
+    {
+        require 'config/config.php';
+
+        $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
+
+        $_SERVER['REMOTE_ADDR'] = '10.10.10.11';
+        $_POST['Submit'] = 1;
+        $_SESSION['flag'] = true;
+        $_FILES['fichier']['size'] = 146;
+        $_FILES['fichier']['name'] = 'rotation_original.gif';
+        $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
+
+        ob_start();
+        require 'upload.php';
+        ob_end_clean();
+
+        $imagesApresEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
+
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertEmpty(
+            $msgWarning,
+            __FUNCTION__ . ' ne devrait pas lever de message de warning - Warning : ' . $msgWarning
+        );
+        $this->assertEquals(
+            ($imagesAvantEnvoi->count() + 1),
+            $imagesApresEnvoi->count(),
             'L\'image envoyée devrait être considérée comme potentiellement indésirable : ' . var_export($imagesApresEnvoi, true)
         );
     }
@@ -204,14 +265,14 @@ class AbuseTest extends TestCase
 
         $imagesTropAffichees = HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true);
 
-        $this->assertSame(
-            new ArrayObject(['12380025661369047607.gif']),
+        $this->assertContains(
+            'image_20.gif',
             $listeImagesSuspectes,
             'L\'image 19 est suspecte car envoyée d\'un même réseau que l\'image 18'
         );
 
-        $this->assertSame(
-            new ArrayObject(['12380025661369047607.gif']),
+        $this->assertContains(
+            'image_20.gif',
             $imagesTropAffichees,
             'L\'image 19 a été trop affichée -> WARNING (elle est suspecte)'
         );
@@ -226,19 +287,19 @@ class AbuseTest extends TestCase
         require 'config/config.php';
 
         // Adresse IP ayant envoyé les fichiers bloqués
-        $this->assertSame(
+        $this->assertEquals(
             5,
             HelperAbuse::checkIpReputation('192.168.0.1'),
             'Le réseau 192.168.0.0/24 a 5 images bloquées'
         );
         // Adresse IP du même réseau que celle ayant envoyé les fichiers bloqués
-        $this->assertSame(
+        $this->assertEquals(
             5,
             HelperAbuse::checkIpReputation('192.168.0.100'),
             'Le réseau 192.168.0.0/24 a 5 images bloquées'
         );
         // Adresse IP random qui n'a pas d'images bloqués
-        $this->assertSame(
+        $this->assertEquals(
             0,
             HelperAbuse::checkIpReputation('2a01:ab51:8880:e010:1da5:be67:6a52:a5bf'),
             'Aucune image bloquée dans le réseau de cette adresse IP'
@@ -255,18 +316,11 @@ class AbuseTest extends TestCase
 
         $images = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_, false, true);
 
-        $this->assertNotEmpty(
+        $this->assertContains(
+            'image_27.png',
             $images,
             'L\'image 27 doit être détectée comme dépassant le nombre d\'affichage en projection : ' . var_export($images, true)
         );
-        // Ne faire que si on est sur d'avoir des datas
-        if ($images->count() >= 1) {
-            $this->assertSame(
-                'image_27.png',
-                $images->offsetGet(0),
-                'L\'image 27 doit être détectée comme dépassant le nombre d\'affichage en projection : ' . var_export($images, true)
-            );
-        }
     }
 
     /**

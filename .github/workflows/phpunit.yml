@@ -39,11 +39,15 @@ jobs:
           mysql -u root -proot imageheberg < database.sql
           sh -c "mv __tests/config/config.php config/"
           sh -c "mv __tests/ipv*.txt files/z_cache/"
-          sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
-          sh -c "cp __tests/images/image_a_supprimer.png files/d/d456d1b6582a15f0f458006898b40e29"
-          sh -c "cp __tests/images/imageDejaBloquee.gif files/f/f7a498af28acb8a3bbc20ddc95da4c2a"
+          
+          # Pour ImageUploadAndDeleteTest
+          sh -c "find files/ -name _dummy -type f -delete"
+          
+          # Injection des données
           mysql -u root -proot imageheberg < __tests/data.sql
 
+          # Adaptation à l'environnement actuel
+          php '__tests/_bootstrap.php'
       - name: Test de l'application - phpunit v11
         if: ${{ matrix.php-versions != '8.0' }}
         run: phpunit --colors --display-warnings --display-errors __tests/

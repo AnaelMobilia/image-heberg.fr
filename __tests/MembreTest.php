@@ -72,7 +72,11 @@ class MembreTest extends TestCase
          * Vérification des valeurs
          */
         $maSession = new SessionObject();
-        $this->assertEquals(UtilisateurObject::LEVEL_ADMIN, $maSession->getLevel(), 'connexion : doit être OK');
+        $this->assertEquals(
+            UtilisateurObject::LEVEL_ADMIN,
+            $maSession->getLevel(),
+            'connexion : doit être OK'
+        );
     }
 
     /**
@@ -142,16 +146,34 @@ class MembreTest extends TestCase
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals('mymail@example.com', $monMembre->getEmail(), 'Vérification email');
+        $this->assertEquals(
+            'mymail@example.com',
+            $monMembre->getEmail(),
+            'Vérification email'
+        );
         // ID
-        $this->assertEquals(3, $monMembre->getId());
+        $this->assertEquals(
+            3,
+            $monMembre->getId()
+        );
         // @ IP d'inscription
-        $this->assertEquals('127.0.0.1', $monMembre->getIpInscription());
+        $this->assertEquals(
+            '127.0.0.1',
+            $monMembre->getIpInscription()
+        );
         // Niveau de droits
-        $this->assertEquals(UtilisateurObject::LEVEL_USER, $monMembre->getLevel());
+        $this->assertEquals(
+            UtilisateurObject::LEVEL_USER,
+            $monMembre->getLevel()
+        );
         // Nom
-        $this->assertEquals('username', $monMembre->getUserName());
-        $this->assertTrue($monMembre->connexion($_POST['userName'], $_POST['userPassword']));
+        $this->assertEquals(
+            'username',
+            $monMembre->getUserName()
+        );
+        $this->assertTrue(
+            $monMembre->connexion($_POST['userName'], $_POST['userPassword'])
+        );
     }
 
     /**
@@ -173,7 +195,10 @@ class MembreTest extends TestCase
          * Simulation d'une connexion
          */
         $unMembre = new UtilisateurObject();
-        $this->assertTrue($unMembre->connexion('username', $_POST['userPasswordMail']), 'connexion avant');
+        $this->assertTrue(
+            $unMembre->connexion('username', $_POST['userPasswordMail']),
+            'connexion avant'
+        );
 
         /**
          *  Appel de la page
@@ -191,8 +216,15 @@ class MembreTest extends TestCase
          * Vérification des valeurs
          */
         // Email
-        $this->assertEquals('john.doe@example.com', $monMembre->getEmail(), 'getEmail');
-        $this->assertTrue($monMembre->connexion('username', $_POST['userPasswordMail']), 'connexion après');
+        $this->assertEquals(
+            'john.doe@example.com',
+            $monMembre->getEmail(),
+            'getEmail'
+        );
+        $this->assertTrue(
+            $monMembre->connexion('username', $_POST['userPasswordMail']),
+            'connexion après'
+        );
     }
 
     /**
@@ -214,7 +246,10 @@ class MembreTest extends TestCase
          * Simulation d'une connexion
          */
         $unMembre = new UtilisateurObject();
-        $this->assertTrue($unMembre->connexion('username', $_POST['oldUserPassword']), 'connexion avant');
+        $this->assertTrue(
+            $unMembre->connexion('username', $_POST['oldUserPassword']),
+            'connexion avant'
+        );
 
         /**
          *  Appel de la page
@@ -231,8 +266,14 @@ class MembreTest extends TestCase
         /**
          * Vérification des valeurs
          */
-        $this->assertTrue($monMembre->connexion('username', $_POST['newUserPassword']), 'connexion');
-        $this->assertFalse($monMembre->connexion('username', $_POST['oldUserPassword']), 'connexion');
+        $this->assertTrue(
+            $monMembre->connexion('username', $_POST['newUserPassword']),
+            'connexion'
+        );
+        $this->assertFalse(
+            $monMembre->connexion('username', $_POST['oldUserPassword']),
+            'connexion'
+        );
     }
 
     /**
@@ -253,7 +294,10 @@ class MembreTest extends TestCase
          * Simulation d'une connexion
          */
         $unMembre = new UtilisateurObject();
-        $this->assertTrue($unMembre->connexion('username', $_POST['userPasswordDelete']), 'connexion avant');
+        $this->assertTrue(
+            $unMembre->connexion('username', $_POST['userPasswordDelete']),
+            'connexion avant'
+        );
 
         /**
          *  Appel de la page
@@ -295,7 +339,10 @@ class MembreTest extends TestCase
          * Simulation d'une connexion
          */
         $unMembre = new UtilisateurObject();
-        $this->assertTrue($unMembre->connexion('username', $_POST['userPasswordDelete']), 'connexion avant');
+        $this->assertTrue(
+            $unMembre->connexion('username', $_POST['userPasswordDelete']),
+            'connexion avant'
+        );
 
         /**
          *  Appel de la page

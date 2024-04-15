@@ -121,7 +121,8 @@ define('_URL_CONFIG_', _URL_HTTPS_ . _REPERTOIRE_CONFIG_);
  */
 define('_PATH_IMAGES_', _PATH_ . _REPERTOIRE_IMAGE_);
 define('_PATH_MINIATURES_', _PATH_ . _REPERTOIRE_MINIATURE_);
-define('_PATH_TESTS_IMAGES_', _PATH_ . '__tests/images/');
+define('_PATH_TESTS_IMAGES_', _PATH_ . '__tests/images/'); // Images pour les tests
+define('_PATH_TESTS_IMAGES_A_IMPORTER_', _PATH_TESTS_IMAGES_ . 'aImporter/'); // Images devant déjà être importées avant d'exécurer les tests
 define('_PATH_TESTS_OUTPUT_', _PATH_ . '__tests/output/');
 define('_TPL_TOP_', _PATH_ . 'template/templateV2Top.php');
 define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');

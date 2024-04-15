@@ -39,7 +39,11 @@ class DisplayPicsTest extends TestCase
         require 'displayPics.php';
         ob_end_clean();
         /* @var $monObjet RessourceObject */
-        $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), 'image_404 si inexistante');
+        $this->assertEquals(
+            _IMAGE_404_,
+            $monObjet->getNomNouveau(),
+            'image_404 si inexistante'
+        );
     }
 
     /**
@@ -54,7 +58,11 @@ class DisplayPicsTest extends TestCase
         require 'displayPics.php';
         ob_end_clean();
         /* @var $monObjet RessourceObject */
-        $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), 'image_404 si inexistante');
+        $this->assertEquals(
+            _IMAGE_404_,
+            $monObjet->getNomNouveau(),
+            'image_404 si inexistante'
+        );
     }
 
     /**
@@ -69,7 +77,11 @@ class DisplayPicsTest extends TestCase
         require 'displayPics.php';
         ob_end_clean();
         /* @var $monObjet RessourceObject */
-        $this->assertEquals(_IMAGE_404_, $monObjet->getNomNouveau(), 'image_404 si mauvais sous répertoire');
+        $this->assertEquals(
+            _IMAGE_404_,
+            $monObjet->getNomNouveau(),
+            'image_404 si mauvais sous répertoire'
+        );
     }
 
     /**
@@ -79,12 +91,17 @@ class DisplayPicsTest extends TestCase
     public function testImageBloquee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SERVER['REQUEST_URI'] = 'files/imageBloquee.jpg';
+        $_SERVER['REQUEST_URI'] = 'files/image_10.png';
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
+
         /* @var $monObjet RessourceObject */
-        $this->assertEquals(_IMAGE_BAN_, $monObjet->getNomNouveau(), 'image_ban si image bloquée');
+        $this->assertEquals(
+            _IMAGE_BAN_,
+            $monObjet->getNomNouveau(),
+            'image_ban si image bloquée'
+        );
     }
 
     /**
@@ -94,11 +111,15 @@ class DisplayPicsTest extends TestCase
     public function testImageSignalee(): void
     {
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_SERVER['REQUEST_URI'] = 'files/imageSignalee.png';
+        $_SERVER['REQUEST_URI'] = 'files/image_18.png';
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
         /* @var $monObjet RessourceObject */
-        $this->assertEquals(_IMAGE_BAN_, $monObjet->getNomNouveau(), 'image_ban si image signalée');
+        $this->assertEquals(
+            _IMAGE_BAN_,
+            $monObjet->getNomNouveau(),
+            'image_ban si image signalée'
+        );
     }
 }
