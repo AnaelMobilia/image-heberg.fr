@@ -56,6 +56,10 @@ class AbuseTest extends TestCase
             $imageMemeMd5->isSignalee(),
             'Image avec même MD5 qu\'une image signalée doit l\'être également'
         );
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
     }
 
     /**
@@ -76,17 +80,17 @@ class AbuseTest extends TestCase
         require 'upload.php';
         ob_end_clean();
 
-        $this->assertEmpty(
-            $msgErreur,
-            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Erreur : ' . $msgErreur
-        );
-        $this->assertEmpty(
-            $msgWarning,
-            'Renvoi image déjà bloquée ne doit pas être bloquée dans upload.php - Warning : ' . $msgWarning
-        );
         $this->assertTrue(
             $monImage->isBloquee(),
             'Renvoi image déjà bloquée doit être isBloquée en BDD'
+        );
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertEmpty(
+            $msgWarning,
+            __FUNCTION__ . ' ne devrait pas lever de message de warning - Warning : ' . $msgWarning
         );
     }
 
@@ -108,7 +112,14 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $imageSignalee = new ImageObject('_image_404.png');
-        $this->assertFalse($imageSignalee->isSignalee(), 'Image approuvée qui est signalée ne doit pas être bloquée');
+        $this->assertFalse(
+            $imageSignalee->isSignalee(),
+            'Image approuvée qui est signalée ne doit pas être bloquée'
+        );
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
     }
 
     /**
@@ -138,7 +149,10 @@ class AbuseTest extends TestCase
         ob_end_clean();
 
         $image = new ImageObject('_image_banned.png');
-        $this->assertFalse($image->isSignalee(), 'Image signalée qui est approuvée ne doit plus être signalée');
+        $this->assertFalse(
+            $image->isSignalee(),
+            'Image signalée qui est approuvée ne doit plus être signalée'
+        );
     }
 
     /**
@@ -171,6 +185,14 @@ class AbuseTest extends TestCase
         $this->assertNotEmpty(
             $imagesApresEnvoi,
             'L\'image envoyée devrait être considérée comme potentiellement indésirable : ' . var_export($imagesApresEnvoi, true)
+        );
+        $this->assertEmpty(
+            $msgErreur,
+            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
+        );
+        $this->assertEmpty(
+            $msgWarning,
+            __FUNCTION__ . ' ne devrait pas lever de message de warning - Warning : ' . $msgWarning
         );
     }
 
