@@ -129,8 +129,8 @@ define('_TPL_BOTTOM_', _PATH_ . 'template/templateV2Bottom.php');
 
 // Fonction de chargement des classes en cas de besoin
 spl_autoload_register(static function ($class) {
-    // Ne pas faire d'erreur pour les classes gérées par l'autoloade de PHPUnit
-    if (_PHPUNIT_ && str_starts_with($class, 'PHPUnit\\')) {
+    // Ne pas faire d'erreur pour les classes gérées par l'autoloader de PHPUnit
+    if (_PHPUNIT_ && str_starts_with($class, 'PHPUnit')) {
         return;
     }
 
