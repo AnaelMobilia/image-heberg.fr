@@ -26,6 +26,7 @@ if (!defined('_PHPUNIT_')) {
 }
 // Anti flood
 $maSession = new SessionObject();
+$msgErreur = '';
 
 require _TPL_TOP_;
 
@@ -88,7 +89,7 @@ if (
         echo '<div class="alert alert-success">Votre signalement a été envoyé, merci !</div>';
     } else {
         // Adresse mail invalide
-        echo '<div class = "alert alert-danger">Votre adresse mail n\'est pas valide !<br /><pre>' . $_POST['userMail'] . '</pre></div>';
+        $msgErreur = '<div class="alert alert-danger">Votre adresse mail n\'est pas valide !<br /><pre>' . $_POST['userMail'] . '</pre></div>';
     }
 } elseif (!isset($_POST['Submit'])) {
     // Premier affichage de la page => activation de la protection robot
@@ -97,7 +98,7 @@ if (
 ?>
 <?php if (!isset($_POST['Submit']) || $maSession->checkFlag()) : ?>
     <h1 class="mb-3"><small>Signaler une image</small></h1>
-
+    <?= $msgErreur ?>
     <form method="post">
         <div class="mb-3 form-floating">
             <input type="text" class="form-control" name="urlImage" id="urlImage" required="required" value="<?= $_POST['urlImage'] ?? '' ?>">
