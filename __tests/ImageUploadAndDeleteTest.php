@@ -170,7 +170,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countImagesSurHdd(),
+            self::countMiniaturesSurHDD(),
             'Envoi image + miniature doit créer miniature sur HDD'
         );
         $this->assertEmpty(
@@ -222,7 +222,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countImagesSurHdd(),
+            self::countMiniaturesSurHDD(),
             'Envoi image + miniature (rotation) doit créer miniature sur HDD'
         );
         $this->assertEmpty(
@@ -274,7 +274,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countImagesSurHdd(),
+            self::countMiniaturesSurHDD(),
             'Renvoi image - dde miniature - doit créer miniature en BDD'
         );
         $this->assertEquals(
@@ -331,7 +331,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countImagesSurHdd(),
+            self::countMiniaturesSurHDD(),
             'Renvoi image - dde NOUVELLE miniature - doit créer miniature sur HDD'
         );
         $this->assertEquals(
