@@ -43,6 +43,13 @@ jobs:
           sh -c "cp __tests/images/image_a_supprimer.png files/6/6858ce6ddc171a0fd9640831a5e74dfd"
           # Pour ImageUploadAndDeleteTest
           sh -c "find files/ -name_dummy -type f -delete"
+          # Pour ImageUploadAndDeleteTest::testSuppressionImageProprietaireAuthentifie()
+          sh -c "cp __tests/images/image_a_supprimer.png files/e/e656d1b6582a15f0f458006898b40e29"
+          # Pour ImageUploadAndDeleteTest::testSuppressionImagePlusieursMiniatures()
+          sh -c "cp __tests/images/image_a_supprimerMultiple.png files/a/aec65c6b4469bb7267d2d55af5fbd87b"
+          sh -c "cp __tests/images/image_a_supprimerMultiple-100x100.png files/0/031328c1a7ffe7eed0a2cab4eca05a63"
+          sh -c "cp __tests/images/image_a_supprimerMultiple-200x200.png files/2/278a70a02e036cc85e0d7e605fdc517f"
+          # Injectoin des données
           mysql -u root -proot imageheberg < __tests/data.sql
 
       - name: Test de l'application - phpunit v11

@@ -21,6 +21,7 @@
 
 namespace ImageHebergTests;
 
+use ImageHeberg\HelperAdmin;
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
 use ImageHeberg\HelperImage;
@@ -32,15 +33,6 @@ use PHPUnit\Framework\TestCase;
 
 class ImageUploadAndDeleteTest extends TestCase
 {
-    /**
-     * Le MD5 est calculé sur le fichier original
-     * Les miniatures travaillent sur le fichier uploadé => faire une copie du fichier original
-     */
-    // Fichiers pour le nombre d'images / possessions attendues
-    private const string FICHIER_IMAGE = '../_nbImages';
-    private const string FICHIER_MINIATURE = '../_nbThumbnails';
-    private const string FICHIER_POSSEDE = '../_nbPossede';
-
     /**
      * Nombre d'images en BDD
      * @return int
@@ -72,44 +64,21 @@ class ImageUploadAndDeleteTest extends TestCase
     }
 
     /**
-     * Nombre d'éléments présents dans le fichier
-     * @param string $nomFichier nom du fichier
-     * @return int nb éléments
+     * Nombre d'images sur le HDD
+     * @return int
      */
-    private static function getNb(string $nomFichier): int
+    private static function countImagesSurHdd(): int
     {
-        return (int)file_get_contents(_PATH_TESTS_IMAGES_ . $nomFichier);
+        return HelperAdmin::getAllImagesNameHDD(_PATH_IMAGES_)->count();
     }
 
     /**
-     * Ecrit une valeur dans le fichier
-     * @param string $nomFichier
-     * @param int $valeur
+     * Nombre de miniatures sur le HDD
+     * @return int
      */
-    private static function setNb(string $nomFichier, int $valeur): void
+    private static function countMiniaturesSurHDD(): int
     {
-        file_put_contents(_PATH_TESTS_IMAGES_ . $nomFichier, $valeur);
-        echo PHP_EOL . $nomFichier . ' -> ' . $valeur . PHP_EOL;
-    }
-
-    /**
-     * $val--
-     * @param string $nomFichier
-     */
-    private static function setNbMoins(string $nomFichier): void
-    {
-        $val = self::getNb($nomFichier);
-        self::setNb($nomFichier, --$val);
-    }
-
-    /**
-     * $val++
-     * @param string $nomFichier
-     */
-    private static function setNbPlus(string $nomFichier): void
-    {
-        $val = self::getNb($nomFichier);
-        self::setNb($nomFichier, ++$val);
+        return HelperAdmin::getAllImagesNameHDD(_PATH_MINIATURES_)->count();
     }
 
     /**
@@ -136,19 +105,21 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Envoi image doit créer image en BDD'
         );
-        // GIF : pas de changement en fonction des versions de PHP
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '3/3487a240d00aa62f2abcfe43ba84a85c',
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Envoi image doit créer image sur HDD'
         );
         $this->assertEmpty(
@@ -173,31 +144,33 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        /* @var $monImage ImageObject */
-        echo 'MD5 : ' . $monImage->getMd5();
-
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Envoi image + miniature doit créer image en BDD'
         );
-        self::setNbPlus(self::FICHIER_MINIATURE);
         $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
             self::countMiniaturesEnBdd(),
-            self::getNb(self::FICHIER_MINIATURE),
             'Envoi image + miniature doit créer miniature en BDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6',
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Envoi image + miniature doit créer image sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_MINIATURES_ . '3/3ab7ee8245aa2a58dd42ee3fee5e2d83',
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Envoi image + miniature doit créer miniature sur HDD'
         );
         $this->assertEmpty(
@@ -223,28 +196,33 @@ class ImageUploadAndDeleteTest extends TestCase
         $_POST['dimMiniature'] = '50x50';
         $_POST['angleRotation'] = 90;
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Envoi image + miniature (rotation) doit créer image en BDD'
         );
-        self::setNbPlus(self::FICHIER_MINIATURE);
         $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
             self::countMiniaturesEnBdd(),
-            self::getNb(self::FICHIER_MINIATURE),
             'Envoi image + miniature (rotation) doit créer miniature en BDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . 'f/f653f58431521a201fdc23451c9a8af6',
-            'Envoi image + miniature doit créer image sur HDD'
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Envoi image + miniature (rotation) doit créer image sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_MINIATURES_ . '5/58aa6fc8aa83292b1cef879c66288aa7',
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Envoi image + miniature (rotation) doit créer miniature sur HDD'
         );
         $this->assertEmpty(
@@ -269,31 +247,40 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '50x50';
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Renvoi image - dde miniature - ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image - dde miniature (possède) - ne doit rien faire en BDD'
-        );
-        self::setNbPlus(self::FICHIER_MINIATURE);
-        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
             self::countMiniaturesEnBdd(),
-            self::getNb(self::FICHIER_MINIATURE),
             'Renvoi image - dde miniature - doit créer miniature en BDD'
         );
-        // GIF : pas de changement en fonction des versions de PHP
-        $this->assertFileExists(
-            _PATH_MINIATURES_ . '8/8816df8226a22128a12714606c52bfd3',
-            'Renvoi image - dde miniature - doit créer miniature sur HDD'
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Renvoi image - dde miniature - ne doit pas créer image sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Renvoi image - dde miniature - doit créer miniature en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image - dde miniature (possède) - ne doit rien faire en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -317,31 +304,40 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['dimMiniature'] = '40x40';
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image - dde NOUVELLE miniature - ne doit rien faire en BDD'
-        );
-        self::setNbPlus(self::FICHIER_MINIATURE);
-        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
             self::countMiniaturesEnBdd(),
-            self::getNb(self::FICHIER_MINIATURE),
             'Renvoi image - dde NOUVELLE miniature - doit créer miniature en BDD'
         );
-        // GIF : pas de changement en fonction des versions de PHP
-        $this->assertFileExists(
-            _PATH_MINIATURES_ . '2/289f04a53233d126e177e0a93363dd63',
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Renvoi image - dde NOUVELLE miniature - ne doit pas créer image sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Renvoi image - dde NOUVELLE miniature - doit créer miniature sur HDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image - dde NOUVELLE miniature (possede) - ne doit rien faire en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -363,14 +359,22 @@ class ImageUploadAndDeleteTest extends TestCase
         // Suppression du flag de session
         unset($_SESSION);
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Non affichage du formulaire d\'upload ne doit pas créer d\'image en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Non affichage du formulaire d\'upload ne doit pas créer d\'image sur HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -390,6 +394,9 @@ class ImageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -399,9 +406,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Absence de fichier envoyé devrait être détecté dans upload.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Absence de fichier envoyé ne doit pas créer d\'image en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Absence de fichier envoyé ne doit pas créer d\'image sur HDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -419,6 +431,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'nomFichier';
         $_FILES['fichier']['size'] = _IMAGE_POIDS_MAX_ + 1;
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -428,9 +443,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Fichier trop gros devrait être détecté dans upload.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Fichier trop gros ne doit pas créer d\'image en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Fichier trop gros ne doit pas créer d\'image sur HDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -449,6 +469,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'fichier_doc.doc';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -458,9 +481,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Type mime : pas une image doit être bloquée dans upload.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'type mime : pas une image doit être bloquée en BDD'
+            'Type mime : pas une image ne doit pas créer d\'image en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Type mime : pas une image ne doit pas créer d\'image sur HDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -479,6 +507,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'fichier_doc.jpg';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -488,9 +519,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Type mime : fausse image doit être bloquée dans upload.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'type mime : fausse image doit être bloquée en BDD'
+            'Type mime : fausse image ne doit pas créer d\'image en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Type mime : fausse image ne doit pas créer d\'image sur HDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -509,15 +545,22 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_jpg.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Type mime : extension incorrecte ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Type mime : extension incorrecte ne doit pas être bloquée sur HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -540,15 +583,22 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_tres_large.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Image 10000x1 ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Image 10000x1 ne doit pas être bloquée sur HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -571,15 +621,22 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_tres_haute.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Image 1x10000 ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Image 1x10000 ne doit pas être bloquée sur HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -602,6 +659,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_10000x10000.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -611,9 +671,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Image 10000x10000 doit être bloquée dans upload.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Image 10000x10000 doit être bloquée en BDD'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Image 10000x10000 doit être bloquée sur HDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -638,6 +703,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -647,21 +716,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Envoi image authentifié ne doit pas être bloquée en BDD'
         );
-        self::setNbPlus(self::FICHIER_POSSEDE);
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Envoi image authentifié ne doit pas être bloquée en BDD'
-        );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60',
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Envoi image authentifié ne doit pas être bloquée sur HDD'
+        );
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore + 1),
+            self::countImagesPossedeesEnBdd(),
+            'Envoi image authentifié (possede) ne doit pas être bloquée en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -684,24 +752,28 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_tres_haute.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Renvoi image ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image ne doit pas modifier la BDD'
-        );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538',
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Renvoi image ne doit pas être bloquée sur HDD'
+        );
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore + 1),
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image (possede) ne doit pas modifier la BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -730,6 +802,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -739,21 +815,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Renvoi image ne doit pas être bloquée en BDD'
         );
-        self::setNbPlus(self::FICHIER_POSSEDE);
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image ne doit pas modifier la BDD'
-        );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '1/1b1a8d9abaf9027d8ff2de4081579538',
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
             'Renvoi image ne doit pas être bloquée sur HDD'
+        );
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore + 1),
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image (possede) ne doit pas modifier la BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -776,24 +851,28 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_authentifie.png';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'Renvoi image ne doit pas être bloquée en BDD'
+            'Renvoi image authentifié ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image doit être bloquée en BDD'
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Renvoi image authentifié ne doit pas être bloquée sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60',
-            'Envoi image authentifié ne doit pas être bloquée sur HDD'
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image authentifié (possede) doit être bloquée en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -822,6 +901,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -831,21 +914,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'Renvoi image ne doit pas être bloquée en BDD'
+            'Renvoi image authentifié ne doit pas être bloquée en BDD'
         );
-        self::setNbPlus(self::FICHIER_POSSEDE);
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image ne doit pas être bloquée en BDD'
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Renvoi image authentifié ne doit pas être bloquée sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60',
-            'Envoi image authentifié ne doit pas être bloquée sur HDD'
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore + 1),
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image authentifié (possede) ne doit pas être bloquée en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -858,7 +940,7 @@ class ImageUploadAndDeleteTest extends TestCase
     }
 
     /**
-     * Renvoi d'une image - Authentifié / Authentifié Autrement
+     * Renvoi d'une image - Authentifié / Authentifié autrement
      */
     #[Depends('testRenvoiImageAuthentifieAuthentifie')]
     public function testRenvoiImageAuthentifieAuthentifie2(): void
@@ -874,6 +956,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -883,21 +969,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'Renvoi image ne doit pas être bloquée en BDD'
+            'Renvoi image authentifié ne doit pas être bloquée en BDD'
         );
-        self::setNbPlus(self::FICHIER_POSSEDE);
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Renvoi image ne doit pas être bloquée en BDD'
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Renvoi image authentifié ne doit pas être bloquée sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '7/79d74bcadc1b403c1b833ba60792ce60',
-            'Envoi image authentifié ne doit pas être bloquée sur HDD'
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore + 1),
+            self::countImagesPossedeesEnBdd(),
+            'Renvoi image authentifié (possede) ne doit pas être bloquée en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -919,6 +1004,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $_GET['id'] = 'fichierInexistant';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'delete.php';
         ob_end_clean();
@@ -928,14 +1017,19 @@ class ImageUploadAndDeleteTest extends TestCase
             'Suppression image inexistante doit être bloqué dans delete.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image inexistante doit être bloqué en BDD'
         );
         $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Suppression image inexistante doit être bloqué sur BDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image inexistante doit être bloqué en BDD'
+            'Suppression image inexistante (possede) doit être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -953,6 +1047,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $_GET['id'] = '_image_404.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'delete.php';
         ob_end_clean();
@@ -961,16 +1059,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $msgErreur,
             'Suppression image possédée par autrui doit être bloqué dans delete.php'
         );
-
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image possédée par autrui doit être bloqué en BDD'
         );
         $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Suppression image possédée par autrui doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image possédée par autrui doit être bloqué en BDD'
+            'Suppression image possédée par autrui (possede) doit être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -994,6 +1096,10 @@ class ImageUploadAndDeleteTest extends TestCase
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
         ob_start();
         require 'delete.php';
         ob_end_clean();
@@ -1008,14 +1114,19 @@ class ImageUploadAndDeleteTest extends TestCase
             'Suppression image possédée par autrui doit être bloqué dans delete.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image possédée par autrui doit être bloqué en BDD'
         );
         $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Suppression image possédée par autrui doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image possédée par autrui doit être bloqué en BDD'
+            'Suppression image possédée par autrui (possede) doit être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -1035,9 +1146,21 @@ class ImageUploadAndDeleteTest extends TestCase
         $uneAutreImage = new ImageObject('image_13.png');
         $uneImageInexistante = new ImageObject();
 
-        $this->assertEquals(2, $uneImageDoublon->getNbDoublons(), 'L\'image est présente en id 11 & 12');
-        $this->assertEquals(1, $uneAutreImage->getNbDoublons(), 'L\'image est présente en id 13');
-        $this->assertEquals(0, $uneImageInexistante->getNbDoublons(), 'L\'image n\'existe pas...');
+        $this->assertEquals(
+            2,
+            $uneImageDoublon->getNbDoublons(),
+            'L\'image est présente en id 11 & 12'
+        );
+        $this->assertEquals(
+            1,
+            $uneAutreImage->getNbDoublons(),
+            'L\'image est présente en id 13'
+        );
+        $this->assertEquals(
+            0,
+            $uneImageInexistante->getNbDoublons(),
+            'L\'image n\'existe pas...'
+        );
     }
 
     /**
@@ -1047,11 +1170,9 @@ class ImageUploadAndDeleteTest extends TestCase
     public function testSuppressionImageProprietaireAuthentifie(): void
     {
         self::prepareTest();
-        // Copie du fichier
-        copy(_PATH_TESTS_IMAGES_ . 'image_a_supprimer.png', _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29');
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
-        $_GET['id'] = '100000019001334055750.png';
+        $_GET['id'] = 'image_11.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         /**
@@ -1059,6 +1180,10 @@ class ImageUploadAndDeleteTest extends TestCase
          */
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('user', 'password');
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
         require 'delete.php';
@@ -1069,21 +1194,20 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbMoins(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore - 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image possédée ne doit pas être bloqué en BDD'
         );
-        self::setNbMoins(self::FICHIER_POSSEDE);
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image possédée ne doit pas être bloqué en BDD'
-        );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29',
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
             'Suppression image possédée ne doit pas être effacée du HDD car encore en usage'
+        );
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore - 1),
+            self::countImagesPossedeesEnBdd(),
+            'Suppression image possédée (possede) ne doit pas être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -1102,8 +1226,12 @@ class ImageUploadAndDeleteTest extends TestCase
     public function testSuppressionImageAnonymeHorsDelai(): void
     {
         self::prepareTest();
-        $_GET['id'] = '146734019451334055750.png';
+        $_GET['id'] = 'image_12.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
         require 'delete.php';
@@ -1114,14 +1242,19 @@ class ImageUploadAndDeleteTest extends TestCase
             'Suppression image hors délai doit être bloqué dans delete.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image hors délai doit être bloqué en BDD'
         );
         $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Suppression image hors délai doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image hors délai doit être bloqué en BDD'
+            'Suppression image hors délai (possede) doit être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -1138,8 +1271,12 @@ class ImageUploadAndDeleteTest extends TestCase
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
-        $_GET['id'] = '147834019001334055750.png';
+        $_GET['id'] = 'image_12.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
         require 'delete.php';
@@ -1150,14 +1287,19 @@ class ImageUploadAndDeleteTest extends TestCase
             'Suppression image dans délai par autre IP doit être bloqué dans delete.php'
         );
         $this->assertEquals(
+            $nbImagesBddBefore,
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image dans délai par autre IP doit être bloqué en BDD'
         );
         $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'Suppression image dans délai par autre IP doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image dans délai par autre IP doit être bloqué en BDD'
+            'Suppression image dans délai par autre IP (possede) doit être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgWarning,
@@ -1174,27 +1316,31 @@ class ImageUploadAndDeleteTest extends TestCase
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
-        $_GET['id'] = '147834019001334055750.png';
+        $_GET['id'] = 'image_13.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
         require 'delete.php';
         ob_end_clean();
 
-        self::setNbMoins(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore - 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image dans délai ne doit pas être bloqué en BDD'
         );
         $this->assertEquals(
-            self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
-            'Suppression image dans délai ne doit pas être bloqué en BDD'
+            ($nbImagesFilesBefore - 1),
+            self::countImagesSurHdd(),
+            'Suppression image dans délai ne doit pas être bloqué sur HDD'
         );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . 'e/e656d1b6582a15f0f458006898b40e29',
-            'Suppression image dans délai doit être effacé du HDD'
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore - 1),
+            self::countImagesPossedeesEnBdd(),
+            'Suppression image dans délai (possede) ne doit pas être bloqué en BDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -1218,23 +1364,22 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
         $_POST['redimImage'] = '400x200';
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
-            'Envoi image avec redim doit créer d\'image en BDD'
+            'Envoi image avec redim doit créer image en BDD'
         );
-        $this->assertFileDoesNotExist(
-            _PATH_IMAGES_ . '4/4db0b6f10d49fb1a8c2e8b8ff47cf3f6',
-            'Envoi image avec redim ne doit pas créer d\'image originale sur HDD'
-        );
-        $this->assertFileExists(
-            _PATH_IMAGES_ . '0/02c7908b07fbbe94a7363bf76fc36e7f',
-            'Envoi image avec redim doit créer image redim sur HDD'
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Envoi image avec redim doit créer image sur HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -1259,6 +1404,9 @@ class ImageUploadAndDeleteTest extends TestCase
         $_POST['redimImage'] = '400x200';
         $_POST['angleRotation'] = '90';
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
@@ -1267,11 +1415,15 @@ class ImageUploadAndDeleteTest extends TestCase
             $msgWarning,
             'Envoi image webp avec modif doit lever un warning'
         );
-        self::setNbPlus(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Envoi image webp avec modif doit créer une image en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore + 1),
+            self::countImagesSurHdd(),
+            'Envoi image webp avec modif doit créer une image sur HDD'
         );
         $this->assertFileEquals(
             $monImage->getPath(),
@@ -1291,22 +1443,8 @@ class ImageUploadAndDeleteTest extends TestCase
     public function testSuppressionImagePlusieursMiniatures(): void
     {
         self::prepareTest();
-        // Copie des fichiers
-        rename(
-            _PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple.png',
-            _PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b'
-        );
-        rename(
-            _PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple-100x100.png',
-            _PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63'
-        );
-        rename(
-            _PATH_TESTS_IMAGES_ . 'image_a_supprimerMultiple-200x200.png',
-            _PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f'
-        );
-
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $_GET['id'] = '14777777.png';
+        $_GET['id'] = 'image_14.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
         /**
@@ -1314,6 +1452,12 @@ class ImageUploadAndDeleteTest extends TestCase
          */
         $unMembre = new UtilisateurObject();
         $unMembre->connexion('admin', 'password');
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
         require 'delete.php';
@@ -1324,36 +1468,30 @@ class ImageUploadAndDeleteTest extends TestCase
             $unMembre->getId(),
             'Le membre doit être connecté'
         );
-        self::setNbMoins(self::FICHIER_IMAGE);
         $this->assertEquals(
+            ($nbImagesBddBefore - 1),
             self::countImagesEnBdd(),
-            self::getNb(self::FICHIER_IMAGE),
             'Suppression image ne doit pas être bloqué en BDD'
         );
-        self::setNbMoins(self::FICHIER_POSSEDE);
         $this->assertEquals(
+            ($nbImagesPossedeesBefore - 1),
             self::countImagesPossedeesEnBdd(),
-            self::getNb(self::FICHIER_POSSEDE),
             'Suppression possession ne doit pas être bloqué en BDD'
         );
-        $this->assertFileDoesNotExist(
-            _PATH_IMAGES_ . 'a/aec65c6b4469bb7267d2d55af5fbd87b',
+        $this->assertEquals(
+            ($nbImagesFilesBefore - 1),
+            self::countImagesSurHdd(),
             'Suppression image doit être effacé du HDD'
         );
-        self::setNbMoins(self::FICHIER_MINIATURE);
-        self::setNbMoins(self::FICHIER_MINIATURE);
         $this->assertEquals(
+            ($nbThumbsFilesBefore - 2),
+            self::countMiniaturesSurHDD(),
+            'Suppression miniatureS ne doit pas être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsBddBefore - 2),
             self::countMiniaturesEnBdd(),
-            self::getNb(self::FICHIER_MINIATURE),
             'Suppression miniatureS ne doit pas être bloqué en BDD'
-        );
-        $this->assertFileDoesNotExist(
-            _PATH_MINIATURES_ . '0/031328c1a7ffe7eed0a2cab4eca05a63',
-            'Suppression image doit effacer toutes les miniatures du HDD'
-        );
-        $this->assertFileDoesNotExist(
-            _PATH_MINIATURES_ . '2/278a70a02e036cc85e0d7e605fdc517f',
-            'Suppression image doit effacer toutes les miniatures du HDD'
         );
         $this->assertEmpty(
             $msgErreur,
@@ -1378,10 +1516,23 @@ class ImageUploadAndDeleteTest extends TestCase
         $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
 
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+
         ob_start();
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertEquals(
+            $nbImagesBddBefore,
+            self::countImagesEnBdd(),
+            'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
+        );
+        $this->assertEquals(
+            $nbImagesFilesBefore,
+            self::countImagesSurHdd(),
+            'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
+        );
         $this->assertNotEmpty(
             $msgErreur,
             'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
