@@ -366,6 +366,10 @@ class ImageUploadAndDeleteTest extends TestCase
         require 'upload.php';
         ob_end_clean();
 
+        $this->assertNotEmpty(
+            $msgErreur,
+            'Non affichage du formulaire d\'upload doit faire un message d\'erreur'
+        );
         $this->assertEquals(
             $nbImagesBddBefore,
             self::countImagesEnBdd(),
@@ -375,10 +379,6 @@ class ImageUploadAndDeleteTest extends TestCase
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
             'Non affichage du formulaire d\'upload ne doit pas créer d\'image sur HDD'
-        );
-        $this->assertEmpty(
-            $msgErreur,
-            __FUNCTION__ . ' ne devrait pas lever de message d\'erreur - Erreur : ' . $msgErreur
         );
         $this->assertEmpty(
             $msgWarning,
