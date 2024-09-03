@@ -277,14 +277,7 @@ abstract class HelperAdmin
     public static function getImagesPotentiellementIndesirables(): ArrayObject
     {
         // Compléter les données "abuse_network" (normalement déjà fait dans ImageObject::creer())
-        // IPv4 - Filtrer sur un /24 || IPv6 - Filtrer sur un /56
-        $req = 'UPDATE images SET abuse_network =
-                    IF(LOCATE(\'.\', remote_addr) != 0,
-                        SUBSTRING(remote_addr, 1, (LENGTH(remote_addr) - LOCATE(\'.\', REVERSE(remote_addr)))),
-                        SUBSTRING(HEX(INET6_ATON(remote_addr)), 1, 14)
-                    )
-                    WHERE abuse_network = \'\'';
-        MaBDD::getInstance()->query($req);
+        HelperAbuse::updateIpReputation();
 
         // Images potentiellement indésirables
         $req = 'SELECT im.new_name
