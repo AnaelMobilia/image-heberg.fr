@@ -22,6 +22,8 @@
 namespace ImageHeberg;
 
 use ArrayObject;
+use Exception;
+use ImagickException;
 use PDO;
 
 /**
@@ -136,6 +138,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
+    /**
+     * @throws ImageHebergException
+     */
     public function supprimer(): void
     {
         /**
@@ -170,6 +175,10 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
     }
 
+    /**
+     * @throws ImagickException
+     * @throws Exception
+     */
     public function creer(): bool
     {
         // Retour
@@ -272,7 +281,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 1, isApprouvee = 0 WHERE md5 = :md5');
-        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(':md5', $this->getMd5());
 
         $req->execute();
     }
@@ -285,7 +294,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     {
         // J'enregistre les infos en BDD
         $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE md5 = :md5');
-        $req->bindValue(':md5', $this->getMd5(), PDO::PARAM_STR);
+        $req->bindValue(':md5', $this->getMd5());
 
         $req->execute();
     }

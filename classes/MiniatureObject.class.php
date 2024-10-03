@@ -21,6 +21,7 @@
 
 namespace ImageHeberg;
 
+use Exception;
 use PDO;
 
 /**
@@ -128,6 +129,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function creer(): bool
     {
         // Retour
