@@ -154,22 +154,19 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $maMiniature->supprimer();
         }
 
-        /**
-         * Suppression de l'affectation
-         */
+        // Suppresion de l'affectation en BDD
         $req = MaBDD::getInstance()->prepare('DELETE FROM possede WHERE images_id = :imagesId');
         $req->bindValue(':imagesId', $this->getId(), PDO::PARAM_INT);
         if ($req->execute()) {
-            /**
-             * Suppression de l'image en BDD
-             */
+            // Suppresion de l'image en BDD
             $req = MaBDD::getInstance()->prepare('DELETE FROM images WHERE id = :id');
             $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
-            if ($req->execute() && $this->getNbDoublons() === 0) {
-                /**
-                 * Suppression du HDD
-                 */
-                // Plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+            // Si plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+            if (
+                $req->execute()
+                && $this->getNbUsages() === 0
+                && is_file($this->getPathMd5())
+            ) {
                 unlink($this->getPathMd5());
             }
         }
@@ -206,7 +203,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
          * Déplacement du fichier
          */
         // Vérification de la non existence du fichier
-        if ($this->getNbDoublons() === 0) {
+        if ($this->getNbUsages() === 0) {
             // PHP ne gère pas les images WebP animée -> ne pas faire de traitements
             if (!HelperImage::isAnimatedWebp($this->getPathTemp())) {
                 // Image inconnue : optimisation de sa taille

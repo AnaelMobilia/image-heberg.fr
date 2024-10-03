@@ -131,26 +131,28 @@ abstract class RessourceObject
 
     /**
      * Nombre d'images ayant le même MD5 (Normalement 1 à minima, l'image courante...)
-     * @return int nombre d'images ayant ce MD5 (-1 en cas d'erreur)
+     * @return int nombre d'images ayant ce MD5 (0 par défaut)
      */
-    public function getNbDoublons(): int
+    public function getNbUsages(): int
     {
-        // Retour - -1 par défaut pour marquer l'erreur
-        $monRetour = -1;
+        $monRetour = 0;
 
-        // Existe-t-il d'autres occurences de cette image ?
-        if ($this->getType() === self::TYPE_IMAGE) {
-            // Image
-            $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5');
-        } else {
-            // Miniature
-            $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5');
-        }
-        $req->bindValue(':md5', $this->getMd5());
-        $req->execute();
-        $resultat = $req->fetch();
-        if ($resultat !== false) {
-            $monRetour = (int)$resultat->nb;
+        // Si l'image n'existe pas et qu'on est pas en train de l'envoyer, ne pas tenter de la charger
+        if (!is_null($this->md5) || $this->getPathTemp()) {
+            // Existe-t-il d'autres occurences de cette image ?
+            if ($this->getType() === self::TYPE_IMAGE) {
+                // Image
+                $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM images WHERE md5 = :md5');
+            } else {
+                // Miniature
+                $req = MaBDD::getInstance()->prepare('SELECT COUNT(*) AS nb FROM thumbnails WHERE md5 = :md5');
+            }
+            $req->bindValue(':md5', $this->getMd5());
+            $req->execute();
+            $resultat = $req->fetch();
+            if ($resultat !== false) {
+                $monRetour = (int)$resultat->nb;
+            }
         }
         return $monRetour;
     }

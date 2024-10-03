@@ -118,13 +118,15 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         /**
          * Suppression de l'image en BDD
          */
+        // Suppresion de l'image en BDD
         $req = MaBDD::getInstance()->prepare('DELETE FROM thumbnails WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
-        if ($req->execute() && $this->getNbDoublons() === 0 && file_exists($this->getPathMd5())) {
-            /**
-             * Suppression du HDD
-             */
-            // Plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+        // Si plus aucune image n'utilise le fichier => supprimer l'image sur le HDD
+        if (
+            $req->execute()
+            && $this->getNbUsages() === 0
+            && file_exists($this->getPathMd5())
+        ) {
             unlink($this->getPathMd5());
         }
     }
@@ -159,7 +161,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
          * Déplacement du fichier
          */
         // Vérification de la non existence du fichier
-        if ($this->getNbDoublons() === 0) {
+        if ($this->getNbUsages() === 0) {
             $monRetour = rename($this->getPathTemp(), $this->getPathMd5());
         }
 

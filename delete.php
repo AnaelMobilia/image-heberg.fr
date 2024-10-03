@@ -61,7 +61,13 @@ if (!$erreur) {
  * -> Envoi il y a moins d'une heure par la même @ IP
  */
 if (!$erreur) {
-    if ($monImage->isProprietaire() || ((strtotime($monImage->getDateEnvoiBrute()) + 3600) > time() && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR'])) {
+    if (
+        $monImage->isProprietaire()
+        || (
+            (strtotime($monImage->getDateEnvoiBrute()) + 3600) > time()
+            && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR']
+        )
+    ) {
         // Effacement...
         $monImage->supprimer();
     } else {
