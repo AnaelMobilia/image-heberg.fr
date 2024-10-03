@@ -144,7 +144,6 @@ class Tor
      * Vérifie si une IP correspond à un noeud de sortie Tor
      * @param string $ip
      * @return bool
-     * @throws JsonException
      */
     public static function checkIp(string $ip): bool
     {
@@ -154,15 +153,25 @@ class Tor
 
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
             if (file_exists(_TOR_LISTE_IPV6_) && filesize(_TOR_LISTE_IPV6_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV6_), true, 512, JSON_THROW_ON_ERROR);
-                if (!in_array($ip, $tabIp, true)) {
+                try {
+                    $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV6_), true, 512, JSON_THROW_ON_ERROR);
+                    if (!in_array($ip, $tabIp, true)) {
+                        $monRetour = false;
+                    }
+                } catch (JsonException $e) {
+                    // En cas d'erreur, par défaut, faire confiance à l'IP
                     $monRetour = false;
                 }
             }
         } elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             if (file_exists(_TOR_LISTE_IPV4_) && filesize(_TOR_LISTE_IPV4_) > 0) {
-                $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV4_), true, 512, JSON_THROW_ON_ERROR);
-                if (!in_array($ip, $tabIp, true)) {
+                try {
+                    $tabIp = json_decode(file_get_contents(_TOR_LISTE_IPV4_), true, 512, JSON_THROW_ON_ERROR);
+                    if (!in_array($ip, $tabIp, true)) {
+                        $monRetour = false;
+                    }
+                } catch (JsonException $e) {
+                    // En cas d'erreur, par défaut, faire confiance à l'IP
                     $monRetour = false;
                 }
             }
