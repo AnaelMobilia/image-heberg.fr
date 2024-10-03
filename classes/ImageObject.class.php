@@ -199,19 +199,20 @@ class ImageObject extends RessourceObject implements RessourceInterface
         // On enregistre le nom
         $this->setNomNouveau($new_name);
 
+        // PHP ne gère pas les images WebP animée -> ne pas faire de traitements
+        if (!HelperImage::isAnimatedWebp($this->getPathTemp())) {
+            // Optimiser l'image (permettra de comparer son hash avec celles déjà stockées)
+            HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
+        }
+
         /**
          * Déplacement du fichier
          */
         // Vérification de la non existence du fichier
         if ($this->getNbUsages() === 0) {
-            // PHP ne gère pas les images WebP animée -> ne pas faire de traitements
-            if (!HelperImage::isAnimatedWebp($this->getPathTemp())) {
-                // Image inconnue : optimisation de sa taille
-                $monRetour = HelperImage::setImage(HelperImage::getImage($this->getPathTemp()), HelperImage::getType($this->getPathTemp()), $this->getPathTemp());
-            }
             // Copie du fichier vers l'emplacement de stockage
             // Ne peut pas être fait avant car le MD5 n'est pas encore connu
-            copy($this->getPathTemp(), $this->getPathMd5());
+            $monRetour = copy($this->getPathTemp(), $this->getPathMd5());
         } else {
             // Ce MD5 est-il déjà bloqué pour une autre image ?
             $req = MaBDD::getInstance()->prepare('SELECT MAX(isBloquee) AS isBloquee FROM images WHERE md5 = :md5');
