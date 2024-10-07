@@ -105,8 +105,8 @@ class ImageObjectTest extends TestCase
             foreach (self::ROTATION_ANGLES as $unAngle) {
                 $monImage->rotation(
                     $unAngle,
-                    _PATH_TESTS_IMAGES_ . 'rotation_original.' . strtolower($uneExtension),
-                    _PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension)
+                    _PATH_TESTS_IMAGES_ . 'rotation_original.' . $uneExtension,
+                    _PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . $uneExtension
                 );
 
                 // Calcul des dimensions théoriques
@@ -114,7 +114,7 @@ class ImageObjectTest extends TestCase
                 $indiceHauteur = (($unAngle % 180) === 0 ? 1 : 0);
 
                 // Vérifier les dimensions des images
-                $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension));
+                $imageInfo = getimagesize(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . $uneExtension);
                 $this->assertEquals(
                     self::ROTATION_DIM_ORIGINE[$indiceLargeur],
                     $imageInfo[0],
@@ -127,7 +127,7 @@ class ImageObjectTest extends TestCase
                 );
 
                 // Vérifier les couleurs
-                $image = new Imagick(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . strtolower($uneExtension));
+                $image = new Imagick(_PATH_TESTS_OUTPUT_ . 'rotation_original-' . $unAngle . '.' . $uneExtension);
                 $this->assertTrue(
                     $this->compareColor(self::ROTATION_COULEURS[round($unAngle / 90)], $image->getImagePixelColor(0, 0)->getColor()),
                     'Pixel (0,0) - Couleur ' . $uneExtension . ' - Rotation ' . $unAngle

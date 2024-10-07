@@ -34,7 +34,7 @@ require _TPL_TOP_;
         </div>
         <div class="card-body">
             <ul>
-                <li>Toutes images de type <?= implode(', ', _ACCEPTED_EXTENSIONS_) ?>.</li>
+                <li>Toutes images de type <?= strtoupper(implode(', ', _ACCEPTED_EXTENSIONS_)) ?>.</li>
                 <li>Contenus conformes à la législation française.</li>
                 <li>L'administrateur du site est seul juge de la conformité d'une image aux présentes CGU. En cas de désaccord, vous pouvez le contacter via <a href="/contact.php">le formulaire de contact</a>.</li>
             </ul>

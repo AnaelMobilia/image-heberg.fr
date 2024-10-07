@@ -43,7 +43,7 @@ if (
         // On essaie de matcher l'image - nettoyage des paramètres
         $fileName = basename(parse_url(trim($_POST['urlImage']), PHP_URL_PATH));
         if (
-            preg_match('#^[\d]+\.(?:' . strtolower(implode('|', _ACCEPTED_EXTENSIONS_)) . ')$#', $fileName)
+            preg_match('#^[\d]+\.(?:' . implode('|', _ACCEPTED_EXTENSIONS_) . ')$#', $fileName)
             || (_PHPUNIT_ && $fileName === 'image_15.png')
         ) {
             // Suivi du traitement

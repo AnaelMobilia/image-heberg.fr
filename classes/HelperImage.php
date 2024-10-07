@@ -119,7 +119,7 @@ abstract class HelperImage
      */
     public static function getExtension(string $path): string
     {
-        $ext = image_type_to_extension(self::getType($path), false);
+        $ext = strtolower(image_type_to_extension(self::getType($path), false));
         if ($ext === 'jpeg') {
             // Préférence pour .jpg [filename.ext]
             $ext = 'jpg';
