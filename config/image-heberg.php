@@ -70,7 +70,7 @@ if (!_PHPUNIT_) {
         $message .= PHP_EOL . 'URL : ' . ($_SERVER['REQUEST_URI'] ?? '');
         $message .= PHP_EOL . 'HTTP REFERER : ' . ($_SERVER['HTTP_REFERER'] ?? '');
         $message .= PHP_EOL . 'HTTP USER AGENT : ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
-        $message .= PHP_EOL . 'REMOTE ADDR : ' . $_SERVER['REMOTE_ADDR'];
+        $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '');
 
         mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] -  Erreur rencontrée', $message, $headers);
     }
