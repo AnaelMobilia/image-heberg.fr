@@ -23,7 +23,7 @@ namespace ImageHeberg;
 
 use Throwable;
 
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL);
 // Avoir le détail des paramètres des méthodes dans les stack traces
 ini_set('zend.exception_string_param_max_len', 1000000);
 
