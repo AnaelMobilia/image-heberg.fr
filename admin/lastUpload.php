@@ -34,6 +34,10 @@ require _TPL_TOP_;
 
 $message = '';
 
+$table = [
+    'legende' => 'trouvée##',
+    'values' => [],
+];
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
@@ -46,20 +50,22 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
         $monImage->approuver();
         $message .= 'Image ' . $monImage->getNomNouveau() . ' approuvée !';
     }
+} else {
+    /**
+     * Images à traiter
+     */
+    $idStart = 0;
+    if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
+        $idStart = (int)$_GET['nextId'];
+    }
+    $req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
+    $table['values'] = HelperAdmin::queryOnNewName($req);
 }
-
-/**
- * Images à traiter
- */
-$idStart = 0;
-if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
-    $idStart = (int) $_GET['nextId'];
+$isPlural = false;
+if (count($table['values']) > 1) {
+    $isPlural = true;
 }
-$req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
-$table = [
-    'legende' => 'trouvée##',
-    'values' => HelperAdmin::queryOnNewName($req)
-];
+$lastId = '';
 // Charger les objets concernés
 $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME);
 ?>
@@ -70,7 +76,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
 <?php endif; ?>
     <div class="card">
         <div class="card-header">
-            <?= count($table['values']) ?> image<?= (count($table['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($table['values']) > 1 ? 's' : ''), $table['legende']) ?>
+            <?= count($table['values']) ?> image<?= ($isPlural ? 's' : '') . ' ' . str_replace('##', ($isPlural ? 's' : ''), $table['legende']) ?>
         </div>
         <div class="card-body">
             <table class="table">
@@ -89,10 +95,19 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <tbody>
                     <?php foreach ($mesImages as $uneImage) : ?>
                         <tr>
-                            <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
+                                <?= (($uneImage->isSuspecte() || $uneImage->isSignalee()) && !$uneImage->isBloquee() && !$uneImage->isApprouvee() ? '<span class="bi-exclamation-square-fill" style="color:red;"></span>' : '') ?>
+                                <?php if (!$uneImage->isApprouvee()): ?>
+                                    <?php if ($uneImage->getNbViewPerDay() >= _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_): ?>
+                                        <span class="bi-exclamation-diamond" style="color: orange"></span>
+                                    <?php elseif ($uneImage->getNbViewPerDay() >= _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_): ?>
+                                        <span class="bi-exclamation-circle" style="color: lightblue"></span>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') ?><?= ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
+                            <td>
+                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
+                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
                             </td>
                             <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                             <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
@@ -101,12 +116,13 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
                             <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
                         </tr>
+                        <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ ?>lastUpload.php?nextId=<?= $uneImage->getId() ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ ?>lastUpload.php?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
