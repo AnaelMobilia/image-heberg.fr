@@ -51,37 +51,78 @@ class ImageObject extends RessourceObject implements RessourceInterface
 
     public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
-        // Retour
-        $monRetour = false;
+        // Charger les informations depuis la BDD
+        $this->chargerFromBdd([$value], $fromField);
 
+        // Gestion du retour
+        return ($this->getId() !== 0);
+    }
+
+    /**
+     * Charger des images en masse
+     * @param ArrayObject $values Valeur du champ $fromField
+     * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
+     * @return array
+     */
+    public static function chargerMultiple(ArrayObject $values, string $fromField): array
+    {
+        $monRetour = [];
+
+        if (count($values) > 0) {
+            $monRetour = (new ImageObject())->chargerFromBdd((array)$values, $fromField, false);
+        }
+
+        return $monRetour;
+    }
+
+    /**
+     * Charger des images depuis la BDD
+     * @param array $values Valeurs du champ $fromField
+     * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
+     * @param bool $saveOnCurrentObject Enregistrer les résultats dans l'objet courant ou dans un tableau ?
+     * @return array
+     */
+    private function chargerFromBdd(array $values, string $fromField, bool $saveOnCurrentObject = true): array
+    {
+        $monRetour = [];
+
+        // Génération des placeholders
+        $placeHolders = str_repeat('?,', count($values) - 1) . '?';
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare('SELECT *, (SELECT COUNT(*) FROM images im2 WHERE im2.isBloquee = 1 AND im2.abuse_network = images.abuse_network) AS reputation FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' = :value');
-        $req->bindValue(':value', $value);
-        $req->execute();
+        $req = MaBDD::getInstance()->prepare('SELECT *, (SELECT COUNT(*) FROM images im2 WHERE im2.isBloquee = 1 AND im2.abuse_network = images.abuse_network) AS reputation FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' IN (' . $placeHolders . ')');
+        $req->execute($values);
 
-        // J'éclate les informations
-        $resultat = $req->fetch();
-        if ($resultat !== false) {
-            $this->setId($resultat->id);
-            $this->setIpEnvoi($resultat->remote_addr);
-            $this->setDateEnvoi($resultat->date_action);
-            $this->setNomOriginal($resultat->old_name);
-            $this->setNomNouveau($resultat->new_name);
-            $this->setPoids($resultat->size);
-            $this->setHauteur($resultat->height);
-            $this->setLargeur($resultat->width);
-            $this->setLastView($resultat->last_view);
-            $this->setNbViewIPv4($resultat->nb_view_v4);
-            $this->setNbViewIPv6($resultat->nb_view_v6);
-            $this->setMd5($resultat->md5);
-            $this->setBloquee($resultat->isBloquee);
-            $this->setSignalee($resultat->isSignalee);
-            $this->setApprouvee($resultat->isApprouvee);
-            $this->setIdProprietaire($resultat->membres_id);
-            $this->setSuspecte(($resultat->reputation > 0));
+        // Traitement des résultats
+        foreach ($req->fetchAll() as $resultat) {
+            if ($saveOnCurrentObject) {
+                $varName = 'this';
+            } else {
+                $varName = 'uneImage';
+                unset(${$varName});
+                ${$varName} = new ImageObject();
+            }
+            ${$varName}->setId($resultat->id);
+            ${$varName}->setIpEnvoi($resultat->remote_addr);
+            ${$varName}->setDateEnvoi($resultat->date_action);
+            ${$varName}->setNomOriginal($resultat->old_name);
+            ${$varName}->setNomNouveau($resultat->new_name);
+            ${$varName}->setPoids($resultat->size);
+            ${$varName}->setHauteur($resultat->height);
+            ${$varName}->setLargeur($resultat->width);
+            ${$varName}->setLastView($resultat->last_view);
+            ${$varName}->setNbViewIPv4($resultat->nb_view_v4);
+            ${$varName}->setNbViewIPv6($resultat->nb_view_v6);
+            ${$varName}->setMd5($resultat->md5);
+            ${$varName}->setBloquee($resultat->isBloquee);
+            ${$varName}->setSignalee($resultat->isSignalee);
+            ${$varName}->setApprouvee($resultat->isApprouvee);
+            ${$varName}->setIdProprietaire($resultat->membres_id);
+            ${$varName}->setSuspecte(($resultat->reputation > 0));
 
-            // Gestion du retour
-            $monRetour = true;
+            if (!$saveOnCurrentObject) {
+                // Gestion du retour
+                $monRetour[] = ${$varName};
+            }
         }
 
         return $monRetour;

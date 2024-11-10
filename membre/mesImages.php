@@ -34,9 +34,9 @@ require _TPL_TOP_;
     <h1 class="mb-3"><small>Mes images</small></h1>
     <div class="row">
         <?php
-        $mesImages = $monUtilisateur->getImages();
-        foreach ((array)$mesImages as $newName) :
-            $uneImage = new ImageObject($newName);
+        // Charger les objets concernés
+        $mesImages = ImageObject::chargerMultiple($monUtilisateur->getImages(), RessourceObject::SEARCH_BY_NAME);
+        foreach ($mesImages as $uneImage) :
             $miniature = $uneImage->getMiniatures(true);
             if ($miniature->count() === 0) {
                 // Duplication de l'image source

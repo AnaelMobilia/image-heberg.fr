@@ -38,11 +38,10 @@ $isPlural = ($listeImages->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-    foreach ((array)$listeImages as $value) {
-        $message .= '<br />Suppression de l\'image ' . $value;
-
-        // Je crée mon objet et lance la suppression
-        $monImage = new ImageObject($value);
+    $mesImages = ImageObject::chargerMultiple($listeImages, RessourceObject::SEARCH_BY_NAME);
+    /* @var ImageObject[] $mesImages */
+    foreach ($mesImages as $monImage) {
+        $message .= '<br />Suppression de l\'image ' . $monImage->getNomNouveau();
         $monImage->supprimer();
     }
     $message .= '<br />Effacement terminé !';

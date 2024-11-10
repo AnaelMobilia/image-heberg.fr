@@ -125,6 +125,7 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
         </form>
     </div>
     <?php foreach ($tabTables as $uneTable) : ?>
+    <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME);?>
     <div class="card">
         <div class="card-header">
             <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
@@ -144,10 +145,7 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ((array)$uneTable['values'] as $value) : ?>
-                        <?php
-                        $uneImage = new ImageObject($value); ?>
+                    <?php foreach ($mesImages as $uneImage) : ?>
                         <tr>
                             <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>

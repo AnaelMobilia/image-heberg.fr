@@ -60,6 +60,8 @@ $table = [
     'legende' => 'trouvée##',
     'values' => HelperAdmin::queryOnNewName($req)
 ];
+// Charger les objets concernés
+$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME);
 ?>
     <?php if (!empty($message)) : ?>
     <div class="alert alert-success">
@@ -81,10 +83,7 @@ $table = [
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <?php
-                    foreach ((array)$table['values'] as $value) : ?>
-                        <?php
-                        $uneImage = new ImageObject($value); ?>
+                    <?php foreach ($mesImages as $uneImage) : ?>
                         <tr>
                             <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>
