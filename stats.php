@@ -25,7 +25,7 @@ require 'config/config.php';
 require _TPL_TOP_;
 
 // Stats Images
-$reqImage = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM images');
+$reqImage = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize, MAX(id) as nbTot FROM images');
 // Je récupère les valeurs
 $valImage = $reqImage->fetch();
 
@@ -60,24 +60,27 @@ $size_all = $valImage->totSize + $valMiniature->totSize;
     <div class="card-body">
         <ul>
             <li>
-                <?= number_format($valImage->nb, 0, ',', ' ') ?> images et
-                <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement hébergées
+                <?= number_format($valImage->nbTot, 0, ',', ' ') ?> images hébergées au total.
             </li>
             <li>
-                <?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers stockés
+                <?= number_format($valImage->nb, 0, ',', ' ') ?> images et
+                <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement hébergées.
+            </li>
+            <li>
+                <?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers actuellement stockés.
             </li>
             <li>
                 <?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont
                 <?= number_format(($bp_v6 / $bp_all) * 100, 2) ?>%
-                en <a href="https://fr.wikipedia.org/wiki/Ipv6">IPv6</a>
+                en <a href="https://fr.wikipedia.org/wiki/Ipv6">IPv6</a>.
             </li>
             <li>
                 <?= number_format($nb_view_all, 0, ',', ' ') ?> affichages d'images
                 <em>(<?= number_format($valImage->nbAff, 0, ',', ' ') ?> images
-                    + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?> miniatures)</em>
+                    + <?= number_format($valMiniature->nbAff, 0, ',', ' ') ?> miniatures)</em>.
             </li>
             <li>
-                <?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images
+                <?= $valMembre->nb ?> membres possèdant au total <?= $valPossede->nb ?> images.
             </li>
         </ul>
     </div>
