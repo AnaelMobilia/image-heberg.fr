@@ -40,7 +40,7 @@ $visiteur = new SessionObject();
     <title><?= _SITE_NAME_ ?> - Hébergeur d'images gratuit</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="template/css/bootstrap-5.3.2.min.css" rel="stylesheet" type="text/css">
+    <link href="template/css/bootstrap-5.3.3.min.css" rel="stylesheet" type="text/css">
     <link href="template/css/image-heberg.css" rel="stylesheet">
     <link href="template/css/bootstrap-icons-1.11.3.min.css" rel="stylesheet">
     <link href="template/css/monSite.css" rel="stylesheet">
