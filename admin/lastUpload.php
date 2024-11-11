@@ -21,6 +21,8 @@
 
 namespace ImageHeberg;
 
+use ArrayObject;
+
 if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
@@ -36,7 +38,7 @@ $message = '';
 
 $table = [
     'legende' => 'trouvée##',
-    'values' => [],
+    'values' => new ArrayObject(),
 ];
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
