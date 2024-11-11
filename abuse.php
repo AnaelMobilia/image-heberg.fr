@@ -79,6 +79,7 @@ if (
             $message .= PHP_EOL . '---------------------------------------------';
             $message .= PHP_EOL . 'IP : ' . $_SERVER['REMOTE_ADDR'];
             $message .= PHP_EOL . 'BROWSER : ' . $_SERVER['HTTP_USER_AGENT'];
+            $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
 
             // Tout va bien, on envoit un mail
             $subject = '[' . _SITE_NAME_ . '] - Signalement d\'image';
