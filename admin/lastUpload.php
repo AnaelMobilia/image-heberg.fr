@@ -69,7 +69,7 @@ if (count($table['values']) > 1) {
 }
 $lastId = '';
 // Charger les objets concernés
-$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME);
+$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME, false);
 ?>
     <?php if (!empty($message)) : ?>
     <div class="alert alert-success">

@@ -62,14 +62,15 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * Charger des images en masse
      * @param ArrayObject $values Valeur du champ $fromField
      * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
+     * @param bool $orderByIdAsc Trier les résultats par ID ASC ?
      * @return array
      */
-    public static function chargerMultiple(ArrayObject $values, string $fromField): array
+    public static function chargerMultiple(ArrayObject $values, string $fromField, bool $orderByIdAsc = true): array
     {
         $monRetour = [];
 
         if (count($values) > 0) {
-            $monRetour = (new ImageObject())->chargerFromBdd((array)$values, $fromField, false);
+            $monRetour = (new ImageObject())->chargerFromBdd((array)$values, $fromField, false, $orderByIdAsc);
         }
 
         return $monRetour;
@@ -80,16 +81,17 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * @param array $values Valeurs du champ $fromField
      * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
      * @param bool $saveOnCurrentObject Enregistrer les résultats dans l'objet courant ou dans un tableau ?
+     * @param bool $orderByIdAsc Trier les résultats par ID ASC ?
      * @return array
      */
-    private function chargerFromBdd(array $values, string $fromField, bool $saveOnCurrentObject = true): array
+    private function chargerFromBdd(array $values, string $fromField, bool $saveOnCurrentObject = true, bool $orderByIdAsc = true): array
     {
         $monRetour = [];
 
         // Génération des placeholders
         $placeHolders = str_repeat('?,', count($values) - 1) . '?';
         // Je vais chercher les infos en BDD
-        $req = MaBDD::getInstance()->prepare('SELECT *, (SELECT COUNT(*) FROM images im2 WHERE im2.isBloquee = 1 AND im2.abuse_network = images.abuse_network) AS reputation FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' IN (' . $placeHolders . ')');
+        $req = MaBDD::getInstance()->prepare('SELECT *, (SELECT COUNT(*) FROM images im2 WHERE im2.isBloquee = 1 AND im2.abuse_network = images.abuse_network) AS reputation FROM images LEFT JOIN possede on images.id = possede.images_id WHERE ' . $fromField . ' IN (' . $placeHolders . ') ORDER BY images.id '.($orderByIdAsc ? 'ASC' : 'DESC'));
         $req->execute($values);
 
         // Traitement des résultats
