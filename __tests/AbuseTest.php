@@ -414,6 +414,7 @@ class AbuseTest extends TestCase
     #[RunInSeparateProcess]
     public function testBlocageParUserAgent(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['HTTP_USER_AGENT'] = 'someUserAgentNumberOne';
         $_SERVER['REQUEST_URI'] = 'files/image_33.png';
