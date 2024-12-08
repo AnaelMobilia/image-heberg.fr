@@ -24,7 +24,9 @@ namespace ImageHeberg;
 /*
  * Affichage d'une image & mise à jour des stats
  */
-require 'config/config.php';
+if (!defined('_PHPUNIT_')) {
+    require 'config/config.php';
+}
 
 // URL demandée
 $url = $_SERVER['REQUEST_URI'];

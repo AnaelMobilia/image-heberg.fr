@@ -33,11 +33,14 @@ class DisplayPicsTest extends TestCase
     #[RunInSeparateProcess]
     public function testImageInexistante(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/fichierInexistant.jpg';
+
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
+
         /* @var $monObjet RessourceObject */
         $this->assertEquals(
             _IMAGE_404_,
@@ -52,11 +55,14 @@ class DisplayPicsTest extends TestCase
     #[RunInSeparateProcess]
     public function testMiniatureInexistante(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/thumbs/fichierInexistant.jpg';
+
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
+
         /* @var $monObjet RessourceObject */
         $this->assertEquals(
             _IMAGE_404_,
@@ -71,11 +77,14 @@ class DisplayPicsTest extends TestCase
     #[RunInSeparateProcess]
     public function testRepertoireInexistant(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/repertoireInexistant/fichierInexistant.jpg';
+
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
+
         /* @var $monObjet RessourceObject */
         $this->assertEquals(
             _IMAGE_404_,
@@ -90,8 +99,10 @@ class DisplayPicsTest extends TestCase
     #[RunInSeparateProcess]
     public function testImageBloquee(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/image_10.png';
+
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
@@ -110,11 +121,14 @@ class DisplayPicsTest extends TestCase
     #[RunInSeparateProcess]
     public function testImageSignalee(): void
     {
+        require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REQUEST_URI'] = 'files/image_18.png';
+
         ob_start();
         require 'displayPics.php';
         ob_end_clean();
+
         /* @var $monObjet RessourceObject */
         $this->assertEquals(
             _IMAGE_BAN_,
