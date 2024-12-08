@@ -69,6 +69,23 @@ if (
     header('HTTP/2 404 Not Found');
 }
 
+
+/**
+ * Détection des User-Agent malveillant et blocage des images demandées
+ */
+if (
+    isset($_REQUEST['HTTP_USER_AGENT'])
+    && in_array($_REQUEST['HTTP_USER_AGENT'], _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_, true)
+) {
+    // Blocage de l'image
+    $monObjet->setSignalee(true);
+    $monObjet->sauver();
+
+    // Générer un mail d'erreur à l'admin
+    require 'cron/abuse.php';
+}
+
+
 /**
  * Le fichier est-il bloqué ?
  */

@@ -407,4 +407,31 @@ class AbuseTest extends TestCase
             'L\'image 32 doit être approuvée'
         );
     }
+
+    /**
+     * Une image demandée par un User-Agent suspect doit être signalée.
+     */
+    #[RunInSeparateProcess]
+    public function testBlocageParUserAgent(): void
+    {
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['HTTP_USER_AGENT'] = 'someUserAgentNumberOne';
+        $_SERVER['REQUEST_URI'] = 'files/image_33.png';
+
+        $monImage = new ImageObject('33');
+        $this->assertFalse(
+            $monImage->isSignalee(),
+            'L\'image ne doit pas être signalée de base.'
+        );
+
+        ob_start();
+        require 'displayPics.php';
+        ob_end_clean();
+
+        $monImage = new ImageObject('33');
+        $this->assertTrue(
+            $monImage->isSignalee(),
+            'Signalement de l\'image basé sur le Uer-Agent présente'
+        );
+    }
 }

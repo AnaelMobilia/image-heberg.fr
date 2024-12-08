@@ -86,6 +86,8 @@ const _TOR_DISABLE_UPLOAD_ = true;
 // Désactiver l'envoi d'images au bout de x images bloquées (mettre 0 pour ne pas l'activer)
 const _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ = 100;
 
+// User-Agent pour lesquels bloquer les images
+const _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_ = ['someUserAgentNumberOne', 'AnoterUserAgentNumberTwo'];
 
 /**
  * FIN DES CHAMPS A CONFIGURER

@@ -85,6 +85,13 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
     (32, '127.0.0.1', NOW(), 'image_a_valider_prog.png', 'image_32.png', 1, 1, 1, NOW(), 50, 50, 'f3a7c514d2-theSameMd5-f3a7c514d2', 0, 0, 1, '127.0.0');
 
 --
+-- Image qui sera bloqué lors de son affichage avec un User-Agent malveillant
+--
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+    (33, '127.0.4.1', NOW(), 'imageQuiSeraSignaleeParUserAgent.png', 'image_33.png', 1, 1, 1, '0000-00-00', 0, 0, 'not-used--37ebcdf9e7d02e37789ed5', 0, 0, 0, '127.0.4'),
+
+
+--
 -- Agrandir la taille du champ pour bien gérer le _bootstrap
 --
 ALTER TABLE `thumbnails` MODIFY `new_name` VARCHAR(50) ;
