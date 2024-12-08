@@ -432,7 +432,7 @@ class AbuseTest extends TestCase
         $monImage = new ImageObject('33', RessourceObject::SEARCH_BY_ID);
         $this->assertTrue(
             $monImage->isSignalee(),
-            'Signalement de l\'image basé sur le Uer-Agent présente'
+            'Signalement de l\'image basé sur le User-Agent présenté'
         );
     }
 }
