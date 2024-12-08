@@ -419,7 +419,7 @@ class AbuseTest extends TestCase
         $_SERVER['HTTP_USER_AGENT'] = 'someUserAgentNumberOne';
         $_SERVER['REQUEST_URI'] = 'files/image_33.png';
 
-        $monImage = new ImageObject('33');
+        $monImage = new ImageObject('33', RessourceObject::SEARCH_BY_ID);
         $this->assertFalse(
             $monImage->isSignalee(),
             'L\'image ne doit pas être signalée de base.'
@@ -429,7 +429,7 @@ class AbuseTest extends TestCase
         require 'displayPics.php';
         ob_end_clean();
 
-        $monImage = new ImageObject('33');
+        $monImage = new ImageObject('33', RessourceObject::SEARCH_BY_ID);
         $this->assertTrue(
             $monImage->isSignalee(),
             'Signalement de l\'image basé sur le Uer-Agent présente'
