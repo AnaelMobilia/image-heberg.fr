@@ -82,8 +82,10 @@ if (
     $monObjet->setSignalee(true);
     $monObjet->sauver();
 
-    // Générer un mail d'erreur à l'admin
-    require 'cron/abuse.php';
+    if (!_PHPUNIT_) {
+        // Générer un mail d'erreur à l'admin
+        require 'cron/abuse.php';
+    }
 }
 
 /**
