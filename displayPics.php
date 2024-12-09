@@ -69,14 +69,11 @@ if (
     $monObjet->charger(_IMAGE_404_);
     // Envoi d'un header en 404
     header('HTTP/2 404 Not Found');
-} /**
- * Détection des User-Agent malveillant et blocage des images demandées
- */
-elseif (
+} elseif (
     isset($_SERVER['HTTP_USER_AGENT'])
     && in_array($_SERVER['HTTP_USER_AGENT'], _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_, true)
 ) {
-    // Blocage de l'image
+    // Détection des User-Agent malveillant et blocage des images demandées
     $monObjet->setSignalee(true);
     $monObjet->sauver();
 
