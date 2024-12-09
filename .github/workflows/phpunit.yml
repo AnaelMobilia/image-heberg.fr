@@ -18,6 +18,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: imagick, pdo_mysql
           tools: phpunit
+          ini-values: error_reporting=E_ALL, display_errors=On
 
       - name: Lancement de MySQL
         run: sudo systemctl start mysql.service
