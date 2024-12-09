@@ -43,6 +43,9 @@ jobs:
           # Pour ImageUploadAndDeleteTest
           sh -c "find files/ -name _dummy -type f -delete"
           
+          # Pour AbuseTest
+          sh -c "mv __tests/images/image_33.png files/d/d0a77eeeff5ef764505fe5b119b913bf"
+
           # Injection des données
           mysql -u root -proot imageheberg < __tests/data.sql
 
