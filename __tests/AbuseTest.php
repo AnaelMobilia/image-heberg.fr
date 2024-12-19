@@ -436,7 +436,6 @@ class AbuseTest extends TestCase
         );
     }
 
-
     /**
      * Projection du nombre d'affichage d'une image pour détecter une atteinte de limite ultérieure
      */
