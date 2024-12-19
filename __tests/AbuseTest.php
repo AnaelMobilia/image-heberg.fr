@@ -435,4 +435,22 @@ class AbuseTest extends TestCase
             'Signalement de l\'image basé sur le User-Agent présenté'
         );
     }
+
+
+    /**
+     * Projection du nombre d'affichage d'une image pour détecter une atteinte de limite ultérieure
+     */
+    #[RunInSeparateProcess]
+    public function testAbuseNombreAffichagesAbusifs(): void
+    {
+        require 'config/config.php';
+
+        $images = HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ * 10), false, true, true);
+
+        $this->assertContains(
+            'image_34.png',
+            $images,
+            'L\'image 34 doit être détectée comme ayant un nombre d\'affichages abusif : ' . var_export($images, true)
+        );
+    }
 }

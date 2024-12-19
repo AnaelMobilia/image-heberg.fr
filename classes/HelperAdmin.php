@@ -233,9 +233,10 @@ abstract class HelperAdmin
      * @param int $nbMax Nb affichage / jour à partir duquel on veut les images
      * @param bool $onlyOnImagesSuspectes Filtrer sur les images suspectes ?
      * @param bool $useProjection Projeter l'utilisation actuelle de l'image (potentialité de dépassement de limite ultérieur)
+     * @param bool $includeApproved Inclure les images approuvées (ou signalées) ?
      * @return ArrayObject
      */
-    public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false, bool $useProjection = false): ArrayObject
+    public static function getImagesTropAffichees(int $nbMax, bool $onlyOnImagesSuspectes = false, bool $useProjection = false, bool $includeApproved = false): ArrayObject
     {
         if ($onlyOnImagesSuspectes) {
             $tabNewName = [];
@@ -258,9 +259,11 @@ abstract class HelperAdmin
             $req = 'SELECT im.new_name, ( im.nb_view_v4 + im.nb_view_v6 + (SELECT IFNULL(SUM(th.nb_view_v4 + th.nb_view_v6), 0) FROM thumbnails th where th.images_id = im.id) ) / IF(DATEDIFF(NOW(), im.date_action) > 0, DATEDIFF(NOW(), im.date_action), 1) as nbViewPerDay';
         }
         $req .= ' FROM images im
-            WHERE im.isBloquee = 0
-            AND im.isSignalee = 0
+            WHERE im.isBloquee = 0';
+        if (!$includeApproved) {
+            $req .= ' AND im.isSignalee = 0
             AND im.isApprouvee = 0';
+        }
         // Filter sur certaines images
         if ($onlyOnImagesSuspectes) {
             $req .= ' AND im.new_name IN (' . $listeImagesForIn . ')';

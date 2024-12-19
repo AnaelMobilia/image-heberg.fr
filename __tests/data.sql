@@ -90,6 +90,11 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
     (33, '127.0.4.1', NOW(), 'imageQuiSeraSignaleeParUserAgent.png', 'image_33.png', 1, 1, 1, '0000-00-00', 0, 0, 'd0a77eeeff5ef764505fe5b119b913bf', 0, 0, 0, '127.0.4');
 
+--
+-- Image beaucoup trop affichée
+--
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+    (34, '127.0.0.1', DATE_SUB(NOW(), INTERVAL 3 DAY), 'imageBeaucoupTropAffichee.png', 'image_33.png', 1, 1, 1, NOW(), 999999, 999999, 'not-used--fd9cb5a0afba67138bd328', 0, 0, 0, '127.0.0');
 
 --
 -- Agrandir la taille du champ pour bien gérer le _bootstrap
