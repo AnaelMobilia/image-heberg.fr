@@ -118,7 +118,7 @@ abstract class RessourceObject
 
         // Path final
         if ($this->getType() === self::TYPE_IMAGE && ($this->getId() === 1 || $this->getId() === 2)) {
-            // Gestion des images spécificques 404 / ban
+            // Gestion des images spécifiques 404 / ban
             $pathFinal = $pathDuType . $this->getNomNouveau();
         } else {
             // Cas par défaut

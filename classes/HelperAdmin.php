@@ -283,26 +283,6 @@ abstract class HelperAdmin
         HelperAbuse::updateIpReputation();
 
         // Images potentiellement indésirables
-        $req = 'SELECT im.new_name
-                    FROM images im
-                    LEFT JOIN possede po ON po.images_id = im.id
-                    WHERE im.isBloquee = 0
-                      AND im.isApprouvee = 0
-                      AND (
-                        /* Même réseau IP */
-                        im.abuse_network IN (SELECT DISTINCT abuse_network FROM images WHERE isBloquee = 1)
-                        OR (
-                            /* Même propriétaire */
-                            po.membres_id IS NOT NULL
-                            AND
-                            po.membres_id IN (SELECT DISTINCT membres_id FROM possede WHERE images_id IN (SELECT id FROM images WHERE isBloquee = 1))
-                        )
-                        OR (
-                            /* Même MD5 */
-                            im.md5 IN (SELECT DISTINCT md5 FROM images WHERE isBloquee = 1)
-                        )
-                    )
-                    ORDER BY im.id DESC';
         $req = 'SELECT new_name FROM (
                     SELECT im.new_name, ((nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), im.date_action)) AS nbAff
                         FROM images im
