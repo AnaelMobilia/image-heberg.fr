@@ -74,10 +74,12 @@ const _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ = 30;
 
 
 /* Gestion des abus */
-// Nombre d'affichage par jour à partir duquel une image est suspecte
+// Nombre d'affichages par jour à partir duquel une image est suspecte
 const _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ = 1500;
-// Nombre d'affichage par jour à partir duquel une image est automatiquement bloquée
+// Nombre d'affichages par jour à partir duquel une image est automatiquement bloquée
 const _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ = 100000;
+// Nombre d'affichages par jour à partir duquel une image est clairement abusive;
+const _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ = 10 * _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_;
 // Division des seuils d'abus si une image est considérée comme suspecte
 const _ABUSE_DIVISION_SEUILS_SI_SUSPECT_ = 2;
 
@@ -88,6 +90,9 @@ const _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ = 100;
 
 // User-Agent pour lesquels bloquer les images
 const _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_ = ['someUserAgentNumberOne', 'AnoterUserAgentNumberTwo'];
+
+// Clef pour la récupération des données pour l'entraînement du module d'IA
+const _KEY_FOR_IA_TRAINING_ = '';
 
 /**
  * FIN DES CHAMPS A CONFIGURER

@@ -88,8 +88,8 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
     ];
     // Liste de TOUTES les images avec un ratio d'affichage abusif
     $tabTables[] = [
-        'legende' => 'affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ * 10) . ' fois/jour',
-        'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ * 10), false, true, true)
+        'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
+        'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, true, true)
     ];
 }
 /**
