@@ -86,28 +86,29 @@ if (
 /**
  * Le fichier est-il bloqué ?
  */
-if (
-    !$adminForceAffichage
-    && ($monObjet->isBloquee() || $monObjet->isSignalee())
-) {
-    $monObjet = new ImageObject();
-    $monObjet->charger(_IMAGE_BAN_);
-    // Envoi d'un header en 451 -> Unavailable For Legal Reasons
-    header('HTTP/2 451 Unavailable For Legal Reasons');
-} elseif (
-    !$adminForceAffichage
-    && !$monObjet->isApprouvee()
-    && (
-        // Image non suspecte
-        (!$monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_)
-        // Image suspecte -> seuils réduits
-        || ($monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_))
-        // Image qui abuse clairement du service
-        || ($monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_)
-    )
-) {
-    // Lancer un blocage de l'image si trop affichée
-    require 'cron/abuse.php';
+if (!$adminForceAffichage) {
+    if ($monObjet->isBloquee() || $monObjet->isSignalee()) {
+        $monObjet = new ImageObject();
+        $monObjet->charger(_IMAGE_BAN_);
+        // Envoi d'un header en 451 -> Unavailable For Legal Reasons
+        header('HTTP/2 451 Unavailable For Legal Reasons');
+    } elseif (
+        (
+            !$monObjet->isApprouvee()
+            && (
+                // Image non suspecte
+                (!$monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_)
+                // Image suspecte -> seuils réduits
+                || ($monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_))
+            )
+        ) || (
+            // Image qui abuse clairement du service
+            $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_
+        )
+    ) {
+        // Lancer un blocage de l'image si trop affichée
+        require 'cron/abuse.php';
+    }
 }
 
 /**
