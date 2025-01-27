@@ -73,7 +73,8 @@ if (!_PHPUNIT_) {
         $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '');
         $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
 
-        mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] -  Erreur rencontrée', $message, $headers);
+        $encoded_subject = mb_encode_mimeheader('[' . _SITE_NAME_ . '] -  Erreur rencontrée', 'UTF-8', 'B', "\r\n", strlen('Subject: '));
+        mail(_ADMINISTRATEUR_EMAIL_, $encoded_subject, $message, $headers);
     }
 
     /**
