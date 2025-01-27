@@ -102,6 +102,8 @@ if (
         (!$monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_)
         // Image suspecte -> seuils réduits
         || ($monObjet->isSuspecte() && $monObjet->getNbViewPerDay() > (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_))
+        // Image qui abuse clairement du service
+        || ($monObjet->getNbViewPerDay() > _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_)
     )
 ) {
     // Lancer un blocage de l'image si trop affichée
