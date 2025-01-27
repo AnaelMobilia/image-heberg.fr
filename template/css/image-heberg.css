@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2024 Anael MOBILIA
+ * Copyright 2008-2025 Anael MOBILIA
  *
  * This file is part of image-heberg.fr.
  *
