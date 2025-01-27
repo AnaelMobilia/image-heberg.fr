@@ -88,7 +88,7 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 -- Image qui sera bloqué lors de son affichage avec un User-Agent malveillant
 --
 INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
-    (33, '127.0.4.1', NOW(), 'imageQuiSeraSignaleeParUserAgent.png', 'image_33.png', 1, 1, 1, '0000-00-00', 0, 0, 'd0a77eeeff5ef764505fe5b119b913bf', 0, 0, 0, '127.0.4');
+    (33, '127.0.4.1', NOW(), 'imageQuiSeraSignaleeParUserAgent.png', 'image_UserAgentMalveillant.png', 1, 1, 1, '0000-00-00', 0, 0, 'd0a77eeeff5ef764505fe5b119b913bf', 0, 0, 0, '127.0.4');
 
 --
 -- Image beaucoup trop affichée

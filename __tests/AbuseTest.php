@@ -417,7 +417,7 @@ class AbuseTest extends TestCase
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['HTTP_USER_AGENT'] = 'someUserAgentNumberOne';
-        $_SERVER['REQUEST_URI'] = 'files/image_33.png';
+        $_SERVER['REQUEST_URI'] = 'files/image_UserAgentMalveillant.png';
 
         $monImage = new ImageObject('33', RessourceObject::SEARCH_BY_ID);
         $this->assertFalse(
