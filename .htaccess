@@ -34,10 +34,17 @@ RewriteCond %{REQUEST_URI} !^/files/
 RewriteRule (.*) https://www.image-heberg.fr/$1 [R=301,L,NE]
 
 # Protection des répertoires classes, config, cron, __tests
+RewriteCond %{REQUEST_URI} ^/.github/ [OR]
+RewriteCond %{REQUEST_URI} ^/__tests/ [OR]
 RewriteCond %{REQUEST_URI} ^/classes/ [OR]
 RewriteCond %{REQUEST_URI} ^/config/ [OR]
 RewriteCond %{REQUEST_URI} ^/cron/ [OR]
-RewriteCond %{REQUEST_URI} ^/__tests/
+RewriteCond %{REQUEST_URI} ^/files/ [OR]
+RewriteCond %{REQUEST_URI} ^/.gitignore [OR]
+RewriteCond %{REQUEST_URI} ^/.phpcs_ruleset.xml [OR]
+RewriteCond %{REQUEST_URI} ^/database.sql [OR]
+RewriteCond %{REQUEST_URI} ^/LICENSE [OR]
+RewriteCond %{REQUEST_URI} ^/README.md [OR]
 RewriteRule .* - [F]
 
 # Bootstrap icons - fichiers de fonts
