@@ -90,6 +90,7 @@ class ImageUploadAndDeleteTest extends TestCase
             require_once 'config/config.php';
         }
         unset($_POST, $_FILES, $_GET, $_SESSION);
+        $_SERVER['REQUEST_URI'] = '';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
@@ -1123,9 +1124,106 @@ class ImageUploadAndDeleteTest extends TestCase
     }
 
     /**
-     * Vérification du bon fonctionnement du mécanisme de détection des doublons en BDD
+     * Suppression d'une image - God Mode (Admin) - délai dépassé
      */
     #[Depends('testSuppressionImageProprietaireAuthentifie2')]
+    public function testSuppressionImageGodMode(): void
+    {
+        self::prepareTest();
+        $_GET['id'] = 'image_98.png';
+        $_SERVER['REQUEST_URI'] = 'forceDelete=1';
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
+
+        /**
+         * Authentification
+         */
+        $unMembre = new UtilisateurObject();
+        $unMembre->connexion('admin', 'password');
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
+        ob_start();
+        require 'delete.php';
+        ob_end_clean();
+
+        $this->assertEquals(
+            1,
+            $unMembre->getId(),
+            'L\'admin doit être connecté'
+        );
+        $this->assertEmpty(
+            $msgErreur,
+            'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué dans delete.php'
+        );
+        $this->assertEquals(
+            ($nbImagesBddBefore - 1),
+            self::countImagesEnBdd(),
+            'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore - 1),
+            self::countImagesSurHdd(),
+            'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué sur HDD'
+        );
+    }
+
+    /**
+     * Suppression d'une image - God Mode (Admin) - possédée par un autre utilisateur
+     */
+    #[Depends('testSuppressionImageGodMode')]
+    public function testSuppressionImageGodMode2(): void
+    {
+        self::prepareTest();
+        $_GET['id'] = 'image_99.png';
+        $_SERVER['REQUEST_URI'] = 'forceDelete=1';
+        $_GET['type'] = RessourceObject::TYPE_IMAGE;
+
+        /**
+         * Authentification
+         */
+        $unMembre = new UtilisateurObject();
+        $unMembre->connexion('admin', 'password');
+
+        $nbImagesFilesBefore = self::countImagesSurHdd();
+        $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
+
+        ob_start();
+        require 'delete.php';
+        ob_end_clean();
+
+        $this->assertEquals(
+            1,
+            $unMembre->getId(),
+            'L\'admin doit être connecté'
+        );
+        $this->assertEmpty(
+            $msgErreur,
+            'Suppression image possédée par autrui via God Mode ne doit pas être bloqué dans delete.php'
+        );
+        $this->assertEquals(
+            ($nbImagesBddBefore - 1),
+            self::countImagesEnBdd(),
+            'Suppression image possédée par autrui via God Mode ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            ($nbImagesFilesBefore - 1),
+            self::countImagesSurHdd(),
+            'Suppression image possédée par autrui via God Mode ne doit pas être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            ($nbImagesPossedeesBefore - 1),
+            self::countImagesPossedeesEnBdd(),
+            'Suppression image possédée par autrui (possede) via God Mode ne doit pas être bloqué en BDD'
+        );
+    }
+
+    /**
+     * Vérification du bon fonctionnement du mécanisme de détection des doublons en BDD
+     */
+    #[Depends('testSuppressionImageGodMode2')]
     public function testVerificationCalculsDoublonsBDD(): void
     {
         self::prepareTest();

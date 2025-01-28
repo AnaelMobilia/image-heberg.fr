@@ -62,10 +62,14 @@ if (!$erreur) {
  */
 if (!$erreur) {
     if (
+        // Possession de l'image
         $monImage->isProprietaire()
-        || (
+        || ( // Envoi il y a moins d'une heure par la même @IP
             (strtotime($monImage->getDateEnvoiBrute()) + 3600) > time()
             && $monImage->getIpEnvoi() === $_SERVER['REMOTE_ADDR']
+        ) || ( // God mode
+            str_contains($_SERVER['REQUEST_URI'], 'forceDelete=1') // Mis en premier pour éviter d'ouvrir des sessions inutiles
+            && UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN, false)
         )
     ) {
         // Effacement...

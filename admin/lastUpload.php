@@ -107,9 +107,10 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') ?><?= ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
-                            <td>
+                            <td class="text-nowrap">
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
+                                <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?=RessourceObject::TYPE_IMAGE?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
                             </td>
                             <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                             <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
