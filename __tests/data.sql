@@ -32,7 +32,9 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 (14, '127.0.0.1', '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', 'image_14.png', 4239, 400, 640, '0000-00-00', 0, 0, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0'),
 (15, '127.0.0.1', '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', 'image_15.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0'),
 (16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', 'image_16.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0'),
-(17, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', 'image_17.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'not-used--be5e3e8d65ecefdc0dbcca', 0, 0, 0, '127.0.0');
+(17, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', 'image_17.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'not-used--be5e3e8d65ecefdc0dbcca', 0, 0, 0, '127.0.0'),
+(98, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode.png', 'image_98.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0'),
+(99, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode2.png', 'image_99.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0');
 
 --
 -- Image signalée
@@ -117,7 +119,8 @@ INSERT INTO `thumbnails` (`id`, `images_id`, `date_action`, `new_name`, `size`, 
 -- Possessions
 --
 INSERT INTO `possede` (`images_id`, `membres_id`) VALUES ('11', '2'),
-('14', '1');
+('14', '1'),
+('99', '2');
 
 
 --
