@@ -98,7 +98,8 @@ $listeImages = HelperAdmin::getImagesPotentiellementIndesirables();
 $contenu .= formatageMailListeImages($listeImages, 'Images suspectes');
 
 // Liste des images abusant clairement
-$listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, true, true);
+$listeImages = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true);
+bloquerImage($listeImages);
 $contenu .= formatageMailListeImages($listeImages, 'Images qui abusent du service (>' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . '/jour)');
 
 

@@ -444,7 +444,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
 
-        $images = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, true, true);
+        $images = HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true);
 
         $this->assertContains(
             'image_34.png',
