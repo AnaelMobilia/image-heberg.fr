@@ -417,5 +417,4 @@ class ImageObject extends RessourceObject implements RessourceInterface
 
         $req->execute();
     }
-
 }

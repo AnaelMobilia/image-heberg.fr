@@ -21,6 +21,7 @@
 
 namespace ImageHebergTests;
 
+use ArrayObject;
 use ImageHeberg\HelperAbuse;
 use ImageHeberg\ImageObject;
 use ImageHeberg\HelperAdmin;
@@ -145,7 +146,7 @@ class AbuseTest extends TestCase
         $monMembre->connexion('admin', 'password');
 
         // Approuver l'image dans l'admin
-        $_GET['approuver'] = '1';
+        $_GET['action'] = 'approuver';
         $_GET['idImage'] = '2';
 
         ob_start();
@@ -461,13 +462,12 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
 
-
-        $md5 = new \ArrayObject();
+        $md5 = new ArrayObject();
         $md5->append('97a3a88502d6-theSameMd5-97a3a88502d6');
         $images = ImageObject::chargerMultiple($md5, 'md5');
 
         $this->assertTrue(
-            count($images) >= 2,
+            (count($images) >= 2),
             'Les images 15 et 16 sont censées avoir ce MD5'
         );
 
