@@ -457,7 +457,7 @@ class AbuseTest extends TestCase
     /**
      * Contamination sur tous les fichiers d'une catégorisation d'abus
      */
-    #[RunInSeparateProcess]
+    #[Depends('testAbuseImageSignaleePuisApprouvee')]
     public function testAbuseContaminationCategorisationAbus(): void
     {
         require 'config/config.php';
