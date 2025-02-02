@@ -37,9 +37,9 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     }
     // La suppression n'est pas contaminante par défaut
     if (isset($_GET['action']) && $_GET['action'] === 'supprimer') {
-        $listeImages = ImageObject::chargerMultiple([$monImage->getMd5()], 'md5');
+        $listeImages = ImageObject::chargerMultiple([$monImage->getMd5()], RessourceObject::SEARCH_BY_MD5);
         foreach ($listeImages as $image) {
-            $monImage->supprimer();
+            $image->supprimer();
         }
         die('OK');
     }
