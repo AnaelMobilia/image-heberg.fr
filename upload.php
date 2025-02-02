@@ -133,7 +133,7 @@ if (empty($msgErreur) && !empty($_POST['redimImage'])) {
 /**
  * Traitement de la rotation
  */
-if (empty($msgErreur) && isset($_POST['angleRotation']) && is_numeric($_POST['angleRotation'])) {
+if (empty($msgErreur) && isset($_POST['angleRotation']) && preg_match('#^[0-9]+$#', $_POST['angleRotation'])) {
     // On effectue la rotation
     $result = $monImage->rotation($_POST['angleRotation'], $monImage->getPathTemp(), $monImage->getPathTemp());
 
