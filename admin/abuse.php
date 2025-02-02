@@ -27,71 +27,65 @@ if (!defined('_PHPUNIT_')) {
 
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
+
+// Action à effectuer sur une image
+if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
+    $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
+    if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer', 'supprimer'])) {
+        $monImage->{$_GET['action']}();
+        die('OK');
+    }
+}
+
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Gestion des abus</small></h1>
     <?php
 
-$message = '';
-
 $tabTables = [];
-// Action à effectuer sur une image
-if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
-    $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['bloquer'])) {
-        // Blocage de l'image
-        $monImage->bloquer();
-        $message .= 'Image ' . $monImage->getNomNouveau() . ' bloquée !';
-    } elseif (isset($_GET['approuver'])) {
-        // Approbation de l'image
-        $monImage->approuver();
-        $message .= 'Image ' . $monImage->getNomNouveau() . ' approuvée !';
-    }
-} else {
-    /**
-     * Images à traiter
-     */
-    // Liste des images avec un ratio d'affichage incohérent
-    $tabTables[] = [
-        'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-        'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_)
-    ];
-    // Liste des images avec un ratio d'affichage incohérent EN PROJECTION
-    $tabTables[] = [
-        'legende' => 'projetée## avec un nombre d\'affichages > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-        'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_, false, true)
-    ];
-    // Liste des images suspectes avec un ratio d'affichage incohérent
-    $tabTables[] = [
-        'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-        'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true)
-    ];
-    // Liste des images suspectes avec un ratio d'affichage incohérent EN PROJECTION
-    $tabTables[] = [
-        'legende' => '<b>suspecte##</b> projetée## avec un nombre d\'affichages > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-        'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true, true)
-    ];
-    // Liste des images signalées
-    $tabTables[] = [
-        'legende' => 'signalée##',
-        'values' => HelperAdmin::getImagesSignalees()
-    ];
-    // Liste des images suspectes
-    $tabTables[] = [
-        'legende' => 'suspecte##',
-        'values' => HelperAdmin::getImagesPotentiellementIndesirables()
-    ];
-    // Liste des images approuvables
-    $tabTables[] = [
-        'legende' => 'approuvable##',
-        'values' => HelperAdmin::getImagesPotentiellementApprouvables()
-    ];
-    // Liste de TOUTES les images avec un ratio d'affichage abusif
-    $tabTables[] = [
-        'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
-        'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true)
-    ];
-}
+/**
+ * Images à traiter
+ */
+// Liste des images avec un ratio d'affichage incohérent
+$tabTables[] = [
+    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_)
+];
+// Liste des images avec un ratio d'affichage incohérent EN PROJECTION
+$tabTables[] = [
+    'legende' => 'projetée## avec un nombre d\'affichages > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_, false, true)
+];
+// Liste des images suspectes avec un ratio d'affichage incohérent
+$tabTables[] = [
+    'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true)
+];
+// Liste des images suspectes avec un ratio d'affichage incohérent EN PROJECTION
+$tabTables[] = [
+    'legende' => '<b>suspecte##</b> projetée## avec un nombre d\'affichages > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
+    'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true, true)
+];
+// Liste des images signalées
+$tabTables[] = [
+    'legende' => 'signalée##',
+    'values' => HelperAdmin::getImagesSignalees()
+];
+// Liste des images suspectes
+$tabTables[] = [
+    'legende' => 'suspecte##',
+    'values' => HelperAdmin::getImagesPotentiellementIndesirables()
+];
+// Liste des images approuvables
+$tabTables[] = [
+    'legende' => 'approuvable##',
+    'values' => HelperAdmin::getImagesPotentiellementApprouvables()
+];
+// Liste de TOUTES les images avec un ratio d'affichage abusif
+$tabTables[] = [
+    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
+    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true)
+];
 /**
  * Recherche
  */
@@ -112,11 +106,6 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
     ]);
 }
 ?>
-    <?php if (!empty($message)) : ?>
-    <div class="alert alert-success">
-        <?= $message ?>
-    </div>
-    <?php endif; ?>
     <div class="alert alert-info">
         <form method="post">
             <div class="mb-3 form-floating">
@@ -160,9 +149,9 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
                             <tr data-ih="<?= $uneImage->getId() ?>">
                                 <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                                 <td class="text-nowrap">
-                                    <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                    <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                                    <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
+                                    <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                    <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                    <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                                 </td>
                                 <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                                 <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
@@ -179,6 +168,29 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
         <br>
     <?php endforeach; ?>
     <script>
-
+    /**
+     * Gestion des actions sur les images
+     * @param idImage ID de l'image
+     * @param action Action à réaliser
+     */
+    function runAction(idImage, action) {
+        if (confirm(action.substring(0, 1).toUpperCase() + action.substring(1) + ' cette image ?')) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
+            xhr.onload = function () {
+                if (xhr.status === 200 && xhr.responseText === 'OK') {
+                    // En cas de succès, supprimer les lignes correspondantes
+                    const images = document.querySelectorAll('tr[data-ih="' + idImage + '"]');
+                    images.forEach(function (ligne) {
+                        ligne.remove();
+                    });
+                }
+            };
+            xhr.onerror = function () {
+                alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
+            };
+            xhr.send();
+        }
+    }
     </script>
     <?php require _TPL_BOTTOM_; ?>

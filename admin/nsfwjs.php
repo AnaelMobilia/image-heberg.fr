@@ -27,6 +27,16 @@ if (!defined('_PHPUNIT_')) {
 
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
+
+// Action à effectuer sur une image
+if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
+    $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
+    if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer', 'supprimer'])) {
+        $monImage->{$_GET['action']}();
+        die('OK');
+    }
+}
+
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>NSFWJS</small></h1>
@@ -87,8 +97,9 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <tr>
                             <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                             </td>
                             <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
                             <td></td>
@@ -98,7 +109,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ ?>nsfwjs.php?nextId=<?= $uneImage->getId() ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $uneImage->getId() ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
@@ -134,6 +145,29 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             }
             // Injection de la valeur dans la page
             unTr.children[3].innerHTML = results;
+        }
+    </script>
+    <script>
+        /**
+         * Gestion des actions sur les images
+         * @param idImage ID de l'image
+         * @param action Action à réaliser
+         */
+        function runAction(idImage, action) {
+            if (confirm(action.substring(0, 1).toUpperCase() + action.substring(1) + ' cette image ?')) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
+                xhr.onload = function () {
+                    if (xhr.status === 200 && xhr.responseText === 'OK' && action === 'supprimer') {
+                        // En cas de succès, supprimer la ligne correspondante
+                        document.querySelector('tr[data-ih="' + idImage + '"]').remove();
+                    }
+                };
+                xhr.onerror = function () {
+                    alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
+                };
+                xhr.send();
+            }
         }
     </script>
     <?php require _TPL_BOTTOM_; ?>

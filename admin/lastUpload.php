@@ -21,14 +21,22 @@
 
 namespace ImageHeberg;
 
-use ArrayObject;
-
 if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
 
 // Vérification des droits d'accès
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
+
+// Action à effectuer sur une image
+if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
+    $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
+    if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer', 'supprimer'])) {
+        $monImage->{$_GET['action']}();
+        die('OK');
+    }
+}
+
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Derniers fichiers envoyés</small></h1>
@@ -36,33 +44,17 @@ require _TPL_TOP_;
 
 $message = '';
 
-$table = [
-    'legende' => 'trouvée##',
-    'values' => new ArrayObject(),
-];
-// Action à effectuer sur une image
-if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
-    $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['bloquer'])) {
-        // Blocage de l'image
-        $monImage->bloquer();
-        $message .= 'Image ' . $monImage->getNomNouveau() . ' bloquée !';
-    } elseif (isset($_GET['approuver'])) {
-        // Approbation de l'image
-        $monImage->approuver();
-        $message .= 'Image ' . $monImage->getNomNouveau() . ' approuvée !';
-    }
-} else {
-    /**
-     * Images à traiter
-     */
-    $idStart = 0;
-    if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
-        $idStart = (int)$_GET['nextId'];
-    }
-    $req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
-    $table['values'] = HelperAdmin::queryOnNewName($req);
+$table = [];
+/**
+ * Images à traiter
+ */
+$idStart = 0;
+if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
+    $idStart = (int)$_GET['nextId'];
 }
+$req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
+$table['legende'] = 'trouvée##';
+$table['values'] = HelperAdmin::queryOnNewName($req);
 
 $isPlural = (count($table['values']) > 1 ? 's' : '');
 $lastId = '';
@@ -106,9 +98,9 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                                 <?php endif; ?>
                                 <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') ?><?= ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td class="text-nowrap">
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                                <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                             </td>
                             <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                             <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
@@ -123,11 +115,34 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ ?>lastUpload.php?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
+    <script>
+        /**
+         * Gestion des actions sur les images
+         * @param idImage ID de l'image
+         * @param action Action à réaliser
+         */
+        function runAction(idImage, action) {
+            if (confirm(action.substring(0, 1).toUpperCase() + action.substring(1) + ' cette image ?')) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
+                xhr.onload = function () {
+                    if (xhr.status === 200 && xhr.responseText === 'OK' && action === 'supprimer') {
+                        // En cas de succès, supprimer la ligne correspondante
+                        document.querySelector('tr[data-ih="' + idImage + '"]').remove();
+                    }
+                };
+                xhr.onerror = function () {
+                    alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
+                };
+                xhr.send();
+            }
+        }
+    </script>
     <?php require _TPL_BOTTOM_; ?>
