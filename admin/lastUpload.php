@@ -75,7 +75,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
     <div class="alert alert-success">
         <?= $message ?>
     </div>
-<?php endif; ?>
+    <?php endif; ?>
     <div class="card">
         <div class="card-header">
             <?= count($table['values']) ?> image<?= ($isPlural ? 's' : '') . ' ' . str_replace('##', ($isPlural ? 's' : ''), $table['legende']) ?>
@@ -110,7 +110,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <td class="text-nowrap">
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?approuver=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
                                 <a href="<?= _URL_ADMIN_ ?>lastUpload.php?bloquer=1&idImage=<?= $uneImage->getId() . ($idStart !== 0 ? '&nextId=' . $idStart : "") ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                                <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?=RessourceObject::TYPE_IMAGE?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
+                                <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
                             </td>
                             <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                             <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>

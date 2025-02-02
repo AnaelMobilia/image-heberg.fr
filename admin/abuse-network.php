@@ -46,7 +46,7 @@ require _TPL_TOP_;
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <?php foreach ((array)$listeIp as $key => $value) : ?>
+                    <?php foreach ($listeIp as $key => $value) : ?>
                         <tr>
                             <td><?= $key ?></td>
                             <td><?= $value ?></td>

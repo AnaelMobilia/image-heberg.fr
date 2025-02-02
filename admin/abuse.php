@@ -136,46 +136,49 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
         </form>
     </div>
     <?php foreach ($tabTables as $uneTable) : ?>
-    <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME);?>
-    <div class="card">
-        <div class="card-header">
-            <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Actions</th>
-                        <th class="text-break">Nom originel</th>
-                        <th class="text-break">Date d'envoi</th>
-                        <th class="text-break">IP envoi</th>
-                        <th class="text-break">Nb vues</th>
-                        <th class="text-break">Dernier affichage</th>
-                        <th class="text-break">Utilisateur</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($mesImages as $uneImage) : ?>
+        <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>
+        <div class="card">
+            <div class="card-header">
+                <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
-                            <td class="text-nowrap">
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
-                                <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
-                                <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?=RessourceObject::TYPE_IMAGE?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
-                            </td>
-                            <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
-                            <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                            <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
-                            <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                            <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
-                            <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
+                            <th>Image</th>
+                            <th>Actions</th>
+                            <th class="text-break">Nom originel</th>
+                            <th class="text-break">Date d'envoi</th>
+                            <th class="text-break">IP envoi</th>
+                            <th class="text-break">Nb vues</th>
+                            <th class="text-break">Dernier affichage</th>
+                            <th class="text-break">Utilisateur</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($mesImages as $uneImage) : ?>
+                            <tr data-ih="<?= $uneImage->getId() ?>">
+                                <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
+                                <td class="text-nowrap">
+                                    <a href="<?= _URL_ADMIN_ ?>abuse.php?approuver=1&idImage=<?= $uneImage->getId() ?>" title="Approuver"><span class="bi-hand-thumbs-up-fill" style="color: green"></span></a>
+                                    <a href="<?= _URL_ADMIN_ ?>abuse.php?bloquer=1&idImage=<?= $uneImage->getId() ?>" title="Bloquer"><span class="bi-hand-thumbs-down-fill" style="color: red"></span></a>
+                                    <a href="<?= _URL_ ?>delete.php?id=<?= $uneImage->getNomNouveau() ?>&type=<?= RessourceObject::TYPE_IMAGE ?>&forceDelete=1" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></a>
+                                </td>
+                                <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
+                                <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                                <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
+                                <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
+                                <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
+                                <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <br>
+        <br>
     <?php endforeach; ?>
+    <script>
+
+    </script>
     <?php require _TPL_BOTTOM_; ?>

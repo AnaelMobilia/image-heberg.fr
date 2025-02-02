@@ -30,7 +30,7 @@ require __DIR__ . '/../config/config.php';
 // Effacer les fichiers jamais affichées
 echo 'Suppression des images jamais affichées depuis ' . _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ . ' jours' . PHP_EOL;
 $listeImages = HelperAdmin::getNeverUsedFiles();
-foreach ((array)$listeImages as $value) {
+foreach ($listeImages as $value) {
     // Je crée mon objet et lance la suppression
     $monImage = new ImageObject($value);
     echo '   -> ' . $monImage->getNomNouveau() . ' (envoi le ' . $monImage->getDateEnvoiFormatee() . ')' . PHP_EOL;
@@ -41,7 +41,7 @@ echo '...done' . PHP_EOL;
 // Effacer les fichiers inactifs
 echo 'Suppression des images non affichées depuis ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' jours' . PHP_EOL;
 $listeImages = HelperAdmin::getUnusedFiles();
-foreach ((array)$listeImages as $value) {
+foreach ($listeImages as $value) {
     // Je crée mon objet et lance la suppression
     $monImage = new ImageObject($value);
     echo '   -> ' . $monImage->getNomNouveau() . ' (dernier affichage le ' . $monImage->getLastViewFormate() . ')' . PHP_EOL;

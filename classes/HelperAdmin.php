@@ -240,7 +240,7 @@ abstract class HelperAdmin
     {
         if ($onlyOnImagesSuspectes) {
             $tabNewName = [];
-            foreach ((array)self::getImagesPotentiellementIndesirables() as $newName) {
+            foreach (self::getImagesPotentiellementIndesirables() as $newName) {
                 $tabNewName[] = '\'' . str_replace('\'', '', $newName) . '\'';
             }
             if (empty($tabNewName)) {

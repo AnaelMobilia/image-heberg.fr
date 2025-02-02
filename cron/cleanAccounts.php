@@ -30,7 +30,7 @@ require __DIR__ . '/../config/config.php';
 // Effacer les comptes jamais utilisés
 echo 'Suppression des comptes jamais utilisés ' . _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ . ' jours après leur création' . PHP_EOL;
 $listeComptes = HelperAdmin::getUnusedAccounts();
-foreach ((array)$listeComptes as $value) {
+foreach ($listeComptes as $value) {
     // Je crée mon objet et lance la suppression
     $monUtilisateur = new UtilisateurObject($value);
     echo '   -> ' . $monUtilisateur->getEmail() . ' - créé le ' . $monUtilisateur->getDateInscriptionFormate() . ' via IP ' . $monUtilisateur->getIpInscription() . PHP_EOL;

@@ -38,7 +38,7 @@ $isPlural = ($listeComptes->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé
 if (isset($_POST['effacer'])) :
-    foreach ((array)$listeComptes as $value) {
+    foreach ($listeComptes as $value) {
         $message .= '<br />Suppression du compte ' . $value;
 
         // Je crée mon objet et lance la suppression
@@ -57,7 +57,7 @@ if (isset($_POST['effacer'])) :
         </div>
         <div class="card-body">
             <ul>
-                <?php foreach ((array)$listeComptes as $value) : ?>
+                <?php foreach ($listeComptes as $value) : ?>
                     <li><?= $value ?></li>
                 <?php endforeach; ?>
             </ul>

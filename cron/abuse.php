@@ -42,7 +42,7 @@ function formatageMailListeImages(ArrayObject $listeImages, string $titre): stri
     $monRetour = '';
     if (count($listeImages) > 0) {
         $monRetour = $titre . ' : (' . count($listeImages) . ')' . PHP_EOL;
-        foreach ((array)$listeImages as $value) {
+        foreach ($listeImages as $value) {
             $monImage = new ImageObject($value);
             $monRetour .= '   -> ' . $monImage->getURL(true) . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
         }
@@ -59,7 +59,7 @@ function formatageMailListeImages(ArrayObject $listeImages, string $titre): stri
  */
 function bloquerImage(ArrayObject $listeImages): void
 {
-    foreach ((array)$listeImages as $value) {
+    foreach ($listeImages as $value) {
         $monImage = new ImageObject($value);
         $monImage->setSignalee(true);
         $monImage->sauver();

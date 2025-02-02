@@ -71,10 +71,8 @@ require _TPL_TOP_;
         <div class="card-body">
             <ul>
                 <?php
-
                 $lesDroits = HelperSysteme::isRecursivelyWritable(_PATH_IMAGES_);
-                foreach ((array)$lesDroits as $unItem) :
-                    ?>
+                foreach ($lesDroits as $unItem) : ?>
                     <li><?= $unItem ?></li>
                 <?php endforeach; ?>
             </ul>
