@@ -95,7 +95,7 @@ $visiteur = new SessionObject();
                     </form>
                 </div>
                 <div id="monCompte" class="my-2 my-lg-0">
-                    <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="d-flex">
+                    <form action="<?= _URL_MEMBRE_ ?>connexionCompte.php" method="post" class="d-sm-flex">
                         <input type="text" name="userName" placeholder="Identifiant" class="form-control" required="required">
                         <input type="password" name="userPassword" placeholder="Mot de passe" class="form-control" required="required">
                         <button type="submit" name="valider" class="btn btn-success text-nowrap">
