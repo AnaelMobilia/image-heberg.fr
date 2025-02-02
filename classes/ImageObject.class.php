@@ -31,6 +31,8 @@ use PDO;
  */
 class ImageObject extends RessourceObject implements RessourceInterface
 {
+    private string $categorieBlocage;
+
     /**
      * Constructeur
      * @param string $value Identifiant image-heberg
@@ -123,6 +125,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             ${$varName}->setApprouvee($resultat->isApprouvee);
             ${$varName}->setIdProprietaire($resultat->membres_id);
             ${$varName}->setSuspecte(($resultat->reputation > 0));
+            ${$varName}->setCategorieBlocage($resultat->abuse_categorie);
 
             if (!$saveOnCurrentObject) {
                 // Gestion du retour
@@ -140,7 +143,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET remote_addr = :ipEnvoi, date_action = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET remote_addr = :ipEnvoi, date_action = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee, abuse_categorie = :abuseCategorie WHERE id = :id');
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal());
@@ -155,6 +158,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':isBloquee', $this->isBloquee(), PDO::PARAM_INT);
         $req->bindValue(':isSignalee', $this->isSignalee(), PDO::PARAM_INT);
         $req->bindValue(':isApprouvee', $this->isApprouvee(), PDO::PARAM_INT);
+        $req->bindValue(':abuseCategorie', $this->getCategorieBlocage());
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
 
         $req->execute();
@@ -379,5 +383,38 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
 
         return $monRetour;
+    }
+
+    /**
+     * Catégorie de blocage
+     * @return string
+     */
+    public function getCategorieBlocage(): string
+    {
+        return $this->categorieBlocage;
+    }
+
+    /**
+     * @param string $categorieBlocage Catégorie de blocage
+     * @return void
+     */
+    public function setCategorieBlocage(string $categorieBlocage): void
+    {
+        $this->categorieBlocage = $categorieBlocage;
+    }
+
+
+    /**
+     * Categoriser une image en BDD
+     * Effet contaminant sur les autres images partagant le même MD5
+     */
+    public function categoriser(): void
+    {
+        // J'enregistre les infos en BDD
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET abuse_categorie = :abuseCategorie WHERE md5 = :md5');
+        $req->bindValue(':md5', $this->getMd5());
+        $req->bindValue(':abuseCategorie', $this->getCategorieBlocage());
+
+        $req->execute();
     }
 }
