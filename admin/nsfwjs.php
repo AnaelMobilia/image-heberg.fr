@@ -70,6 +70,9 @@ $table = [
     'legende' => 'trouvée##',
     'values' => HelperAdmin::queryOnNewName($req)
 ];
+
+$isPlural = (count($table['values']) > 1 ? 's' : '');
+$lastId = '';
 // Charger les objets concernés
 $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME);
 ?>
@@ -80,7 +83,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
 <?php endif; ?>
     <div class="card">
         <div class="card-header">
-            <?= count($table['values']) ?> image<?= (count($table['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($table['values']) > 1 ? 's' : ''), $table['legende']) ?>
+            <?= count($table['values']) ?> image<?= $isPlural . ' ' . str_replace('##', $isPlural, $table['legende']) ?>
         </div>
         <div class="card-body">
             <table class="table">
@@ -104,12 +107,13 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
                             <td></td>
                         </tr>
+                        <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $uneImage->getId() ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
