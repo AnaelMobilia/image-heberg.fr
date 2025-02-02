@@ -461,7 +461,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
 
-        $images = ImageObject::chargerMultiple(['97a3a88502d6-theSameMd5-97a3a88502d6'], 'md5');
+        $images = ImageObject::chargerMultiple(['97a3a88502d6-theSameMd5-97a3a88502d6'], RessourceObject::SEARCH_BY_MD5);
 
         $this->assertTrue(
             (count($images) >= 2),
