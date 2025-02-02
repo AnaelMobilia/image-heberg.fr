@@ -130,7 +130,6 @@ class AbuseTest extends TestCase
     /**
      * Approbation d'une image signalée
      */
-    #[RunInSeparateProcess]
     public function testAbuseImageSignaleePuisApprouvee(): void
     {
         require 'config/config.php';
