@@ -452,4 +452,43 @@ class AbuseTest extends TestCase
             'L\'image 34 doit être détectée comme ayant un nombre d\'affichages abusif : ' . var_export($images, true)
         );
     }
+
+    /**
+     * Contamination sur tous les fichiers d'une catégorisation d'abus
+     */
+    #[RunInSeparateProcess]
+    public function testAbuseContaminationCategorisationAbus(): void
+    {
+        require 'config/config.php';
+
+
+        $md5 = new \ArrayObject();
+        $md5->append('97a3a88502d6-theSameMd5-97a3a88502d6');
+        $images = ImageObject::chargerMultiple($md5, 'md5');
+
+        $this->assertTrue(
+            count($images) >= 2,
+            'Les images 15 et 16 sont censées avoir ce MD5'
+        );
+
+        foreach ($images as $image) {
+            $this->assertSame(
+                $image->getCategorieBlocage(),
+                '',
+                'Les images 15 et 16 ne sont pas catégorisées'
+            );
+        }
+
+        $monImage = new ImageObject('15', RessourceObject::SEARCH_BY_ID);
+        $monImage->setCategorieBlocage(_ABUSE_TYPES_[0]);
+        $monImage->categoriser();
+
+        foreach ($images as $image) {
+            $this->assertSame(
+                $image->getCategorieBlocage(),
+                _ABUSE_TYPES_[0],
+                'Les images 15 et 16 doivent avoir été catégorisées (contamination par le MD5)'
+            );
+        }
+    }
 }
