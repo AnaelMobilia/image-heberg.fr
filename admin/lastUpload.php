@@ -29,7 +29,7 @@ if (!defined('_PHPUNIT_')) {
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 
 // Action à effectuer sur une image
-if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
+if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
     if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer', 'supprimer'])) {
         $monImage->{$_GET['action']}();

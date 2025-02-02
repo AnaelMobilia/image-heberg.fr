@@ -45,7 +45,7 @@ require _TPL_TOP_;
 $message = '';
 
 // Action à effectuer sur une image
-if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
+if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
     if (isset($_GET['bloquer'])) {
         // Blocage de l'image
@@ -62,7 +62,7 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
  * Images à traiter
  */
 $idStart = 0;
-if (!empty($_GET['nextId']) && is_numeric($_GET['nextId'])) {
+if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
     $idStart = trim(str_replace('\'', '_', $_GET['nextId']));
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
