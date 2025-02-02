@@ -65,12 +65,12 @@ class ImageObject extends RessourceObject implements RessourceInterface
 
     /**
      * Charger des images en masse
-     * @param ArrayObject $values Valeur du champ $fromField
+     * @param ArrayObject|array $values Valeur du champ $fromField
      * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
      * @param bool $orderByIdAsc Trier les résultats par ID ASC ?
      * @return ImageObject[]
      */
-    public static function chargerMultiple(ArrayObject $values, string $fromField, bool $orderByIdAsc = true): array
+    public static function chargerMultiple(ArrayObject|array $values, string $fromField, bool $orderByIdAsc = true): array
     {
         $monRetour = [];
 

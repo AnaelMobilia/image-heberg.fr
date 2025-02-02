@@ -94,12 +94,12 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 </thead>
                 <tbody id="tbody">
                     <?php foreach ($mesImages as $uneImage) : ?>
-                        <tr>
+                        <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
                             <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td>
-                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
-                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
-                                <button class="btn p-0" onclick="runAction(<?= $uneImage->getId() ?>, 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                             </td>
                             <td><?= $uneImage->getDateEnvoiFormatee() ?></td>
                             <td></td>
@@ -151,17 +151,20 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
         /**
          * Gestion des actions sur les images
          * @param idImage ID de l'image
+         * @param md5 MD5 de l'image
          * @param action Action à réaliser
          */
-        function runAction(idImage, action) {
+        function runAction(idImage, md5, action) {
             if (confirm(action.substring(0, 1).toUpperCase() + action.substring(1) + ' cette image ?')) {
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
                 xhr.onload = function () {
                     if (xhr.status === 200 && xhr.responseText === 'OK' && action === 'supprimer') {
                         // En cas de succès, supprimer la ligne correspondante
-                        document.querySelector('tr[data-ih="' + idImage + '"]').remove();
-                    }
+                        const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
+                        images.forEach(function (ligne) {
+                            ligne.remove();
+                        });                    }
                 };
                 xhr.onerror = function () {
                     alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
