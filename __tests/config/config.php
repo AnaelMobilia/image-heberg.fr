@@ -72,6 +72,15 @@ const _DEBUG_ = true;
 
 
 /* Gestion des abus */
+// Catégories d'images interdites
+const _ABUSE_TYPES_ = [
+    // "Nom de catégorie" => "détail"
+    'Pornographie' => 'contenu à caractère pornographique',
+    'Erotisme' => 'contenu à caractère érotique',
+    'Violence' => 'contenu montrant de la violence (cadavre, torture, maltraitance, image dégradante, ...) ou d\'appel à la violence',
+    'Spam' => 'contenu utilisé dans l\'envoi de messages de spam ou de phishing',
+];
+
 // Nombre d'affichages par jour à partir duquel une image est suspecte
 const _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ = 1500;
 // Nombre d'affichages par jour à partir duquel une image est automatiquement bloquée

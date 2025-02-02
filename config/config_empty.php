@@ -74,6 +74,14 @@ const _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ = 30;
 
 
 /* Gestion des abus */
+// Catégories d'images interdites
+const _ABUSE_TYPES_ = [
+    // "Nom de catégorie" => "détail"
+    'Pornographie' => 'contenu à caractère pornographique',
+    'Erotisme' => 'contenu à caractère érotique',
+    'Violence' => 'contenu montrant de la violence (cadavre, torture, maltraitance, image dégradante, ...) ou d\'appel à la violence',
+    'Spam' => 'contenu utilisé dans l\'envoi de messages de spam ou de phishing',
+];
 // Nombre d'affichages par jour à partir duquel une image est suspecte
 const _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ = 1500;
 // Nombre d'affichages par jour à partir duquel une image est automatiquement bloquée
@@ -90,9 +98,6 @@ const _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ = 100;
 
 // User-Agent pour lesquels bloquer les images
 const _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_ = ['someUserAgentNumberOne', 'AnoterUserAgentNumberTwo'];
-
-// Clef pour la récupération des données pour l'entraînement du module d'IA
-const _KEY_FOR_IA_TRAINING_ = '';
 
 /**
  * FIN DES CHAMPS A CONFIGURER

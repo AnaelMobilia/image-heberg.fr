@@ -47,8 +47,9 @@ require _TPL_TOP_;
         <div class="card-body">
             <ul>
                 <li>Contenus non conformes à la législation française.</li>
-                <li>Pornographie et érotisme.</li>
-                <li>Scènes de violence (cadavre, torture, maltraitance, image dégradante, ...) ou d'appel à la violence.</li>
+                <?php foreach (_ABUSE_TYPES_ as $categorie => $detail) : ?>
+                    <li><b><?= $categorie ?></b> : <?= $detail ?></li>
+                <?php endforeach; ?>
                 <li>Pour information, les images peuvent être analysées par un composant d'IA dédié au service afin d'aider à leur vérification.</li>
             </ul>
         </div>
