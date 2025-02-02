@@ -63,10 +63,8 @@ if (isset($_GET['idImage']) && is_numeric($_GET['idImage'])) {
     $req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
     $table['values'] = HelperAdmin::queryOnNewName($req);
 }
-$isPlural = false;
-if (count($table['values']) > 1) {
-    $isPlural = true;
-}
+
+$isPlural = (count($table['values']) > 1 ? 's' : '');
 $lastId = '';
 // Charger les objets concernés
 $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME, false);
@@ -78,7 +76,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
     <?php endif; ?>
     <div class="card">
         <div class="card-header">
-            <?= count($table['values']) ?> image<?= ($isPlural ? 's' : '') . ' ' . str_replace('##', ($isPlural ? 's' : ''), $table['legende']) ?>
+            <?= count($table['values']) ?> image<?= $isPlural . ' ' . str_replace('##', $isPlural, $table['legende']) ?>
         </div>
         <div class="card-body">
             <table class="table">
