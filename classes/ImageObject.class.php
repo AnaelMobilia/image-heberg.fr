@@ -49,6 +49,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         // Charger les informations depuis la BDD
@@ -63,7 +66,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * @param ArrayObject $values Valeur du champ $fromField
      * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
      * @param bool $orderByIdAsc Trier les résultats par ID ASC ?
-     * @return array
+     * @return ImageObject[]
      */
     public static function chargerMultiple(ArrayObject $values, string $fromField, bool $orderByIdAsc = true): array
     {
@@ -82,7 +85,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
      * @param string $fromField Nom du champ à utiliser en BDD pour identifier les images
      * @param bool $saveOnCurrentObject Enregistrer les résultats dans l'objet courant ou dans un tableau ?
      * @param bool $orderByIdAsc Trier les résultats par ID ASC ?
-     * @return array
+     * @return ImageObject[]
      */
     private function chargerFromBdd(array $values, string $fromField, bool $saveOnCurrentObject = true, bool $orderByIdAsc = true): array
     {
@@ -130,6 +133,10 @@ class ImageObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
+
+    /**
+     * @inheritDoc
+     */
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
@@ -182,6 +189,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     }
 
     /**
+     * @inheritDoc
      * @throws ImageHebergException
      */
     public function supprimer(): void
@@ -216,7 +224,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     }
 
     /**
-     * @throws ImagickException
+     * @inheritDoc
      * @throws Exception
      */
     public function creer(): bool

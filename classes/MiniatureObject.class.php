@@ -50,6 +50,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function charger(string $value, string $fromField = RessourceObject::SEARCH_BY_NAME): bool
     {
         $monRetour = false;
@@ -92,6 +95,9 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         return $monRetour;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
@@ -113,11 +119,11 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->execute();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function supprimer(): void
     {
-        /**
-         * Suppression de l'image en BDD
-         */
         // Suppresion de l'image en BDD
         $req = MaBDD::getInstance()->prepare('DELETE FROM thumbnails WHERE id = :id');
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
@@ -132,6 +138,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     }
 
     /**
+     * @inheritDoc
      * @throws Exception
      */
     public function creer(): bool
@@ -203,9 +210,6 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
 
         return $monRetour;
     }
-    /**
-     * GETTERS & SETTERS
-     */
 
     /**
      * ID image parente
