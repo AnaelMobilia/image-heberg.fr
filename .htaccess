@@ -50,6 +50,10 @@ RewriteRule .* - [F]
 RewriteCond %{REQUEST_URI} ^/template/css/fonts/
 RewriteRule .*/(fonts/.*) https://www.image-heberg.fr/template/$1 [L,NE]
 
+# Favicon
+RewriteCond %{REQUEST_URI} ^/favicon.ico
+RewriteRule .* https://www.image-heberg.fr/template/images/monSite.ico [L,NE]
+
 # Images : redirection pour affichage
 RewriteCond %{REQUEST_URI} ^/files/
 RewriteRule .* displayPics.php [END]
