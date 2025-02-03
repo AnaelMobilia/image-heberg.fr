@@ -47,7 +47,6 @@ function formatageMailListeImages(ArrayObject $listeImages, string $titre): stri
             $monRetour .= '   -> ' . $monImage->getURL(true) . '?forceDisplay=1 ("' . $monImage->getNomOriginalFormate() . '") : ' . $monImage->getNbViewTotal() . ' affichages (' . $monImage->getNbViewPerDay() . '/jour) - envoyée le ' . $monImage->getDateEnvoiFormatee() . ' par ' . $monImage->getIpEnvoi() . ' - dernier affichage le ' . $monImage->getLastViewFormate() . PHP_EOL;
         }
         $monRetour .= '...done' . PHP_EOL;
-        $monRetour .= PHP_EOL . 'Date de génération : ' . date('Y-m-d H:i:s');
     }
     return $monRetour;
 }
@@ -105,6 +104,8 @@ $contenu .= formatageMailListeImages($listeImages, 'Images qui abusent du servic
 
 
 if (!empty($contenu)) {
+    $contenu .= PHP_EOL . PHP_EOL . 'Date de génération : ' . date('Y-m-d H:i:s');
+
     // Envoyer une notification à l'admin
     mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Gestion des abus', $contenu, 'From: ' . _ADMINISTRATEUR_EMAIL_);
 }
