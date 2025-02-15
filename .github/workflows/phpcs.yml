@@ -22,9 +22,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          tools: cs2pr, phpcs
+          tools: phpcs
 
       - name: Run phpcs
         run: |
          phpcs --version
-         phpcs -q --standard=$GITHUB_WORKSPACE/.phpcs_ruleset.xml
+         phpcs -q --standard=$GITHUB_WORKSPACE/.phpcs_ruleset.xml $GITHUB_WORKSPACE
