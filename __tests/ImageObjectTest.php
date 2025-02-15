@@ -277,7 +277,6 @@ class ImageObjectTest extends TestCase
         );
     }
 
-
     /**
      * Génération de miniatures d'aperçus
      */
@@ -303,14 +302,14 @@ class ImageObjectTest extends TestCase
             'Après la génération de la miniature d\'aperçu, on en a une'
         );
         $this->assertLessThanOrEqual(
-          _SIZE_PREVIEW_,
-          $miniature->getHauteur(),
-          'Respect des dimensions (hauteur) maximale d\'une miniature d\'aperçu'
+            _SIZE_PREVIEW_,
+            $miniature->getHauteur(),
+            'Respect des dimensions (hauteur) maximale d\'une miniature d\'aperçu'
         );
         $this->assertLessThanOrEqual(
-          _SIZE_PREVIEW_,
-          $miniature->getLargeur(),
-          'Respect des dimensions (largeur) maximale d\'une miniature d\'aperçu'
+            _SIZE_PREVIEW_,
+            $miniature->getLargeur(),
+            'Respect des dimensions (largeur) maximale d\'une miniature d\'aperçu'
         );
 
         /**
