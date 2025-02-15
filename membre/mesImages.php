@@ -37,24 +37,7 @@ require _TPL_TOP_;
         // Charger les objets concernés
         $mesImages = ImageObject::chargerMultiple($monUtilisateur->getImages(), RessourceObject::SEARCH_BY_NAME);
         foreach ($mesImages as $uneImage) :
-            $miniature = $uneImage->getMiniatures(true);
-            if ($miniature->count() === 0) {
-                // Duplication de l'image source
-                $tmpFile = tempnam(sys_get_temp_dir(), uniqid('', true));
-                copy($uneImage->getPathMd5(), $tmpFile);
-
-                // Génération de la miniature pour l'aperçu
-                $maMiniature = new MiniatureObject();
-                $maMiniature->setPathTemp($tmpFile);
-                $maMiniature->setIdImage($uneImage->getId());
-                $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), _SIZE_PREVIEW_, _SIZE_PREVIEW_);
-                $maMiniature->setNomTemp('preview_' . $uneImage->getId());
-                $maMiniature->creer();
-                $maMiniature->setIsPreview(true);
-                $maMiniature->sauver();
-            } else {
-                $maMiniature = new MiniatureObject($miniature->offsetGet(0));
-            }
+            $maMiniature = $uneImage->getPreviewMiniature();
             ?>
             <div class="col p-1" style="min-width: <?= _SIZE_PREVIEW_ ?>px;">
                 <div class="card h-100">
