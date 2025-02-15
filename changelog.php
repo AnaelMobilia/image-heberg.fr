@@ -46,12 +46,33 @@ require _TPL_TOP_;
     </div>
     <div class="card">
         <div class="card-header">
+            <a data-bs-toggle="collapse" href="#v26">
+                v2.6 - Février 2025
+                &nbsp;<span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="v26" class="card-collapse">
+            <div class="card-body">
+                <ul>
+                    <li>Compatibilité PHP 8.3 et 8.4.</li>
+                    <li>Amélioration des fonctionnalités de modération.</li>
+                    <li>Modération : blocage sur le User-Agent.</li>
+                    <li>Ajout d'une limite absolue d'utilisation pour éviter les abus pouvant impacter la qualité de service.</li>
+                    <li>CGU : configuration des types de contenus interdits.</li>
+                    <li>Catégorisation des images indésirables.</li>
+                    <li>Amélioration de la remontée des erreurs.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
             <a data-bs-toggle="collapse" href="#v25">
                 v2.5 - Janvier 2024
                 &nbsp;<span class="bi-caret-down-fill"></span>
             </a>
         </div>
-        <div id="v25" class="card-collapse">
+        <div id="v25" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
                     <li>Prise en charge du format WEBP.</li>
