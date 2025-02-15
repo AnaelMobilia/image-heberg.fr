@@ -27,4 +27,4 @@ jobs:
       - name: Run phpcs
         run: |
          phpcs --version
-         phpcs -q --standard=$GITHUB_WORKSPACE/.phpcs_ruleset.xml --report=checkstyle $GITHUB_WORKSPACE | cs2pr
+         phpcs -q --standard=$GITHUB_WORKSPACE/.phpcs_ruleset.xml
