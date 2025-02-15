@@ -33,8 +33,14 @@ require _TPL_TOP_;
         </div>
         <div class="card-body">
             <a href="<?= _URL_ADMIN_ ?>abuse.php" class="btn btn-success">
-                <span class="bi-radioactive"></span>
+                <span class="bi-question-octagon-fill"></span>
                 &nbsp;Images à vérifier
+            </a>
+            <div class="clearfix"></div>
+            <br/>
+            <a href="<?= _URL_ADMIN_ ?>search.php" class="btn btn-success">
+                <span class="bi-search"></span>
+                &nbsp;Rechercher une image
             </a>
             <div class="clearfix"></div>
             <br/>
@@ -87,15 +93,13 @@ require _TPL_TOP_;
         <div class="card-body">
             <a href="<?= _URL_ADMIN_ ?>listeFichiers.php" class="btn btn-default">
                 <span class="bi-list-check"></span>
-                &nbsp;
-                Lister les fichiers présents sur le disque
+                &nbsp;Lister les fichiers présents sur le disque
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanErrors.php" class="btn btn-default">
                 <span class="bi-database-fill-check"></span>
-                &nbsp;
-                Vérifier la cohérence disque et BDD
+                &nbsp;Vérifier la cohérence disque et BDD
             </a>
         </div>
     </div>

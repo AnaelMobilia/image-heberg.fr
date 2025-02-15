@@ -52,49 +52,43 @@ require _TPL_TOP_;
 
 $tabTables = [];
 /**
- * Images à traiter
+ * Recherche
  */
-// Liste des images avec un ratio d'affichage incohérent
-$tabTables[] = [
-    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_)
+$tabSearch = [
+    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\' ORDER BY id DESC',
+    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\' ORDER BY id DESC',
+    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\' ORDER BY id DESC',
+    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\' ORDER BY im.id DESC',
+    'Bloquée' => 'SELECT new_name FROM images WHERE isBloquee = \'1\' ORDER BY id DESC',
+    'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\' ORDER BY id DESC',
 ];
-// Liste des images avec un ratio d'affichage incohérent EN PROJECTION
-$tabTables[] = [
-    'legende' => 'projetée## avec un nombre d\'affichages > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_, false, true)
-];
-// Liste des images suspectes avec un ratio d'affichage incohérent
-$tabTables[] = [
-    'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-    'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true)
-];
-// Liste des images suspectes avec un ratio d'affichage incohérent EN PROJECTION
-$tabTables[] = [
-    'legende' => '<b>suspecte##</b> projetée## avec un nombre d\'affichages > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-    'values' => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true, true)
-];
-// Liste des images signalées
-$tabTables[] = [
-    'legende' => 'signalée##',
-    'values' => HelperAdmin::getImagesSignalees()
-];
-// Liste des images suspectes
-$tabTables[] = [
-    'legende' => 'suspecte##',
-    'values' => HelperAdmin::getImagesPotentiellementIndesirables()
-];
-// Liste des images approuvables
-$tabTables[] = [
-    'legende' => 'approuvable##',
-    'values' => HelperAdmin::getImagesPotentiellementApprouvables()
-];
-// Liste de TOUTES les images avec un ratio d'affichage abusif
-$tabTables[] = [
-    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
-    'values' => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true)
-];
+if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
+    $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
+    $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
+    array_unshift($tabTables, [
+        'legende' => 'trouvée##',
+        'values' => HelperAdmin::queryOnNewName($req)
+    ]);
+}
 ?>
+    <div class="alert alert-info">
+        <form method="post">
+            <div class="mb-3 form-floating">
+                <select name="champ" id="champ" class="form-select" required="required">
+                    <option value="" selected>-- Sélectionner un champ --</option>
+                    <?php foreach (array_keys($tabSearch) as $key) : ?>
+                        <option value="<?= $key ?>"<?= (isset($_REQUEST['champ']) && $key === $_REQUEST['champ'] ? ' selected' :'') ?>><?= $key ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="champ">Champ à utiliser</label>
+            </div>
+            <div class="mb-3 form-floating">
+                <input type="text" class="form-control" name="valeur" id="valeur" required="required" value="<?= ($_REQUEST['valeur'] ?? '')?>">
+                <label for="valeur">Valeur recherchée</label>
+            </div>
+            <button type="submit" name="Submit" class="btn btn-success">Rechercher</button>
+        </form>
+    </div>
     <?php foreach ($tabTables as $uneTable) : ?>
         <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>
         <div class="card">
