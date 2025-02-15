@@ -54,22 +54,25 @@ if (!empty($_POST['lastId']) && preg_match('#^[0-9]+$#', $_POST['lastId'])) {
     $idStart = (int)$_POST['lastId'];
 }
 $lastId = '';
-$tabTables = [];
-/**
- * Recherche
- */
-$tabSearch = [
-    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
-    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
-    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
-    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY im.id DESC LIMIT 50',
-    'Bloquée' => 'SELECT new_name FROM images WHERE isBloquee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
-    'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
-];
 $table = [
     'legende' => 'trouvée##',
     'values' => ''
 ];
+/**
+ * Recherche
+ */
+$tabSearch = [
+    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50',
+    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50',
+    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50',
+    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY im.id DESC LIMIT 50',
+    'Bloquée' => 'SELECT new_name FROM images WHERE isBloquee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50',
+    'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50',
+];
+// Ajout des catégories de filtrage
+foreach (_ABUSE_TYPES_ as $categorie => $detail) {
+    $tabSearch[ucfirst($detail)] = 'SELECT new_name FROM images WHERE abuse_categorie = \'' . str_replace("'", "\'", $categorie) . '\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT 50';
+}
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
     $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
     $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
