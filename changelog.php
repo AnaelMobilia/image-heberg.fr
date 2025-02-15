@@ -75,7 +75,7 @@ require _TPL_TOP_;
         <div id="v25" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
-                    <li>Prise en charge du format WEBP.</li>
+                    <li>Prise en charge du format WebP.</li>
                     <li>Blocage d'accès au site pour les personnes ayant envoyé trop d'images qui ont été bloquées.</li>
                 </ul>
             </div>
