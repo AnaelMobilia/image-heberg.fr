@@ -60,7 +60,7 @@ $idStart = 0;
 if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
     $idStart = (int)$_GET['lastId'];
 }
-$req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
+$req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT ' . _PAGINATION_IMAGES_;
 $table['legende'] = 'trouvée##';
 $table['values'] = HelperAdmin::queryOnNewName($req);
 

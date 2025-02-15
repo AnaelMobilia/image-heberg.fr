@@ -65,7 +65,7 @@ $idStart = 0;
 if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
     $idStart = (int)$_GET['lastId'];
 }
-$req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
+$req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
 $table = [
     'legende' => 'trouvée##',
     'values' => HelperAdmin::queryOnNewName($req)

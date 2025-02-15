@@ -179,6 +179,9 @@ define('_IMAGE_BAN_', '_image_banned.png');
 // Dimensions des aperçus dans l'espace membre
 define('_SIZE_PREVIEW_', 256);
 
+// Pagination des images à partir de x images
+define('_PAGINATION_IMAGES_', 50);
+
 // Types d'images gérés
 define('_ACCEPTED_EXTENSIONS_', ['jpg', 'png', 'gif', 'webp']);
 define('_ACCEPTED_MIME_TYPE_', [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP]);
