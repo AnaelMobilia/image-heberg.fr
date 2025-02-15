@@ -56,7 +56,7 @@ if (!empty($_POST['lastId']) && preg_match('#^[0-9]+$#', $_POST['lastId'])) {
 $lastId = '';
 $table = [
     'legende' => 'trouvée##',
-    'values' => ''
+    'values' => [],
 ];
 /**
  * Recherche
