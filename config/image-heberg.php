@@ -55,26 +55,37 @@ if (!_PHPUNIT_) {
             echo 'Une erreur a été rencontrée';
         }
 
-        /**
-         * Envoi d'un mail avec le détail de l'erreur à l'administrateur
-         */
-        // Adresse expediteur
-        $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_;
-        // Adresse de retour
-        $headers .= PHP_EOL . 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_;
-        // Agent mail
-        $headers .= PHP_EOL . 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_;
-        // Date
-        $headers .= PHP_EOL . 'Date: ' . date('D, j M Y H:i:s +0200');
-        $message = PHP_EOL . exception_handler_cleaner($exception->getMessage()) . PHP_EOL . exception_handler_cleaner($exception->getTraceAsString());
-        $message .= PHP_EOL . 'URL : ' . ($_SERVER['REQUEST_URI'] ?? '');
-        $message .= PHP_EOL . 'HTTP REFERER : ' . ($_SERVER['HTTP_REFERER'] ?? '');
-        $message .= PHP_EOL . 'HTTP USER AGENT : ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
-        $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '');
-        $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
+        // N'envoyer un email que si la même erreur n'a pas eu lieu dans les 30 dernières secondes
+        $errorDetails = $exception->getMessage();
+        if (
+            !file_exists(_CACHE_ERROR_)
+            || file_get_contents(_CACHE_ERROR_) !== $errorDetails
+            || filectime(_CACHE_ERROR_) < (time() - 30)
+        ) {
+            // Mettre en cache l'erreur
+            file_put_contents(_CACHE_ERROR_, $errorDetails);
 
-        $encoded_subject = mb_encode_mimeheader('[' . _SITE_NAME_ . '] -  Erreur rencontrée', 'UTF-8', 'B', "\r\n", strlen('Subject: '));
-        mail(_ADMINISTRATEUR_EMAIL_, $encoded_subject, $message, $headers);
+            /**
+             * Envoi d'un mail avec le détail de l'erreur à l'administrateur
+             */
+            // Adresse expediteur
+            $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_;
+            // Adresse de retour
+            $headers .= PHP_EOL . 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_;
+            // Agent mail
+            $headers .= PHP_EOL . 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_;
+            // Date
+            $headers .= PHP_EOL . 'Date: ' . date('D, j M Y H:i:s +0200');
+            $message = PHP_EOL . exception_handler_cleaner($exception->getMessage()) . PHP_EOL . exception_handler_cleaner($exception->getTraceAsString());
+            $message .= PHP_EOL . 'URL : ' . ($_SERVER['REQUEST_URI'] ?? '');
+            $message .= PHP_EOL . 'HTTP REFERER : ' . ($_SERVER['HTTP_REFERER'] ?? '');
+            $message .= PHP_EOL . 'HTTP USER AGENT : ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
+            $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '');
+            $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
+
+            $encoded_subject = mb_encode_mimeheader('[' . _SITE_NAME_ . '] -  Erreur rencontrée', 'UTF-8', 'B', "\r\n", strlen('Subject: '));
+            mail(_ADMINISTRATEUR_EMAIL_, $encoded_subject, $message, $headers);
+        }
     }
 
     /**
@@ -179,3 +190,10 @@ define('_ACCEPTED_MIME_TYPE_', [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IM
 define('_TOR_EXIT_NODE_LIST_URL_', 'https://onionoo.torproject.org/details?flag=exit');
 define('_TOR_LISTE_IPV4_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv4.txt');
 define('_TOR_LISTE_IPV6_', _PATH_ . _REPERTOIRE_IMAGE_ . 'z_cache/ipv6.txt');
+
+
+/**
+ * Gestion des erreurs
+ */
+// Fichier de cache pour les erreurs
+const _CACHE_ERROR_ = _PATH_ . _REPERTOIRE_CONFIG_ . 'cache_error.txt';
