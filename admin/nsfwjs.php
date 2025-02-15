@@ -63,7 +63,7 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
  */
 $idStart = 0;
 if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
-    $idStart = trim(str_replace('\'', '_', $_GET['nextId']));
+    $idStart = (int)$_GET['nextId'];
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
 $table = [
@@ -163,7 +163,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
                 xhr.onload = function () {
-                    if (xhr.status === 200 && xhr.responseText === 'OK' && action === 'supprimer') {
+                    if (xhr.status === 200 && xhr.responseText === 'OK') {
                         // En cas de succès, supprimer la ligne correspondante
                         const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
                         images.forEach(function (ligne) {
