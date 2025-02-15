@@ -1487,22 +1487,22 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertNotEmpty(
             $msgWarning,
-            'Envoi image webp animée avec modif doit lever un warning'
+            'Envoi image WebP animée avec modif doit lever un warning'
         );
         $this->assertEquals(
             ($nbImagesBddBefore + 1),
             self::countImagesEnBdd(),
-            'Envoi image webp animée avec modif doit créer une image en BDD'
+            'Envoi image WebP animée avec modif doit créer une image en BDD'
         );
         $this->assertEquals(
             ($nbImagesFilesBefore + 1),
             self::countImagesSurHdd(),
-            'Envoi image webp animée avec modif doit créer une image sur HDD'
+            'Envoi image WebP animée avec modif doit créer une image sur HDD'
         );
         $this->assertFileEquals(
             $monImage->getPathMd5(),
             $_FILES['fichier']['tmp_name'],
-            'Envoi image webp animée avec modif ne doit pas faire de modif du fichier source'
+            'Envoi image WebP animée avec modif ne doit pas faire de modif du fichier source'
         );
     }
 
@@ -1619,11 +1619,11 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $this->assertTrue(
             HelperImage::isAnimatedWebp(_PATH_TESTS_IMAGES_ . 'animated-image.webp'),
-            'Image webp animée mal détectée.'
+            'Image WebP animée mal détectée.'
         );
         $this->assertFalse(
             HelperImage::isAnimatedWebp(_PATH_TESTS_IMAGES_ . 'test.webp'),
-            'Image webp non animée mal détectée.'
+            'Image WebP non animée mal détectée.'
         );
     }
 }

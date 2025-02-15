@@ -190,7 +190,7 @@ abstract class HelperImage
     }
 
     /**
-     *  Est-ce une image WEBP animée ?
+     *  Est-ce une image WebP animée ?
      * @param string $path fichier à tester
      * @return bool
      */
