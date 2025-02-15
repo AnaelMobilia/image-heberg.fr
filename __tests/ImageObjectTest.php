@@ -22,6 +22,7 @@
 namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
+use ImageHeberg\RessourceObject;
 use ImagickException;
 use ImagickPixelException;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
@@ -273,6 +274,58 @@ class ImageObjectTest extends TestCase
             150,
             $imageInfo[1],
             'Redimensionnement 800x600 -> 200x400'
+        );
+    }
+
+    /**
+     * Génération de miniatures d'aperçus
+     */
+    #[RunInSeparateProcess]
+    public function testGenerationMiniaturesPreview(): void
+    {
+        require 'config/config.php';
+        $monImage = new ImageObject();
+
+        /**
+         * Génération d'une miniature d'aperçu
+         */
+        $monImage->charger('98', RessourceObject::SEARCH_BY_ID);
+        $this->assertCount(
+            0,
+            $monImage->getMiniatures(true),
+            'Avant génération de la miniature d\'aperçu, on en a aucune'
+        );
+        $miniature = $monImage->getPreviewMiniature();
+        $this->assertCount(
+            1,
+            $monImage->getMiniatures(true),
+            'Après la génération de la miniature d\'aperçu, on en a une'
+        );
+        $this->assertLessThanOrEqual(
+            _SIZE_PREVIEW_,
+            $miniature->getHauteur(),
+            'Respect des dimensions (hauteur) maximale d\'une miniature d\'aperçu'
+        );
+        $this->assertLessThanOrEqual(
+            _SIZE_PREVIEW_,
+            $miniature->getLargeur(),
+            'Respect des dimensions (largeur) maximale d\'une miniature d\'aperçu'
+        );
+
+        /**
+         * Pas de génération pour les WebP animés
+         */
+        $monImage->charger('97', RessourceObject::SEARCH_BY_ID);
+        $this->assertEquals(
+            $monImage->getMiniatures(true),
+            0,
+            'Avant génération de la miniature d\'aperçu d\'une image WebP animée, on en a aucune'
+        );
+        $monImage->getPreviewMiniature();
+        $this->assertEquals(
+            $monImage->getMiniatures(true),
+            0,
+            'Après la génération de la miniature d\'aperçu d\'une image WebP animée, on en a toujours pas car ce n\'est pas pris en charge.'
         );
     }
 }
