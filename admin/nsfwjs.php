@@ -62,8 +62,8 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
  * Images à traiter
  */
 $idStart = 0;
-if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
-    $idStart = (int)$_GET['nextId'];
+if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
+    $idStart = (int)$_GET['lastId'];
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50';
 $table = [
@@ -74,7 +74,7 @@ $table = [
 $isPlural = (count($table['values']) > 1 ? 's' : '');
 $lastId = '';
 // Charger les objets concernés
-$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME);
+$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME, false);
 ?>
     <?php if (!empty($message)) : ?>
     <div class="alert alert-success">
@@ -113,7 +113,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
