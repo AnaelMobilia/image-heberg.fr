@@ -47,32 +47,39 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
 
 require _TPL_TOP_;
 ?>
-    <h1 class="mb-3"><small>Gestion des abus</small></h1>
-    <?php
-
+    <h1 class="mb-3"><small>Rechercher des images</small></h1>
+<?php
+$idStart = 0;
+if (!empty($_POST['lastId']) && preg_match('#^[0-9]+$#', $_POST['lastId'])) {
+    $idStart = (int)$_POST['lastId'];
+}
+$lastId = '';
 $tabTables = [];
 /**
  * Recherche
  */
 $tabSearch = [
-    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\' ORDER BY id DESC',
-    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\' ORDER BY id DESC',
-    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\' ORDER BY id DESC',
-    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\' ORDER BY im.id DESC',
-    'Bloquée' => 'SELECT new_name FROM images WHERE isBloquee = \'1\' ORDER BY id DESC',
-    'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\' ORDER BY id DESC',
+    'Adresse IP' => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
+    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
+    'Nouveau nom' => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
+    'Utilisateur' => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY im.id DESC LIMIT 50',
+    'Bloquée' => 'SELECT new_name FROM images WHERE isBloquee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
+    'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' ORDER BY id DESC LIMIT 50',
+];
+$table = [
+    'legende' => 'trouvée##',
+    'values' => ''
 ];
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
     $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
     $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
-    array_unshift($tabTables, [
-        'legende' => 'trouvée##',
-        'values' => HelperAdmin::queryOnNewName($req)
-    ]);
+    $table['values'] = HelperAdmin::queryOnNewName($req);
 }
+// Charger les objets concernés
+$mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEARCH_BY_NAME, false);
 ?>
     <div class="alert alert-info">
-        <form method="post">
+        <form method="post" id="form_search">
             <div class="mb-3 form-floating">
                 <select name="champ" id="champ" class="form-select" required="required">
                     <option value="" selected>-- Sélectionner un champ --</option>
@@ -85,53 +92,59 @@ if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'
             <div class="mb-3 form-floating">
                 <input type="text" class="form-control" name="valeur" id="valeur" required="required" value="<?= ($_REQUEST['valeur'] ?? '')?>">
                 <label for="valeur">Valeur recherchée</label>
+                <input type="hidden" name="lastId" id="lastId">
             </div>
-            <button type="submit" name="Submit" class="btn btn-success">Rechercher</button>
+            <button type="submit" name="Submit" id="submit" class="btn btn-success">Rechercher</button>
         </form>
     </div>
-    <?php foreach ($tabTables as $uneTable) : ?>
-        <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>
-        <div class="card">
-            <div class="card-header">
-                <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Actions</th>
-                            <th class="text-break">Nom originel</th>
-                            <th class="text-break">Date d'envoi</th>
-                            <th class="text-break">IP envoi</th>
-                            <th class="text-break">Nb vues</th>
-                            <th class="text-break">Dernier affichage</th>
-                            <th class="text-break">Utilisateur</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($mesImages as $uneImage) : ?>
-                            <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
-                                <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
-                                <td class="text-nowrap">
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
-                                </td>
-                                <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
-                                <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                                <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
-                                <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                                <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
-                                <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <?= count($table['values']) ?> image<?= (count($table['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($table['values']) > 1 ? 's' : ''), $table['legende']) ?>
         </div>
-        <br>
-    <?php endforeach; ?>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Actions</th>
+                        <th class="text-break">Nom originel</th>
+                        <th class="text-break">Date d'envoi</th>
+                        <th class="text-break">IP envoi</th>
+                        <th class="text-break">Nb vues</th>
+                        <th class="text-break">Dernier affichage</th>
+                        <th class="text-break">Utilisateur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($mesImages as $uneImage) : ?>
+                        <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
+                            <td><a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
+                            <td class="text-nowrap">
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
+                            </td>
+                            <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                            <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
+                            <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
+                            <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
+                        </tr>
+                        <?php $lastId = $uneImage->getId() ?>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            <button onclick="document.getElementById('lastId').value=<?= $lastId ?>;document.getElementById('submit').click();" class="btn btn-primary"><span class="bi-arrow-left"></span></button>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <br>
     <script>
     /**
      * Gestion des actions sur les images

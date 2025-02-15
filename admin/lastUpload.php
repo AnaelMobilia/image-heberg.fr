@@ -57,8 +57,8 @@ $table = [];
  * Images à traiter
  */
 $idStart = 0;
-if (!empty($_GET['nextId']) && preg_match('#^[0-9]+$#', $_GET['nextId'])) {
-    $idStart = (int)$_GET['nextId'];
+if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
+    $idStart = (int)$_GET['lastId'];
 }
 $req = 'SELECT MAX(new_name) as new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY date_action DESC LIMIT 50';
 $table['legende'] = 'trouvée##';
@@ -123,7 +123,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <tfoot>
                     <tr>
                         <th>
-                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?nextId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
                         </th>
                     </tr>
                 </tfoot>
