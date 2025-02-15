@@ -193,6 +193,40 @@ class ImageObject extends RessourceObject implements RessourceInterface
     }
 
     /**
+     * Récupérer la miniature preview de l'image
+     * @param bool $generate Générer la miniature si elle n'existe pas ?
+     * @return MiniatureObject
+     * @throws ImageHebergException
+     * @throws ImagickException
+     */
+    public function getPreviewMiniature(bool $generate = true): MiniatureObject
+    {
+        $monRetour = new MiniatureObject();
+
+        $miniatures = $this->getMiniatures(true);
+        if ($miniatures->count() === 0) {
+            // Duplication de l'image source
+            $tmpFile = tempnam(sys_get_temp_dir(), uniqid('', true));
+            copy($this->getPathMd5(), $tmpFile);
+
+            // Génération de la miniature pour l'aperçu
+            $maMiniature = new MiniatureObject();
+            $maMiniature->setPathTemp($tmpFile);
+            $maMiniature->setIdImage($this->getId());
+            $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), _SIZE_PREVIEW_, _SIZE_PREVIEW_);
+            $maMiniature->setNomTemp('preview_' . $this->getId());
+            $maMiniature->creer();
+            $maMiniature->setIsPreview(true);
+            $maMiniature->sauver();
+            $monRetour = $maMiniature;
+        } else {
+            $monRetour = new MiniatureObject($miniatures->offsetGet(0));
+        }
+
+        return $monRetour;
+    }
+
+    /**
      * @inheritDoc
      * @throws ImageHebergException
      */
