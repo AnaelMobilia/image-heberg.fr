@@ -488,4 +488,44 @@ class AbuseTest extends TestCase
             );
         }
     }
+
+    /**
+     * Nettoyage de la catégorisation d'une image lorsqu'elle est approuvée
+     */
+    #[RunInSeparateProcess]
+    public function testDecategorisationLorsqueApprobation(): void
+    {
+        require 'config/config.php';
+
+        $monImage = new ImageObject('97', RessourceObject::SEARCH_BY_ID);
+        $this->assertSame(
+            $monImage->getCategorieBlocage(),
+            _ABUSE_TYPES_[0],
+            'L\image 97 est catégorisée'
+        );
+        $this->assertTrue(
+            $monImage->isSignalee(),
+            'L\'image est signalée'
+        );
+        $this->assertFalse(
+            $monImage->isApprouvee(),
+            'L\'image n\'est pas approuvée'
+        );
+
+        $monImage->approuver();
+        $monImage = new ImageObject('97', RessourceObject::SEARCH_BY_ID);
+        $this->assertSame(
+            $monImage->getCategorieBlocage(),
+            '',
+            'L\image 97 est approuvée et ne doit plus être catégorisée'
+        );
+        $this->assertFalse(
+            $monImage->isSignalee(),
+            'L\'image n\'est pas signalée'
+        );
+        $this->assertTrue(
+            $monImage->isApprouvee(),
+            'L\'image est approuvée'
+        );
+    }
 }

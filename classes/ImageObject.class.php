@@ -383,7 +383,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function approuver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1 WHERE md5 = :md5');
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET isBloquee = 0, isSignalee = 0, isApprouvee = 1, abuse_categorie = \'\' WHERE md5 = :md5');
         $req->bindValue(':md5', $this->getMd5());
 
         $req->execute();
