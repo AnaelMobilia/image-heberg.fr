@@ -497,35 +497,35 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
 
-        $monImage = new ImageObject('97', RessourceObject::SEARCH_BY_ID);
+        $monImage = new ImageObject('96', RessourceObject::SEARCH_BY_ID);
         $this->assertSame(
             $monImage->getCategorieBlocage(),
             _ABUSE_TYPES_[0],
-            'L\image 97 est catégorisée'
+            'L\image 96 est catégorisée'
         );
         $this->assertTrue(
             $monImage->isSignalee(),
-            'L\'image est signalée'
+            'L\'image 96 est signalée'
         );
         $this->assertFalse(
             $monImage->isApprouvee(),
-            'L\'image n\'est pas approuvée'
+            'L\'image 96 n\'est pas approuvée'
         );
 
         $monImage->approuver();
-        $monImage = new ImageObject('97', RessourceObject::SEARCH_BY_ID);
+        $monImage = new ImageObject('96', RessourceObject::SEARCH_BY_ID);
         $this->assertSame(
             $monImage->getCategorieBlocage(),
             '',
-            'L\image 97 est approuvée et ne doit plus être catégorisée'
+            'L\image 96 est approuvée et ne doit plus être catégorisée'
         );
         $this->assertFalse(
             $monImage->isSignalee(),
-            'L\'image n\'est pas signalée'
+            'L\'image 96 n\'est pas signalée'
         );
         $this->assertTrue(
             $monImage->isApprouvee(),
-            'L\'image est approuvée'
+            'L\'image 96 est approuvée'
         );
     }
 }

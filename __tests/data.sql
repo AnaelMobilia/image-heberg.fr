@@ -33,8 +33,8 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 (15, '127.0.0.1', '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', 'image_15.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0', ''),
 (16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', 'image_16.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0', ''),
 (17, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', 'image_17.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'not-used--be5e3e8d65ecefdc0dbcca', 0, 0, 0, '127.0.0', ''),
-(96, '128.0.0.1', '2023-01-01 00:00:00', 'imageBloqueeCategoriseeQuiSeraApprouvee.jpg', 'image_96.png', 4239, 400, 640, '0000-00-00', 10, 10, 'not-used--d7a89f173d7c6c287beea4', 1, 0, 0, '128.0.0', ''),
-(97, '127.0.0.1', '2023-01-01 00:00:00', 'animated-image.webp', 'image_97.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', 'Pornographie'),
+(96, '128.0.0.1', '2023-01-01 00:00:00', 'imageBloqueeCategoriseeQuiSeraApprouvee.jpg', 'image_96.png', 4239, 400, 640, '0000-00-00', 10, 10, 'not-used--d7a89f173d7c6c287beea4', 1, 0, 0, '128.0.0', 'Pornographie'),
+(97, '127.0.0.1', '2023-01-01 00:00:00', 'animated-image.webp', 'image_97.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (98, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode.png', 'image_98.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (99, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode2.png', 'image_99.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', '');
 
@@ -59,7 +59,7 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 --
 -- Réputation des réseaux
 --
-INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`) VALUES
+INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`, `abuse_categorie`) VALUES
     (21, '192.168.0.1', '2024-01-01 00:00:00', 'Capture.jpg', 'image_21.jpg', 1, 1, 1, '0000-00-00', 0, 0, 'not-used--ab4d682db12defa28f09a6', 1, 0, 0, '192.168.0', ''),
     (22, '192.168.0.1', '2024-01-01 00:00:00', 'Capture.jpg', 'image_22.jpg', 1, 1, 1, '0000-00-00', 0, 0, 'not-used--009a3908f941f94f9d9d5a', 1, 0, 0, '192.168.0', ''),
     (23, '192.168.0.1', '2024-01-01 00:00:00', 'Capture.jpg', 'image_23.jpg', 1, 1, 1, '0000-00-00', 0, 0, 'not-used--17dc9dab5ec4aaf13cb5d8', 1, 0, 0, '192.168.0', ''),
