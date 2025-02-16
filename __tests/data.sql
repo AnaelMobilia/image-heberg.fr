@@ -34,6 +34,7 @@ INSERT INTO `images` (`id`, `remote_addr`, `date_action`, `old_name`, `new_name`
 (16, '127.0.0.1', '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', 'image_16.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0', ''),
 (17, '127.0.0.1', '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', 'image_17.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'not-used--be5e3e8d65ecefdc0dbcca', 0, 0, 0, '127.0.0', ''),
 (96, '128.0.0.1', '2023-01-01 00:00:00', 'imageBloqueeCategoriseeQuiSeraApprouvee.jpg', 'image_96.png', 4239, 400, 640, '0000-00-00', 10, 10, 'not-used--d7a89f173d7c6c287beea4', 1, 0, 0, '128.0.0', ''),
+(97, '127.0.0.1', '2023-01-01 00:00:00', 'animated-image.webp', 'image_97.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', 'Pornographie'),
 (98, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode.png', 'image_98.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (99, '127.0.0.1', '2023-01-01 00:00:00', 'image_a_supprimer_godMode2.png', 'image_99.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', '');
 
