@@ -120,6 +120,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
+                <?php if(count($table['values']) === _PAGINATION_IMAGES_) : ?>
                 <tfoot>
                     <tr>
                         <th>
@@ -127,6 +128,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         </th>
                     </tr>
                 </tfoot>
+                <?php endif; ?>
             </table>
         </div>
     </div>
