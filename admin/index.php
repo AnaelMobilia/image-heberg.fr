@@ -50,6 +50,18 @@ require _TPL_TOP_;
             </a>
             <div class="clearfix"></div>
             <br/>
+            <a href="<?= _URL_ADMIN_ ?>ia-categorisation.php" class="btn btn-success">
+                <span class="bi-radioactive"></span>
+                &nbsp;IA - Images à catégoriser
+            </a>
+            <div class="clearfix"></div>
+            <br/>
+            <a href="<?= _URL_ADMIN_ ?>ia-entrainement.php" class="btn btn-success">
+                <span class="bi-robot"></span>
+                &nbsp;IA - Entrainer le moteur
+            </a>
+            <div class="clearfix"></div>
+            <br />
             <a href="<?= _URL_ADMIN_ ?>nsfwjs.php" class="btn btn-success">
                 <span class="bi-file-earmark-bar-graph"></span>
                 &nbsp;IA - Catégorisation nsfwjs
