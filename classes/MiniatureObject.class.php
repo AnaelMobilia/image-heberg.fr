@@ -86,6 +86,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setApprouvee($imageParente->isApprouvee());
             $this->setNomOriginal($imageParente->getNomOriginal());
             $this->setIpEnvoi($imageParente->getIpEnvoi());
+            $this->setIpPortEnvoi($imageParente->getIpPortEnvoi());
             $this->setIdProprietaire($imageParente->getIdProprietaire());
             $this->setSuspecte($imageParente->isSuspecte());
 

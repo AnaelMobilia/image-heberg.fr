@@ -52,6 +52,7 @@ abstract class RessourceObject
     private string $dateEnvoi = '';
     private ?string $md5 = null;
     private string $ipEnvoi = '';
+    private int $ipPortEnvoi = 0;
     private bool $isBloquee = false;
     private bool $isSignalee = false;
     private bool $isApprouvee = false;
@@ -478,6 +479,15 @@ abstract class RessourceObject
     }
 
     /**
+     * Port de l'@ IP d'envoi
+     * @return int
+     */
+    public function getIpPortEnvoi(): int
+    {
+        return $this->ipPortEnvoi;
+    }
+
+    /**
      * Image bloquée ?
      * @return bool
      */
@@ -713,6 +723,15 @@ abstract class RessourceObject
     protected function setIpEnvoi(string $ipEnvoi): void
     {
         $this->ipEnvoi = $ipEnvoi;
+    }
+
+    /**
+     * Port de l'@ IP d'envoi
+     * @param int $ipPortEnvoi
+     */
+    protected function setIpPortEnvoi(int $ipPortEnvoi): void
+    {
+        $this->ipPortEnvoi = $ipPortEnvoi;
     }
 
     /**
