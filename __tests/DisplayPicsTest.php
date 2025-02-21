@@ -35,6 +35,7 @@ class DisplayPicsTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['REQUEST_URI'] = 'files/fichierInexistant.jpg';
 
         ob_start();
@@ -57,6 +58,7 @@ class DisplayPicsTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['REQUEST_URI'] = 'files/thumbs/fichierInexistant.jpg';
 
         ob_start();
@@ -79,6 +81,7 @@ class DisplayPicsTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['REQUEST_URI'] = 'files/repertoireInexistant/fichierInexistant.jpg';
 
         ob_start();
@@ -101,6 +104,7 @@ class DisplayPicsTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['REQUEST_URI'] = 'files/image_10.png';
 
         ob_start();
@@ -123,6 +127,7 @@ class DisplayPicsTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['REQUEST_URI'] = 'files/image_18.png';
 
         ob_start();

@@ -40,6 +40,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_POST['userMail'] = 'john.doe@example.com';
@@ -75,6 +76,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_FILES['fichier']['size'] = 146;
@@ -107,6 +109,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_POST['userMail'] = 'john.doe@example.com';
@@ -134,6 +137,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         // Flagguer l'image comme signalée
         $image = new ImageObject('_image_banned.png');
@@ -170,6 +174,7 @@ class AbuseTest extends TestCase
         $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
 
         $_SERVER['REMOTE_ADDR'] = '10.10.10.11';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_FILES['fichier']['size'] = 146;
@@ -208,6 +213,7 @@ class AbuseTest extends TestCase
         $imagesAvantEnvoi = HelperAdmin::getImagesPotentiellementIndesirables();
 
         $_SERVER['REMOTE_ADDR'] = '10.10.10.11';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
         $_FILES['fichier']['size'] = 146;
@@ -416,6 +422,7 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SERVER['HTTP_USER_AGENT'] = 'someUserAgentNumberOne';
         $_SERVER['REQUEST_URI'] = 'files/image_UserAgentMalveillant.png';
 
