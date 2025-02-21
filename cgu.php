@@ -61,7 +61,7 @@ require _TPL_TOP_;
         <div class="card-body">
             <ul>
                 <li>Gratuit.</li>
-                <li>Traffic illimité <em>(hors abus, auquel cas des limitations peuvent être mises en place)</em>.</li>
+                <li>Trafic illimité <em>(hors abus, auquel cas des limitations peuvent être mises en place)</em>.</li>
                 <li>
                     <b>Conservation :</b>
                     <ul>
