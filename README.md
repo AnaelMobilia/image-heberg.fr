@@ -14,7 +14,7 @@ Service d'hébergement d'images en ligne
   - Renommer le fichier config_empty.php en config.php et compléter les différents champs
   - Ajouter votre favicon dans template/images/monSite.ico
   - Ajouter votre css dans template/css/monSite.css
-  - Configurer l'URL du site dans le fichier .htaccess
+  - Configurer l'URL du site dans le fichier .htaccess (remplacer `https://www.image-heberg.fr`, `image-heberg\.fr\.cr` et `image-heberg\.fr`)
   - Valider l'installation de base en appelant le fichier install.php (example.com/install.php)
   - Mettre en place un cron sur cron/updateTorIp.php, cron/cleanImages.php, cron/cleanAccounts.php, cron/abuse.php
   - Se connecter avec le compte admin / password. Ce compte est le compte de l'administrateur du site.
