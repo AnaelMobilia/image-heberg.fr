@@ -23,21 +23,21 @@
 
 CREATE TABLE IF NOT EXISTS `images`
 (
-    `id`              int(20)      NOT NULL AUTO_INCREMENT,
+    `id`              int          NOT NULL AUTO_INCREMENT,
     `remote_addr`     varchar(45)  NOT NULL,
     `date_action`     datetime     NOT NULL,
     `old_name`        varchar(255) NOT NULL,
     `new_name`        varchar(30)  NOT NULL,
-    `size`            int(11)      NOT NULL,
-    `height`          int(11)      NOT NULL,
-    `width`           int(11)      NOT NULL,
+    `size`            int          UNSIGNED NOT NULL,
+    `height`          int          UNSIGNED NOT NULL,
+    `width`           int          UNSIGNED NOT NULL,
     `last_view`       date         NOT NULL,
-    `nb_view_v4`      int(11)      NOT NULL,
-    `nb_view_v6`      int(11)      NOT NULL,
+    `nb_view_v4`      int          UNSIGNED NOT NULL,
+    `nb_view_v6`      int          UNSIGNED NOT NULL,
     `md5`             varchar(32)  NOT NULL,
-    `isBloquee`       tinyint(1)   NOT NULL,
-    `isSignalee`      tinyint(1)   NOT NULL,
-    `isApprouvee`     tinyint(1)   NOT NULL,
+    `isBloquee`       tinyint(1)   UNSIGNED NOT NULL,
+    `isSignalee`      tinyint(1)   UNSIGNED NOT NULL,
+    `isApprouvee`     tinyint(1)   UNSIGNED NOT NULL,
     `abuse_network`   varchar(45)  NOT NULL,
     `abuse_categorie` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS `images`
 
 CREATE TABLE IF NOT EXISTS `login`
 (
-    `id`          int(11)     NOT NULL AUTO_INCREMENT,
+    `id`          int         UNSIGNED NOT NULL AUTO_INCREMENT,
     `remote_addr` varchar(45) NOT NULL,
     `date_action` datetime    NOT NULL,
-    `membres_id`  int(11)     NOT NULL,
+    `membres_id`  int         UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
     KEY `membres_id` (`membres_id`)
 ) ENGINE = MyISAM
@@ -73,14 +73,14 @@ CREATE TABLE IF NOT EXISTS `login`
 
 CREATE TABLE IF NOT EXISTS `membres`
 (
-    `id`          int(11)     NOT NULL AUTO_INCREMENT,
+    `id`          int         UNSIGNED NOT NULL AUTO_INCREMENT,
     `email`       text        NOT NULL,
     `login`       text        NOT NULL,
     `password`    text        NOT NULL,
     `date_action` date        NOT NULL,
     `remote_addr` varchar(45) NOT NULL,
-    `lvl`         tinyint(1)  NOT NULL,
-    `isActif`     tinyint(1)  NOT NULL,
+    `lvl`         tinyint(1)  UNSIGNED NOT NULL,
+    `isActif`     tinyint(1)  UNSIGNED NOT NULL,
     `token`       text        NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM
@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `membres`
 
 CREATE TABLE IF NOT EXISTS `possede`
 (
-    `images_id`  int(11) NOT NULL,
-    `membres_id` int(11) NOT NULL,
+    `images_id`  int     UNSIGNED NOT NULL,
+    `membres_id` int     UNSIGNED NOT NULL,
     PRIMARY KEY (`images_id`, `membres_id`),
     KEY `membres_id` (`membres_id`)
 ) ENGINE = MyISAM
@@ -109,17 +109,17 @@ CREATE TABLE IF NOT EXISTS `possede`
 
 CREATE TABLE IF NOT EXISTS `thumbnails`
 (
-    `id`          int(11)     NOT NULL AUTO_INCREMENT,
-    `images_id`   int(11)     NOT NULL,
-    `is_preview`  tinyint(1)  NOT NULL,
+    `id`          int         UNSIGNED NOT NULL AUTO_INCREMENT,
+    `images_id`   int         UNSIGNED NOT NULL,
+    `is_preview`  tinyint(1)  UNSIGNED NOT NULL,
     `date_action` date        NOT NULL,
     `new_name`    varchar(30) NOT NULL,
-    `size`        int(11)     NOT NULL,
-    `height`      int(11)     NOT NULL,
-    `width`       int(11)     NOT NULL,
+    `size`        int         UNSIGNED NOT NULL,
+    `height`      int         UNSIGNED NOT NULL,
+    `width`       int         UNSIGNED NOT NULL,
     `last_view`   date        NOT NULL,
-    `nb_view_v4`  int(11)     NOT NULL,
-    `nb_view_v6`  int(11)     NOT NULL,
+    `nb_view_v4`  int         UNSIGNED NOT NULL,
+    `nb_view_v6`  int         UNSIGNED NOT NULL,
     `md5`         varchar(32) NOT NULL,
     PRIMARY KEY (`id`),
     KEY `images_id` (`images_id`) USING BTREE
