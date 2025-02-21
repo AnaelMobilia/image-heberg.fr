@@ -34,6 +34,7 @@ class UtilisateurObject
     private string $email = '';
     private string $dateInscription = '';
     private string $ipInscription = '';
+    private int $ipPortInscription = 0;
     private int $level = self::LEVEL_GUEST;
     private int $id = 0;
     private bool $isActif = true;
@@ -118,6 +119,15 @@ class UtilisateurObject
     public function getIpInscription(): string
     {
         return $this->ipInscription;
+    }
+
+    /**
+     * Port de l'@ IP d'inscription
+     * @return int
+     */
+    public function getIpPortInscription(): int
+    {
+        return $this->ipPortInscription;
     }
 
     /**
@@ -229,6 +239,15 @@ class UtilisateurObject
     }
 
     /**
+     * Port de l'@ IP d'inscription
+     * @param int $ipPortInscription
+     */
+    private function setIpPortInscription(int $ipPortInscription): void
+    {
+        $this->ipPortInscription = $ipPortInscription;
+    }
+
+    /**
      * Niveau de droits
      * @param int $level
      */
@@ -329,8 +348,9 @@ class UtilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
-            $req = MaBDD::getInstance()->prepare('INSERT INTO login (remote_addr, date_action, membres_id) VALUES (:ipLogin, NOW(), :membresId)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO login (remote_addr, remote_port, date_action, membres_id) VALUES (:ipLogin, :ipPortLogin, NOW(), :membresId)');
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
+            $req->bindValue(':ipPortLogin', $_SERVER['REMOTE_PORT'], PDO::PARAM_INT);
             $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
 
             $req->execute();
@@ -365,6 +385,7 @@ class UtilisateurObject
             $this->setUserName($resultat->login);
             $this->setDateInscription($resultat->date_action);
             $this->setIpInscription($resultat->remote_addr);
+            $this->setIpPortInscription($resultat->remote_port);
             $this->setLevel($resultat->lvl);
             $this->setPassword($resultat->password);
             $this->setIsActif($resultat->isActif);
@@ -382,12 +403,13 @@ class UtilisateurObject
      */
     public function enregistrer(): void
     {
-        $req = MaBDD::getInstance()->prepare('INSERT INTO membres (email, login, password, date_action, remote_addr, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :lvl, :isActif, :token)');
+        $req = MaBDD::getInstance()->prepare('INSERT INTO membres (email, login, password, date_action, remote_addr, remote_port, lvl, isActif, token) VALUES (:email, :login, :password, NOW(), :ipInscription, :ipPortInscription, :lvl, :isActif, :token)');
         $req->bindValue(':email', $this->getEmail());
         $req->bindValue(':login', $this->getUserNameBDD());
         $req->bindValue(':password', $this->getPassword());
         // Date est définie par NOW()
         $req->bindValue(':ipInscription', $_SERVER['REMOTE_ADDR']);
+        $req->bindValue(':ipPortInscription', $_SERVER['REMOTE_PORT'], PDO::PARAM_INT);
         $req->bindValue(':lvl', $this->getLevel(), PDO::PARAM_INT);
         $req->bindValue(':isActif', $this->getIsActif(), PDO::PARAM_BOOL);
         $req->bindValue(':token', $this->getToken());

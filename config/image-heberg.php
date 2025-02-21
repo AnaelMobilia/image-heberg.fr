@@ -80,7 +80,7 @@ if (!_PHPUNIT_) {
             $message .= PHP_EOL . 'URL : ' . ($_SERVER['REQUEST_URI'] ?? '');
             $message .= PHP_EOL . 'HTTP REFERER : ' . ($_SERVER['HTTP_REFERER'] ?? '');
             $message .= PHP_EOL . 'HTTP USER AGENT : ' . ($_SERVER['HTTP_USER_AGENT'] ?? '');
-            $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '');
+            $message .= PHP_EOL . 'REMOTE ADDR : ' . ($_SERVER['REMOTE_ADDR'] ?? '') . ':' . ($_SERVER['REMOTE_PORT'] ?? '');
             $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
 
             $encoded_subject = mb_encode_mimeheader('[' . _SITE_NAME_ . '] -  Erreur rencontrée', 'UTF-8', 'B', "\r\n", strlen('Subject: '));

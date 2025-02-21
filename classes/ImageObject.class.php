@@ -110,6 +110,7 @@ class ImageObject extends RessourceObject implements RessourceInterface
             }
             ${$varName}->setId($resultat->id);
             ${$varName}->setIpEnvoi($resultat->remote_addr);
+            ${$varName}->setIpPortEnvoi($resultat->remote_port);
             ${$varName}->setDateEnvoi($resultat->date_action);
             ${$varName}->setNomOriginal($resultat->old_name);
             ${$varName}->setNomNouveau($resultat->new_name);
@@ -143,8 +144,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE images SET remote_addr = :ipEnvoi, date_action = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee, abuse_categorie = :abuseCategorie WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE images SET remote_addr = :ipEnvoi, remote_port = :ipPortEnvoi, date_action = :dateEnvoi, old_name = :oldName, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, isBloquee = :isBloquee, isSignalee = :isSignalee, isApprouvee = :isApprouvee, abuse_categorie = :abuseCategorie WHERE id = :id');
         $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
+        $req->bindValue(':ipPortEnvoi', $this->getIpPortEnvoi(), PDO::PARAM_INT);
         $req->bindValue(':dateEnvoi', $this->getDateEnvoiBrute());
         $req->bindValue(':oldName', $this->getNomOriginal());
         $req->bindValue(':newName', $this->getNomNouveau());
@@ -328,14 +330,16 @@ class ImageObject extends RessourceObject implements RessourceInterface
             $this->setPoids(filesize($this->getPathMd5()));
             // Nom originel (non récupérable sur le fichier)
             $this->setNomOriginal($this->getNomTemp());
-            // @ IP d'envoi
+            // @ IP + port d'envoi
             $this->setIpEnvoi($_SERVER['REMOTE_ADDR']);
+            $this->setIpPortEnvoi($_SERVER['REMOTE_PORT']);
 
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare('INSERT INTO images (remote_addr, date_action, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO images (remote_addr, remote_port, date_action, old_name, new_name, size, height, width, md5, isBloquee) VALUES (:ipEnvoi, :ipPortEnvoi, NOW(), :oldName, :newName, :size, :height, :width, :md5, :isBloquee)');
             $req->bindValue(':ipEnvoi', $this->getIpEnvoi());
+            $req->bindValue(':ipPortEnvoi', $this->getIpPortEnvoi());
             // Date : NOW()
             $req->bindValue(':oldName', $this->getNomOriginal());
             $req->bindValue(':newName', $this->getNomNouveau());

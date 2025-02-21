@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `images`
 (
     `id`              int          NOT NULL AUTO_INCREMENT,
     `remote_addr`     varchar(45)  NOT NULL,
+    `remote_port`     smallint     UNSIGNED NOT NULL,
     `date_action`     datetime     NOT NULL,
     `old_name`        varchar(255) NOT NULL,
     `new_name`        varchar(30)  NOT NULL,
@@ -58,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `login`
 (
     `id`          int         UNSIGNED NOT NULL AUTO_INCREMENT,
     `remote_addr` varchar(45) NOT NULL,
+    `remote_port` smallint    UNSIGNED NOT NULL,
     `date_action` datetime    NOT NULL,
     `membres_id`  int         UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
@@ -79,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `membres`
     `password`    text        NOT NULL,
     `date_action` date        NOT NULL,
     `remote_addr` varchar(45) NOT NULL,
+    `remote_port` smallint    UNSIGNED NOT NULL,
     `lvl`         tinyint(1)  UNSIGNED NOT NULL,
     `isActif`     tinyint(1)  UNSIGNED NOT NULL,
     `token`       text        NOT NULL,
