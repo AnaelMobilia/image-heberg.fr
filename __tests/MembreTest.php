@@ -60,6 +60,7 @@ class MembreTest extends TestCase
         $_POST['userName'] = 'admin';
         $_POST['userPassword'] = 'password';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         /**
          *  Appel de la page
@@ -94,6 +95,7 @@ class MembreTest extends TestCase
         $_POST['userPassword'] = 'monPassword';
         $_POST['userMail'] = 'myMail@example.com';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SESSION['flag'] = true;
 
         /**
@@ -128,6 +130,7 @@ class MembreTest extends TestCase
         $_POST['userPassword'] = 'password';
         $_POST['userMail'] = 'myMail@example.com';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_SESSION['flag'] = true;
 
         /**
@@ -190,6 +193,7 @@ class MembreTest extends TestCase
         $_POST['userPasswordMail'] = 'password';
         $_POST['userMail'] = 'john.doe@example.com';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         /**
          * Simulation d'une connexion
@@ -241,6 +245,7 @@ class MembreTest extends TestCase
         $_POST['oldUserPassword'] = 'password';
         $_POST['newUserPassword'] = 'monPassword';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         /**
          * Simulation d'une connexion
@@ -289,6 +294,7 @@ class MembreTest extends TestCase
         $_POST['supprimerCompte'] = 1;
         $_POST['userPasswordDelete'] = 'monPassword';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         /**
          * Simulation d'une connexion
@@ -334,6 +340,7 @@ class MembreTest extends TestCase
         $_POST['userPasswordDelete'] = 'monPassword';
         $_POST['confirmeDelete'] = 1;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
 
         /**
          * Simulation d'une connexion
@@ -376,6 +383,7 @@ class MembreTest extends TestCase
          * Injection des valeurs du formulaire
          */
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         /**
          * Récupération d'un objet
          */

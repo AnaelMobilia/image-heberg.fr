@@ -92,6 +92,7 @@ class ImageUploadAndDeleteTest extends TestCase
         unset($_POST, $_FILES, $_GET, $_SESSION);
         $_SERVER['REQUEST_URI'] = '';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_POST['Submit'] = 1;
         $_SESSION['flag'] = true;
     }
@@ -1258,6 +1259,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::prepareTest();
 
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_GET['id'] = 'image_11.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
@@ -1349,6 +1351,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.2';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_GET['id'] = 'image_12.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
@@ -1390,6 +1393,7 @@ class ImageUploadAndDeleteTest extends TestCase
         self::prepareTest();
         // Surcharge de l'adresse IP par défaut
         $_SERVER['REMOTE_ADDR'] = '127.0.0.10';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_GET['id'] = 'image_13.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
@@ -1514,6 +1518,7 @@ class ImageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest();
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_GET['id'] = 'image_14.png';
         $_GET['type'] = RessourceObject::TYPE_IMAGE;
 
@@ -1578,6 +1583,7 @@ class ImageUploadAndDeleteTest extends TestCase
     {
         self::prepareTest(true);
         $_SERVER['REMOTE_ADDR'] = '192.168.0.1'; // IP avec trop d'images déjà bloquées
+        $_SERVER['REMOTE_PORT'] = '1234';
         $_FILES['fichier']['size'] = 104857;
         $_FILES['fichier']['name'] = 'image_banned.gif';
         $_FILES['fichier']['tmp_name'] = _PATH_TESTS_IMAGES_ . $_FILES['fichier']['name'];
