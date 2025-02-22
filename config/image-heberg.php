@@ -180,7 +180,7 @@ define('_IMAGE_BAN_', '_image_banned.png');
 define('_SIZE_PREVIEW_', 256);
 
 // Pagination des images à partir de x images
-define('_PAGINATION_IMAGES_', 50);
+define('_PAGINATION_IMAGES_', 100);
 
 // Types d'images gérés
 define('_ACCEPTED_EXTENSIONS_', ['jpg', 'png', 'gif', 'webp']);
