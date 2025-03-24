@@ -71,7 +71,7 @@ require _TPL_TOP_;
 /**
  * Catégories
  */
-$req = 'SELECT COUNT(*) as nb, SUM(size) as size, abuse_categorie FROM images WHERE isBloquee = 1 GROUP BY abuse_categorie ORDER BY abuse_categorie';
+$req = 'SELECT COUNT(*) as nb, SUM(size) as size, abuse_categorie FROM images WHERE isBloquee = 1 AND abuse_categorie <> \'\' GROUP BY abuse_categorie ORDER BY abuse_categorie';
 // Exécution de la requête
 $resultat = MaBDD::getInstance()->query($req);
 $listeCat = [];
