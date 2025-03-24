@@ -73,8 +73,7 @@ class ZipStream
             $crcContent = crc32($fileContent);
             $buffer .= pack('V', $crcContent);
             // compressed size
-            $compressedContent = gzcompress($fileContent, 9);
-            $compressedContent = substr(substr($compressedContent, 0, -4), 2); // fix crc bug
+            $compressedContent = gzdeflate($fileContent, 9);
             $compressedContentLenght = strlen($compressedContent);
             $buffer .= pack('V', $compressedContentLenght);
             // uncompressed size
@@ -150,11 +149,12 @@ class ZipStream
          * 4.3.16  End of central directory record
          */
         // end of central dir signature
-        echo "\x50\x4b\x05\x06\x00\x00\x00\x00";
+        //echo "\x50\x4b\x05\x06\x00\x00\x00\x00";
+        echo "\x50\x4b\x05\x06";
         // number of this disk
-        echo pack('v', 0);
+        echo "\x00\x00";
         // number of the disk with the start of the central directory
-        echo pack('v', 0);
+        echo "\x00\x00";
         // total number of entries in the central directory on this disk
         echo pack('v', count($centralDirectory));
         // total number of entries in the central directory
