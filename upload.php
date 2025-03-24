@@ -271,20 +271,27 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
             <br/>
             <div class="container">
                 <div class="row">
-                    <span class="col-sm-2">Nom de l'image</span>
-                    <span class="col-sm-10"><?= $monImage->getNomOriginalFormate() ?> </span>
-                </div>
-                <div class="row">
-                    <span class="col-sm-2">Poids</span>
-                    <span class="col-sm-10"><?= $monImage->getPoidsMo() ?>&nbsp;Mo</span>
-                </div>
-                <div class="row">
-                    <span class="col-sm-2">Largeur</span>
-                    <span class="col-sm-10"><?= $monImage->getLargeur() ?>&nbsp;px</span>
-                </div>
-                <div class="row">
-                    <span class="col-sm-2">Hauteur</span>
-                    <span class="col-sm-10"><?= $monImage->getHauteur() ?>&nbsp;px</span>
+                    <div class="col-sm-4">
+                        <img src="<?= $monImage->getPreviewMiniature()->getURL(true) ?>" alt="<?= $monImage->getNomOriginalFormate() ?>" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="container col-sm-8">
+                        <div class="row">
+                            <span class="col-sm-4">Nom de l'image</span>
+                            <span class="col-sm-8"><?= $monImage->getNomOriginalFormate() ?> </span>
+                        </div>
+                        <div class="row">
+                            <span class="col-sm-4">Poids</span>
+                            <span class="col-sm-8"><?= $monImage->getPoidsMo() ?>&nbsp;Mo</span>
+                        </div>
+                        <div class="row">
+                            <span class="col-sm-4">Largeur</span>
+                            <span class="col-sm-8"><?= $monImage->getLargeur() ?>&nbsp;px</span>
+                        </div>
+                        <div class="row">
+                            <span class="col-sm-4">Hauteur</span>
+                            <span class="col-sm-8"><?= $monImage->getHauteur() ?>&nbsp;px</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>
