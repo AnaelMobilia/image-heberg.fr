@@ -21,8 +21,6 @@
 
 namespace ImageHeberg;
 
-use ArrayObject;
-
 if (!defined('_PHPUNIT_')) {
     require '../config/config.php';
 }
@@ -35,14 +33,12 @@ const _IMAGES_APPROUVEES_ = 'Approuvées';
 // Action à effectuer sur une image
 if (isset($_GET['categorie']) && array_key_exists(urldecode($_GET['categorie']), array_merge(_ABUSE_TYPES_, [_IMAGES_APPROUVEES_ => '']))) {
     if (urldecode($_GET['categorie']) === _IMAGES_APPROUVEES_) {
-        // Faire du picking aléatoire d'images approuvées (sauf 404 & banned)
+        // Images approuvées : ne pas prendre 404 & banned
         $req = 'SELECT MAX(new_name) as new_name
                     FROM images
                     WHERE isApprouvee = 1
                       AND id > 2
-                    GROUP BY md5
-                    ORDER BY RAND()
-                    LIMIT '.(int)$_GET['nb'];
+                    GROUP BY md5';
     } else {
         $req = 'SELECT MAX(new_name) as new_name
                     FROM images
@@ -75,19 +71,22 @@ $req = 'SELECT COUNT(*) as nb, SUM(size) as size, abuse_categorie FROM images WH
 // Exécution de la requête
 $resultat = MaBDD::getInstance()->query($req);
 $listeCat = [];
-$totalImages = 0;
 foreach ($resultat->fetchAll() as $value) {
     $listeCat[$value->abuse_categorie] = [
         'nbImages' => $value->nb,
         'size' => $value->size
     ];
-    $totalImages += $value->nb;
 }
-// Ajouter un sample d'images validées
-$listeCat[_IMAGES_APPROUVEES_] = [
-    'nbImages' => $totalImages,
-    'size' => '-1'
-];
+// Ajouter les images approuvées
+$req = 'SELECT COUNT(*) as nb, SUM(size) as size FROM images WHERE isApprouvee = 1';
+// Exécution de la requête
+$resultat = MaBDD::getInstance()->query($req);
+foreach ($resultat->fetchAll() as $value) {
+    $listeCat[_IMAGES_APPROUVEES_] = [
+        'nbImages' => $value->nb,
+        'size' => $value->size
+    ];
+}
 
 $table = [
     'legende' => 'trouvée##',
@@ -123,7 +122,7 @@ $isPlural = (count($table['values']) > 1 ? 's' : '');
                             <td><?= $uneCategorie ?></td>
                             <td><?= $tabData['nbImages'] ?> (<?= round($tabData['size'] / 1048576) ?> Mo)</td>
                             <td>
-                                <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?categorie=<?= rawurlencode($uneCategorie) ?>&nb=<?= $tabData['nbImages'] ?>" class="text-primary" title="Télécharger"><span class="bi-cloud-download-fill"</span></a>
+                                <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?categorie=<?= rawurlencode($uneCategorie) ?>" class="text-primary" title="Télécharger"><span class="bi-cloud-download-fill"</span></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
