@@ -61,10 +61,10 @@ require _TPL_TOP_;
                 &nbsp;IA - Entrainer le moteur
             </a>
             <div class="clearfix"></div>
-            <br />
-            <a href="<?= _URL_ADMIN_ ?>nsfwjs.php" class="btn btn-success">
+            <br/>
+            <a href="<?= _URL_ADMIN_ ?>ia-anael.php" class="btn btn-success">
                 <span class="bi-file-earmark-bar-graph"></span>
-                &nbsp;IA - Catégorisation nsfwjs
+                &nbsp;IA - Catégorisation Anael
             </a>
             <div class="clearfix"></div>
             <br/>
