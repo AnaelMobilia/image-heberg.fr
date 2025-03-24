@@ -31,7 +31,7 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer'])) {
+    if (isset($_GET['action']) && in_array($_GET['action'], ['approuver', 'bloquer'])) {
         $monImage->{$_GET['action']}();
         die('OK');
     }
@@ -94,7 +94,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <td>
                                 <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>">
                                     <img src="<?= $uneImage->getPreviewMiniature()->getURL(true) ?>?forceDisplay=1" style="max-width: <?= (_SIZE_PREVIEW_ / 2) ?>px; max-height: <?= (_SIZE_PREVIEW_ / 2) ?>px" loading="lazy">
-                                    <br />
+                                    <br/>
                                     <?= $uneImage->getNomNouveau() ?>
                                 </a>
                             </td>
@@ -155,6 +155,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 xhr.send();
             }
         }
+
         /**
          * Catégoriser une image
          * @param idImage ID de l'image
@@ -181,41 +182,52 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-
-    <script type="module">
+    <script type="text/javascript">
         // More API functions here:
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-        let model, webcam, labelContainer, maxPredictions;
+        let model, maxPredictions;
 
-        // load the model and metadata
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load('<?=_URL_ADMIN_ ?>ia_model/model.json', '<?=_URL_ADMIN_ ?>ia_model/metadata.json');
+        async function init() {
+            // Activer l'exécution GPU avec TensorFlow.js
+            await tf.setBackend('webgl');
+            // load the model and metadata
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load('<?=_URL_ADMIN_ ?>ia_model/model.json', '<?=_URL_ADMIN_ ?>ia_model/metadata.json');
+            maxPredictions = model.getTotalClasses();
 
-        maxPredictions = model.getTotalClasses();
+            // Utiliser un IntersectionObserver pour charger les images lorsque elles deviennent visibles
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        // Une fois l'image visible, prédire et désobserver
+                        observer.unobserve(img);
+                        predictImage(img, img.closest('tr'));
+                    }
+                });
+            }, { threshold: 0.1 });
 
-        // On itère sur le tableau HTML
-        let tabTr = Array.from(document.getElementById("tbody").children);
-        for (const unTr of tabTr) {
-            let img = new Image();
-            // Lien vers l'image
-            img.src = unTr.children[0].children[0].href;
-            console.log(img.src);
-            // Attendre que la ressource soit chargée
-            await img.decode();
-
-
-            // predict can take in an image, video or canvas html element
-            const prediction = await model.predict(img);
-            let result = '';
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                console.log(classPrediction);
-                if (prediction[i].probability > 0.5) {
-                    result += prediction[i].className + ' -> ' + Math.round(prediction[i].probability * 100) + '%'
-                }
-            }
-            // Injection de la valeur dans la page
-            unTr.children[2].innerHTML = result;
+            // Sélectionner toutes les images et les observer lorsqu'elles deviennent visibles
+            document.querySelectorAll('#tbody img').forEach(img => {
+                observer.observe(img);
+            });
         }
+
+        /**
+         * Prédire les catégories d'images
+         * @param img contenu à analyser
+         * @param unTr une ligne du tableau correspondante
+         * @returns {Promise<void>}
+         */
+        async function predictImage(img, unTr) {
+            // Lancer la prédiction sur l'image
+            const prediction = await model.predict(img);
+            // Trouver la classe avec la plus grande probabilité
+            const bestPrediction = prediction.reduce((max, p) => (p.probability > max.probability ? p : max), prediction[0]);
+            // Remontée dans l'interface
+            unTr.children[2].innerHTML = `${bestPrediction.className} -> ${Math.round(bestPrediction.probability * 100)}%`;
+        }
+
+        window.onload = init;
     </script>
     <?php require _TPL_BOTTOM_; ?>
