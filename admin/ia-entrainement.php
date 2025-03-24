@@ -67,7 +67,16 @@ require _TPL_TOP_;
 /**
  * Catégories
  */
-$req = 'SELECT COUNT(*) as nb, SUM(size) as size, abuse_categorie FROM images WHERE isBloquee = 1 AND abuse_categorie <> \'\' GROUP BY abuse_categorie ORDER BY abuse_categorie';
+$req = 'SELECT COUNT(*) as nb, SUM(size) as size, abuse_categorie
+    FROM (
+        SELECT MAX(size) as size, MAX(abuse_categorie) as abuse_categorie, MAX(isBloquee) as isBloquee
+        FROM images
+        GROUP BY MD5, size, abuse_categorie, isBloquee
+    ) t1
+    WHERE isBloquee = 1
+        AND abuse_categorie <> \'\' 
+    GROUP BY abuse_categorie
+    ORDER BY abuse_categorie';
 // Exécution de la requête
 $resultat = MaBDD::getInstance()->query($req);
 $listeCat = [];
@@ -78,7 +87,13 @@ foreach ($resultat->fetchAll() as $value) {
     ];
 }
 // Ajouter les images approuvées
-$req = 'SELECT COUNT(*) as nb, SUM(size) as size FROM images WHERE isApprouvee = 1';
+$req = 'SELECT COUNT(*) as nb, SUM(size) as size
+    FROM (
+        SELECT MAX(size) as size, MAX(isApprouvee) as isApprouvee
+        FROM images
+        GROUP BY MD5, size, isApprouvee
+    ) t1
+    WHERE isApprouvee = 1';
 // Exécution de la requête
 $resultat = MaBDD::getInstance()->query($req);
 foreach ($resultat->fetchAll() as $value) {
