@@ -61,10 +61,6 @@ require _TPL_TOP_;
                 &nbsp;IA - Entrainer le moteur
             </a>
             <div class="clearfix"></div>
-            <br />
-            <a href="<?= _URL_ADMIN_ ?>nsfwjs.php" class="btn btn-success">
-                <span class="bi-file-earmark-bar-graph"></span>
-                &nbsp;IA - Catégorisation nsfwjs
             </a>
             <div class="clearfix"></div>
             <br/>
