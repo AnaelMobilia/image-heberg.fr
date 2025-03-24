@@ -82,8 +82,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 <thead>
                     <tr>
                         <th>Image</th>
-                        <th>Catégorisation de l'image</th>
-                        <th>Suggestion IA</th>
+                        <th>Catégoriser</th>
                         <th>Actions</th>
                         <th>Date d'envoi</th>
                     </tr>
@@ -99,14 +98,15 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                                 </a>
                             </td>
                             <td>
-                                <select onchange="categoriser('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', this.value)">
+                                <select onchange="categoriser(this, this.value)">
                                     <option value="">-</option>
                                     <?php foreach (_ABUSE_TYPES_ as $categorie => $detail) : ?>
                                         <option value="<?= $categorie ?>"><?= $categorie ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <br /><br />
+                                <div class="className"><i><span class="bi-cpu"></span> Calcul en cours...</i></div>
                             </td>
-                            <td><i>Calcul en cours...</i></td>
                             <td>
                                 <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
                                 <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
@@ -158,11 +158,16 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
 
         /**
          * Catégoriser une image
-         * @param idImage ID de l'image
-         * @param md5 MD5 de l'image
+         * @param element Un élement HTML de la ligne concernée
          * @param categorie Catégorie à appliquer
          */
-        function categoriser(idImage, md5, categorie) {
+        function categoriser(element, categorie) {
+            // Trouver le parent <tr> du <select>
+            const trElement = element.closest('tr');
+            // Récupérer les valeurs de l'image
+            const idImage = trElement.getAttribute('data-id');
+            const md5 = trElement.getAttribute('data-md5');
+
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=categoriser&categorie=' + encodeURIComponent(categorie) + '&idImage=' + idImage);
             xhr.onload = function () {
@@ -225,7 +230,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             // Trouver la classe avec la plus grande probabilité
             const bestPrediction = prediction.reduce((max, p) => (p.probability > max.probability ? p : max), prediction[0]);
             // Remontée dans l'interface
-            unTr.children[2].innerHTML = `${bestPrediction.className} -> ${Math.round(bestPrediction.probability * 100)}%`;
+            unTr.querySelector('div.className').innerHTML = `<button type="button" class="btn btn-primary btn-sm" onclick="categoriser(this, '${bestPrediction.className}')">${bestPrediction.className} (<span class="bi-cpu"></span>${Math.round(bestPrediction.probability * 100)}%)</button>`;
         }
 
         window.onload = init;
