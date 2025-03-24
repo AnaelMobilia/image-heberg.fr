@@ -61,6 +61,10 @@ require _TPL_TOP_;
                 &nbsp;IA - Entrainer le moteur
             </a>
             <div class="clearfix"></div>
+            <br/>
+            <a href="<?= _URL_ADMIN_ ?>ia-verification.php" class="btn btn-success">
+                <span class="bi-ui-checks-grid"></span>
+                &nbsp;IA - Vérifier les images
             </a>
             <div class="clearfix"></div>
             <br/>
