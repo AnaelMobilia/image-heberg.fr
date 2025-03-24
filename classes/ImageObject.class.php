@@ -196,12 +196,11 @@ class ImageObject extends RessourceObject implements RessourceInterface
 
     /**
      * Récupérer la miniature preview de l'image
-     * @param bool $generate Générer la miniature si elle n'existe pas ?
      * @return MiniatureObject
      * @throws ImageHebergException
      * @throws ImagickException
      */
-    public function getPreviewMiniature(bool $generate = true): MiniatureObject
+    public function getPreviewMiniature(): MiniatureObject
     {
         $monRetour = new MiniatureObject();
 
