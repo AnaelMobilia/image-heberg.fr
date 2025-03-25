@@ -204,9 +204,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
     {
         $monRetour = new MiniatureObject();
 
-        if (!HelperImage::isAnimatedWebp($this->getPathMd5())) {
-            $miniatures = $this->getMiniatures(true);
-            if ($miniatures->count() === 0) {
+        $miniatures = $this->getMiniatures(true);
+        if ($miniatures->count() === 0) {
+            if (!HelperImage::isAnimatedWebp($this->getPathMd5())) {
                 // Duplication de l'image source
                 $tmpFile = tempnam(sys_get_temp_dir(), uniqid('', true));
                 copy($this->getPathMd5(), $tmpFile);
@@ -223,9 +223,9 @@ class ImageObject extends RessourceObject implements RessourceInterface
                 $maMiniature->setIsPreview(true);
                 $maMiniature->sauver();
                 $monRetour = $maMiniature;
-            } else {
-                $monRetour = new MiniatureObject($miniatures->offsetGet(0));
             }
+        } else {
+            $monRetour = new MiniatureObject($miniatures->offsetGet(0));
         }
 
         return $monRetour;
