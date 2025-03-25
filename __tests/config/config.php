@@ -74,11 +74,25 @@ const _DEBUG_ = true;
 /* Gestion des abus */
 // Catégories d'images interdites
 const _ABUSE_TYPES_ = [
-    // "Nom de catégorie" => "détail"
-    'Pornographie' => 'contenu à caractère pornographique',
-    'Erotisme' => 'contenu à caractère érotique',
-    'Violence' => 'contenu montrant de la violence (cadavre, torture, maltraitance, image dégradante, ...) ou d\'appel à la violence',
-    'Spam' => 'contenu utilisé dans l\'envoi de messages de spam ou de phishing',
+    // "Nom de catégorie"
+    'Pornographie' => [
+        // Description textuelle
+        'description' => 'contenu à caractère pornographique',
+        // Taux de détection IA (%) à partir duquel considérer l'image comme non désirée ?
+        'limite' => 90,
+    ],
+    'Erotisme' => [
+        'description' => 'contenu à caractère érotique',
+        'limite' => 90,
+    ],
+    'Violence' => [
+        'description' => 'contenu montrant de la violence (cadavre, torture, maltraitance, image dégradante, ...) ou d\'appel à la violence',
+        'limite' => 90,
+    ],
+    'Spam' => [
+        'description' => 'contenu utilisé dans l\'envoi de messages de spam ou de phishing',
+        'limite' => 90,
+    ],
 ];
 
 // Nombre d'affichages par jour à partir duquel une image est suspecte

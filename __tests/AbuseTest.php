@@ -484,13 +484,13 @@ class AbuseTest extends TestCase
         }
 
         $monImage = new ImageObject('15', RessourceObject::SEARCH_BY_ID);
-        $monImage->setCategorieBlocage(_ABUSE_TYPES_[0]);
+        $monImage->setCategorieBlocage('Pornographie');
         $monImage->categoriser();
 
         foreach ($images as $image) {
             $this->assertSame(
                 $image->getCategorieBlocage(),
-                _ABUSE_TYPES_[0],
+                'Pornographie',
                 'Les images 15 et 16 doivent avoir été catégorisées (contamination par le MD5)'
             );
         }
@@ -507,7 +507,7 @@ class AbuseTest extends TestCase
         $monImage = new ImageObject('96', RessourceObject::SEARCH_BY_ID);
         $this->assertSame(
             $monImage->getCategorieBlocage(),
-            _ABUSE_TYPES_[0],
+            'Pornographie',
             'L\image 96 est catégorisée'
         );
         $this->assertTrue(
