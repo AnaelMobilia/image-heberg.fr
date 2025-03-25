@@ -100,7 +100,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <td>
                                 <select onchange="categoriser(this, this.value)">
                                     <option value="">-</option>
-                                    <?php foreach (_ABUSE_TYPES_ as $categorie => $detail) : ?>
+                                    <?php foreach (array_keys(_ABUSE_TYPES_) as $categorie) : ?>
                                         <option value="<?= $categorie ?>"><?= $categorie ?></option>
                                     <?php endforeach; ?>
                                 </select>

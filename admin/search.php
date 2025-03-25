@@ -70,8 +70,8 @@ $tabSearch = [
     'Approuvée' => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
 ];
 // Ajout des catégories de filtrage
-foreach (_ABUSE_TYPES_ as $categorie => $detail) {
-    $tabSearch[ucfirst($detail)] = 'SELECT new_name FROM images WHERE abuse_categorie = \'' . str_replace("'", "\'", $categorie) . '\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
+foreach (_ABUSE_TYPES_ as $categorie => $tabInfos) {
+    $tabSearch[ucfirst($categorie). ' ('.ucfirst($tabInfos['description']).')'] = 'SELECT new_name FROM images WHERE abuse_categorie = \'' . str_replace("'", "\'", $categorie) . '\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
 }
 if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
     $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
