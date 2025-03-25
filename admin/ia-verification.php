@@ -153,6 +153,11 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
         // More API functions here:
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
         let model, maxPredictions;
+        const categorieMap = new Map([
+            <?php foreach (_ABUSE_TYPES_ as $type => $tabInfos): ?>
+            ['<?= $type ?>', <?= $tabInfos['limite'] ?>],
+            <?php endforeach; ?>
+        ]);
 
         async function init() {
             // Activer l'exécution GPU avec TensorFlow.js
@@ -191,8 +196,17 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             const prediction = await model.predict(img);
             // Trouver la classe avec la plus grande probabilité
             const bestPrediction = prediction.reduce((max, p) => (p.probability > max.probability ? p : max), prediction[0]);
+            // Cette image atteint-elle la limite pour sa catégorie la plus probable ?
+            let bsClass = '';
+            if (
+                categorieMap.has(bestPrediction.className)
+                && (bestPrediction.probability * 100) >= categorieMap.get(bestPrediction.className)
+            ) {
+                bsClass = 'text-bg-danger p-3';
+            }
+
             // Remontée dans l'interface
-            unTr.querySelector('div.className').innerHTML = `${bestPrediction.className} (<span class="bi-cpu"></span>${Math.round(bestPrediction.probability * 100)}%)`;
+            unTr.querySelector('div.className').innerHTML = `<div class="${bsClass}"><span class="bi-cpu"></span> ${bestPrediction.className} (${Math.round(bestPrediction.probability * 100)}%)</div>`;
         }
 
         window.onload = init;
