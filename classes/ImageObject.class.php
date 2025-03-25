@@ -218,6 +218,8 @@ class ImageObject extends RessourceObject implements RessourceInterface
                 $maMiniature->redimensionner($maMiniature->getPathTemp(), $maMiniature->getPathTemp(), _SIZE_PREVIEW_, _SIZE_PREVIEW_);
                 $maMiniature->setNomTemp('preview_' . $this->getId());
                 $maMiniature->creer();
+                // Recharger la miniature depuis la BDD (avoir la date de création)
+                $maMiniature = new MiniatureObject($maMiniature->getId(), RessourceObject::SEARCH_BY_ID);
                 $maMiniature->setIsPreview(true);
                 $maMiniature->sauver();
                 $monRetour = $maMiniature;
