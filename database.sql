@@ -125,7 +125,9 @@ CREATE TABLE IF NOT EXISTS `thumbnails`
     `nb_view_v6`  int         UNSIGNED NOT NULL,
     `md5`         varchar(32) NOT NULL,
     PRIMARY KEY (`id`),
-    KEY `images_id` (`images_id`) USING BTREE
+    KEY `images_id` (`images_id`) USING BTREE,
+    KEY `new_name` (`new_name`) USING BTREE,
+    KEY `md5` (`md5`) USING BTREE
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
 
