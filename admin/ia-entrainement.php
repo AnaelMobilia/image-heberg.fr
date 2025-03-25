@@ -49,8 +49,15 @@ if (isset($_GET['categorie']) && array_key_exists(urldecode($_GET['categorie']),
 
     // Préparer le tableau d'images à ajouter dans le ZIP
     $tabImages = [];
+    $objMiniatureVide = new MiniatureObject();
     foreach ($listeImages as $image) {
-        $tabImages[$image->getNomNouveau()] = $image->getPathMd5();
+        // Envoyer tant que possible des miniatures d'aperçu (256x256px) vu que Teachable Machine travaille en 224x224px
+        $miniature = $image->getPreviewMiniature();
+        // Certaines images ne peuvent pas avoir de miniatures
+        if ((array)$miniature === (array)$objMiniatureVide) {
+            $miniature = $image;
+        }
+        $tabImages[$image->getNomNouveau()] = $miniature->getPathMd5();
     }
     // Envoyer l'archive au navigateur
     header('Content-Type: application/zip');
@@ -120,7 +127,7 @@ $isPlural = (count($table['values']) > 1 ? 's' : '');
                 <li>Allez sur <a href="https://teachablemachine.withgoogle.com/train/image">Teachable Machine</a>.</li>
                 <li>Pour chaque catégorie d'images, définissez son nom et importez le contenu de l'archive correspondante.</li>
                 <li>Cliquez sur le bouton "Entrainer le modèle".</li>
-                <li>Cliquez sur le bouton "Exporter le modèle".</li>
+                <li>Cliquez sur le bouton "Exporter le modèle" -> Tensorflow.js -> Télécharger (mon modèle).</li>
                 <li>Décompressez le contenu de l'archive dans le dossier "admin/ia_model/".</li>
             </ul>
             <table class="table">
