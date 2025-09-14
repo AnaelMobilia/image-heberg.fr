@@ -94,6 +94,7 @@ require _TPL_TOP_;
                         <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.
                     </div>
                 </div>
+                <img src="#" id="preview" alt="preview" style="display: none; max-width: 200px; max-height: 200px;" />
                 <h3>Options</h3>
                 <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
                 <div class="mb-3">
@@ -133,8 +134,71 @@ require _TPL_TOP_;
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-success" name="Submit" type="submit" <?= ($uploadDisabled ? 'disabled="disabled"' : '') ?>><span class="bi-cloud-arrow-up-fill"></span>&nbsp;Envoyer</button>
+                <button class="btn btn-success" name="Submit" id="submit" type="submit" <?= ($uploadDisabled ? 'disabled="disabled"' : '') ?>><span class="bi-cloud-arrow-up-fill"></span>&nbsp;Envoyer</button>
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js" defer></script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+        let model, maxPredictions;
+        const categorieMap = new Map([
+            <?php foreach (_ABUSE_TYPES_ as $type => $tabInfos) : ?>
+            ['<?= $type ?>', <?= $tabInfos['limite'] ?>],
+            <?php endforeach; ?>
+        ]);
+
+        async function init() {
+            // Activer l'exécution GPU avec TensorFlow.js
+            await tf.setBackend('webgl');
+            // load the model and metadata
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load('<?= _URL_HTTPS_ ?>ia_model/model.json', '<?= _URL_HTTPS_ ?>ia_model/metadata.json');
+            maxPredictions = model.getTotalClasses();
+
+            // Génération d'une "miniature" d'aperçu lors de la sélection d'une image
+            const preview = document.getElementById('preview');
+            document.getElementById('fichier').addEventListener('change', function () {
+                // Réactiver le bouton d'envoi
+                document.getElementById('submit').disabled = false;
+
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        preview.src = event.target.result;
+                        preview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                    // Prédiction type d'image
+                    predictImage(preview);
+                }
+            });
+        }
+
+        /**
+         * Prédire les catégories d'images
+         * @param img contenu à analyser
+         * @returns {Promise<void>}
+         */
+        async function predictImage(img) {
+            // Lancer la prédiction sur l'image
+            const prediction = await model.predict(img);
+            // Trouver la classe avec la plus grande probabilité
+            const bestPrediction = prediction.reduce((max, p) => (p.probability > max.probability ? p : max), prediction[0]);
+            // Cette image atteint-elle la limite pour sa catégorie la plus probable ?
+            if (
+                categorieMap.has(bestPrediction.className)
+                && (bestPrediction.probability * 100) >= categorieMap.get(bestPrediction.className)
+            ) {
+                // Désactiver l'envoi de l'image
+                document.getElementById('submit').disabled = true;
+                alert(`L'image selectionnée n'est pas conforme aux CGU de la plateforme. Elle contrevient à la règle ${bestPrediction.className} (taux de précision : ${Math.round(bestPrediction.probability * 100)}%)`)
+            }
+        }
+
+        window.onload = init;
+    </script>
     <?php require _TPL_BOTTOM_; ?>
