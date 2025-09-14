@@ -164,7 +164,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             await tf.setBackend('webgl');
             // load the model and metadata
             // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-            model = await tmImage.load('<?=_URL_ADMIN_ ?>ia_model/model.json', '<?=_URL_ADMIN_ ?>ia_model/metadata.json');
+            model = await tmImage.load('<?= _URL_HTTPS_ ?>ia_model/model.json', '<?= _URL_HTTPS_ ?>ia_model/metadata.json');
             maxPredictions = model.getTotalClasses();
 
             // Utiliser un IntersectionObserver pour charger les images lorsque elles deviennent visibles
