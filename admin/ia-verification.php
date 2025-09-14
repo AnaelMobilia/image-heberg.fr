@@ -154,7 +154,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
         let model, maxPredictions;
         const categorieMap = new Map([
-            <?php foreach (_ABUSE_TYPES_ as $type => $tabInfos): ?>
+            <?php foreach (_ABUSE_TYPES_ as $type => $tabInfos) : ?>
             ['<?= $type ?>', <?= $tabInfos['limite'] ?>],
             <?php endforeach; ?>
         ]);
