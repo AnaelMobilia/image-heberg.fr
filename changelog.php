@@ -46,12 +46,28 @@ require _TPL_TOP_;
     </div>
     <div class="card">
         <div class="card-header">
+            <a data-bs-toggle="collapse" href="#v27">
+                v2.7 - Septembre 2025
+                &nbsp;<span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="v27" class="card-collapse">
+            <div class="card-body">
+                <ul>
+                    <li>Ajout d'un aperçu de l'image avant l'envoi.</li>
+                    <li>Validation IA du contenu de l'image avant l'envoi.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
             <a data-bs-toggle="collapse" href="#v26">
                 v2.6 - Février 2025
                 &nbsp;<span class="bi-caret-down-fill"></span>
             </a>
         </div>
-        <div id="v26" class="card-collapse">
+        <div id="v26" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
                     <li>Compatibilité PHP 8.3 et 8.4.</li>
