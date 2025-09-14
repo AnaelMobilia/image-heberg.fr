@@ -305,8 +305,7 @@ abstract class HelperAdmin
                             )
                         )
                         ORDER BY nbAff DESC, im.id DESC
-                    ) tableTmp
-                    LIMIT 0, 100';
+                    ) tableTmp';
         return self::queryOnNewName($req);
     }
 
