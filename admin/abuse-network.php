@@ -43,13 +43,15 @@ require _TPL_TOP_;
                     <tr>
                         <th>Réseau</th>
                         <th>Nombre d'images bloquées</th>
+                        <th>Date dernier envoi</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
                     <?php foreach ($listeIp as $key => $value) : ?>
                         <tr>
                             <td><?= $key ?></td>
-                            <td><?= $value ?></td>
+                            <td><?= $value['nb'] ?></td>
+                            <td><?= $value['max_date'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
