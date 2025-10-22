@@ -353,13 +353,15 @@ abstract class HelperAdmin
 
     /**
      * Liste des réseaux avec mauvaise réputation
-     * @return ArrayObject ["IP" => "count()"]
+     * @return ArrayObject ["@IP" =>
+     *      [ nb => "count()",
+     *        "max_date => MAX(DATE...)]
      */
     public static function getBadNetworks(): ArrayObject
     {
         $monRetour = new ArrayObject();
 
-        $req = 'SELECT COUNT(*) AS nb, abuse_network FROM images WHERE isBloquee = 1 GROUP BY abuse_network';
+        $req = 'SELECT COUNT(*) AS nb, MAX(date_action) as max_date, abuse_network FROM images WHERE isBloquee = 1 GROUP BY abuse_network';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
@@ -373,7 +375,7 @@ abstract class HelperAdmin
             } else {
                 $ip .= '.0/24';
             }
-            $monRetour->offsetSet($ip, $value->nb);
+            $monRetour->offsetSet($ip, ['nb' => $value->nb, 'max_date' => $value->max_date]);
         }
         // Tri "humain"
         $monRetour->ksort(SORT_NATURAL);
