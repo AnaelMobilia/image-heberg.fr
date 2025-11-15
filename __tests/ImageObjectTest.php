@@ -337,13 +337,13 @@ class ImageObjectTest extends TestCase
 
         $monImage->charger('35', RessourceObject::SEARCH_BY_ID);
         $this->assertEquals(
-            'validated',
+            'approuver',
             $monImage->getHtmlClass(),
             'Classe HTML d\'une image validée'
         );
         $monImage->charger('10', RessourceObject::SEARCH_BY_ID);
         $this->assertEquals(
-            'blocked',
+            'bloquer',
             $monImage->getHtmlClass(),
             'Classe HTML d\'une image bloquée'
         );

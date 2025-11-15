@@ -169,18 +169,25 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === 'OK') {
-                    // En cas de succès, supprimer les lignes correspondantes
-                    const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
-                    images.forEach(function (ligne) {
-                        ligne.remove();
-                    });
+                    if (action === '<?=RessourceObject::ACTION_SUPPRIMER ?>') {
+                        // En cas de succès, supprimer les lignes correspondantes
+                        const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
+                        images.forEach(function (ligne) {
+                            ligne.remove();
+                        });
+                    } else {
+                        const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"] > td > a');
+                        images.forEach(function (ligne) {
+                            ligne.setAttribute('class', action);
+                        });
+                    }
                 }
-            };
-            xhr.onerror = function () {
-                alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
-            };
-            xhr.send();
+                ;
+                xhr.onerror = function () {
+                    alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
+                };
+                xhr.send();
+            }
         }
-    }
 </script>
 <?php require _TPL_BOTTOM_; ?>
