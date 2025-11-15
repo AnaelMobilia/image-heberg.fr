@@ -104,7 +104,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                                         <span class="bi-exclamation-circle" style="color: lightblue"></span>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                                <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') ?><?= ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>"><?= $uneImage->getNomNouveau() ?></a></td>
+                                <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" class="<?= $uneImage->getHtmlClass() ?>"><?= $uneImage->getNomNouveau() ?></a></td>
                             <td class="text-nowrap">
                                 <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
                                 <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>

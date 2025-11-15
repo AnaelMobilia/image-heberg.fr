@@ -51,3 +51,13 @@ textarea {
 a {
     text-decoration: none;
 }
+
+/* Admin -> image validée */
+.validated {
+    text-decoration: underline double green;
+}
+
+/* Admin -> image bloquée */
+.blocked {
+    text-decoration: line-through double red;
+}
