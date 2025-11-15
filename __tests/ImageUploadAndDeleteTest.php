@@ -22,9 +22,9 @@
 namespace ImageHebergTests;
 
 use ImageHeberg\HelperAdmin;
+use ImageHeberg\HelperImage;
 use ImageHeberg\ImageObject;
 use ImageHeberg\MaBDD;
-use ImageHeberg\HelperImage;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\Attributes\Depends;

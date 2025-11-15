@@ -21,8 +21,8 @@
 
 namespace ImageHeberg;
 
-use PDO;
 use ArrayObject;
+use PDO;
 
 /**
  * Gestion (BDD) des utilisateurs

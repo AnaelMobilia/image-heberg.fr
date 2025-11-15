@@ -75,8 +75,7 @@ if (empty($msgErreur) && empty($_FILES['fichier']['name'])) {
 if (empty($msgErreur)) {
     $poids = $_FILES['fichier']['size'];
     if ($poids > _IMAGE_POIDS_MAX_) {
-        $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1)
-            . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
+        $msgErreur .= 'Le poids du fichier ' . $_FILES['fichier']['name'] . ' (' . round($poids / 1048576, 1) . ' Mo) dépasse la limité autorisée (' . round(_IMAGE_POIDS_MAX_ / 1048576, 1) . ' Mo).<br />';
     }
 }
 
@@ -179,14 +178,12 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
     // Création de la miniature
     $maMiniature->setNomTemp($_FILES['fichier']['name']);
     if (!$maMiniature->creer()) {
-        $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name']
-            . ' .<br />';
+        $msgErreur .= 'Erreur lors de l\'enregistrement du fichier de la miniature ' . $_FILES['fichier']['name'] . ' .<br />';
     }
 }
 ?>
     <h1 class="mb-3"><small>Envoi d'une image</small></h1>
-    <?php
-    if (!empty($msgErreur)) : ?>
+    <?php if (!empty($msgErreur)): ?>
     <div class="alert alert-danger">
         <span class="bi-x-circle"></span>
         &nbsp;

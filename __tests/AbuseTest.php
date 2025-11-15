@@ -21,10 +21,9 @@
 
 namespace ImageHebergTests;
 
-use ArrayObject;
 use ImageHeberg\HelperAbuse;
-use ImageHeberg\ImageObject;
 use ImageHeberg\HelperAdmin;
+use ImageHeberg\ImageObject;
 use ImageHeberg\RessourceObject;
 use ImageHeberg\UtilisateurObject;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;

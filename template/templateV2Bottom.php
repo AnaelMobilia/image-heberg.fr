@@ -20,10 +20,10 @@
  */
 
 ?>
-    </div> <!-- "/jumbotron" -->
-    </main>
-    <footer class="footer mt-auto py-3">
-        <div class="container-lg">
+</div> <!-- "/jumbotron" -->
+</main>
+<footer class="footer mt-auto py-3">
+    <div class="container-lg">
             <span class="text-muted">
                 <?= _SITE_NAME_ ?>
                 -
@@ -46,9 +46,9 @@
                     <a href="https://github.com/AnaelMobilia/image-heberg.fr" title="Voir le code source sur GitHub"><span class="bi-github"></span></a>
                 </span>
             </span>
-        </div>
-    </footer>
-    <script src="template/js/bootstrap-5.3.3.min.js"></script>
-    <script src="template/js/js.php"></script>
-    </body>
+    </div>
+</footer>
+<script src="template/js/bootstrap-5.3.3.min.js"></script>
+<script src="template/js/js.php"></script>
+</body>
 </html>

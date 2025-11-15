@@ -7,9 +7,9 @@
     <!-- Inclure PSR-12 -->
     <rule ref="PSR12">
         <!-- Exclure les CRLF (gérés par git => core.autocrlf=true ) -->
-        <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <!-- Exclure la longueur des lignes -->
-        <exclude name="Generic.Files.LineLength.TooLong" />
+        <exclude name="Generic.Files.LineLength.TooLong"/>
 
     </rule>
     <!-- Exclure les fichiers de conf qui ont un require sur le fichier générique à la fin -->

@@ -104,7 +104,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                                         <option value="<?= $categorie ?>"><?= $categorie ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <br /><br />
+                                <br/><br/>
                                 <div class="className"><i><span class="bi-cpu"></span> Calcul en cours...</i></div>
                             </td>
                             <td>
@@ -117,14 +117,14 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
-                <?php if(count($table['values']) === _PAGINATION_IMAGES_) : ?>
-                <tfoot>
-                    <tr>
-                        <th>
-                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
-                        </th>
-                    </tr>
-                </tfoot>
+                <?php if (count($table['values']) === _PAGINATION_IMAGES_) : ?>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            </th>
+                        </tr>
+                    </tfoot>
                 <?php endif; ?>
             </table>
         </div>
@@ -210,7 +210,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         predictImage(img, img.closest('tr'));
                     }
                 });
-            }, { threshold: 0.1 });
+            }, {threshold: 0.1});
 
             // Sélectionner toutes les images et les observer lorsqu'elles deviennent visibles
             document.querySelectorAll('#tbody img').forEach(img => {

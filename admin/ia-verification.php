@@ -64,8 +64,8 @@ if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
 $table = [
-    'legende' => 'trouvée##',
-    'values' => HelperAdmin::queryOnNewName($req)
+        'legende' => 'trouvée##',
+        'values'  => HelperAdmin::queryOnNewName($req),
 ];
 
 $isPlural = (count($table['values']) > 1 ? 's' : '');
@@ -108,7 +108,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
-                <?php if(count($table['values']) === _PAGINATION_IMAGES_) : ?>
+                <?php if (count($table['values']) === _PAGINATION_IMAGES_) : ?>
                     <tfoot>
                         <tr>
                             <th>
@@ -177,7 +177,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         predictImage(img, img.closest('tr'));
                     }
                 });
-            }, { threshold: 0.1 });
+            }, {threshold: 0.1});
 
             // Sélectionner toutes les images et les observer lorsqu'elles deviennent visibles
             document.querySelectorAll('#tbody img').forEach(img => {

@@ -23,11 +23,11 @@ namespace ImageHebergTests;
 
 use ImageHeberg\ImageObject;
 use ImageHeberg\RessourceObject;
+use Imagick;
 use ImagickException;
 use ImagickPixelException;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
-use Imagick;
 
 /**
  * L'entête des fichiers contient des informations sur la bibliothéque système les ayant produit

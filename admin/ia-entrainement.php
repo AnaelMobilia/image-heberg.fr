@@ -89,8 +89,8 @@ $resultat = MaBDD::getInstance()->query($req);
 $listeCat = [];
 foreach ($resultat->fetchAll() as $value) {
     $listeCat[$value->abuse_categorie] = [
-        'nbImages' => $value->nb,
-        'size' => $value->size
+            'nbImages' => $value->nb,
+            'size'     => $value->size,
     ];
 }
 // Ajouter les images approuvées
@@ -105,14 +105,14 @@ $req = 'SELECT COUNT(*) as nb, SUM(size) as size
 $resultat = MaBDD::getInstance()->query($req);
 foreach ($resultat->fetchAll() as $value) {
     $listeCat[_IMAGES_APPROUVEES_] = [
-        'nbImages' => $value->nb,
-        'size' => $value->size
+            'nbImages' => $value->nb,
+            'size'     => $value->size,
     ];
 }
 
 $table = [
-    'legende' => 'trouvée##',
-    'values' => $listeCat,
+        'legende' => 'trouvée##',
+        'values'  => $listeCat,
 ];
 
 $isPlural = (count($table['values']) > 1 ? 's' : '');
