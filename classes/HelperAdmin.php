@@ -284,7 +284,7 @@ abstract class HelperAdmin
 
         // Images potentiellement indésirables
         $req = 'SELECT new_name FROM (
-                    SELECT im.new_name, ((nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), im.date_action)) AS nbAff
+                    SELECT im.new_name, MAX((nb_view_v4 + nb_view_v6) / DATEDIFF(NOW(), im.date_action)) AS nbAff
                         FROM images im
                         LEFT JOIN possede po ON po.images_id = im.id
                         WHERE im.isBloquee = 0
@@ -304,6 +304,7 @@ abstract class HelperAdmin
                                 im.md5 IN (SELECT DISTINCT md5 FROM images WHERE isBloquee = 1)
                             )
                         )
+                        GROUP BY md5
                         ORDER BY nbAff DESC, im.id DESC
                     ) tableTmp';
         return self::queryOnNewName($req);
