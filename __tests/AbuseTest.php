@@ -148,7 +148,7 @@ class AbuseTest extends TestCase
         $monMembre->connexion('admin', 'password');
 
         // Approuver l'image dans l'admin
-        $_GET['action'] = 'approuver';
+        $_GET['action'] = RessourceObject::ACTION_APPROUVER;
         $_GET['idImage'] = '2';
 
         ob_start();

@@ -31,12 +31,12 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['action']) && in_array($_GET['action'], ['approuver', 'bloquer'])) {
+    if (isset($_GET['action']) && in_array($_GET['action'], [RessourceObject::ACTION_APPROUVER, RessourceObject::ACTION_BLOQUER], true)) {
         $monImage->{$_GET['action']}();
         die('OK');
     }
     // La suppression n'est pas contaminante par défaut
-    if (isset($_GET['action']) && $_GET['action'] === 'supprimer') {
+    if (isset($_GET['action']) && $_GET['action'] === RessourceObject::ACTION_SUPPRIMER) {
         $listeImages = ImageObject::chargerMultiple([$monImage->getMd5()], RessourceObject::SEARCH_BY_MD5);
         foreach ($listeImages as $image) {
             $image->supprimer();
@@ -129,9 +129,9 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             </a>
                         </td>
                         <td class="text-nowrap">
-                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
-                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
-                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
+                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_APPROUVER ?>');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_BLOQUER ?>');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                            <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_SUPPRIMER ?>');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                         </td>
                         <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
                         <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
