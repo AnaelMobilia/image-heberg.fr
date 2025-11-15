@@ -1,1 +1,1 @@
-{"tfjsVersion":"1.3.1","tmVersion":"2.4.7","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2025-02-16T01:36:53.221Z","userMetadata":{},"modelName":"tm-my-image-model","labels":["Approuvées","Spam","Pornographie","Violence","Erotisme"],"imageSize":224}
+{"tfjsVersion":"1.7.4","tmVersion":"2.4.10","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2025-09-14T20:53:53.149Z","userMetadata":{},"modelName":"tm-my-image-model","labels":["Erotisme","Pornographie","Spam","Violence","Approuvées"],"imageSize":224}
