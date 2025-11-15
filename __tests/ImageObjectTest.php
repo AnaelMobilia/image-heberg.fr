@@ -328,4 +328,24 @@ class ImageObjectTest extends TestCase
             'Après la génération de la miniature d\'aperçu d\'une image WebP animée, on en a toujours pas car ce n\'est pas pris en charge.'
         );
     }
+
+    #[RunInSeparateProcess]
+    public function testClassHtml(): void
+    {
+        require 'config/config.php';
+        $monImage = new ImageObject();
+
+        $monImage->charger('35', RessourceObject::SEARCH_BY_ID);
+        $this->assertEquals(
+            'validated',
+            $monImage->getHtmlClass(),
+            'Classe HTML d\'une image validée'
+        );
+        $monImage->charger('10', RessourceObject::SEARCH_BY_ID);
+        $this->assertEquals(
+            'blocked',
+            $monImage->getHtmlClass(),
+            'Classe HTML d\'une image bloquée'
+        );
+    }
 }

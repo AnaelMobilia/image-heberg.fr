@@ -119,7 +119,7 @@ $tabTables[] = [
                         <?php foreach ($mesImages as $uneImage) : ?>
                             <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
                                 <td>
-                                    <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" style="<?= ($uneImage->isBloquee() ? 'text-decoration: line-through double red;' : '') . ($uneImage->isApprouvee() ? 'text-decoration: underline double green;' : '') ?>">
+                                    <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" class="<?= $uneImage->getHtmlClass() ?>">
                                         <img src="<?= $uneImage->getPreviewMiniature()->getURL(true) ?>?forceDisplay=1" style="max-width: <?= (_SIZE_PREVIEW_ / 2) ?>px; max-height: <?= (_SIZE_PREVIEW_ / 2) ?>px" loading="lazy">
                                         <br />
                                         <?= $uneImage->getNomNouveau() ?>

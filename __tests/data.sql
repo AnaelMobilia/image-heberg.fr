@@ -101,6 +101,12 @@ INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_na
     (34, '127.0.0.1', 1234, DATE_SUB(NOW(), INTERVAL 3 DAY), 'imageBeaucoupTropAffichee.png', 'image_34.png', 1, 1, 1, NOW(), 99999999, 99999999, 'not-used--fd9cb5a0afba67138bd328', 0, 0, 0, '127.0.0', '');
 
 --
+-- Image validée
+--
+INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`, `abuse_categorie`) VALUES
+    (35, '127.0.0.1', 1234, NOW(), 'imageDejaValidee.png', 'image_35.png', 1, 1, 1, NOW(), 10, 10, 'not-used--ba9cb5a0afba67138bd328', 0, 0, 1, '127.0.0', '');
+
+--
 -- Agrandir la taille du champ pour bien gérer le _bootstrap
 --
 ALTER TABLE `thumbnails` MODIFY `new_name` VARCHAR(50) ;

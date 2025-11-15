@@ -751,4 +751,18 @@ abstract class RessourceObject
     {
         $this->idProprietaire = $idProprietaire;
     }
+
+    /**
+     * @return string Classe HTML à utiliser pour l'image
+     */
+    public function getHtmlClass(): string
+    {
+        if ($this->isBloquee()) {
+            return 'blocked';
+        }
+        if ($this->isApprouvee()) {
+            return 'validated';
+        }
+        return '';
+    }
 }
