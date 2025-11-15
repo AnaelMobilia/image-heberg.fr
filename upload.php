@@ -183,7 +183,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
 }
 ?>
     <h1 class="mb-3"><small>Envoi d'une image</small></h1>
-    <?php if (!empty($msgErreur)): ?>
+    <?php if (!empty($msgErreur)) : ?>
     <div class="alert alert-danger">
         <span class="bi-x-circle"></span>
         &nbsp;
