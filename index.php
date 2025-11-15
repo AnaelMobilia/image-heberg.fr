@@ -94,7 +94,7 @@ require _TPL_TOP_;
                         <a href="cgu.php">Conditions Générales d'Utilisation</a> du service.
                     </div>
                 </div>
-                <img src="#" id="preview" alt="preview" style="display: none; max-width: 200px; max-height: 200px;" />
+                <img src="#" id="preview" alt="preview" style="display: none; max-width: 200px; max-height: 200px;"/>
                 <h3>Options</h3>
                 <span class="help-block"><em>Le ratio de l'image sera conservé.</em></span>
                 <div class="mb-3">

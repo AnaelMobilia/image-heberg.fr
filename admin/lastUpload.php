@@ -31,7 +31,7 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['action']) && in_array ($_GET['action'], ['approuver', 'bloquer'])) {
+    if (isset($_GET['action']) && in_array($_GET['action'], ['approuver', 'bloquer'])) {
         $monImage->{$_GET['action']}();
         die('OK');
     }
@@ -120,14 +120,14 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <?php $lastId = $uneImage->getId() ?>
                     <?php endforeach; ?>
                 </tbody>
-                <?php if(count($table['values']) === _PAGINATION_IMAGES_) : ?>
-                <tfoot>
-                    <tr>
-                        <th>
-                            <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
-                        </th>
-                    </tr>
-                </tfoot>
+                <?php if (count($table['values']) === _PAGINATION_IMAGES_) : ?>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                <a href="<?= _URL_ADMIN_ . basename(__FILE__) ?>?lastId=<?= $lastId ?>" class="btn btn-primary"><span class="bi-arrow-left"></span> </a>
+                            </th>
+                        </tr>
+                    </tfoot>
                 <?php endif; ?>
             </table>
         </div>

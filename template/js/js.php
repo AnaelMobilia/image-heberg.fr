@@ -32,13 +32,13 @@ if ($visiteur->getLevel() === UtilisateurObject::LEVEL_GUEST) :
     // Cache les champs liés à l'espace membre
     document.getElementById('monCompte').style.display = 'none';
     // Au clic sur le bouton, affichage
-    document.getElementById('monCompteGestion').onclick = function(e){
-        document.getElementById('monCompteGestion').style.display = 'none';
-        document.getElementById('monCompte').style.display = 'block';
-        e.preventDefault();
+    document.getElementById('monCompteGestion').onclick = function(e) {
+    document.getElementById('monCompteGestion').style.display = 'none';
+    document.getElementById('monCompte').style.display = 'block';
+    e.preventDefault();
     };
     // J'empêche l'envoi du pseudo formulaire...
-    document.getElementById('monCompteGestion').onSubmit = function(e){
-        e.preventDefault();
+    document.getElementById('monCompteGestion').onSubmit = function(e) {
+    e.preventDefault();
     };
 <?php endif; ?>
