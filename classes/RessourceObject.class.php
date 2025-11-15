@@ -39,6 +39,11 @@ abstract class RessourceObject
     final public const string SEARCH_BY_NAME = 'new_name';
     final public const string SEARCH_BY_ID = 'id';
 
+    // Action sur la ressource
+    final public const string ACTION_APPROUVER = 'approuver';
+    final public const string ACTION_BLOQUER = 'bloquer';
+    final public const string ACTION_SUPPRIMER = 'supprimer';
+
     // Attributs de la classe
     private int $id = 0;
     private string $nomOriginal = '';

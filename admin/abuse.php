@@ -31,12 +31,12 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 // Action à effectuer sur une image
 if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
-    if (isset($_GET['action']) && in_array($_GET['action'], ['approuver', 'bloquer'])) {
+    if (isset($_GET['action']) && in_array($_GET['action'], [RessourceObject::ACTION_APPROUVER, RessourceObject::ACTION_BLOQUER], true)) {
         $monImage->{$_GET['action']}();
         die('OK');
     }
     // La suppression n'est pas contaminante par défaut
-    if (isset($_GET['action']) && $_GET['action'] === 'supprimer') {
+    if (isset($_GET['action']) && $_GET['action'] === RessourceObject::ACTION_SUPPRIMER) {
         $listeImages = ImageObject::chargerMultiple([$monImage->getMd5()], RessourceObject::SEARCH_BY_MD5);
         foreach ($listeImages as $image) {
             $image->supprimer();
@@ -96,54 +96,54 @@ $tabTables[] = [
 ];
 ?>
     <?php foreach ($tabTables as $uneTable) : ?>
-        <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>
-        <div class="card">
-            <div class="card-header">
-                <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
-            </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Actions</th>
-                            <th class="text-break">Nom originel</th>
-                            <th class="text-break">Date d'envoi</th>
-                            <th class="text-break">IP envoi</th>
-                            <th class="text-break">Nb vues</th>
-                            <th class="text-break">Dernier affichage</th>
-                            <th class="text-break">Utilisateur</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($mesImages as $uneImage) : ?>
-                            <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
-                                <td>
-                                    <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" class="<?= $uneImage->getHtmlClass() ?>">
-                                        <img src="<?= $uneImage->getPreviewMiniature()->getURL(true) ?>?forceDisplay=1" style="max-width: <?= (_SIZE_PREVIEW_ / 2) ?>px; max-height: <?= (_SIZE_PREVIEW_ / 2) ?>px" loading="lazy">
-                                        <br />
-                                        <?= $uneImage->getNomNouveau() ?>
-                                    </a>
-                                </td>
-                                <td class="text-nowrap">
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'approuver');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'bloquer');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
-                                    <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', 'supprimer');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
-                                </td>
-                                <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
-                                <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                                <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
-                                <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
-                                <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
-                                <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+    <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>
+    <div class="card">
+        <div class="card-header">
+            <?= count($uneTable['values']) ?> image<?= (count($uneTable['values']) > 1 ? 's' : '') . ' ' . str_replace('##', (count($uneTable['values']) > 1 ? 's' : ''), $uneTable['legende']) ?>
         </div>
-        <br>
-    <?php endforeach; ?>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Actions</th>
+                        <th class="text-break">Nom originel</th>
+                        <th class="text-break">Date d'envoi</th>
+                        <th class="text-break">IP envoi</th>
+                        <th class="text-break">Nb vues</th>
+                        <th class="text-break">Dernier affichage</th>
+                        <th class="text-break">Utilisateur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($mesImages as $uneImage) : ?>
+                        <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
+                            <td>
+                                <a href="<?= $uneImage->getURL(true) ?>?forceDisplay=1" target="_blank" class="<?= $uneImage->getHtmlClass() ?>">
+                                    <img src="<?= $uneImage->getPreviewMiniature()->getURL(true) ?>?forceDisplay=1" style="max-width: <?= (_SIZE_PREVIEW_ / 2) ?>px; max-height: <?= (_SIZE_PREVIEW_ / 2) ?>px" loading="lazy">
+                                    <br/>
+                                    <?= $uneImage->getNomNouveau() ?>
+                                </a>
+                            </td>
+                            <td class="text-nowrap">
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_APPROUVER ?>');" title="Approuver"><span class="bi-hand-thumbs-up-fill text-success"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_BLOQUER ?>');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
+                                <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_SUPPRIMER ?>');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
+                            </td>
+                            <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
+                            <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
+                            <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
+                            <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
+                            <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+<?php endforeach; ?>
     <script>
         /**
          * Gestion des actions sur les images
