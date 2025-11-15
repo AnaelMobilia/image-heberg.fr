@@ -144,12 +144,20 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', '<?= _URL_ADMIN_ . basename(__FILE__) ?>?action=' + action + '&idImage=' + idImage);
                 xhr.onload = function () {
-                    if (xhr.status === 200 && xhr.responseText === 'OK' && action === '<?= RessourceObject::ACTION_SUPPRIMER ?>') {
-                        // En cas de succès, supprimer les lignes correspondantes
-                        const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
-                        images.forEach(function (ligne) {
-                            ligne.remove();
-                        });
+                    if (xhr.status === 200 && xhr.responseText === 'OK') {
+                        if (action === '<?=RessourceObject::ACTION_SUPPRIMER ?>') {
+                            // En cas de succès, supprimer les lignes correspondantes
+                            const images = document.querySelectorAll('tr[data-id="' + idImage + '"], tr[data-md5="' + md5 + '"]');
+                            images.forEach(function (ligne) {
+                                ligne.remove();
+                            });
+                        } else {
+                            const images = document.querySelectorAll('tr[data-id="' + idImage + '"] > td > a, tr[data-md5="' + md5 + '"] > td > a');
+                            images.forEach(function (ligne) {
+                                ligne.setAttribute('class', action);
+                                console.log(ligne);
+                            });
+                        }
                     }
                 };
                 xhr.onerror = function () {

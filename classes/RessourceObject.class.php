@@ -763,10 +763,10 @@ abstract class RessourceObject
     public function getHtmlClass(): string
     {
         if ($this->isBloquee()) {
-            return 'blocked';
+            return 'bloquer';
         }
         if ($this->isApprouvee()) {
-            return 'validated';
+            return 'approuver';
         }
         return '';
     }

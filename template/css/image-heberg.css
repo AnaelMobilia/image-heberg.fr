@@ -53,11 +53,11 @@ a {
 }
 
 /* Admin -> image validée */
-.validated {
+.approuver {
     text-decoration: underline double green;
 }
 
 /* Admin -> image bloquée */
-.blocked {
+.bloquer {
     text-decoration: line-through double red;
 }
