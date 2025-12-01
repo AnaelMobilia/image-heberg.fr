@@ -25,12 +25,12 @@ require 'config/config.php';
 require _TPL_TOP_;
 
 // Stats Images
-$reqImage = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize, MAX(id) as nbTot FROM images');
+$reqImage = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, MAX(id) as nbTot FROM images');
 // Je récupère les valeurs
 $valImage = $reqImage->fetch();
 
 // Stats Miniatures
-$reqMiniature = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff, SUM(size) as totSize FROM thumbnails WHERE is_preview = 0');
+$reqMiniature = MaBDD::getInstance()->query('SELECT COUNT(*) AS nb, SUM(nb_view_v4 * size) AS bpv4, SUM(nb_view_v6 * size) AS bpv6, SUM(nb_view_v4 + nb_view_v6) AS nbAff FROM thumbnails WHERE is_preview = 0');
 // Je récupère les valeurs
 $valMiniature = $reqMiniature->fetch();
 
@@ -51,8 +51,6 @@ $bp_v6 = $valImage->bpv6 + $valMiniature->bpv6;
 $bp_all += $bp_v6;
 // Nombre d'affichages
 $nb_view_all = $valImage->nbAff + $valMiniature->nbAff;
-// Taille totale
-$size_all = $valImage->totSize + $valMiniature->totSize;
 ?>
 <h1 class="mb-3"><small>Statistiques</small></h1>
 
@@ -67,7 +65,7 @@ $size_all = $valImage->totSize + $valMiniature->totSize;
                 <?= number_format($valMiniature->nb, 0, ',', ' ') ?> miniatures actuellement hébergées.
             </li>
             <li>
-                <?= number_format($size_all / 1073741824, 1, ',', ' ') ?> Go de fichiers actuellement stockés.
+                <?= number_format(HelperSysteme::getHDDUsage(), 1, ',', ' ') ?> Go de fichiers actuellement stockés.
             </li>
             <li>
                 <?= number_format($bp_all / 1073741824, 1, ',', ' ') ?> Go de trafic - dont
