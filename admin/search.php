@@ -182,12 +182,12 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         });
                     }
                 }
-                ;
-                xhr.onerror = function () {
-                    alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
-                };
-                xhr.send();
-            }
+            };
+            xhr.onerror = function () {
+                alert('Une erreur a été rencontrée lors de l\'action ' + action + ' sur l\'image ' + idImage + ' : ' + xhr.response);
+            };
+            xhr.send();
         }
+    }
 </script>
 <?php require _TPL_BOTTOM_; ?>
