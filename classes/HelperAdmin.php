@@ -51,7 +51,9 @@ abstract class HelperAdmin
                   FROM thumbnails th
                   WHERE th.images_id = im.id
                   AND th.last_view <> \'0000-00-00\'
-               )';
+               )
+               /* Protéger les images techniques */
+               AND im.id NOT IN (' . _ID_IMAGES_TECHNIQUES_ . ')';
         return self::queryOnNewName($req);
     }
 
@@ -79,7 +81,9 @@ abstract class HelperAdmin
                   FROM thumbnails th
                   WHERE th.images_id = im.id
                   AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
-               )';
+               )
+               /* Protéger les images techniques */
+               AND im.id NOT IN (' . _ID_IMAGES_TECHNIQUES_ . ')';
         return self::queryOnNewName($req);
     }
 
@@ -104,7 +108,9 @@ abstract class HelperAdmin
                   SELECT COUNT(*)
                   FROM possede po
                   WHERE po.membres_id = m.id
-               )';
+               )
+               /* Protéger le compte administrateur */
+               AND id NOT IN (' . _ID_ADMINISTRATEUR_ . ')';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
