@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.3', '8.4' ]
+        php-versions: [ '8.3', '8.4', '8.5' ]
     name: PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Configuration PHP
         uses: shivammathur/setup-php@v2
@@ -53,5 +53,4 @@ jobs:
           # Adaptation à l'environnement actuel
           php '__tests/_bootstrap.php'
       - name: Test de l'application - phpunit v11
-        if: ${{ matrix.php-versions != '8.0' }}
         run: phpunit --colors --display-warnings --display-errors __tests/
