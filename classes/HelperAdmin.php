@@ -67,8 +67,8 @@ abstract class HelperAdmin
         $req = 'SELECT im.new_name
                FROM images im
                WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
-               /* Non prise en compte des images jamais affichées */
-               AND im.last_view <> \'0000-00-00\'
+               /* Non prise en compte des images envoyées trop récemment */
+                AND im.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ + 1) . ' DAY)
                /* Préservation des images membres */
                AND 0 = (
                   SELECT COUNT(*)
