@@ -53,4 +53,4 @@ jobs:
           # Adaptation à l'environnement actuel
           php '__tests/_bootstrap.php'
       - name: Test de l'application - phpunit v11
-        run: phpunit --colors --display-warnings --display-errors __tests/
+        run: phpunit --display-all-issues --colors --display-warnings --display-errors __tests/
