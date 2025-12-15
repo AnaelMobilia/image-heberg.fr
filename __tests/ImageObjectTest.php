@@ -284,6 +284,7 @@ class ImageObjectTest extends TestCase
     public function testGenerationMiniaturesPreview(): void
     {
         require 'config/config.php';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $monImage = new ImageObject();
 
         /**
