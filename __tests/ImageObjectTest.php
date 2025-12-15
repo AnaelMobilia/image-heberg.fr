@@ -286,7 +286,11 @@ class ImageObjectTest extends TestCase
         require 'config/config.php';
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $monImage = new ImageObject();
-
+        $this->assertCount(
+            0,
+            new \ArrayObject(),
+            'rzerze'
+        );
         /**
          * Génération d'une miniature d'aperçu
          */
