@@ -80,6 +80,12 @@ require _TPL_TOP_;
             </a>
             <div class="clearfix"></div>
             <br/>
+            <a href="<?= _URL_ADMIN_ ?>expiration-images.php" class="btn btn-info">
+                <span class="bi-bar-chart"></span>
+                &nbsp;Statistiques
+            </a>
+            <div class="clearfix"></div>
+            <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanFilesNeverUsed.php" class="btn btn-warning">
                 <span class="bi-file-earmark-x"></span>
                 &nbsp;Supprimer les images jamais affichées et envoyées depuis plus de <?= _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ ?> jour<?= (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ > 1) ? 's' : '' ?>
