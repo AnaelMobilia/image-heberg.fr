@@ -33,7 +33,9 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
     if (isset($_GET['action']) && in_array($_GET['action'], [RessourceObject::ACTION_APPROUVER, RessourceObject::ACTION_BLOQUER], true)) {
         $monImage->{$_GET['action']}();
-        die('OK');
+        if (!defined('_PHPUNIT_')) {
+            die('OK');
+        }
     }
     // La suppression n'est pas contaminante par défaut
     if (isset($_GET['action']) && $_GET['action'] === RessourceObject::ACTION_SUPPRIMER) {
@@ -41,7 +43,9 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
         foreach ($listeImages as $image) {
             $image->supprimer();
         }
-        die('OK');
+        if (!defined('_PHPUNIT_')) {
+            die('OK');
+        }
     }
 }
 
@@ -94,6 +98,11 @@ $tabTables[] = [
         'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
         'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true),
 ];
+
+// Ne pas charger les contenus dans le cadre des tests
+if (_PHPUNIT_) {
+    $tabTables = [];
+}
 ?>
     <?php foreach ($tabTables as $uneTable) : ?>
     <?php $mesImages = ImageObject::chargerMultiple($uneTable['values'], RessourceObject::SEARCH_BY_NAME); ?>

@@ -318,13 +318,13 @@ class ImageObjectTest extends TestCase
          */
         $monImage->charger('97', RessourceObject::SEARCH_BY_ID);
         $this->assertEquals(
-            $monImage->getMiniatures(true),
+            $monImage->getMiniatures(true)->count(),
             0,
             'Avant génération de la miniature d\'aperçu d\'une image WebP animée, on en a aucune'
         );
         $monImage->getPreviewMiniature();
         $this->assertEquals(
-            $monImage->getMiniatures(true),
+            $monImage->getMiniatures(true)->count(),
             0,
             'Après la génération de la miniature d\'aperçu d\'une image WebP animée, on en a toujours pas car ce n\'est pas pris en charge.'
         );

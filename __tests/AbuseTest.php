@@ -132,6 +132,7 @@ class AbuseTest extends TestCase
     /**
      * Approbation d'une image signalée
      */
+    #[RunInSeparateProcess]
     public function testAbuseImageSignaleePuisApprouvee(): void
     {
         require 'config/config.php';
@@ -467,10 +468,11 @@ class AbuseTest extends TestCase
     {
         require 'config/config.php';
 
-        $images = ImageObject::chargerMultiple(['97a3a88502d6-theSameMd5-97a3a88502d6'], RessourceObject::SEARCH_BY_MD5);
+        $images = ImageObject::chargerMultiple(['97a3a88502-theSameMd5-97a3a88502'], RessourceObject::SEARCH_BY_MD5);
 
-        $this->assertTrue(
-            (count($images) >= 2),
+        $this->assertGreaterThanOrEqual(
+            2,
+            count($images),
             'Les images 15 et 16 sont censées avoir ce MD5'
         );
 
@@ -485,6 +487,14 @@ class AbuseTest extends TestCase
         $monImage = new ImageObject('15', RessourceObject::SEARCH_BY_ID);
         $monImage->setCategorieBlocage('Pornographie');
         $monImage->categoriser();
+
+        $images = ImageObject::chargerMultiple(['97a3a88502-theSameMd5-97a3a88502'], RessourceObject::SEARCH_BY_MD5);
+
+        $this->assertGreaterThanOrEqual(
+            2,
+            count($images),
+            'Les images 15 et 16 sont censées avoir ce MD5'
+        );
 
         foreach ($images as $image) {
             $this->assertSame(

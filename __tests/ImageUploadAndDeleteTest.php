@@ -76,7 +76,7 @@ class ImageUploadAndDeleteTest extends TestCase
      * Nombre de miniatures sur le HDD
      * @return int
      */
-    private static function countMiniaturesSurHDD(): int
+    private static function countMiniaturesSurHdd(): int
     {
         return HelperAdmin::getAllImagesNameHDD(_PATH_MINIATURES_)->count();
     }
@@ -109,6 +109,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -132,6 +134,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Envoi image doit créer image sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Envoi image doit créer miniature de preview en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Envoi image doit créer miniature de preview sur HDD'
+        );
     }
 
     /**
@@ -148,7 +160,7 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
-        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
         $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
@@ -169,9 +181,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image + miniature doit créer image en BDD'
         );
         $this->assertEquals(
-            ($nbThumbsBddBefore + 1),
+            ($nbThumbsBddBefore + 2),
             self::countMiniaturesEnBdd(),
-            'Envoi image + miniature doit créer miniature en BDD'
+            'Envoi image + miniature doit créer miniature en BDD + miniature de previex'
         );
         $this->assertEquals(
             ($nbImagesFilesBefore + 1),
@@ -179,9 +191,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image + miniature doit créer image sur HDD'
         );
         $this->assertEquals(
-            ($nbThumbsFilesBefore + 1),
-            self::countMiniaturesSurHDD(),
-            'Envoi image + miniature doit créer miniature sur HDD'
+            ($nbThumbsFilesBefore + 2),
+            self::countMiniaturesSurHdd(),
+            'Envoi image + miniature doit créer miniature sur HDD + miniature de preview'
         );
     }
 
@@ -200,7 +212,7 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
-        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
         $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
@@ -221,9 +233,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image + miniature (rotation) doit créer image en BDD'
         );
         $this->assertEquals(
-            ($nbThumbsBddBefore + 1),
+            ($nbThumbsBddBefore + 2),
             self::countMiniaturesEnBdd(),
-            'Envoi image + miniature (rotation) doit créer miniature en BDD'
+            'Envoi image + miniature (rotation) doit créer miniature en BDD + miniature pour preview'
         );
         $this->assertEquals(
             ($nbImagesFilesBefore + 1),
@@ -231,9 +243,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image + miniature (rotation) doit créer image sur HDD'
         );
         $this->assertEquals(
-            ($nbThumbsFilesBefore + 1),
-            self::countMiniaturesSurHDD(),
-            'Envoi image + miniature (rotation) doit créer miniature sur HDD'
+            ($nbThumbsFilesBefore + 2),
+            self::countMiniaturesSurHdd(),
+            'Envoi image + miniature (rotation) doit créer miniature sur HDD + miniature pour preview'
         );
     }
 
@@ -251,7 +263,7 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
-        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
         $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
@@ -273,9 +285,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Renvoi image - dde miniature - ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            ($nbThumbsBddBefore + 1),
+            ($nbThumbsBddBefore + 2),
             self::countMiniaturesEnBdd(),
-            'Renvoi image - dde miniature - doit créer miniature en BDD'
+            'Renvoi image - dde miniature - doit créer miniature en BDD + miniature pour preview'
         );
         $this->assertEquals(
             $nbImagesFilesBefore,
@@ -284,8 +296,8 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countMiniaturesSurHDD(),
-            'Renvoi image - dde miniature - doit créer miniature en BDD'
+            self::countMiniaturesSurHdd(),
+            'Renvoi image - dde miniature - doit créer miniature sur HDD mais pas pour preview'
         );
         $this->assertEquals(
             $nbImagesPossedeesBefore,
@@ -308,7 +320,7 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
-        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
         $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
@@ -330,9 +342,9 @@ class ImageUploadAndDeleteTest extends TestCase
             'Renvoi image - dde NOUVELLE miniature - ne doit pas être bloquée en BDD'
         );
         $this->assertEquals(
-            ($nbThumbsBddBefore + 1),
+            ($nbThumbsBddBefore + 2),
             self::countMiniaturesEnBdd(),
-            'Renvoi image - dde NOUVELLE miniature - doit créer miniature en BDD'
+            'Renvoi image - dde NOUVELLE miniature - doit créer miniature en BDD + miniature pour preview'
         );
         $this->assertEquals(
             $nbImagesFilesBefore,
@@ -341,7 +353,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore + 1),
-            self::countMiniaturesSurHDD(),
+            self::countMiniaturesSurHdd(),
             'Renvoi image - dde NOUVELLE miniature - doit créer miniature sur HDD'
         );
         $this->assertEquals(
@@ -363,6 +375,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -386,6 +400,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Non affichage du formulaire d\'upload ne doit pas créer d\'image sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Non affichage du formulaire d\'upload ne doit pas créer de miniature en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Non affichage du formulaire d\'upload ne doit pas créer de miniature sur HDD'
+        );
     }
 
     /**
@@ -398,6 +422,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -421,6 +447,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Absence de fichier envoyé ne doit pas créer d\'image sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Absence de fichier envoyé ne doit pas créer de minitaure en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Absence de fichier envoyé ne doit pas créer de miniature sur HDD'
+        );
     }
 
     /**
@@ -435,6 +471,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -458,6 +496,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Fichier trop gros ne doit pas créer d\'image sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Fichier trop gros ne doit pas créer de miniature en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Fichier trop gros ne doit pas créer de miniature sur HDD'
+        );
     }
 
     /**
@@ -473,6 +521,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -496,6 +546,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Type mime : pas une image ne doit pas créer d\'image sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Type mime : pas une image ne doit pas créer de miniature en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Type mime : pas une image ne doit pas créer de miniature sur HDD'
+        );
     }
 
     /**
@@ -511,6 +571,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -534,6 +596,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Type mime : fausse image ne doit pas créer d\'image sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Type mime : fausse image ne doit pas créer de miniature en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Type mime : fausse image ne doit pas créer de miniature sur HDD'
+        );
     }
 
     /**
@@ -549,6 +621,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -572,6 +646,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Type mime : extension incorrecte ne doit pas être bloquée sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Type mime : extension incorrecte ne doit pas être bloquée en BDD et créer miniature de preview'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Type mime : extension incorrecte ne doit pas être bloquée sur HDD et créer miniature de preview'
+        );
     }
 
     /**
@@ -587,6 +671,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -610,6 +696,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Image 10000x1 ne doit pas être bloquée sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Image 10000x1 ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Image 10000x1 ne doit pas être bloquée sur HDD'
+        );
     }
 
     /**
@@ -625,6 +721,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -648,6 +746,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Image 1x10000 ne doit pas être bloquée sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Image 1x10000 ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Image 1x10000 ne doit pas être bloquée sur HDD'
+        );
     }
 
     /**
@@ -663,6 +771,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -686,6 +796,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Image 15000x15000 doit être bloquée sur HDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Image 15000x15000 doit être bloquée en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Image 15000x15000 doit être bloquée sur HDD'
+        );
     }
 
     /**
@@ -707,6 +827,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -737,6 +859,16 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image authentifié ne doit pas être bloquée sur HDD'
         );
         $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Envoi image authentifié ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Envoi image authentifié ne doit pas être bloquée sur HDD'
+        );
+        $this->assertEquals(
             ($nbImagesPossedeesBefore + 1),
             self::countImagesPossedeesEnBdd(),
             'Envoi image authentifié (possede) ne doit pas être bloquée en BDD'
@@ -756,6 +888,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -778,6 +912,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Renvoi image doit être bloquée sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Renvoi image ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Renvoi image doit être bloquée sur HDD'
         );
         $this->assertEquals(
@@ -806,6 +950,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -836,6 +982,16 @@ class ImageUploadAndDeleteTest extends TestCase
             'Renvoi image doit être bloquée sur HDD'
         );
         $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Renvoi image ne doit pas être bloquée en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Renvoi image ne doit pas être bloquée sur HDD'
+        );
+        $this->assertEquals(
             ($nbImagesPossedeesBefore + 1),
             self::countImagesPossedeesEnBdd(),
             'Renvoi image (possede) doit modifier la BDD'
@@ -855,6 +1011,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -877,6 +1035,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Renvoi image authentifié doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Renvoi image authentifié ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Renvoi image authentifié doit être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -905,6 +1073,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -932,7 +1102,17 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
-            'Renvoi image authentifié ne doit être bloqué sur HDD'
+            'Renvoi image authentifié doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Renvoi image authentifié ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Renvoi image authentifié doit être bloqué sur HDD'
         );
         $this->assertEquals(
             ($nbImagesPossedeesBefore + 1),
@@ -960,6 +1140,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -990,6 +1172,16 @@ class ImageUploadAndDeleteTest extends TestCase
             'Renvoi image authentifié doit être bloqué sur HDD'
         );
         $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Renvoi image authentifié ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Renvoi image authentifié doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
             ($nbImagesPossedeesBefore + 1),
             self::countImagesPossedeesEnBdd(),
             'Renvoi image authentifié (possede) ne doit pas être bloquée en BDD'
@@ -1008,6 +1200,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1029,6 +1223,16 @@ class ImageUploadAndDeleteTest extends TestCase
             'Suppression image inexistante doit être bloqué sur BDD'
         );
         $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image inexistante doit être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Suppression image inexistante doit être bloqué sur BDD'
+        );
+        $this->assertEquals(
             $nbImagesPossedeesBefore,
             self::countImagesPossedeesEnBdd(),
             'Suppression image inexistante (possede) doit être bloqué en BDD'
@@ -1047,6 +1251,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1065,6 +1271,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Suppression image possédée par autrui doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image possédée par autrui doit être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image possédée par autrui doit être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1092,6 +1308,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1115,6 +1333,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Suppression image possédée par autrui doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image possédée par autrui doit être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image possédée par autrui doit être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1143,6 +1371,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1168,6 +1398,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore - 1),
+            self::countMiniaturesEnBdd(),
+            'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore - 1),
+            self::countMiniaturesSurHdd(),
+            'Suppression image avec délai dépassé via God Mode ne doit pas être bloqué sur HDD'
+        );
     }
 
     /**
@@ -1189,6 +1429,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1212,6 +1454,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             ($nbImagesFilesBefore - 1),
             self::countImagesSurHdd(),
+            'Suppression image possédée par autrui via God Mode ne doit pas être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image possédée par autrui via God Mode ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image possédée par autrui via God Mode ne doit pas être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1271,6 +1523,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1301,6 +1555,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesPossedeesEnBdd(),
             'Suppression image possédée (possede) ne doit pas être bloqué en BDD'
         );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image possédée ne doit pas être effacée du HDD car encore en usage par image_10.png'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Suppression image possédée (possede) ne doit pas être bloqué en BDD'
+        );
     }
 
     /**
@@ -1315,6 +1579,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1333,6 +1599,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Suppression image hors délai doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image hors délai doit être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image hors délai doit être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1357,6 +1633,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1375,6 +1653,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'Suppression image dans délai par autre IP doit être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image dans délai par autre IP doit être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image dans délai par autre IP doit être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1399,6 +1687,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
         ob_start();
@@ -1417,6 +1707,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             ($nbImagesFilesBefore - 1),
             self::countImagesSurHdd(),
+            'Suppression image anonyme dans délai ne doit pas être bloqué sur HDD'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Suppression image anonyme dans délai ne doit pas être bloqué en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'Suppression image anonyme dans délai ne doit pas être bloqué sur HDD'
         );
         $this->assertEquals(
@@ -1440,6 +1740,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -1463,6 +1765,16 @@ class ImageUploadAndDeleteTest extends TestCase
             self::countImagesSurHdd(),
             'Envoi image avec redim doit créer image sur HDD'
         );
+        $this->assertEquals(
+            ($nbThumbsBddBefore + 1),
+            self::countMiniaturesEnBdd(),
+            'Envoi image avec redim doit créer image en BDD'
+        );
+        $this->assertEquals(
+            ($nbThumbsFilesBefore + 1),
+            self::countMiniaturesSurHdd(),
+            'Envoi image avec redim doit créer image sur HDD'
+        );
     }
 
     /**
@@ -1480,6 +1792,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -1499,9 +1813,14 @@ class ImageUploadAndDeleteTest extends TestCase
             'Envoi image WebP animée avec modif doit créer une image en BDD'
         );
         $this->assertEquals(
-            ($nbImagesFilesBefore + 1),
-            self::countImagesSurHdd(),
-            'Envoi image WebP animée avec modif doit créer une image sur HDD'
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'Envoi image WebP animée avec modif ne doit pas créer une miniature de preview en BDD'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
+            'Envoi image WebP animée avec modif ne doit pas créer une miniature de previeuw sur HDD'
         );
         $this->assertFileEquals(
             $monImage->getPathMd5(),
@@ -1530,7 +1849,7 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
-        $nbThumbsFilesBefore = self::countMiniaturesSurHDD();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
         $nbThumbsBddBefore = self::countMiniaturesEnBdd();
         $nbImagesPossedeesBefore = self::countImagesPossedeesEnBdd();
 
@@ -1569,7 +1888,7 @@ class ImageUploadAndDeleteTest extends TestCase
         );
         $this->assertEquals(
             ($nbThumbsFilesBefore - 2),
-            self::countMiniaturesSurHDD(),
+            self::countMiniaturesSurHdd(),
             'Suppression miniatureS ne doit pas être bloqué sur HDD'
         );
     }
@@ -1590,6 +1909,8 @@ class ImageUploadAndDeleteTest extends TestCase
 
         $nbImagesFilesBefore = self::countImagesSurHdd();
         $nbImagesBddBefore = self::countImagesEnBdd();
+        $nbThumbsFilesBefore = self::countMiniaturesSurHdd();
+        $nbThumbsBddBefore = self::countMiniaturesEnBdd();
 
         ob_start();
         require 'upload.php';
@@ -1611,6 +1932,16 @@ class ImageUploadAndDeleteTest extends TestCase
         $this->assertEquals(
             $nbImagesFilesBefore,
             self::countImagesSurHdd(),
+            'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
+        );
+        $this->assertEquals(
+            $nbThumbsBddBefore,
+            self::countMiniaturesEnBdd(),
+            'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
+        );
+        $this->assertEquals(
+            $nbThumbsFilesBefore,
+            self::countMiniaturesSurHdd(),
             'L\'envoi d\'une image depuis une réseau ayant déjà trop d\'images bloquées ne doit pas être possible.'
         );
     }

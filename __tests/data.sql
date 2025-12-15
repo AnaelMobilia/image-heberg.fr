@@ -30,10 +30,10 @@ INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_na
 (12, '127.0.0.10', 1234, NOW(), 'image_portrait_600x800.png', 'image_12.png', 4239, 400, 640, '0000-00-00', 0, 0, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (13, '127.0.0.10', 1234, NOW(), 'imageBleue10.png', 'image_13.png', 4239, 400, 640, '0000-00-00', 0, 0, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (14, '127.0.0.1', 1234, '2016-01-01 00:00:00', 'image_a_supprimerMultiple.png', 'image_14.png', 4239, 400, 640, '0000-00-00', 0, 0, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
-(15, '127.0.0.1', 1234, '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', 'image_15.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0', ''),
-(16, '127.0.0.1', 1234, '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', 'image_16.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502d6-theSameMd5-97a3a88502d6', 0, 0, 0, '127.0.0', ''),
+(15, '127.0.0.1', 1234, '2016-01-01 00:00:00', 'imageQuiSeraBloquee.png', 'image_15.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502-theSameMd5-97a3a88502', 0, 0, 0, '127.0.0', ''),
+(16, '127.0.0.1', 1234, '2016-01-01 00:00:00', 'imageAvecMemeMd5QuiDoitEtreBloquee.png', 'image_16.png', 4239, 400, 640, '0000-00-00', 0, 0, '97a3a88502-theSameMd5-97a3a88502', 0, 0, 0, '127.0.0', ''),
 (17, '127.0.0.1', 1234, '2023-01-01 00:00:00', 'imagePeuAfficheeMaisMignatureBeaucoupAffichee.png', 'image_17.png', 4239, 400, 640, '0000-00-00', 1000, 1000, 'not-used--be5e3e8d65ecefdc0dbcca', 0, 0, 0, '127.0.0', ''),
-(96, '128.0.0.1', 1234, '2023-01-01 00:00:00', 'imageBloqueeCategoriseeQuiSeraApprouvee.jpg', 'image_96.png', 4239, 400, 640, '0000-00-00', 10, 10, 'not-used--d7a89f173d7c6c287beea4', 1, 0, 0, '128.0.0', 'Pornographie'),
+(96, '128.0.0.1', 1234, '2023-01-01 00:00:00', 'imageBloqueeCategoriseeQuiSeraApprouvee.jpg', 'image_96.png', 4239, 400, 640, '0000-00-00', 10, 10, 'not-used--d7a89f173d7c6c287beea4', 0, 1, 0, '128.0.0', 'Pornographie'),
 (97, '127.0.0.1', 1234, '2023-01-01 00:00:00', 'animated-image.webp', 'image_97.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (98, '127.0.0.1', 1234, '2023-01-01 00:00:00', 'image_a_supprimer_godMode.png', 'image_98.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', ''),
 (99, '127.0.0.1', 1234, '2023-01-01 00:00:00', 'image_a_supprimer_godMode2.png', 'image_99.png', 4239, 400, 640, '0000-00-00', 10, 10, 'to-be-calculatedto-be-calculated', 0, 0, 0, '127.0.0', '');
