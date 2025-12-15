@@ -107,6 +107,19 @@ INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_na
     (35, '127.0.0.1', 1234, NOW(), 'imageDejaValidee.png', 'image_35.png', 1, 1, 1, NOW(), 10, 10, 'not-used--ba9cb5a0afba67138bd328', 0, 0, 1, '127.0.0', '');
 
 --
+-- Images pour le calcul des suppressions
+--
+INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_name`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`, `isBloquee`, `isSignalee`, `isApprouvee`, `abuse_network`, `abuse_categorie`) VALUES
+    (36, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 8 DAY), 'neverUsedFileWithoutThumbs.png', 'image_36.png', 1, 1, 1, '0000-00-00', 0, 0, 'not-used--ba9cb5a0afba67138bd336', 0, 0, 0, '127.0.0', ''),
+    (37, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 8 DAY), 'neverUsedFileWithThumbsNotDisplayed.png', 'image_37.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd337', 0, 0, 0, '127.0.0', ''),
+    (38, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 8 DAY), 'neverUsedFileWithThumbsDisplayed.png', 'image_38.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd338', 0, 0, 0, '127.0.0', ''),
+    (39, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 8 DAY), 'neverUsedFileWithoutThumbsButOwned.png', 'image_39.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd339', 0, 0, 0, '127.0.0', ''),
+    (40, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithoutThumbs.png', 'image_40.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd340', 0, 0, 0, '127.0.0', ''),
+    (41, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithThumbsNotBetter.png', 'image_41.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd341', 0, 0, 0, '127.0.0', ''),
+    (42, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithThumbsDisplayedRecently.png', 'image_42.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd342', 0, 0, 0, '127.0.0', ''),
+    (43, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithoutThumbsAndOwned.png', 'image_43.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd343', 0, 0, 0, '127.0.0', ''),
+    (44, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 'neverUsedFileWithThumbsDisplayedLongTimeAgo.png', 'image_44.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd344', 0, 0, 0, '127.0.0', '');
+--
 -- Agrandir la taille du champ pour bien gérer le _bootstrap
 --
 ALTER TABLE `thumbnails` MODIFY `new_name` VARCHAR(50) ;
@@ -121,15 +134,29 @@ INSERT INTO `thumbnails` (`id`, `images_id`, `date_action`, `new_name`, `size`, 
 --
 INSERT INTO `thumbnails` (`id`, `images_id`, `date_action`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`) VALUES
 (3, 20, '2023-01-01', '14777777.png', 10316, 100, 100, '2023-01-01', 999999999999, 999999999999, 'not-used--f12d4a42776aba3a16761e');
-
+--
+-- Miniatures pour le calcul des suppressions
+--
+INSERT INTO `thumbnails` (`id`, `images_id`, `date_action`, `new_name`, `size`, `height`, `width`, `last_view`, `nb_view_v4`, `nb_view_v6`, `md5`) VALUES
+    (4, 37, '2024-01-01', 'neverUsedFileWithThumbsNotDisplayed.png', 10316, 100, 100, '00-00-00', 0, 0, 'not-used--ba9cb5a0afba67138bd337'),
+    (5, 38, '2024-01-01', 'neverUsedFileWithThumbsDisplayed', 10316, 100, 100, NOW(), 10, 10, 'not-used--ba9cb5a0afba67138bd338'),
+    (6, 41, '2024-01-01', 'expiredFileWithThumbsNotBetter.png', 10316, 100, 100, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 10, 10, 'not-used--ba9cb5a0afba67138bd341'),
+    (7, 42, '2024-01-01', 'expiredFileWithThumbsDisplayedRecently.png', 10316, 100, 100, NOW(), 10, 10, 'not-used--ba9cb5a0afba67138bd342'),
+    (8, 44, '2024-01-01', 'neverUsedFileWithThumbsDisplayedLongTimeAgo.png', 10316, 100, 100, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 10, 10, 'not-used--ba9cb5a0afba67138bd344');
 
 --
 -- Possessions
 --
-INSERT INTO `possede` (`images_id`, `membres_id`) VALUES ('11', '2'),
-('14', '1'),
-('99', '2');
-
+INSERT INTO `possede` (`images_id`, `membres_id`) VALUES
+    (11, 2),
+    (14, 1),
+    (99, 2);
+--
+-- Possessions pour le calcul des suppressions
+--
+INSERT INTO `possede` (`images_id`, `membres_id`) VALUES
+    (39, 2),
+    (43, 2);
 
 --
 -- Second compte utilisateur
