@@ -8,7 +8,7 @@
  */
 
 /*
- * Copyright 2008-2025 Anael MOBILIA
+ * Copyright 2008-2026 Anael MOBILIA
  *
  * This file is part of image-heberg.fr.
  *
