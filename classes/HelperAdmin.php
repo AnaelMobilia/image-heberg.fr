@@ -109,8 +109,8 @@ abstract class HelperAdmin
                   FROM possede po
                   WHERE po.membres_id = m.id
                )
-               /* Protéger le compte administrateur */
-               AND id NOT IN (' . _ID_ADMINISTRATEUR_ . ')';
+               /* Protéger les comptes administrateur */
+               AND lvl NOT IN (' . UtilisateurObject::LEVEL_ADMIN . ')';
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);

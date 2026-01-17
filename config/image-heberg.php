@@ -178,9 +178,6 @@ define('_IMAGE_BAN_', '_image_banned.png');
 // ID des images techniques en BDD
 define('_ID_IMAGES_TECHNIQUES_', '1, 2');
 
-// ID du compte administrateur en BDD
-define('_ID_ADMINISTRATEUR_', '1');
-
 // Dimensions des aperçus dans l'espace membre
 define('_SIZE_PREVIEW_', 256);
 
