@@ -36,4 +36,14 @@ foreach ($listeComptes as $value) {
     echo '   -> ' . $monUtilisateur->getEmail() . ' - créé le ' . $monUtilisateur->getDateInscriptionFormate() . ' via IP ' . $monUtilisateur->getIpInscription() . PHP_EOL;
     $monUtilisateur->supprimer();
 }
+
+// Effacer les comptes inactifs
+echo 'Suppression des comptes inactifs ' . _DELAI_EFFACEMENT_COMPTES_INACTIFS_ . ' jours après leur dernière utilisation' . PHP_EOL;
+$listeComptes = HelperAdmin::getInactiveAccounts();
+foreach ($listeComptes as $value) {
+    // Je crée mon objet et lance la suppression
+    $monUtilisateur = new UtilisateurObject($value);
+    echo '   -> ' . $monUtilisateur->getEmail() . ' - créé le ' . $monUtilisateur->getDateInscriptionFormate() . ' via IP ' . $monUtilisateur->getIpInscription() . PHP_EOL;
+    $monUtilisateur->supprimer();
+}
 echo '...done' . PHP_EOL;
