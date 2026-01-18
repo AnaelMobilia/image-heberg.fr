@@ -162,4 +162,4 @@ INSERT INTO `possede` (`images_id`, `membres_id`) VALUES
 -- Second compte utilisateur
 --
 INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `remote_port`, `lvl`, `token`) VALUES
-(2, 'john.doe2@example.com', 'user', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', DATE(NOW()), '127.0.0.1', 1234, 1, '');
+(2, 'john.doe2@example.com', 'user', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', NOW(), '127.0.0.1', 1234, 1, '');

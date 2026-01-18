@@ -116,15 +116,6 @@ const _ABUSE_DISABLE_PICS_WHEN_USERE_AGENT_ = ['someUserAgentNumberOne', 'Anoter
 /**
  * FIN DES CHAMPS A CONFIGURER
  */
-/**
- * CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVIEZ INSTALLE UNE VERSION ANTERIEURE A v2.0.4
- */
-// Salt pour les mots de passe
-// Legacy - n'est plus requis !!
-const _GRAIN_DE_SEL_ = 'xxx';
-/**
- * FIN DES CHAMPS A COMPLETER UNIQUEMENT SI VOUS AVEZ UNE VERSION ANTERIEURE A v2.0.4
- */
 // Désactivation des tests Tests TRAVIS-CI
 const _PHPUNIT_ = false;
 

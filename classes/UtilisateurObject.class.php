@@ -203,10 +203,10 @@ class UtilisateurObject
     }
 
     /**
-     * Mot de passe à crypter
+     * Mot de passe à chiffrer
      * @param string $password
      */
-    public function setPasswordToCrypt(string $password): void
+    public function setPasswordToHash(string $password): void
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
@@ -268,10 +268,10 @@ class UtilisateurObject
     /**
      * Connexion d'un utilisateur : vérification & création de la session
      * @param string $user Nom de l'utilisateur
-     * @param string $pwd Mot de passe associé
+     * @param string $password Mot de passe associé
      * @return int ID de l'utilisateur (0 si identifiants invalides)
      */
-    private function verifierIdentifiants(string $user, string $pwd): int
+    private function verifierIdentifiants(string $user, string $password): int
     {
         // Identifiants KO par défaut
         $monRetour = 0;
@@ -284,36 +284,18 @@ class UtilisateurObject
         // Je récupère les potentielles valeurs
         $resultat = $req->fetch();
 
-        // Si l'utilisateur existe
-        if ($resultat !== false) {
-            // Faut-il mettre à jour le hash du mot de passe ?
-            $updateHash = false;
+        // Si l'utilisateur existe et que le mot de passe est le bon
+        if (
+            $resultat !== false
+            && password_verify($password, $resultat->password)
+        ) {
+            $monRetour = $resultat->id;
 
-            // Est-ce un cas de compatibilité avec les anciens mots de passe ?
-            if (!str_starts_with($resultat->password, '$')) {
-                // Les hash générés par crypt possédent un schème spécifique avec $ en premier chr
-                // https://en.wikipedia.org/wiki/Crypt_(C)#Key_derivation_functions_supported_by_crypt
-                if (hash_equals($resultat->password, hash('sha256', _GRAIN_DE_SEL_ . $pwd))) {
-                    // Ancien mot de passe => update hash du password ;-)
-                    $updateHash = true;
-                    // Identifiants matchent !
-                    $monRetour = $resultat->id;
-                }
-            } elseif (password_verify($pwd, $resultat->password)) {
-                // Cas standard : comparaison du hash du mot de passe fourni avec celui stocké en base
-                // => Faut-il mettre à jour le chiffrement utilisé ?
-                if (password_needs_rehash($resultat->password, PASSWORD_DEFAULT)) {
-                    $updateHash = true;
-                }
-                // Identifiants matchent !
-                $monRetour = $resultat->id;
-            }
-
-            // Mise à jour du hash si requis
-            if ($updateHash) {
+            // Faut-il mettre à jour le chiffrement utilisé ?
+            if (password_needs_rehash($resultat->password, PASSWORD_DEFAULT)) {
                 $monUtilisateur = new UtilisateurObject();
                 $monUtilisateur->charger($resultat->id);
-                $monUtilisateur->setPasswordToCrypt($pwd);
+                $monUtilisateur->setPasswordToHash($password);
                 $monUtilisateur->modifier();
             }
         }

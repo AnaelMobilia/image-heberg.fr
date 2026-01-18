@@ -71,7 +71,7 @@ if (isset($_POST['valider']) && $maSession->checkFlag()) {
     // Nom d'utilisateur
     $monUtilisateur->setUserName($_POST['userName']);
     // Mot de passe - Crypté
-    $monUtilisateur->setPasswordToCrypt($_POST['userPassword']);
+    $monUtilisateur->setPasswordToHash($_POST['userPassword']);
     // Adresse mail
     $monUtilisateur->setEmail(strtolower($_POST['userMail']));
 
