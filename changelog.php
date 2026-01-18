@@ -46,12 +46,27 @@ require _TPL_TOP_;
     </div>
     <div class="card">
         <div class="card-header">
+            <a data-bs-toggle="collapse" href="#v28">
+                v2.8 - Janvier 2026
+                &nbsp;<span class="bi-caret-down-fill"></span>
+            </a>
+        </div>
+        <div id="v28" class="card-collapse">
+            <div class="card-body">
+                <ul>
+                    <li>Ajout d'une durée de conservation des comptes inactifs.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
             <a data-bs-toggle="collapse" href="#v27">
                 v2.7 - Septembre 2025
                 &nbsp;<span class="bi-caret-down-fill"></span>
             </a>
         </div>
-        <div id="v27" class="card-collapse">
+        <div id="v27" class="card-collapse collapse">
             <div class="card-body">
                 <ul>
                     <li>Ajout d'un aperçu de l'image avant l'envoi.</li>

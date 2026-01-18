@@ -89,11 +89,14 @@ require _TPL_TOP_;
                     Suppression des comptes membres qui n'ont jamais été utilisés au bout de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1 ? 's' : '' ?>.
                 </li>
                 <li>
+                    Suppression des comptes membres inactifs (sans connexion) au bout de <?= _DELAI_EFFACEMENT_COMPTES_INACTIFS_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_INACTIFS_ > 1 ? 's' : '' ?>.
+                </li>
+                <li>
                     Rappel : <a href="contact.php">l'administrateur (<?= _ADMINISTRATEUR_NOM_ ?>)</a> a accès à toutes les données du service.
                 </li>
             </ul>
             <div class="card-footer">
-                <em>Mises à jour le 02 janvier 2024 : ajout de précisions sur les images non autorisées + module de catégorisation IA.</em>
+                <em>CGU mises à jour le 18 janvier 2026 : ajout du délai de suppression des comptes membres inactifs.</em>
             </div>
         </div>
     </div>

@@ -27,8 +27,8 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-    <h1 class="mb-3"><small>Nettoyage des fichiers dormants</small></h1>
-<?php
+    <h1 class="mb-3"><small>Nettoyage des fichiers inactifs</small></h1>
+    <?php
 
 $message = '';
 

@@ -82,7 +82,7 @@ require _TPL_TOP_;
             <br/>
             <a href="<?= _URL_ADMIN_ ?>expiration-images.php" class="btn btn-info">
                 <span class="bi-bar-chart"></span>
-                &nbsp;Statistiques
+                &nbsp;Libération d'espace disque à venir
             </a>
             <div class="clearfix"></div>
             <br/>
@@ -94,13 +94,19 @@ require _TPL_TOP_;
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanInactiveFiles.php" class="btn btn-warning">
                 <span class="bi-file-earmark-x-fill"></span>
-                &nbsp;Supprimer les images non affichées depuis plus de <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour<?= (_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1) ? 's' : '' ?>
+                &nbsp;Supprimer les images inactives (dernier affichage <= <?= _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ ?> jour<?= (_DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ > 1) ? 's' : '' ?>)
             </a>
             <div class="clearfix"></div>
             <br/>
             <a href="<?= _URL_ADMIN_ ?>cleanAccountsNeverUsed.php" class="btn btn-warning">
                 <span class="bi-person-x"></span>
-                &nbsp;Supprimer les comptes créés il y a plus de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?> et sans images associées
+                &nbsp;Supprimer les comptes sans images et créés il y a plus de <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?>
+            </a>
+            <div class="clearfix"></div>
+            <br/>
+            <a href="<?= _URL_ADMIN_ ?>cleanInactiveAccounts.php" class="btn btn-warning">
+                <span class="bi-person-x-fill"></span>
+                &nbsp;Supprimer les comptes inactifs (dernière connexion <= <?= _DELAI_EFFACEMENT_COMPTES_INACTIFS_ ?> jour<?= (_DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1) ? 's' : '' ?>)
             </a>
         </div>
     </div>

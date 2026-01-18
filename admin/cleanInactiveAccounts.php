@@ -27,13 +27,13 @@ require '../config/config.php';
 UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
-    <h1 class="mb-3"><small>Nettoyage des comptes jamais utilisés</small></h1>
-<?php
+    <h1 class="mb-3"><small>Nettoyage des comptes inactifs</small></h1>
+    <?php
 
 $message = '';
 
-// Je récupère la liste des comptes jamais utilisés
-$listeComptes = HelperAdmin::getUnusedAccounts();
+// Je récupère la liste des comptes inactifs
+$listeComptes = HelperAdmin::getInactiveAccounts();
 $isPlural = ($listeComptes->count() > 1 ? 's' : '');
 
 // Si l'effacement est demandé
@@ -53,7 +53,7 @@ if (isset($_POST['effacer'])) :
 <?php else : ?>
     <div class="card">
         <div class="card-header">
-            <?= $listeComptes->count() ?> compte<?= $isPlural ?> créé<?= $isPlural ?> il y a au moins <?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ > 1 ? 's' : '' ?> et sans images associées
+            <?= $listeComptes->count() ?> compte<?= $isPlural ?> inactif<?= $isPlural ?> (>= <?= _DELAI_EFFACEMENT_COMPTES_INACTIFS_ ?> jour<?= _DELAI_EFFACEMENT_COMPTES_INACTIFS_ > 1 ? 's' : '' ?> sans connexion)
         </div>
         <div class="card-body">
             <table class="table table-bordered">
@@ -65,14 +65,14 @@ if (isset($_POST['effacer'])) :
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($listeComptes as $value) : ?>
-                <?php $monUtilisateur = new UtilisateurObject($value); ?>
-                <tr>
-                    <td><?= $monUtilisateur->getId() ?></td>
-                    <td><?= $monUtilisateur->getUserName() ?></td>
-                    <td><?= $monUtilisateur->getEmail() ?></td>
-                </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($listeComptes as $value) : ?>
+                        <?php $monUtilisateur = new UtilisateurObject($value); ?>
+                        <tr>
+                            <td><?= $monUtilisateur->getId() ?></td>
+                            <td><?= $monUtilisateur->getUserName() ?></td>
+                            <td><?= $monUtilisateur->getEmail() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

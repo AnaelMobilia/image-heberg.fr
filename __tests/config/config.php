@@ -69,6 +69,10 @@ const _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ = 365;
 const _QUOTA_MAXIMAL_IMAGES_GO_ = 90;
 // Affichage des messages d'erreur
 const _DEBUG_ = true;
+// Délai de conservation des comptes jamais utilisés (en jours)
+const _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ = 30;
+// Délai de conservation des comptes qui ne sont plus utilisés (en jours)
+const _DELAI_EFFACEMENT_COMPTES_INACTIFS_ = 365;
 
 
 /* Gestion des abus */

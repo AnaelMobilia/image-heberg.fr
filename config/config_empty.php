@@ -71,6 +71,8 @@ const _QUOTA_MAXIMAL_IMAGES_GO_ = 90;
 const _DEBUG_ = false;
 // Délai de conservation des comptes jamais utilisés (en jours)
 const _DELAI_EFFACEMENT_COMPTES_JAMAIS_UTILISES_ = 30;
+// Délai de conservation des comptes qui ne sont plus utilisés (en jours)
+const _DELAI_EFFACEMENT_COMPTES_INACTIFS_ = 365;
 
 
 /* Gestion des abus */

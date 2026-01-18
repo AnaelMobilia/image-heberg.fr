@@ -330,11 +330,15 @@ class UtilisateurObject
             $maSession->setUserObject($this);
 
             // J'enregistre en BDD la connexion réussie
+            $req = MaBDD::getInstance()->prepare('UPDATE membres SET last_login = NOW() WHERE id = :membresId');
+            $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
+            $req->execute();
+
+            // Je loggue les détails de la connexion
             $req = MaBDD::getInstance()->prepare('INSERT INTO login (remote_addr, remote_port, date_action, membres_id) VALUES (:ipLogin, :ipPortLogin, NOW(), :membresId)');
             $req->bindValue(':ipLogin', $_SERVER['REMOTE_ADDR']);
             $req->bindValue(':ipPortLogin', $_SERVER['REMOTE_PORT'], PDO::PARAM_INT);
             $req->bindValue(':membresId', $userID, PDO::PARAM_INT);
-
             $req->execute();
         }
 

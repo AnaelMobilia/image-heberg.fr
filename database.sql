@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `images`
     `nb_view_v4`      int          UNSIGNED NOT NULL,
     `nb_view_v6`      int          UNSIGNED NOT NULL,
     `md5`             varchar(32)  NOT NULL,
-    `isBloquee`       tinyint(1)   UNSIGNED NOT NULL,
-    `isSignalee`      tinyint(1)   UNSIGNED NOT NULL,
-    `isApprouvee`     tinyint(1)   UNSIGNED NOT NULL,
+    `isBloquee`       tinyint      UNSIGNED NOT NULL,
+    `isSignalee`      tinyint      UNSIGNED NOT NULL,
+    `isApprouvee`     tinyint      UNSIGNED NOT NULL,
     `abuse_network`   varchar(45)  NOT NULL,
     `abuse_categorie` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
@@ -82,9 +82,10 @@ CREATE TABLE IF NOT EXISTS `membres`
     `date_action` datetime    NOT NULL,
     `remote_addr` varchar(45) NOT NULL,
     `remote_port` smallint    UNSIGNED NOT NULL,
-    `lvl`         tinyint(1)  UNSIGNED NOT NULL,
-    `isActif`     tinyint(1)  UNSIGNED NOT NULL,
+    `lvl`         tinyint     UNSIGNED NOT NULL,
+    `isActif`     tinyint     UNSIGNED NOT NULL,
     `token`       text        NOT NULL,
+    `last_login`  datetime    NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `thumbnails`
 (
     `id`          int         UNSIGNED NOT NULL AUTO_INCREMENT,
     `images_id`   int         UNSIGNED NOT NULL,
-    `is_preview`  tinyint(1)  UNSIGNED NOT NULL,
+    `is_preview`  tinyint     UNSIGNED NOT NULL,
     `date_action` datetime    NOT NULL,
     `new_name`    varchar(30) NOT NULL,
     `size`        int         UNSIGNED NOT NULL,
@@ -135,9 +136,9 @@ CREATE TABLE IF NOT EXISTS `thumbnails`
 -- Création du compte administrateur
 --
 INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `lvl`, `isActif`,
-                       `token`)
-VALUES (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', DATE(NOW()),
-        '127.0.0.1', 2, 1, '');
+                       `token`, `last_login`)
+VALUES (1, 'john.doe@example.com', 'admin', '$2y$10$2mn2aXq7R2ROZhi9R3H1iO95vSXo0Vd02u3vAdAZSkZhcBq4Vd1bu', NOW(),
+        '127.0.0.1', 2, 1, '', NOW());
 
 --
 -- Images 404 & bannie

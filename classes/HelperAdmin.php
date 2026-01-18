@@ -96,7 +96,7 @@ abstract class HelperAdmin
         // Effacer les logs de connexion > 1 an
         $req = 'DELETE
                FROM login
-               WHERE date_action < (NOW() - INTERVAL 1 YEAR)';
+               WHERE date_action < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)';
         MaBDD::getInstance()->query($req);
 
         // Toutes les comptes créés et jamais utilisés depuis xx jours
@@ -110,7 +110,32 @@ abstract class HelperAdmin
                   WHERE po.membres_id = m.id
                )
                /* Protéger les comptes administrateur */
-               AND lvl NOT IN (' . UtilisateurObject::LEVEL_ADMIN . ')';
+               AND lvl <> ' . UtilisateurObject::LEVEL_ADMIN;
+
+        // Exécution de la requête
+        $resultat = MaBDD::getInstance()->query($req);
+
+        $monRetour = new ArrayObject();
+        // Pour chaque résultat retourné
+        foreach ($resultat->fetchAll() as $value) {
+            // J'ajoute l'ID du compte
+            $monRetour->append($value->id);
+        }
+
+        return $monRetour;
+    }
+    /**
+     * Liste des comptes inactifs
+     * @return ArrayObject
+     */
+    public static function getInactiveAccounts(): ArrayObject
+    {
+        // Toutes les comptes dont la date de dernière connexion dépasse xx jours
+        $req = 'SELECT m.id
+               FROM membres m
+               WHERE m.last_login < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_COMPTES_INACTIFS_ . ' DAY)
+               /* Protéger les comptes administrateur */
+               AND lvl <> ' . UtilisateurObject::LEVEL_ADMIN;
 
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);

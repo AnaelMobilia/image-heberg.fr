@@ -140,4 +140,83 @@ class AdminTest extends TestCase
             'neverUsedFileWithThumbsDisplayedLongTimeAgo.png doit être détectée (miniature affichée il y a trop longtemps)'
         );
     }
+
+
+    /**
+     * Les comptes admin ne doivent pas être détectés comme inactifs
+     */
+    #[RunInSeparateProcess]
+    public function testProtectionCompteAdmin(): void
+    {
+        require 'config/config.php';
+
+        $inactiveAccounts = HelperAdmin::getInactiveAccounts();
+        $unusedAccounts = HelperAdmin::getUnusedAccounts();
+
+        $this->assertContains(
+            4,
+            $inactiveAccounts,
+            'Le compte 4 doit être détecté'
+        );
+        $this->assertContains(
+            4,
+            $unusedAccounts,
+            'Le compte 4 doit être détecté'
+        );
+        $this->assertNotContains(
+            3,
+            $inactiveAccounts,
+            'Le compte 3 ne doit pas être détecté'
+        );
+        $this->assertNotContains(
+            3,
+            $unusedAccounts,
+            'Le compte 3 ne doit pas être détecté'
+        );
+    }
+
+    /**
+     * Détection des comptes qui n'ont jamais été utilisés
+     */
+    #[RunInSeparateProcess]
+    public function testUnusedAccounts(): void
+    {
+        require 'config/config.php';
+
+        $unusedAccounts = HelperAdmin::getUnusedAccounts();
+
+        $this->assertContains(
+            5,
+            $unusedAccounts,
+            'Le compte 5 doit être détecté'
+        );
+        $this->assertNotContains(
+            6,
+            $unusedAccounts,
+            'Le compte 6 ne doit pas être détecté'
+        );
+    }
+
+
+    /**
+     * Détection des comptes inactifs
+     */
+    #[RunInSeparateProcess]
+    public function testInactiveAccounts(): void
+    {
+        require 'config/config.php';
+
+        $inactiveAccounts = HelperAdmin::getInactiveAccounts();
+
+        $this->assertContains(
+            4,
+            $inactiveAccounts,
+            'Le compte 4 doit être détecté'
+        );
+        $this->assertNotContains(
+            5,
+            $inactiveAccounts,
+            'Le compte 5 ne doit pas être détecté'
+        );
+    }
 }

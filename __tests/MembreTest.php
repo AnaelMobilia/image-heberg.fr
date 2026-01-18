@@ -143,7 +143,7 @@ class MembreTest extends TestCase
         /**
          * Récupération d'un objet
          */
-        $monMembre = new UtilisateurObject(3);
+        $monMembre = new UtilisateurObject(7);
 
         /**
          * Vérification des valeurs
@@ -156,7 +156,7 @@ class MembreTest extends TestCase
         );
         // ID
         $this->assertEquals(
-            3,
+            7,
             $monMembre->getId()
         );
         // @ IP d'inscription
@@ -214,7 +214,7 @@ class MembreTest extends TestCase
         /**
          * Récupération de l'utilisateur
          */
-        $monMembre = new UtilisateurObject(3);
+        $monMembre = new UtilisateurObject(7);
 
         /**
          * Vérification des valeurs

@@ -161,5 +161,17 @@ INSERT INTO `possede` (`images_id`, `membres_id`) VALUES
 --
 -- Second compte utilisateur
 --
-INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `remote_port`, `lvl`, `token`) VALUES
-(2, 'john.doe2@example.com', 'user', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', NOW(), '127.0.0.1', 1234, 1, '');
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `remote_port`, `lvl`, `token`, `last_login`) VALUES
+    (2, 'john.doe2@example.com', 'user', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', NOW(), '127.0.0.1', 1234, 1, '', NOW());
+
+--
+-- Gestion des comptes inactifs / non utilisés
+--
+INSERT INTO `membres` (`id`, `email`, `login`, `password`, `date_action`, `remote_addr`, `remote_port`, `lvl`, `token`, `last_login`) VALUES
+    (3, 'inactive-but-lvl-admin@example.com', 'membre3', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', '2020-01-01 00:00:00', '127.0.0.1', 1234, 2, '', '2020-01-01 00:00:00'),
+    (4, 'inactive-and-not-admin@example.com', 'membre4', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', '2020-01-01 00:00:00', '127.0.0.1', 1234, 1, '', '2020-01-01 00:00:00'),
+    (5, 'unused-account@example.com', 'membre5', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY), '127.0.0.1', 1234, 1, '', DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY)),
+    (6, 'used-account@example.com', 'membre6', '$2y$12$vMyiKcBZA5BsaYaRMIQac.fYUBTFTFrpbGm0oxbMBDCAKlf1SQ1gq', DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY), '127.0.0.1', 1234, 1, '', DATE_SUB(CURRENT_DATE(), INTERVAL 31 DAY));
+
+INSERT INTO `possede` (`images_id`, `membres_id`) VALUES
+      (35, 6);
