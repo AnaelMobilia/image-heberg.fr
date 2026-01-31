@@ -33,7 +33,7 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
     if (isset($_GET['action']) && in_array($_GET['action'], [RessourceObject::ACTION_APPROUVER, RessourceObject::ACTION_BLOQUER], true)) {
         $monImage->{$_GET['action']}();
-        if (!defined('_PHPUNIT_')) {
+        if (!'_PHPUNIT_') {
             die('OK');
         }
     }
@@ -43,7 +43,7 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
         foreach ($listeImages as $image) {
             $image->supprimer();
         }
-        if (!defined('_PHPUNIT_')) {
+        if (!'_PHPUNIT_') {
             die('OK');
         }
     }
