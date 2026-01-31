@@ -31,6 +31,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
 {
     private int $idImage;
     private bool $isPreview = false;
+    private string $versionImagick;
 
     /**
      * Constructeur
@@ -77,6 +78,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setNomNouveau($resultat->new_name);
             $this->setIdImage($resultat->images_id);
             $this->setIsPreview($resultat->is_preview);
+            $this->setVersionImagick($resultat->version_imagick);
 
             // Reprise des informations de l'image maitresse
             $imageParente = new ImageObject();
@@ -102,7 +104,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function sauver(): void
     {
         // J'enregistre les infos en BDD
-        $req = MaBDD::getInstance()->prepare('UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_action = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5 WHERE id = :id');
+        $req = MaBDD::getInstance()->prepare('UPDATE thumbnails SET images_id = :imagesId, is_preview = :isPreview, date_action = :dateCreation, new_name = :newName, size = :size, height = :height, width = :width, last_view = :lastView, nb_view_v4 = :nbViewV4, nb_view_v6 = :nbViewV6, md5 = :md5, version_imagick = :version_imagick WHERE id = :id');
 
         $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
         $req->bindValue(':isPreview', $this->getIsPreview(), PDO::PARAM_INT);
@@ -116,6 +118,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
         $req->bindValue(':nbViewV6', $this->getNbViewIPv6(), PDO::PARAM_INT);
         $req->bindValue(':md5', $this->getMd5());
         $req->bindValue(':id', $this->getId(), PDO::PARAM_INT);
+        $req->bindValue(':version_imagick', $this->getVersionImagick());
 
         $req->execute();
     }
@@ -184,11 +187,13 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $this->setHauteur($imageInfo[1]);
             // Poids
             $this->setPoids(filesize($this->getPathMd5()));
+            // Version d'Imagick
+            $this->setVersionImagick(HelperSysteme::getImagickVersion());
 
             /**
              * Création en BDD
              */
-            $req = MaBDD::getInstance()->prepare('INSERT INTO thumbnails (images_id, date_action, new_name, size, height, width, md5) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5)');
+            $req = MaBDD::getInstance()->prepare('INSERT INTO thumbnails (images_id, date_action, new_name, size, height, width, md5, version_imagick) VALUES (:imagesId, NOW(), :newName, :size, :height, :width, :md5, :version_imagick)');
             $req->bindValue(':imagesId', $this->getIdImage(), PDO::PARAM_INT);
             // Date : NOW()
             $req->bindValue(':newName', $this->getNomNouveau());
@@ -196,6 +201,7 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
             $req->bindValue(':height', $this->getHauteur(), PDO::PARAM_INT);
             $req->bindValue(':width', $this->getLargeur(), PDO::PARAM_INT);
             $req->bindValue(':md5', $this->getMd5());
+            $req->bindValue(':version_imagick', $this->getVersionImagick());
 
             if (!$req->execute()) {
                 // Gestion de l'erreur d'insertion en BDD
@@ -244,5 +250,22 @@ class MiniatureObject extends RessourceObject implements RessourceInterface
     public function setIsPreview(bool $isPreview): void
     {
         $this->isPreview = $isPreview;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersionImagick(): string
+    {
+        return $this->versionImagick;
+    }
+
+    /**
+     * @param string $versionImagick
+     * @return void
+     */
+    public function setVersionImagick(string $versionImagick): void
+    {
+        $this->versionImagick = $versionImagick;
     }
 }
