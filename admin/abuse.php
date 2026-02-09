@@ -33,7 +33,7 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
     $monImage = new ImageObject($_GET['idImage'], RessourceObject::SEARCH_BY_ID);
     if (isset($_GET['action']) && in_array($_GET['action'], [RessourceObject::ACTION_APPROUVER, RessourceObject::ACTION_BLOQUER], true)) {
         $monImage->{$_GET['action']}();
-        if (!'_PHPUNIT_') {
+        if (!_PHPUNIT_) {
             die('OK');
         }
     }
@@ -43,7 +43,7 @@ if (isset($_GET['idImage']) && preg_match('#^[0-9]+$#', $_GET['idImage'])) {
         foreach ($listeImages as $image) {
             $image->supprimer();
         }
-        if (!'_PHPUNIT_') {
+        if (!_PHPUNIT_) {
             die('OK');
         }
     }
@@ -60,43 +60,43 @@ $tabTables = [];
  */
 // Liste des images avec un ratio d'affichage incohérent
 $tabTables[] = [
-        'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-        'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_),
+    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
+    'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_),
 ];
 // Liste des images avec un ratio d'affichage incohérent EN PROJECTION
 $tabTables[] = [
-        'legende' => 'projetée## avec un nombre d\'affichages > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
-        'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_, false, true),
+    'legende' => 'projetée## avec un nombre d\'affichages > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ . ' fois/jour <small>(blocage automatique à ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ . '</small>)',
+    'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_, false, true),
 ];
 // Liste des images suspectes avec un ratio d'affichage incohérent
 $tabTables[] = [
-        'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-        'values'  => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true),
+    'legende' => '<b>suspecte##</b> affichée## > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
+    'values'  => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true),
 ];
 // Liste des images suspectes avec un ratio d'affichage incohérent EN PROJECTION
 $tabTables[] = [
-        'legende' => '<b>suspecte##</b> projetée## avec un nombre d\'affichages > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
-        'values'  => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true, true),
+    'legende' => '<b>suspecte##</b> projetée## avec un nombre d\'affichages > ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . ' fois/jour <small>(blocage automatique à ' . (_ABUSE_NB_AFFICHAGES_PAR_JOUR_BLOCAGE_AUTO_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_) . '</small>)',
+    'values'  => HelperAdmin::getImagesTropAffichees((_ABUSE_NB_AFFICHAGES_PAR_JOUR_WARNING_ / _ABUSE_DIVISION_SEUILS_SI_SUSPECT_), true, true),
 ];
 // Liste des images signalées
 $tabTables[] = [
-        'legende' => 'signalée##',
-        'values'  => HelperAdmin::getImagesSignalees(),
+    'legende' => 'signalée##',
+    'values'  => HelperAdmin::getImagesSignalees(),
 ];
 // Liste des images suspectes
 $tabTables[] = [
-        'legende' => 'suspecte##',
-        'values'  => HelperAdmin::getImagesPotentiellementIndesirables(),
+    'legende' => 'suspecte##',
+    'values'  => HelperAdmin::getImagesPotentiellementIndesirables(),
 ];
 // Liste des images approuvables
 $tabTables[] = [
-        'legende' => 'approuvable##',
-        'values'  => HelperAdmin::getImagesPotentiellementApprouvables(),
+    'legende' => 'approuvable##',
+    'values'  => HelperAdmin::getImagesPotentiellementApprouvables(),
 ];
 // Liste de TOUTES les images avec un ratio d'affichage abusif
 $tabTables[] = [
-        'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
-        'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true),
+    'legende' => 'affichée## > ' . _ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_ . ' fois/jour',
+    'values'  => HelperAdmin::getImagesTropAffichees(_ABUSE_NB_AFFICHAGES_PAR_JOUR_ABUSIF_, false, false, true),
 ];
 
 // Ne pas charger les contenus dans le cadre des tests
