@@ -153,12 +153,19 @@ abstract class HelperSysteme
     public static function getHDDUsage(): float
     {
         // Poids de l'ensemble des images
-        $req = 'SELECT SUM(im.size) AS images, (
-                  SELECT SUM(th.size)
-                  FROM thumbnails th
-               ) AS miniatures
-               FROM images im';
-
+        $req = 'SELECT (
+                    SELECT SUM(im.size) AS images FROM (
+                        SELECT im.size
+                        FROM images im
+                        GROUP BY im.md5
+                    ) AS im
+                ) AS images, (
+                    SELECT SUM(th.size) AS miniatures FROM (
+                        SELECT th.size
+                        FROM thumbnails th
+                        GROUP BY th.md5
+                    ) AS th
+                ) as miniatures';
         // Exécution de la requête
         $resultat = MaBDD::getInstance()->query($req);
 
