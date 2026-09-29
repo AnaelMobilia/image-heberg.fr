@@ -42,11 +42,11 @@ foreach ($resultat->fetchAll() as $value) {
     if (!isset($tabImages[$value->md5])) {
         // Initialiser l'objet
         $tabImages[$value->md5] = [
-                'size'        => $value->size,
-                'bloquee'     => false,
-                'possedee'    => false,
-                'date_action' => $value->date_action,
-                'last_view'   => $value->last_view,
+            'size'        => $value->size,
+            'bloquee'     => false,
+            'possedee'    => false,
+            'date_action' => $value->date_action,
+            'last_view'   => $value->last_view,
         ];
     }
     // Mise à jour des infos de l'image (plusieurs images avec le même MD5)

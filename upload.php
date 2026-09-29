@@ -191,8 +191,8 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
         <br/>
         <?= $msgErreur ?>
     </div>
-    <?php else : ?>
-        <?php if (!empty($msgWarning)) : ?>
+<?php else : ?>
+    <?php if (!empty($msgWarning)) : ?>
         <div class="alert alert-warning">
             <span class="bi-x-circle"></span>
             &nbsp;
@@ -200,7 +200,7 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
             <br/>
             <?= $msgWarning ?>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
     <div class="alert alert-success">
         <span class="bi-check"></span>
         &nbsp;
@@ -306,5 +306,5 @@ if (empty($msgErreur) && !empty($_POST['dimMiniature'])) {
             </a>
         </div>
     </div>
-    <?php endif; ?>
+<?php endif; ?>
     <?php require _TPL_BOTTOM_; ?>

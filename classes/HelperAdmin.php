@@ -134,6 +134,7 @@ abstract class HelperAdmin
 
         return $monRetour;
     }
+
     /**
      * Liste des comptes inactifs
      * @return ArrayObject

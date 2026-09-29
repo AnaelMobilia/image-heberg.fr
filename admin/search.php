@@ -55,19 +55,19 @@ if (!empty($_POST['lastId']) && preg_match('#^[0-9]+$#', $_POST['lastId'])) {
 }
 $lastId = '';
 $table = [
-        'legende' => 'trouvée##',
-        'values'  => [],
+    'legende' => 'trouvée##',
+    'values'  => [],
 ];
 /**
  * Recherche
  */
 $tabSearch = [
-        'Adresse IP'   => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
-        'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
-        'Nouveau nom'  => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
-        'Utilisateur'  => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY im.id DESC LIMIT ' . _PAGINATION_IMAGES_,
-        'Bloquée'      => 'SELECT new_name FROM images WHERE isBloquee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
-        'Approuvée'    => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Adresse IP'   => 'SELECT new_name FROM images WHERE remote_addr LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Nom originel' => 'SELECT new_name FROM images WHERE old_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Nouveau nom'  => 'SELECT new_name FROM images WHERE new_name LIKE \'%##value##%\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Utilisateur'  => 'SELECT im.new_name FROM images im LEFT JOIN possede po ON po.images_id = im.id WHERE po.membres_id = \'##value##\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY im.id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Bloquée'      => 'SELECT new_name FROM images WHERE isBloquee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
+    'Approuvée'    => 'SELECT new_name FROM images WHERE isApprouvee = \'1\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_,
 ];
 // Ajout des catégories de filtrage
 foreach (_ABUSE_TYPES_ as $categorie => $tabInfos) {

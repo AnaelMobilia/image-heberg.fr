@@ -33,14 +33,14 @@ $uploadDisabled = false;
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Envoyer une image</small></h1>
-<?php if (isset($_GET['delete_success'])) : ?>
+    <?php if (isset($_GET['delete_success'])) : ?>
     <div class="alert alert-success">
         <span class="glyphicon glyphicon-ok"></span>
         &nbsp;
         <b>L'image a été supprimée avec succès !</b>
     </div>
 <?php endif; ?>
-<?php if (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
+    <?php if (HelperSysteme::getHDDUsage() > _QUOTA_MAXIMAL_IMAGES_GO_) : ?>
     <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
         <?= _SITE_NAME_ ?> est victime de son succès : trop d'images ont été envoyées
@@ -49,7 +49,7 @@ require _TPL_TOP_;
         Si vous souhaitez soutenir le projet, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
-<?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER['REMOTE_ADDR'])) : ?>
+    <?php if (_TOR_DISABLE_UPLOAD_ && Tor::checkIp($_SERVER['REMOTE_ADDR'])) : ?>
     <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
         Suite à un abus d'utilisation de <?= _SITE_NAME_ ?>, l'envoi d'image est impossible depuis le réseau Tor.
@@ -57,7 +57,7 @@ require _TPL_TOP_;
         Si vous le souhaitez contacter l'administrateur du site, merci d'utiliser <a href="contact.php">le formulaire de contact</a>.
     </div>
 <?php endif; ?>
-<?php if (_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ > 0 && HelperAbuse::checkIpReputation($_SERVER['REMOTE_ADDR']) >= _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_) : ?>
+    <?php if (_ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_ > 0 && HelperAbuse::checkIpReputation($_SERVER['REMOTE_ADDR']) >= _ABUSE_DISABLE_UPLOAD_AFTER_X_IMAGES_) : ?>
     <?php $uploadDisabled = true; ?>
     <div class="alert alert-danger">
         Suite à un abus d'utilisation de <?= _SITE_NAME_ ?> depuis votre plage adresse IP (<?= $_SERVER['REMOTE_ADDR'] ?>), l'envoi d'image ne vous est plus accessible.

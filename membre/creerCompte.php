@@ -101,7 +101,7 @@ $maSession->setFlag();
     <div class="alert alert-danger"><strong>La création de votre compte n'est pas possible :</strong>
         <?= $messageErreur ?>
     </div>
-    <?php endif; ?>
+<?php endif; ?>
     <form method="post">
         <div class="mb-3 form-floating">
             <input type="text" class="form-control" name="userName" id="userName" value="<?= $monUtilisateur->getUserName() ?>" required="required">

@@ -64,8 +64,8 @@ if (!empty($_GET['lastId']) && preg_match('#^[0-9]+$#', $_GET['lastId'])) {
 }
 $req = 'SELECT new_name FROM images' . ($idStart !== 0 ? ' WHERE id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
 $table = [
-        'legende' => 'trouvée##',
-        'values'  => HelperAdmin::queryOnNewName($req),
+    'legende' => 'trouvée##',
+    'values'  => HelperAdmin::queryOnNewName($req),
 ];
 
 $isPlural = (count($table['values']) > 1 ? 's' : '');

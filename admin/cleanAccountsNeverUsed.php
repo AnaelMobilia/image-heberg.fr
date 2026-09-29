@@ -28,7 +28,7 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Nettoyage des comptes jamais utilisés</small></h1>
-<?php
+    <?php
 
 $message = '';
 
@@ -65,14 +65,14 @@ if (isset($_POST['effacer'])) :
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($listeComptes as $value) : ?>
-                <?php $monUtilisateur = new UtilisateurObject($value); ?>
-                <tr>
-                    <td><?= $monUtilisateur->getId() ?></td>
-                    <td><?= $monUtilisateur->getUserName() ?></td>
-                    <td><?= $monUtilisateur->getEmail() ?></td>
-                </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($listeComptes as $value) : ?>
+                        <?php $monUtilisateur = new UtilisateurObject($value); ?>
+                        <tr>
+                            <td><?= $monUtilisateur->getId() ?></td>
+                            <td><?= $monUtilisateur->getUserName() ?></td>
+                            <td><?= $monUtilisateur->getEmail() ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

@@ -28,7 +28,7 @@ UtilisateurObject::checkAccess(UtilisateurObject::LEVEL_ADMIN);
 require _TPL_TOP_;
 ?>
     <h1 class="mb-3"><small>Nettoyage des fichiers jamais utilisés</small></h1>
-<?php
+    <?php
 
 $message = '';
 
