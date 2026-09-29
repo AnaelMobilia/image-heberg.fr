@@ -66,22 +66,32 @@ abstract class HelperAdmin
         // Toutes les images non affichées depuis xx jours
         $req = 'SELECT im.new_name
                FROM images im
-               WHERE im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
-               /* Non prise en compte des images envoyées trop récemment */
-                AND im.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ + 1) . ' DAY)
-               /* Préservation des images membres */
-               AND 0 = (
-                  SELECT COUNT(*)
-                  FROM possede po
-                  WHERE po.images_id = im.id
-               )
-               /* Préservation si miniature affichée */
-               AND 0 = (
-                  SELECT COUNT(*)
-                  FROM thumbnails th
-                  WHERE th.images_id = im.id
-                  AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
-               )
+               WHERE (
+                        (
+                            /* Image standard */
+                            im.last_view < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
+                            AND im.isBloquee = 0
+                           /* Non prise en compte des images envoyées trop récemment */
+                            AND im.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . (_DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ + 1) . ' DAY)
+                           /* Préservation des images membres */
+                           AND 0 = (
+                              SELECT COUNT(*)
+                              FROM possede po
+                              WHERE po.images_id = im.id
+                           )
+                           /* Préservation si miniature affichée */
+                           AND 0 = (
+                              SELECT COUNT(*)
+                              FROM thumbnails th
+                              WHERE th.images_id = im.id
+                              AND th.last_view > DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ . ' DAY)
+                           )
+                        ) OR (
+                            /* Image bloquée */
+                            im.date_action < DATE_SUB(CURRENT_DATE(), INTERVAL ' . _DELAI_EFFACEMENT_IMAGE_BLOQUEE_ . ' DAY)
+                            AND im.isBloquee = 1
+                        )
+                    )
                /* Protéger les images techniques */
                AND im.id NOT IN (' . _ID_IMAGES_TECHNIQUES_ . ')';
         return self::queryOnNewName($req);

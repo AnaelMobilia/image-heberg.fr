@@ -139,6 +139,16 @@ class AdminTest extends TestCase
             $filesToDelete,
             'neverUsedFileWithThumbsDisplayedLongTimeAgo.png doit être détectée (miniature affichée il y a trop longtemps)'
         );
+        $this->assertContains(
+            'image_45.png',
+            $filesToDelete,
+            'blockedFileToBeDeleted.png doit être détectée (bloquée ET envoyée il y a plus de 10 ans)'
+        );
+        $this->assertNotContains(
+            'image_46.png',
+            $filesToDelete,
+            'blockedFileNotToBeDeleted.png ne doit pas être détectée (bloquée ET envoyée il y à moins de 10 ans)'
+        );
     }
 
 

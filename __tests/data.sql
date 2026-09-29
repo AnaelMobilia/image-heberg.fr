@@ -119,6 +119,9 @@ INSERT INTO `images` (`id`, `remote_addr`, `remote_port`, `date_action`, `old_na
     (42, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithThumbsDisplayedRecently.png', 'image_42.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd342', 0, 0, 0, '127.0.0', ''),
     (43, '127.0.0.1', 1234, '2024-01-01', 'expiredFileWithoutThumbsAndOwned.png', 'image_43.png', 1, 1, 1, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 1, 0, 'not-used--ba9cb5a0afba67138bd343', 0, 0, 0, '127.0.0', ''),
     (44, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 366 DAY), 'neverUsedFileWithThumbsDisplayedLongTimeAgo.png', 'image_44.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd344', 0, 0, 0, '127.0.0', '');
+    (45, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 3651 DAY), 'blockedFileToBeDeleted.png', 'image_45.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd344', 0, 0, 0, '127.0.0', '');
+    (46, '127.0.0.1', 1234, DATE_SUB(CURRENT_DATE(), INTERVAL 3649 DAY), 'blockedFileNotToBeDeleted.png', 'image_46.png', 1, 1, 1, 0000-00-00, 0, 0, 'not-used--ba9cb5a0afba67138bd344', 0, 0, 0, '127.0.0', '');
+
 --
 -- Agrandir la taille du champ pour bien gérer le _bootstrap
 --

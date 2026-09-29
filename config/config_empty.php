@@ -65,6 +65,8 @@ const _IMAGE_POIDS_MAX_ = 5242880;
 const _DELAI_EFFACEMENT_IMAGES_JAMAIS_AFFICHEES_ = 7;
 // Délai depuis le dernier affichage d'une image avant de la supprimer (en jours)
 const _DELAI_INACTIVITE_AVANT_EFFACEMENT_IMAGES_ = 365;
+// Délai avant effacement d'une image bloquée
+const _DELAI_EFFACEMENT_IMAGE_BLOQUEE_ = 3650;
 // Volume maximal de stockage d'images (en Go)
 const _QUOTA_MAXIMAL_IMAGES_GO_ = 90;
 // Affichage des messages d'erreur
