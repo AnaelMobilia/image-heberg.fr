@@ -94,6 +94,11 @@ foreach ($tabImages as $md5 => $tabImage) {
     if ($tabImage['possedee']) {
         // Image possédée -> date forcée
         $dateAction = '2036-12-31';
+    } elseif ($tabImage['bloquee']) {
+        // Image bloquée -> date forcée
+        $date = new DateTime($tabImage['date_action']);
+        $date->modify('+' . _DELAI_EFFACEMENT_IMAGE_BLOQUEE_ . ' days');
+        $dateAction = $date->format('Y-m-d');
     } else {
         if ($tabImage['last_view'] !== '0000-00-00') {
             // Image déjà affichée
