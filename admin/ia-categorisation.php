@@ -194,7 +194,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js" defer></script>
-    <script type="text/javascript">
+    <script>
         // More API functions here:
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
         let model, maxPredictions;
