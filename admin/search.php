@@ -118,7 +118,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                     <th class="text-break">Utilisateur</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <?php foreach ($mesImages as $uneImage) : ?>
                     <tr data-id="<?= $uneImage->getId() ?>" data-md5="<?= $uneImage->getMd5() ?>">
                         <td>
@@ -133,7 +133,10 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_BLOQUER ?>');" title="Bloquer"><span class="bi-hand-thumbs-down-fill text-danger"></span></button>
                             <button class="btn p-0" onclick="runAction('<?= $uneImage->getId() ?>', '<?= $uneImage->getMd5() ?>', '<?= RessourceObject::ACTION_SUPPRIMER ?>');" title="Supprimer"><span class="bi-trash-fill" style="color: purple"></span></button>
                         </td>
-                        <td class="text-break"><?= $uneImage->getNomOriginalFormate() ?></td>
+                        <td class="text-break">
+                            <?= $uneImage->getNomOriginalFormate() ?>
+                            <div class="className"><i><span class="bi-cpu"></span> Calcul en cours...</i></div>
+                        </td>
                         <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
                         <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
                         <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
@@ -189,5 +192,69 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
             xhr.send();
         }
     }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js" defer></script>
+<script>
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+    let model, maxPredictions;
+    const categorieMap = new Map([
+        <?php foreach (_ABUSE_TYPES_ as $type => $tabInfos) : ?>
+        ['<?= $type ?>', <?= $tabInfos['limite'] ?>],
+        <?php endforeach; ?>
+    ]);
+
+    async function init() {
+        // Activer l'exécution GPU avec TensorFlow.js
+        await tf.setBackend('webgl');
+        // load the model and metadata
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load('<?= _URL_HTTPS_ ?>ia_model/model.json', '<?= _URL_HTTPS_ ?>ia_model/metadata.json');
+        maxPredictions = model.getTotalClasses();
+
+        // Utiliser un IntersectionObserver pour charger les images lorsque elles deviennent visibles
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    // Une fois l'image visible, prédire et désobserver
+                    observer.unobserve(img);
+                    predictImage(img, img.closest('tr'));
+                }
+            });
+        }, {threshold: 0.1});
+
+        // Sélectionner toutes les images et les observer lorsqu'elles deviennent visibles
+        document.querySelectorAll('#tbody img').forEach(img => {
+            observer.observe(img);
+        });
+    }
+
+    /**
+     * Prédire les catégories d'images
+     * @param img contenu à analyser
+     * @param unTr une ligne du tableau correspondante
+     * @returns {Promise<void>}
+     */
+    async function predictImage(img, unTr) {
+        // Lancer la prédiction sur l'image
+        const prediction = await model.predict(img);
+        // Trouver la classe avec la plus grande probabilité
+        const bestPrediction = prediction.reduce((max, p) => (p.probability > max.probability ? p : max), prediction[0]);
+        // Cette image atteint-elle la limite pour sa catégorie la plus probable ?
+        let bsClass = '';
+        if (
+            categorieMap.has(bestPrediction.className)
+            && (bestPrediction.probability * 100) >= categorieMap.get(bestPrediction.className)
+        ) {
+            bsClass = 'text-bg-danger p-3';
+        }
+
+        // Remontée dans l'interface
+        unTr.querySelector('div.className').innerHTML = `<div class="${bsClass}"><span class="bi-cpu"></span> ${bestPrediction.className} (${Math.round(bestPrediction.probability * 100)}%)</div>`;
+    }
+
+    window.onload = init;
 </script>
 <?php require _TPL_BOTTOM_; ?>
