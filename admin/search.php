@@ -141,7 +141,11 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                         <td class="text-break"><?= $uneImage->getIpEnvoi() ?>&nbsp;<a href="<?= _URL_ADMIN_ ?>search.php?Submit=1&champ=Adresse IP&valeur=<?= urlencode($uneImage->getIpEnvoi()) ?>" target="_blank"><small><span class="bi-search"></span></small></a></td>
                         <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
                         <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
-                        <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
+                        <td class="text-break">
+                            <?php if ($uneImage->getIdProprietaire() !== null) : ?>
+                                <?= $uneImage->getIdProprietaire() ?>&nbsp;<a href="<?= _URL_ADMIN_ ?>search.php?Submit=1&champ=Utilisateur&valeur=<?= urlencode($uneImage->getIdProprietaire()) ?>" target="_blank"><small><span class="bi-search"></span></small></a>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <?php $lastId = $uneImage->getId() ?>
                 <?php endforeach; ?>
