@@ -73,9 +73,9 @@ $tabSearch = [
 foreach (_ABUSE_TYPES_ as $categorie => $tabInfos) {
     $tabSearch[ucfirst($categorie) . ' (' . ucfirst($tabInfos['description']) . ')'] = 'SELECT new_name FROM images WHERE abuse_categorie = \'' . str_replace("'", "\'", $categorie) . '\'' . ($idStart !== 0 ? ' AND id < ' . $idStart : '') . ' GROUP BY md5 ORDER BY id DESC LIMIT ' . _PAGINATION_IMAGES_;
 }
-if (isset($_POST['Submit']) && !empty($_POST['champ']) && !empty($_POST['valeur'])) {
-    $reqValue = trim(str_replace('\'', '_', $_POST['valeur']));
-    $req = str_replace('##value##', $reqValue, $tabSearch[$_POST['champ']]);
+if (isset($_REQUEST['Submit']) && !empty($_REQUEST['champ']) && !empty($_REQUEST['valeur'])) {
+    $reqValue = trim(str_replace('\'', '_', $_REQUEST['valeur']));
+    $req = str_replace('##value##', $reqValue, $tabSearch[$_REQUEST['champ']]);
     $table['values'] = HelperAdmin::queryOnNewName($req);
 }
 // Charger les objets concernés
@@ -138,7 +138,7 @@ $mesImages = ImageObject::chargerMultiple($table['values'], RessourceObject::SEA
                             <div class="className"><i><span class="bi-cpu"></span> Calcul en cours...</i></div>
                         </td>
                         <td class="text-break"><?= $uneImage->getDateEnvoiFormatee() ?></td>
-                        <td class="text-break"><?= $uneImage->getIpEnvoi() ?></td>
+                        <td class="text-break"><?= $uneImage->getIpEnvoi() ?>&nbsp;<a href="<?= _URL_ADMIN_ ?>search.php?Submit=1&champ=Adresse IP&valeur=<?= urlencode($uneImage->getIpEnvoi()) ?>" target="_blank"><small><span class="bi-search"></span></small></a></td>
                         <td class="text-break"><?= $uneImage->getNbViewTotal() ?><small> (<?= $uneImage->getNbViewPerDay() ?>/jour)</small></td>
                         <td class="text-break"><?= $uneImage->getLastViewFormate() ?></td>
                         <td class="text-break"><?= $uneImage->getIdProprietaire() ?></td>
