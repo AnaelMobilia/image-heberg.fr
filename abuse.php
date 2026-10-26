@@ -83,7 +83,7 @@ if (
 
             // Tout va bien, on envoit un mail
             $subject = '[' . _SITE_NAME_ . '] - Signalement d\'image';
-            mail(_ADMINISTRATEUR_EMAIL_, $subject, $message, 'From: ' . $_POST['userMail']);
+            mail(_ADMINISTRATEUR_EMAIL_, $subject, $message, ['From' => _ADMINISTRATEUR_EMAIL_, 'Reply-To' => $_POST['userMail']]);
             $maSession->removeFlag();
         }
         // Retour utilisateur

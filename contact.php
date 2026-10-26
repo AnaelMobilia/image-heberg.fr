@@ -40,7 +40,7 @@ if (isset($_POST['Submit']) && $maSession->checkFlag()) {
         $message .= PHP_EOL . 'DATE : ' . date('Y-m-d H:i:s');
 
         // Tout va bien, on envoit un mail
-        mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Formulaire de contact', $message, 'From: ' . $_POST['userMail']);
+        mail(_ADMINISTRATEUR_EMAIL_, '[' . _SITE_NAME_ . '] - Formulaire de contact', $message, ['From' => _ADMINISTRATEUR_EMAIL_, 'Reply-To' => $_POST['userMail']]);
         $maSession->removeFlag();
 
         // Retour utilisateur

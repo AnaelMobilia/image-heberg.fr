@@ -70,8 +70,6 @@ if (!_PHPUNIT_) {
              */
             // Adresse expediteur
             $headers = 'From: ' . _ADMINISTRATEUR_EMAIL_;
-            // Adresse de retour
-            $headers .= PHP_EOL . 'Reply-To: ' . _ADMINISTRATEUR_EMAIL_;
             // Agent mail
             $headers .= PHP_EOL . 'X-Mailer: ' . _SITE_NAME_ . ' script at ' . _URL_;
             // Date
